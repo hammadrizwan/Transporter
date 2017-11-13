@@ -8,6 +8,11 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera'
+
 @NgModule({
   declarations: [
     MyApp,
@@ -27,6 +32,10 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
   providers: [
     StatusBar,
     SplashScreen,
+    File,
+    Transfer,
+    Camera,
+    FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
