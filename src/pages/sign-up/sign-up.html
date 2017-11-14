@@ -16,8 +16,18 @@
  
 
 <ion-content padding>
-    <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
-    <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
+    <ion-item>
+        <ion-avatar  item-start>
+          <img  src="{{pathForImage(lastImage)}}" >
+        </ion-avatar>
+        <ion-buttons></ion-buttons>
+        <h3>Take a Selfie!</h3>
+        <button ion-button  (click)="presentActionSheet()">
+          <ion-icon name="camera"></ion-icon>Select Image
+        </button>
+    </ion-item>
+
+
   <form (ngSubmit)="logForm()">
     <ion-item>
       <ion-label color="primary" stacked>Name</ion-label>
@@ -180,21 +190,29 @@
       <ion-label color="primary" stacked>Confirm Password</ion-label>
       <ion-input type="password" placeholder="ReEnter Password"></ion-input>
     </ion-item>
+    <ion-item>
+        <h3>Liscence</h3>
+      <ion-avatar  item-start>
+        <img  src="{{pathForImage(lastImage)}}" >
+      </ion-avatar>
+      <ion-buttons></ion-buttons>
+      <button ion-button  (click)="presentActionSheet()">
+        <ion-icon name="camera"></ion-icon>Select Image
+      </button>
+  </ion-item>
+  <ion-item>
+    <ion-avatar  item-start>
+      <img  src="{{pathForImage(lastImage)}}" >
+    </ion-avatar>
+    <ion-buttons></ion-buttons>
+    <h3>Vehicle Registration</h3>
+    <button ion-button  (click)="presentActionSheet()">
+      <ion-icon name="camera"></ion-icon>Select Image
+    </button>
+</ion-item>
     
    
     <button ion-button type="submit" block>Create Profile</button>
     
   </form>
 </ion-content>
-<ion-footer>
-    <ion-toolbar color="primary">
-      <ion-buttons>
-        <button ion-button icon-left (click)="presentActionSheet()">
-          <ion-icon name="camera"></ion-icon>Select Image
-        </button>
-        <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
-          <ion-icon name="cloud-upload"></ion-icon>Upload
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-footer>
