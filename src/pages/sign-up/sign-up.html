@@ -23,9 +23,10 @@
         <ion-buttons></ion-buttons>
         <h3>Take a Selfie!</h3>
         <button ion-button  (click)="presentActionSheet()">
-          <ion-icon name="camera"></ion-icon>Select Image
+          <ion-icon name="camera" class="avatar1"></ion-icon>Select Image
         </button>
     </ion-item>
+    
 
 
   <form (ngSubmit)="logForm()">
@@ -193,7 +194,7 @@
     <ion-item>
         <h3>Liscence</h3>
       <ion-avatar  item-start>
-        <img  src="{{pathForImage(lastImage)}}" >
+        <img  src="{{pathForImage(lastImage)}}" class="avatar1" >
       </ion-avatar>
       <ion-buttons></ion-buttons>
       <button ion-button  (click)="presentActionSheet()">
@@ -202,7 +203,7 @@
   </ion-item>
   <ion-item>
     <ion-avatar  item-start>
-      <img  src="{{pathForImage(lastImage)}}" >
+      <img  src="{{pathForImage(lastImage)}}" class="avatar1">
     </ion-avatar>
     <ion-buttons></ion-buttons>
     <h3>Vehicle Registration</h3>
