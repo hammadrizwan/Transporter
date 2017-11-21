@@ -21,31 +21,33 @@ declare var cordova: any;
   templateUrl: 'sign-up.html',
 })
 export class SignUpPage {
-  lastImage: string = null;
+  lastImage1: string = null;
+  lastImage2: string = null;
+  lastImage3: string = null;
   loading: Loading;
 
   constructor(public navCtrl: NavController, private camera: Camera,
-  private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController)  {
+    private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignUpPage');
   }
 
-  public presentActionSheet() {
+  public presentActionSheet(id) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
       buttons: [
         {
           text: 'Load from Library',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY,id);
           }
         },
         {
           text: 'Use Camera',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMERA);
+            this.takePicture(this.camera.PictureSourceType.CAMERA,id);
           }
         },
         {
@@ -56,7 +58,7 @@ export class SignUpPage {
     });
     actionSheet.present();
   }
-  public takePicture(sourceType) {
+  public takePicture(sourceType,id) {
     // Create options for the Camera Dialog
     var options = {
       quality: 100,
@@ -64,7 +66,7 @@ export class SignUpPage {
       saveToPhotoAlbum: false,
       correctOrientation: true
     };
-   
+
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
       // Special handling for Android library
@@ -73,12 +75,12 @@ export class SignUpPage {
           .then(filePath => {
             let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+            this.copyFileToLocalDir(correctPath, currentName, this.createFileName(),id);
           });
       } else {
         var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+        this.copyFileToLocalDir(correctPath, currentName, this.createFileName(),id);
       }
     }, (err) => {
       this.presentToast('Error while selecting image.');
@@ -87,20 +89,30 @@ export class SignUpPage {
 
   private createFileName() {
     var d = new Date(),
-    n = d.getTime(),
-    newFileName =  n + ".jpg";
+      n = d.getTime(),
+      newFileName = n + ".jpg";
     return newFileName;
   }
-   
+
   // Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName) {
+  private copyFileToLocalDir(namePath, currentName, newFileName, id) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-      this.lastImage = newFileName;
+      switch(id){
+        case 1:
+        this.lastImage1 = newFileName;
+          break;
+        case 2:
+        this.lastImage2 = newFileName;
+          break;
+        case 3:
+        this.lastImage3 = newFileName;
+          break;
+      }  
     }, error => {
       this.presentToast('Error while storing file.');
     });
   }
-   
+
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
@@ -109,7 +121,7 @@ export class SignUpPage {
     });
     toast.present();
   }
-   
+
   // Always get the accurate path to your apps folder
   public pathForImage(img) {
     if (img === null) {
