@@ -25685,3 +25685,7 @@ ion-navbar.toolbar {
   max-width: 100px !important;
   max-height: 100px !important;
 }
+
+.photo1 {
+  font-size: 70px;
+}
