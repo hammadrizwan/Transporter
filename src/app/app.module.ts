@@ -7,27 +7,54 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SignUpPage } from '../pages/sign-up/sign-up';
+import { EnroutePage } from '../pages/enroute/enroute';
+import { ListPage } from '../pages/list/list';
+import { NearbyPage } from '../pages/nearby/nearby';
+import { TabsPage } from '../pages/tabs/tabs';
+
 
 import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera'
+import { EnqueuedetailsPage } from '../pages/enqueuedetails/enqueuedetails';
+import { PackagedetailPage } from '../pages/packagedetail/packagedetail';
+import { PendingRequestsPage } from '../pages/pending-requests/pending-requests';
+import { ProfilePage } from '../pages/profile/profile';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    SignUpPage
+    SignUpPage,
+    EnroutePage,
+    ListPage,
+    NearbyPage,
+    TabsPage, 
+    EnqueuedetailsPage,
+    PackagedetailPage,
+    PendingRequestsPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,{
+      tabsPlacement :'top',
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    SignUpPage
+    SignUpPage,
+    EnroutePage,
+    ListPage,
+    NearbyPage,
+    TabsPage,
+    EnqueuedetailsPage,
+    PackagedetailPage,
+    PendingRequestsPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,

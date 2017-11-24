@@ -196,10 +196,10 @@
       <h3>Liscence</h3>
       <ion-avatar item-start>
         <ion-icon class="photo1"  *ngIf="lastImage1==null" name="add-circle" large></ion-icon>
-        <img src="{{pathForImage(lastImage2)}}" class="avatar1">
+        <img src="{{pathForImage(lastImage2)}}" class="avatar1" *ngIf="lastImage1!=null">
       </ion-avatar>
       <ion-buttons></ion-buttons>
-      <button ion-button (click)="presentActionSheet(2)" *ngIf="lastImage1!=null">
+      <button ion-button (click)="presentActionSheet(2)" >
         <ion-icon name="camera"></ion-icon>Select Image
       </button>
     </ion-item>
