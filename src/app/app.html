@@ -1,17 +1,25 @@
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-            
-    </ion-toolbar>
-  </ion-header>
+    <ion-header>
+        <ion-toolbar>
+            <ion-item>
+                <ion-avatar item-start>
+                    <img src="assets/imgs/Borough-market.jpg">
+                </ion-avatar>
+                <h2>Qasim Cheema</h2>
+            </ion-item>
+            <button ion-button round outline icon-left >
+                <ion-icon name="person"></ion-icon> Edit Profile
+            </button>
+        </ion-toolbar>
+    </ion-header>
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-    </ion-list>
-  </ion-content>
+    <ion-content>
+        <ion-list>
+            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                {{p.title}}
+            </button>
+        </ion-list>
+    </ion-content>
 
 </ion-menu>
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

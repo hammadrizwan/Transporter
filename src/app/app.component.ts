@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Nav ,Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -8,18 +8,21 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { EnroutePage } from '../pages/enroute/enroute';
 import { ListPage } from '../pages/list/list';
 import { NearbyPage } from '../pages/nearby/nearby';
-import { TabsPage } from '../pages/tabs/tabs';
 
 import { EnqueuedetailsPage } from '../pages/enqueuedetails/enqueuedetails';
 import { PackagedetailPage } from '../pages/packagedetail/packagedetail';
 import { PendingRequestsPage } from '../pages/pending-requests/pending-requests';
 import { ProfilePage } from '../pages/profile/profile';
+import { AllPackagesPage } from '../pages/all-packages/all-packages';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = PackagedetailPage;
+  @ViewChild(Nav) nav: Nav;
 
+  rootPage:any = PendingRequestsPage;
+
+  pages: Array<{title: string, component: any}>;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -27,6 +30,16 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+    this.pages = [
+      { title: 'All Packages', component: HomePage },   
+      { title: 'Pending Requests', component: PendingRequestsPage }      
+    ];
+    
+  }
+  openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.nav.setRoot(page.component);
   }
 }
 

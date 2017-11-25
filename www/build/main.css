@@ -25679,6 +25679,15 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+ion-avatar img {
+  width: 140px !important;
+  height: 140px !important;
+}
+
+.head {
+  font-size: 100px;
+}
+
 .avatar1 {
   width: 100% !important;
   height: 100% !important;

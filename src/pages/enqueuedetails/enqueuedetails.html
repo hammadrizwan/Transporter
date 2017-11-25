@@ -14,35 +14,49 @@
 
 
 <ion-content padding>
+  <ion-card>
+    <div class="text-center">
+      <h1 style="text-align: center;">Package Name</h1>
 
-  <div class="row">
-    <div class="col">
-        <div class="text-center">
-            <h1 style="text-align: center;">Package Name</h1>
-
-            <h2 style="text-align: center;">Grocery Bag</h2>
-        </div>
+      <h2 style="text-align: center;">Grocery Bag</h2>
     </div>
-</div>
-<hr>
+    <ion-card-content>
+      <ion-card-title>
+      </ion-card-title>
+      <ion-list>
+        <ion-item>
+            <ion-icon name="arrow-round-back" item-start></ion-icon>
+          <ion-card-header>
+            To:
+          </ion-card-header>
+          <ion-card-content>
+            House 454 D, street 9, askari x, lahore.
+          </ion-card-content>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="arrow-round-forward" item-start></ion-icon>
+          <ion-card-header>
+            From:
+          </ion-card-header>
+          <ion-card-content>
+            Phase 5, food mart, defense, lahore.
+          </ion-card-content>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="cash" item-start></ion-icon>
+          Money
+          <p>Rs:700</p>
+        </ion-item>
 
-  <font size="5" item-left>To: </font>
-  <font size="4" item-left>House 454 D, street 9, askari x, lahore.</font>
-<br>
-<br>
+        <ion-item>
+          <ion-icon name="barcode" item-start></ion-icon>
+          <ion-label color="danger" stacked>Verification Code:</ion-label>
+          <ion-input placeholder="XXXXXXX"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
 
-  <font size="5" item-left>From: </font>
-  <font size="4" item-left>Phase 5, food mart, defense, lahore.</font>
-<br>
-<br>
-<font size="5" item-left>Money: </font>
-<font size="4" item-left>700 Rs.</font>
-<br>
-<br>
-<font size="5" item-left>Verification Code: </font>
-<font size="4" item-left>819261723</font>
-<hr>
-<ion-img center width="280" height="280" src="assets/imgs/8012607.png"></ion-img>
-<hr>
 
+    <ion-img center width="280" height="280" src="assets/imgs/8012607.png"></ion-img>
+  </ion-card>
 </ion-content>

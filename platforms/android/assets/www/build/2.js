@@ -1,14 +1,14 @@
 webpackJsonp([2],{
 
-/***/ 272:
+/***/ 278:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NearbyPageModule", function() { return NearbyPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PendingRequestsPageModule", function() { return PendingRequestsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nearby__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pending_requests__ = __webpack_require__(103);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var NearbyPageModule = (function () {
-    function NearbyPageModule() {
+var PendingRequestsPageModule = (function () {
+    function PendingRequestsPageModule() {
     }
-    return NearbyPageModule;
+    return PendingRequestsPageModule;
 }());
-NearbyPageModule = __decorate([
+PendingRequestsPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__nearby__["a" /* NearbyPage */],
+            __WEBPACK_IMPORTED_MODULE_2__pending_requests__["a" /* PendingRequestsPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__nearby__["a" /* NearbyPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__pending_requests__["a" /* PendingRequestsPage */]),
         ],
     })
-], NearbyPageModule);
+], PendingRequestsPageModule);
 
-//# sourceMappingURL=nearby.module.js.map
+//# sourceMappingURL=pending-requests.module.js.map
 
 /***/ })
 
