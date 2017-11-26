@@ -20,7 +20,7 @@ import { AllPackagesPage } from '../pages/all-packages/all-packages';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage:any = PendingRequestsPage;
+  rootPage:any = HomePage;
 
   pages: Array<{title: string, component: any}>;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
@@ -32,7 +32,8 @@ export class MyApp {
     });
     this.pages = [
       { title: 'All Packages', component: HomePage },   
-      { title: 'Pending Requests', component: PendingRequestsPage }      
+      { title: 'Pending Requests', component: PendingRequestsPage },
+      { title: 'Package Detail', component: PackagedetailPage }      
     ];
     
   }
