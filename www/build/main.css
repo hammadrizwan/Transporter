@@ -25684,8 +25684,16 @@ ion-avatar img {
   height: 140px !important;
 }
 
+.headertop {
+  padding-top: 15px;
+}
+
 .head {
   font-size: 100px;
+}
+
+.headertop {
+  padding-top: 15px;
 }
 
 .avatar1 {
