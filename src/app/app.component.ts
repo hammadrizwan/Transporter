@@ -33,7 +33,7 @@ export class MyApp {
     this.pages = [
       { title: 'All Packages', component: HomePage },   
       { title: 'Pending Requests', component: PendingRequestsPage },
-      { title: 'Package Detail', component: PackagedetailPage }      
+      { title: 'Enque Detail', component: EnqueuedetailsPage }      
     ];
     
   }

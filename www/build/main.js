@@ -1,5 +1,50 @@
 webpackJsonp([9],{
 
+/***/ 100:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnqueuedetailsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the EnqueuedetailsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var EnqueuedetailsPage = (function () {
+    function EnqueuedetailsPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    EnqueuedetailsPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad EnqueuedetailsPage');
+    };
+    return EnqueuedetailsPage;
+}());
+EnqueuedetailsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-enqueuedetails',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/'<!--\n  Generated template for the EnqueuedetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Enqueue Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-card>\n    <div class="text-center">\n      <h1 style="text-align: center;">Package Name</h1>\n\n      <h2 style="text-align: center;">Grocery Bag</h2>\n    </div>\n    <ion-card-content>\n      <ion-card-title>\n      </ion-card-title>\n      <ion-list>\n        <ion-item>\n            <ion-icon name="arrow-round-back" item-start></ion-icon>\n          <ion-card-header>\n            To:\n          </ion-card-header>\n          <ion-card-content>\n            House 454 D, street 9, askari x, lahore.\n          </ion-card-content>\n        </ion-item>\n        <ion-item>\n            <ion-icon name="arrow-round-forward" item-start></ion-icon>\n          <ion-card-header>\n            From:\n          </ion-card-header>\n          <ion-card-content>\n            Phase 5, food mart, defense, lahore.\n          </ion-card-content>\n        </ion-item>\n        <ion-item>\n          <ion-icon name="cash" item-start></ion-icon>\n          Money\n          <p>Rs:700</p>\n        </ion-item>\n\n        <ion-item>\n          <ion-icon name="barcode" item-start></ion-icon>\n          <ion-label color="danger" stacked>Verification Code:</ion-label>\n          <ion-input placeholder="XXXXXXX"></ion-input>\n        </ion-item>\n      </ion-list>\n    </ion-card-content>\n\n\n    <ion-img center width="280" height="280" src="assets/imgs/8012607.png"></ion-img>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+], EnqueuedetailsPage);
+
+//# sourceMappingURL=enqueuedetails.js.map
+
+/***/ }),
+
 /***/ 101:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -94,7 +139,7 @@ NearbyPage = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PendingRequestsPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PackagedetailPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -109,29 +154,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 /**
- * Generated class for the PendingRequestsPage page.
+ * Generated class for the PackagedetailPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var PendingRequestsPage = (function () {
-    function PendingRequestsPage(navCtrl, navParams) {
+var PackagedetailPage = (function () {
+    function PackagedetailPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
     }
-    PendingRequestsPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad PendingRequestsPage');
+    PackagedetailPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad PackagedetailPage');
     };
-    return PendingRequestsPage;
+    return PackagedetailPage;
 }());
-PendingRequestsPage = __decorate([
+PackagedetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-pending-requests',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/'<!--\n  Generated template for the PendingRequestsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>PendingRequests</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-card>\n    <ion-item>\n      <img width="50px" height="100px" src="assets/imgs/advance-card-map-madison.png">\n    </ion-item>\n    <ion-fab right top>\n      <button ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n\n    <ion-item>\n      <ion-icon name="football" item-start large></ion-icon>\n      <h2>To: Museum of Football</h2>\n      <p>11 N. Way St, Madison, WI 53703</p>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon name="wine" item-left large></ion-icon>\n      <h3>From: Institute of Fine Cocktails</h3>\n      <p>14 S. Hop Avenue, Madison, WI 53703</p>\n    </ion-item>\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n            <ion-icon name="cash" item-left large></ion-icon>\n          <p>RS 2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon name="open" item-left large></ion-icon>\n          <p>Small</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon name="bus" item-left large></ion-icon>\n          <p>Bike</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/,
+        selector: 'page-packagedetail',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/'<!--\n  Generated template for the PackagedetailPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Package Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n  <ion-card>\n    <div class="text-center">\n      <h1 style="text-align: center;">Package Name</h1>\n\n      <h2 style="text-align: center;">Grocery Bag</h2>\n    </div>\n    <ion-card-content>\n      <img src="assets/imgs/advance-card-map-madison.png" />\n      <ion-card-title>\n        Details:\n      </ion-card-title>\n      <p>\n        Grocery Bag containing some pack of chips, some snacks, medicines, oil, noodles,some fruit. Thats it.\n      </p>\n    </ion-card-content>\n  </ion-card>\n\n\n  <ion-card>\n\n    <ion-card-content>\n      <ion-card-title>\n      </ion-card-title>\n      <ion-list>\n        <ion-item>\n          <ion-icon name="square" item-start></ion-icon>\n          Size\n          <p>Medium</p>\n        </ion-item>\n        <ion-item>\n          <ion-icon name="cash" item-start></ion-icon>\n          Money\n          <p>Rs:700</p>\n        </ion-item>\n        <ion-item>\n          <ion-icon name="car" item-start></ion-icon>\n          Type\n          <p>Bike</p>\n        </ion-item>\n        <ion-item>\n          <ion-icon name="barcode" item-start></ion-icon>\n          Verification Code:\n          <p>819261723</p>\n        </ion-item>\n      </ion-list>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n      <ion-card-header>\n        To:\n      </ion-card-header>\n      <ion-card-content>\n        House 454 D, street 9, askari x, lahore.\n      </ion-card-content>\n    </ion-card>\n  \n    <ion-card>\n      <ion-card-header>\n        From:\n      </ion-card-header>\n      <ion-card-content>\n        Phase 5, food mart, defense, lahore.\n      </ion-card-content>\n    </ion-card>\n    <ion-card>\n    <ion-img center width="280" height="280" src="assets/imgs/8012607.png"></ion-img>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
-], PendingRequestsPage);
+], PackagedetailPage);
 
-//# sourceMappingURL=pending-requests.js.map
+//# sourceMappingURL=packagedetail.js.map
 
 /***/ }),
 
@@ -142,7 +187,7 @@ PendingRequestsPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AllPackagesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__ = __webpack_require__(103);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -186,6 +231,51 @@ AllPackagesPage = __decorate([
 /***/ }),
 
 /***/ 105:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PendingRequestsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the PendingRequestsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var PendingRequestsPage = (function () {
+    function PendingRequestsPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    PendingRequestsPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad PendingRequestsPage');
+    };
+    return PendingRequestsPage;
+}());
+PendingRequestsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-pending-requests',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/'<!--\n  Generated template for the PendingRequestsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Package Details</ion-title>\n  </ion-navbar>\n  <ion-navbar>\n    <ion-title>PendingRequests</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-card>\n    <ion-item>\n      <img width="50px" height="100px" src="assets/imgs/advance-card-map-madison.png">\n    </ion-item>\n    <ion-fab right top>\n      <button ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <ion-item>\n      <ion-icon name="football" item-start large></ion-icon>\n      <h2>To: Museum of Football</h2>\n      <p>11 N. Way St, Madison, WI 53703</p>\n    </ion-item>\n    <ion-item>\n      <ion-icon name="wine" item-left large></ion-icon>\n      <h3>From: Institute of Fine Cocktails</h3>\n      <p>14 S. Hop Avenue, Madison, WI 53703</p>\n    </ion-item>\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon name="cash" item-left large></ion-icon>\n          <p>RS 2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon name="open" item-left large></ion-icon>\n          <p>Small</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon name="bus" item-left large></ion-icon>\n          <p>Bike</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+], PendingRequestsPage);
+
+//# sourceMappingURL=pending-requests.js.map
+
+/***/ }),
+
+/***/ 106:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -239,7 +329,7 @@ HomePage = __decorate([
 
 /***/ }),
 
-/***/ 114:
+/***/ 115:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -252,16 +342,16 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 114;
+webpackEmptyAsyncContext.id = 115;
 
 /***/ }),
 
-/***/ 155:
+/***/ 156:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/all-packages/all-packages.module": [
-		281,
+		280,
 		8
 	],
 	"../pages/enqueuedetails/enqueuedetails.module": [
@@ -273,7 +363,7 @@ var map = {
 		6
 	],
 	"../pages/home/home.module": [
-		282,
+		283,
 		5
 	],
 	"../pages/nearby/nearby.module": [
@@ -285,15 +375,15 @@ var map = {
 		3
 	],
 	"../pages/pending-requests/pending-requests.module": [
-		279,
+		282,
 		2
 	],
 	"../pages/profile/profile.module": [
-		280,
+		279,
 		1
 	],
 	"../pages/sign-up/sign-up.module": [
-		283,
+		281,
 		0
 	]
 };
@@ -308,53 +398,8 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 155;
+webpackAsyncContext.id = 156;
 module.exports = webpackAsyncContext;
-
-/***/ }),
-
-/***/ 202:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnqueuedetailsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * Generated class for the EnqueuedetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var EnqueuedetailsPage = (function () {
-    function EnqueuedetailsPage(navCtrl, navParams) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-    }
-    EnqueuedetailsPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad EnqueuedetailsPage');
-    };
-    return EnqueuedetailsPage;
-}());
-EnqueuedetailsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-enqueuedetails',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/'<!--\n  Generated template for the EnqueuedetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Enqueue Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-card>\n    <div class="text-center">\n      <h1 style="text-align: center;">Package Name</h1>\n\n      <h2 style="text-align: center;">Grocery Bag</h2>\n    </div>\n    <ion-card-content>\n      <ion-card-title>\n      </ion-card-title>\n      <ion-list>\n        <ion-item>\n            <ion-icon name="arrow-round-back" item-start></ion-icon>\n          <ion-card-header>\n            To:\n          </ion-card-header>\n          <ion-card-content>\n            House 454 D, street 9, askari x, lahore.\n          </ion-card-content>\n        </ion-item>\n        <ion-item>\n            <ion-icon name="arrow-round-forward" item-start></ion-icon>\n          <ion-card-header>\n            From:\n          </ion-card-header>\n          <ion-card-content>\n            Phase 5, food mart, defense, lahore.\n          </ion-card-content>\n        </ion-item>\n        <ion-item>\n          <ion-icon name="cash" item-start></ion-icon>\n          Money\n          <p>Rs:700</p>\n        </ion-item>\n\n        <ion-item>\n          <ion-icon name="barcode" item-start></ion-icon>\n          <ion-label color="danger" stacked>Verification Code:</ion-label>\n          <ion-input placeholder="XXXXXXX"></ion-input>\n        </ion-item>\n      </ion-list>\n    </ion-card-content>\n\n\n    <ion-img center width="280" height="280" src="assets/imgs/8012607.png"></ion-img>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
-], EnqueuedetailsPage);
-
-//# sourceMappingURL=enqueuedetails.js.map
 
 /***/ }),
 
@@ -410,10 +455,10 @@ ProfilePage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignUpPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_transfer__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_path__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_transfer__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_path__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(161);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -583,21 +628,21 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_sign_up_sign_up__ = __webpack_require__(204);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_enroute_enroute__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_list_list__ = __webpack_require__(274);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_nearby_nearby__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_file__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_transfer__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file_path__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_camera__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_packagedetail_packagedetail__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_pending_requests_pending_requests__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_file__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_transfer__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file_path__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_camera__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_packagedetail_packagedetail__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_pending_requests_pending_requests__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_profile_profile__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_all_packages_all_packages__ = __webpack_require__(104);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -656,11 +701,11 @@ AppModule = __decorate([
                     { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/nearby/nearby.module#NearbyPageModule', name: 'NearbyPage', segment: 'nearby', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/packagedetail/packagedetail.module#PackagedetailPageModule', name: 'PackagedetailPage', segment: 'packagedetail', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/pending-requests/pending-requests.module#PendingRequestsPageModule', name: 'PendingRequestsPage', segment: 'pending-requests', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/all-packages/all-packages.module#AllPackagesPageModule', name: 'AllPackagesPage', segment: 'all-packages', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/pending-requests/pending-requests.module#PendingRequestsPageModule', name: 'PendingRequestsPage', segment: 'pending-requests', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] }
                 ]
             })
         ],
@@ -701,11 +746,11 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_packagedetail_packagedetail__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_pending_requests_pending_requests__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_pending_requests_pending_requests__ = __webpack_require__(105);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -734,7 +779,7 @@ var MyApp = (function () {
         this.pages = [
             { title: 'All Packages', component: __WEBPACK_IMPORTED_MODULE_4__pages_home_home__["a" /* HomePage */] },
             { title: 'Pending Requests', component: __WEBPACK_IMPORTED_MODULE_6__pages_pending_requests_pending_requests__["a" /* PendingRequestsPage */] },
-            { title: 'Package Detail', component: __WEBPACK_IMPORTED_MODULE_5__pages_packagedetail_packagedetail__["a" /* PackagedetailPage */] }
+            { title: 'Enque Detail', component: __WEBPACK_IMPORTED_MODULE_5__pages_enqueuedetails_enqueuedetails__["a" /* EnqueuedetailsPage */] }
         ];
     }
     MyApp.prototype.openPage = function (page) {
@@ -746,15 +791,14 @@ var MyApp = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */])
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"Y:\Angular\Transporter\src\app\app.html"*/'<ion-menu [content]="content">\n    <ion-header>\n        <ion-toolbar>\n            <ion-item>\n                <ion-avatar item-start>\n                    <img src="assets/imgs/Borough-market.jpg">\n                </ion-avatar>\n                <h2>Qasim Cheema</h2>\n            </ion-item>\n            <button ion-button round outline icon-left >\n                <ion-icon name="person"></ion-icon> Edit Profile\n            </button>\n        </ion-toolbar>\n    </ion-header>\n\n    <ion-content>\n        <ion-list>\n            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n                {{p.title}}\n            </button>\n        </ion-list>\n    </ion-content>\n\n</ion-menu>\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"Y:\Angular\Transporter\src\app\app.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], MyApp);
 
-var _a, _b, _c, _d;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -812,51 +856,6 @@ ListPage = ListPage_1 = __decorate([
 
 var ListPage_1;
 //# sourceMappingURL=list.js.map
-
-/***/ }),
-
-/***/ 51:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PackagedetailPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * Generated class for the PackagedetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var PackagedetailPage = (function () {
-    function PackagedetailPage(navCtrl, navParams) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-    }
-    PackagedetailPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad PackagedetailPage');
-    };
-    return PackagedetailPage;
-}());
-PackagedetailPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-packagedetail',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/'<!--\n  Generated template for the PackagedetailPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Package Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n  <ion-card>\n    <div class="text-center">\n      <h1 style="text-align: center;">Package Name</h1>\n\n      <h2 style="text-align: center;">Grocery Bag</h2>\n    </div>\n    <ion-card-content>\n      <img src="assets/imgs/advance-card-map-madison.png" />\n      <ion-card-title>\n        Details:\n      </ion-card-title>\n      <p>\n        Grocery Bag containing some pack of chips, some snacks, medicines, oil, noodles,some fruit. Thats it.\n      </p>\n    </ion-card-content>\n  </ion-card>\n\n\n  <ion-card>\n\n    <ion-card-content>\n      <ion-card-title>\n      </ion-card-title>\n      <ion-list>\n        <ion-item>\n          <ion-icon name="square" item-start></ion-icon>\n          Size\n          <p>Medium</p>\n        </ion-item>\n        <ion-item>\n          <ion-icon name="cash" item-start></ion-icon>\n          Money\n          <p>Rs:700</p>\n        </ion-item>\n        <ion-item>\n          <ion-icon name="car" item-start></ion-icon>\n          Type\n          <p>Bike</p>\n        </ion-item>\n        <ion-item>\n          <ion-icon name="barcode" item-start></ion-icon>\n          Verification Code:\n          <p>819261723</p>\n        </ion-item>\n      </ion-list>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n      <ion-card-header>\n        To:\n      </ion-card-header>\n      <ion-card-content>\n        House 454 D, street 9, askari x, lahore.\n      </ion-card-content>\n    </ion-card>\n  \n    <ion-card>\n      <ion-card-header>\n        From:\n      </ion-card-header>\n      <ion-card-content>\n        Phase 5, food mart, defense, lahore.\n      </ion-card-content>\n    </ion-card>\n    <ion-card>\n    <ion-img center width="280" height="280" src="assets/imgs/8012607.png"></ion-img>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
-], PackagedetailPage);
-
-//# sourceMappingURL=packagedetail.js.map
 
 /***/ })
 
