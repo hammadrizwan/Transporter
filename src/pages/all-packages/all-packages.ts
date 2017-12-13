@@ -14,14 +14,16 @@ import { PackagedetailPage } from '../packagedetail/packagedetail';
   templateUrl: 'all-packages.html',
 })
 export class AllPackagesPage {
-z
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AllPackagesPage');
   }
+  
   openPackageDetailsPage(){
     this.navCtrl.push(PackagedetailPage);
   }
+
 }

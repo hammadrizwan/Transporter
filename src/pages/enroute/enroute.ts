@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { PackagedetailPage } from '../packagedetail/packagedetail';
 /**
  * Generated class for the EnroutePage page.
  *
@@ -20,6 +20,10 @@ export class EnroutePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EnroutePage');
+  }
+
+  openPackageDetailsPage(){
+    this.navCtrl.push(PackagedetailPage);
   }
 
 }

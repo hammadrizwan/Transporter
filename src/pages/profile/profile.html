@@ -5,14 +5,92 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Welcome User!</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Drive and Deliver</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
+<ion-content  class="background1">
+  <ion-card class="cards">
+    <ion-item>
+      <ion-avatar item-start>
+        <img class="round" src="assets/imgs/Borough-market.jpg">
+      </ion-avatar>
+      <label class="headerlabel">Name</label>
+      <p>Qasim Cheema</p>
+      <label class="headerlabel">Contact Info</label>
+      <p>034546980741</p>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-row>
+      <ion-col col-6 class="card2">
+        <label class="headerlabel">Balance</label>
+        <div>
+          <ion-badge class="badgevalues">260</ion-badge>
+        </div>
+      </ion-col>
+      <ion-col col-6 class="card2">
+        <label class="headerlabel">Clearence Due</label>
+        <div>
+          <ion-badge class="badgevalues">260</ion-badge>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 class="card2">
+        <label class="headerlabel">Active Pakages</label>
+        <div>
+          <ion-badge class="badgevalues">2</ion-badge>
+        </div>
+      </ion-col>
+      <ion-col col-6 class="card2">
+        <label class="headerlabel">Cancelled Packages</label>
+        <div>
+          <ion-badge class="badgevalues">1</ion-badge>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
+
+  <ion-row>
+      <ion-col col-6 class="card2">
+  
+          <ion-card class="stats">
+              <ion-row class="title"> 
+            <label class="headerlabel">Average Response Time</label>
+            </ion-row>
+            <ion-row class="badge">
+              <ion-badge class="badgevalues">260</ion-badge>
+            </ion-row>
+      </ion-card>
+    </ion-col>
+      <ion-col col-6 class="card2">
+        <ion-card class="stats">
+              <ion-row class="title">      
+              <label class="headerlabel">Deliveries Done</label>
+            </ion-row>  
+              <ion-row class="badge">
+                <ion-badge class="badgevalues">260</ion-badge>
+              </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+
+  <ion-card>
+    <ion-card-header>
+      Put Stars here
+    </ion-card-header>
+    <ion-card-content>
+      This is a comment orem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et sem dolor. Proin lobortis dolor quis
+      est elementum, in feugiat quam maximus.
+    </ion-card-content>
+
+  </ion-card>
 </ion-content>

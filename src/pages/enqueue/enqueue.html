@@ -1,0 +1,30 @@
+<!--
+  Generated template for the EnqueuePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar class="headertop">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Enqueue Packages</ion-title>
+    
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="background1">
+  <ion-card (click)="openEnqueuedetailsPage()">
+    <img class="thumb" src="assets/imgs/advance-card-map-madison.png">
+    <ion-card-content>
+      <h2>To: Museum of Football</h2>
+      <p>11 N. Way St, Madison, WI 53703</p>
+    </ion-card-content>
+    <button ion-button full class="buttonitem" >
+      Details
+      <ion-icon class="buttonicon" name="arrow-forward"></ion-icon>
+    </button>
+  </ion-card>
+</ion-content>

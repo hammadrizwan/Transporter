@@ -9,16 +9,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-
-    <ion-title>Package Details</ion-title>
-  </ion-navbar>
-  <ion-navbar>
     <ion-title>PendingRequests</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-card>
+<ion-content class="background1">
+  <ion-card (click)="openPackageDetailsPage()">
     <ion-item>
       <ion-icon name="football" item-start large></ion-icon>
       <h2>To: Museum of Football</h2>
@@ -40,9 +36,6 @@
       <ion-col col-4>
       </ion-col>
     </ion-row>
-
-
-
   </ion-card>
 
 </ion-content>

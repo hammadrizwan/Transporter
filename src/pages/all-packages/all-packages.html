@@ -14,8 +14,8 @@
     <ion-title>Drive and Deliver</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
-  <ion-card>
+<ion-content class="background1">
+  <ion-card  (click)="openPackageDetailsPage()">
     
     <img src="assets/imgs/advance-card-map-madison.png">
       <ion-fab right top>
@@ -43,15 +43,15 @@
       </ion-item>
 
 
-      <ion-item>
-        <button ion-button full (click)="openPackageDetailsPage()">
-          <ion-icon name="navigate"></ion-icon>
+     
+        <button ion-button full class="buttonitem"  >
           Accept
+          <ion-icon class="buttonicon" name="arrow-forward"></ion-icon>
         </button>
-      </ion-item>
+      
 
     </ion-card>
-    <ion-card>
+    <ion-card (click)="openPackageDetailsPage()">
       
 
 
@@ -81,11 +81,11 @@
           <span item-left>Transport Type= Car</span>
         </ion-item>
 
-        <ion-item>
-          <button ion-button full (click)="openPackageDetailsPage()">
-            <ion-icon name="navigate"></ion-icon>
+        
+          <button ion-button full class="buttonitem"  >
             Accept
+            <ion-icon class="buttonicon" name="arrow-forward"></ion-icon>
           </button>
-        </ion-item>
+        
       </ion-card>
 </ion-content>

@@ -25684,8 +25684,40 @@ ion-avatar img {
   height: 140px !important;
 }
 
+.headertop {
+  padding-top: 15px;
+}
+
 .head {
   font-size: 100px;
+}
+
+.headertop {
+  padding-top: 15px;
+}
+
+.round {
+  width: 140px !important;
+  height: 140px !important;
+}
+
+.card2 {
+  padding: 20px;
+  text-align: center;
+}
+
+.headerlabel {
+  font-size: 15px;
+}
+
+.badgevalues {
+  width: 100%;
+  background-color: #B013D7;
+  font-size: 15px;
+}
+
+.cards {
+  background-color: purple;
 }
 
 .avatar1 {

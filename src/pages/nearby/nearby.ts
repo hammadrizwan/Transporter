@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { PackagedetailPage } from '../packagedetail/packagedetail';
 /**
  * Generated class for the NearbyPage page.
  *
@@ -20,6 +20,9 @@ export class NearbyPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NearbyPage');
+  }
+  openPackageDetailsPage(){
+    this.navCtrl.push(PackagedetailPage);
   }
 
 }

@@ -1,21 +1,21 @@
-<ion-menu [content]="content">
-    <ion-header>
-        <ion-toolbar>
-            <ion-item>
-                <ion-avatar item-start>
-                    <img src="assets/imgs/Borough-market.jpg">
-                </ion-avatar>
-                <h2>Qasim Cheema</h2>
-            </ion-item>
-            <button ion-button round outline icon-left >
-                <ion-icon name="person"></ion-icon> Edit Profile
-            </button>
-        </ion-toolbar>
+<ion-menu [content]="content" class="menuebg">
+    <ion-header class="menuebg">
+       
     </ion-header>
 
-    <ion-content>
-        <ion-list>
-            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+    <ion-content class="menuebg">
+            <ion-item class="menuebg">
+                    <ion-avatar item-start>
+                        <img src="assets/imgs/Borough-market.jpg">
+                    </ion-avatar>
+                    <h2>Qasim Cheema</h2>
+                    <button ion-button round outline icon-left  menuClose (click)="openProfile(prof)">
+                            <ion-icon name="person"></ion-icon> Edit Profile
+                        </button>
+                </ion-item>
+                
+        <ion-list class="menuebg">
+            <button class="menuebg"  menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
                 {{p.title}}
             </button>
         </ion-list>
