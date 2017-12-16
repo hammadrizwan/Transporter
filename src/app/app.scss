@@ -19,6 +19,20 @@ ion-avatar img {
     height: 140px !important;
     
 }
+.header1{
+    background: #e52d27;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #b31217, #e52d27);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #b31217, #e52d27); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 .menuebg{
-    background: #b19cd9;
+ 
+}
+.profilebutton{
+    width:45%;
+    background-color: transparent;
+}
+.logout{
+    width:100%;
+    height:25px;
+    background-color: transparent;
 }

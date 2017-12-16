@@ -15,6 +15,8 @@ import { PendingRequestsPage } from '../pages/pending-requests/pending-requests'
 import { ProfilePage } from '../pages/profile/profile';
 import { AllPackagesPage } from '../pages/all-packages/all-packages';
 import { EnqueuePage } from '../pages/enqueue/enqueue';
+import { NotificationsPage } from '../pages/notifications/notifications';
+import { HelpPage } from '../pages/help/help'
 @Component({
   templateUrl: 'app.html'
 })
@@ -35,6 +37,9 @@ export class MyApp {
       { title: 'All Packages', component: HomePage },   
       { title: 'Pending Requests', component: PendingRequestsPage },
       { title: 'Enqueue Packages', component: EnqueuePage },      
+      { title: 'Notifications', component: NotificationsPage },  
+      { title: 'Help', component:  HelpPage},  
+          
     ];
     
   }

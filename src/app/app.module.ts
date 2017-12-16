@@ -23,6 +23,8 @@ import { PendingRequestsPage } from '../pages/pending-requests/pending-requests'
 import { ProfilePage } from '../pages/profile/profile';
 import { AllPackagesPage } from '../pages/all-packages/all-packages';
 import { EnqueuePage } from '../pages/enqueue/enqueue';
+import { NotificationsPage } from '../pages/notifications/notifications';
+import {HelpPage} from '../pages/help/help'
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { EnqueuePage } from '../pages/enqueue/enqueue';
     PendingRequestsPage,
     ProfilePage,
     AllPackagesPage,
-    EnqueuePage
+    EnqueuePage,
+    NotificationsPage,
+    HelpPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,9 @@ import { EnqueuePage } from '../pages/enqueue/enqueue';
     PendingRequestsPage,
     ProfilePage,
     AllPackagesPage,
-    EnqueuePage
+    EnqueuePage,
+    NotificationsPage,
+    HelpPage
   ],
   providers: [
     StatusBar,
