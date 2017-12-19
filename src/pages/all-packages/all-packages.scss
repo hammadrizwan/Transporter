@@ -1,8 +1,8 @@
 page-all-packages {
 
 }
-.background1{
-    background: #8e8078;
+.colornavbar{
+    background-color: color($colors, themeblue);
 }
 .buttonitem{
     padding:none;
@@ -11,6 +11,7 @@ page-all-packages {
     height:50px ;
     
 }
-.header1{
-    background-color: #e63946;
+.pastelback{
+    background:color($colors, lightthemeblue);;  /* fallback for old browsers */
+                
 }

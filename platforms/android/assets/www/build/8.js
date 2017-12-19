@@ -1,14 +1,14 @@
 webpackJsonp([8],{
 
-/***/ 275:
+/***/ 281:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AllPackagesPageModule", function() { return AllPackagesPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EnroutePageModule", function() { return EnroutePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__all_packages__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute__ = __webpack_require__(104);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var AllPackagesPageModule = (function () {
-    function AllPackagesPageModule() {
+var EnroutePageModule = (function () {
+    function EnroutePageModule() {
     }
-    return AllPackagesPageModule;
+    return EnroutePageModule;
 }());
-AllPackagesPageModule = __decorate([
+EnroutePageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__all_packages__["a" /* AllPackagesPage */],
+            __WEBPACK_IMPORTED_MODULE_2__enroute__["a" /* EnroutePage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__all_packages__["a" /* AllPackagesPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__enroute__["a" /* EnroutePage */]),
         ],
     })
-], AllPackagesPageModule);
+], EnroutePageModule);
 
-//# sourceMappingURL=all-packages.module.js.map
+//# sourceMappingURL=enroute.module.js.map
 
 /***/ })
 

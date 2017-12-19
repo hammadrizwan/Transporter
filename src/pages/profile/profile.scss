@@ -2,7 +2,7 @@ page-profile {
 
 }
 .background1{
-    background: #b19cd9;
+    background:color($colors, lightthemeblue);
 }
 .round{
     width: 140px !important;
@@ -21,14 +21,8 @@ page-profile {
 }
 .badgevalues{
     width:100%;
-    background-color: #B013D7;
+    background-color: color($colors, themeblue);
     font-size:15px;
-}
-.cards{
-    
-    color: purple;
-}.stats{
-
 }
 .title{
     text-align: center;

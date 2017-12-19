@@ -9,5 +9,8 @@ page-nearby {
     
 }
 .background1{
-    background: #b19cd9;
+    background: color($colors, lightthemeblue);
+}
+.imagepackage{
+ max-height: 270px;
 }

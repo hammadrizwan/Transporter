@@ -1,29 +1,29 @@
-<ion-menu [content]="content" class="menuebg">
-    <ion-header>
-        <ion-item>
+<ion-menu swipeEnable="true" [content]="content">
+    <ion-header class="hoho">
+        <ion-item no-lines class="hoho">
             <ion-avatar item-start>
                 <img src="assets/imgs/Borough-market.jpg">
             </ion-avatar>
         </ion-item>
-        <ion-item>
-            <h2>Qasim Cheema</h2>
+        <ion-item no-lines class="hoho">
+            <h2 class="textcol">Qasim Cheema</h2>
             <button class="profilebutton" ion-button icon-left menuClose (click)="openProfile(prof)">
                 <ion-icon name="person"></ion-icon>Profile
             </button>
         </ion-item>
     </ion-header>
-    <ion-content class="menuebg">
+    <ion-content class="hoho">
 
-        <ion-list class="menuebg">
-            <button class="menuebg" mode="md" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-                    <ion-icon name="home" *ngIf="p.title == 'All Packages'" ></ion-icon>    
+
+        <ion-list class="hoho" no-lines>
+            <button class="hoho textcol"  mode="md" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
                 {{p.title}}
             </button>
-            
+
 
         </ion-list>
         <ion-footer>
-            <button class="logout" ion-button (click)="openProfile(prof)">
+            <button class="logout hoho" ion-button (click)="openProfile(prof)">
                 Log Out
             </button>
         </ion-footer>
