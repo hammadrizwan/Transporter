@@ -17,7 +17,7 @@
 <ion-content class="background1">
   <ion-card (click)="openPackageDetailsPage()">
     <ion-fab right>
-      <button ion-fab>
+      <button class="buttoncolor" ion-fab>
         <ion-icon name="pin"></ion-icon>
       </button>
     </ion-fab>
@@ -36,27 +36,40 @@
       <p>14 S. Hop Avenue, Madison, WI 53703</p>
     </ion-item>
 
-    <ion-item>
-      <span item-left>Offer= 5200rs</span>
-      <span item-left>Package Size= Medium</span>
-      <span item-left>Transport Type= Car</span>
-    </ion-item>
-
+    <ion-row>
+        <ion-col col-4>
+          <ion-item>
+            <ion-icon name="cash"></ion-icon>
+            <p>RS:2500</p>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+            <ion-icon  name="ios-open"></ion-icon>
+            <p>Small</p>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+              <ion-icon  name="md-car"></ion-icon>
+            <p>Car</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
      
     <button ion-button full class="buttonitem"  >
         Accept
-        <ion-icon class="buttonicon" name="arrow-forward"></ion-icon>
       </button>
     
   </ion-card>
   <ion-card (click)="openPackageDetailsPage()">
 
     <img src="assets/imgs/advance-card-map-madison.png">
-    <ion-fab right top>
-      <button ion-fab>
-        <ion-icon name="pin"></ion-icon>
-      </button>
-    </ion-fab>
+    <ion-fab right>
+        <button class="buttoncolor" ion-fab>
+          <ion-icon name="pin"></ion-icon>
+        </button>
+      </ion-fab>
 
     <ion-item>
       <ion-icon name="football" item-start large></ion-icon>
@@ -70,17 +83,31 @@
       <p>14 S. Hop Avenue, Madison, WI 53703</p>
     </ion-item>
 
-    <ion-item>
-      <span item-left>Offer= 2500rs</span>
-      <span item-left>Package Size= Small</span>
-      <span item-left>Transport Type= Bike</span>
-    </ion-item>
-
+    <ion-row>
+        <ion-col col-4>
+          <ion-item>
+            <ion-icon name="cash"></ion-icon>
+            <p>RS:2500</p>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+            <ion-icon  name="ios-open"></ion-icon>
+            <p>Small</p>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+              <ion-icon  name="md-car"></ion-icon>
+            <p>Car</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
      
     <button ion-button full class="buttonitem"  >
         Accept
-        <ion-icon class="buttonicon" name="arrow-forward"></ion-icon>
+
       </button>
     
 

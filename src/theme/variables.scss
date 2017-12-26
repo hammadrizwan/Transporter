@@ -39,14 +39,14 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
-  themeblue:  #2a4262,
+  themeblue:  #033860,
   lightthemeblue: #2a4255,
-  navbarcolor:#2a4262,  
+  navbarcolor:#e52d27,  
 );
-
+ 
 $toolbar-background: color($colors, themeblue);
-$tabs-md-tab-text-color-active	: color($colors, themeblue);
-$tabs-md-tab-icon-color-active : color($colors, themeblue);
+$tabs-md-tab-text-color-active	: color($colors, navbarcolor);
+$tabs-md-tab-icon-color-active : color($colors, navbarcolor);
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

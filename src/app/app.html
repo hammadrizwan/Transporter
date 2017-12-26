@@ -1,33 +1,33 @@
 <ion-menu swipeEnable="true" [content]="content">
-    <ion-header class="hoho">
-        <ion-item no-lines class="hoho">
-            <ion-avatar item-start>
-                <img src="assets/imgs/Borough-market.jpg">
-            </ion-avatar>
+    <ion-header class="themeblue">
+        <ion-item class="themeblue" no-lines>
+            <ion-row>
+
+                <ion-avatar item-start>
+                    <img src="assets/imgs/Borough-market.jpg">
+                </ion-avatar>
+
+                <ion-col align-self-center>
+                    <h2 class="textcol">John Wick</h2>
+                    <button class="profilebutton " ion-button icon-left menuClose (click)="openProfile(prof)">
+                        <ion-icon name="person"></ion-icon>Profile
+                    </button>
+                </ion-col>
+            </ion-row>
         </ion-item>
-        <ion-item no-lines class="hoho">
-            <h2 class="textcol">Qasim Cheema</h2>
-            <button class="profilebutton" ion-button icon-left menuClose (click)="openProfile(prof)">
-                <ion-icon name="person"></ion-icon>Profile
-            </button>
-        </ion-item>
+
     </ion-header>
-    <ion-content class="hoho">
-
-
-        <ion-list class="hoho" no-lines>
-            <button class="hoho textcol"  mode="md" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+    <ion-content class="buttontheme">
+        <ion-list class="buttontheme" no-lines>
+            <button class="buttontheme textcol" mode="md" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
                 {{p.title}}
             </button>
-
-
         </ion-list>
-        <ion-footer>
-            <button class="logout hoho" ion-button (click)="openProfile(prof)">
+        <ion-footer class="themeblue">
+            <button class="logout " ion-button (click)="openProfile(prof)">
                 Log Out
             </button>
         </ion-footer>
     </ion-content>
-
 </ion-menu>
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

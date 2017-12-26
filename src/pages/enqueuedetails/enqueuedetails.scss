@@ -5,5 +5,17 @@ page-enqueuedetails {
     padding-top: 15px;
 }
 .background1{
-    background: color($colors, lightthemeblue);
+    background: color($colors, light);
+}
+.iconimg{
+    width: 35px;
+    height: 35px;
+    
+}
+.buttonitem{
+    padding:none;
+    font-size: 15px;
+    width:100%;
+    height:50px ;
+    background:color($colors,navbarcolor);
 }

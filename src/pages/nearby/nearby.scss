@@ -6,11 +6,14 @@ page-nearby {
     font-size: 15px;
     width:100%;
     height:50px ;
-    
+    background:color($colors,navbarcolor);
 }
 .background1{
-    background: color($colors, lightthemeblue);
+    background: color($colors, light);
 }
 .imagepackage{
  max-height: 270px;
+}
+.buttoncolor{
+    background-color: color($colors, navbarcolor);
 }

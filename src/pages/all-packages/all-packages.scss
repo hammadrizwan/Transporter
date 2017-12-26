@@ -2,16 +2,18 @@ page-all-packages {
 
 }
 .colornavbar{
-    background-color: color($colors, themeblue);
+    background-color: color($colors, navbarcolor);
 }
 .buttonitem{
     padding:none;
     font-size: 15px;
     width:100%;
     height:50px ;
-    
+    background:color($colors,navbarcolor);
 }
-.pastelback{
-    background:color($colors, lightthemeblue);;  /* fallback for old browsers */
-                
+.background1{
+    background:color($colors, light);  /* fallback for old browsers */              
+}
+.buttoncolor{
+    background-color: color($colors, navbarcolor);
 }
