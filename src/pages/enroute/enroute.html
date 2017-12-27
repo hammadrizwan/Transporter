@@ -15,6 +15,30 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="background1">
+
+  <ion-row>
+    <ion-col col-1 align-self-center><ion-icon class="ioniconcolor1" name="radio-button-off"></ion-icon></ion-col>
+    <ion-col col-11>
+      <ion-item class="background1">
+        <ion-label  floating>Pickup Point</ion-label>
+        <ion-input  type="text"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-1 align-self-center><ion-icon class="ioniconcolor1" name="pin"></ion-icon></ion-col>
+    <ion-col col-11>
+      <ion-item class="background1">
+        <ion-label  floating>Destination</ion-label>
+        <ion-input  type="text"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <button ion-button full class="buttonitem">
+    Search
+  </button>
+
+
   <ion-card (click)="openPackageDetailsPage()">
     <ion-fab right>
       <button class="buttoncolor" ion-fab>
@@ -25,91 +49,91 @@
     <img src="assets/imgs/Borough-market.jpg">
 
     <ion-item>
-      <ion-icon name="american-football" item-start large></ion-icon>
+      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
       <h2>To: Museum of American-Footaball</h2>
       <p>11 N. Way St, Madison, WI 53703</p>
     </ion-item>
 
     <ion-item>
-      <ion-icon name="basket" item-left large></ion-icon>
+      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>
       <h2>From: Vegetable Market</h2>.
       <p>14 S. Hop Avenue, Madison, WI 53703</p>
     </ion-item>
 
     <ion-row>
-        <ion-col col-4>
-          <ion-item>
-            <ion-icon name="cash"></ion-icon>
-            <p>RS:2500</p>
-          </ion-item>
-        </ion-col>
-        <ion-col col-4>
-          <ion-item>
-            <ion-icon  name="ios-open"></ion-icon>
-            <p>Small</p>
-          </ion-item>
-        </ion-col>
-        <ion-col col-4>
-          <ion-item>
-              <ion-icon  name="md-car"></ion-icon>
-            <p>Car</p>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-     
-    <button ion-button full class="buttonitem"  >
-        Accept
-      </button>
-    
+      <ion-col col-4>
+        <ion-item>
+          <ion-icon class="ioniconcolor1" name="cash"></ion-icon>
+          <p>RS:2500</p>
+        </ion-item>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item>
+          <ion-icon class="ioniconcolor1" name="ios-open"></ion-icon>
+          <p>Small</p>
+        </ion-item>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item>
+          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>
+          <p>Car</p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <button ion-button full class="buttonitem">
+      Accept
+    </button>
+
   </ion-card>
   <ion-card (click)="openPackageDetailsPage()">
-
-    <img src="assets/imgs/advance-card-map-madison.png">
     <ion-fab right>
-        <button class="buttoncolor" ion-fab>
-          <ion-icon name="pin"></ion-icon>
-        </button>
-      </ion-fab>
+      <button class="buttoncolor" ion-fab>
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-fab>
+    <img src="assets/imgs/advance-card-map-madison.png">
+    
 
     <ion-item>
-      <ion-icon name="football" item-start large></ion-icon>
+      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
       <h2>To: Museum of Football</h2>
       <p>11 N. Way St, Madison, WI 53703</p>
     </ion-item>
 
     <ion-item>
-      <ion-icon name="wine" item-left large></ion-icon>
+      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>
       <h2>From: Institute of Fine Cocktails</h2>
       <p>14 S. Hop Avenue, Madison, WI 53703</p>
     </ion-item>
 
     <ion-row>
-        <ion-col col-4>
-          <ion-item>
-            <ion-icon name="cash"></ion-icon>
-            <p>RS:2500</p>
-          </ion-item>
-        </ion-col>
-        <ion-col col-4>
-          <ion-item>
-            <ion-icon  name="ios-open"></ion-icon>
-            <p>Small</p>
-          </ion-item>
-        </ion-col>
-        <ion-col col-4>
-          <ion-item>
-              <ion-icon  name="md-car"></ion-icon>
-            <p>Car</p>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+      <ion-col col-4>
+        <ion-item>
+          <ion-icon class="ioniconcolor1" name="cash"></ion-icon>
+          <p>RS:2500</p>
+        </ion-item>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item>
+          <ion-icon class="ioniconcolor1" name="ios-open"></ion-icon>
+          <p>Small</p>
+        </ion-item>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item>
+          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>
+          <p>Car</p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
 
-     
-    <button ion-button full class="buttonitem"  >
-        Accept
 
-      </button>
-    
+    <button ion-button full class="buttonitem">
+      Accept
+
+    </button>
+
 
   </ion-card>
 

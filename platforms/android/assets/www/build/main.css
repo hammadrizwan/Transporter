@@ -33358,6 +33358,10 @@ ion-avatar img {
   height: 100px !important;
 }
 
+.menic {
+  font-size: 15px;
+}
+
 .textcol {
   color: white;
 }

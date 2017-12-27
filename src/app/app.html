@@ -2,13 +2,14 @@
     <ion-header class="themeblue">
         <ion-item class="themeblue" no-lines>
             <ion-row>
-
+                <ion-col col-6>
                 <ion-avatar item-start>
                     <img src="assets/imgs/Borough-market.jpg">
                 </ion-avatar>
-
-                <ion-col align-self-center>
+            </ion-col>
+                <ion-col align-self-center col-6>
                     <h2 class="textcol">John Wick</h2>
+                    <p>★ ★ ★ ★ ★</p>
                     <button class="profilebutton " ion-button icon-left menuClose (click)="openProfile(prof)">
                         <ion-icon name="person"></ion-icon>Profile
                     </button>
@@ -18,11 +19,60 @@
 
     </ion-header>
     <ion-content class="buttontheme">
-        <ion-list class="buttontheme" no-lines>
-            <button class="buttontheme textcol" mode="md" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-                {{p.title}}
-            </button>
-        </ion-list>
+
+        <ion-row>
+            <ion-col col-2 align-self-center>
+                <ion-icon style="font-size:35px" class="textcol" name="ios-home"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[0])">
+                    All Packages
+                </button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-2 align-self-center>
+                <ion-icon style="font-size:35px" class="textcol" name="bookmarks"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[1])">
+                    Pending Requests
+                </button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-2 align-self-center>
+                <ion-icon style="font-size:35px" class="textcol" name="calendar"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[2])">
+                    Enqueue Packages
+                </button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-2 align-self-center>
+                <ion-icon style="font-size:35px" class="textcol" name="chatbubbles"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">
+                    Notifications
+                </button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-2 align-self-center>
+                <ion-icon style="font-size:35px" class="textcol" name="help-circle"></ion-icon>
+            </ion-col>
+            <ion-col col-10>
+                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">
+                    Help
+                </button>
+            </ion-col>
+        </ion-row>
+
+
         <ion-footer class="themeblue">
             <button class="logout " ion-button (click)="openProfile(prof)">
                 Log Out

@@ -15,10 +15,12 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 ion-avatar img {
-    width: 100px !important;
-    height: 100px !important;
+    width: 120px !important;
+    height: 120px !important;
 }
-
+.menic{
+    font-size : 15px; 
+}
 
 .textcol{
     color:white;
@@ -40,3 +42,4 @@ ion-avatar img {
     padding-bottom: none;
     background-color:#033860;
 }
+
