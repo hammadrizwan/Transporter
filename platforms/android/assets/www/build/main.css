@@ -33354,8 +33354,8 @@ ion-navbar.toolbar {
 }
 
 ion-avatar img {
-  width: 100px !important;
-  height: 100px !important;
+  width: 120px !important;
+  height: 120px !important;
 }
 
 .menic {
@@ -33404,6 +33404,14 @@ ion-avatar img {
 
 .buttoncolor {
   background-color: #e52d27;
+}
+
+.ioniconcolor1 {
+  color: #033860;
+}
+
+.ioniconcolor2 {
+  color: #e52d27;
 }
 
 .background1 {
@@ -33467,6 +33475,14 @@ ion-avatar img {
   background-color: #e52d27;
 }
 
+.ioniconcolor1 {
+  color: #033860;
+}
+
+.ioniconcolor2 {
+  color: #e52d27;
+}
+
 .colornavbar {
   background-color: #e52d27;
 }
@@ -33489,6 +33505,14 @@ ion-avatar img {
 
 .buttoncolor {
   background-color: #e52d27;
+}
+
+.ioniconcolor1 {
+  color: #033860;
+}
+
+.ioniconcolor2 {
+  color: #e52d27;
 }
 
 .background1 {
