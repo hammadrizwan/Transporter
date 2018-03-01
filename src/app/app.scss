@@ -18,28 +18,26 @@ ion-avatar img {
     width: 120px !important;
     height: 120px !important;
 }
-.menic{
-    font-size : 15px; 
-}
 
+.iconsize{
+    font-size:35px;
+}
 .textcol{
     color:white;
 }
 .themeblue{
-    background-color:#033860 ;
+    background-color:color($colors, themeblue) ;
 }
 // #1D3461 #FB3640 #e52d27 #58355E
-.profilebutton{
-    background-color: #033860;
-}
+
 .buttontheme{
-    background-color:#033860;
+    background-color:color($colors, themeblue);
     // #2E1760;
 }
-.logout{
+/*.logout{
     width:100%;
     height:25px;
     padding-bottom: none;
-    background-color:#033860;
-}
+    background-color:color($colors, themeblue);
+}*/
 

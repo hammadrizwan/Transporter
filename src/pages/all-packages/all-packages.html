@@ -15,7 +15,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="background1">
-  <ion-card (click)="openPackageDetailsPage()">
+  <ion-card *ngFor="let item of responseData, let i= index" >
 
     <img src="assets/imgs/advance-card-map-madison.png">
     <ion-fab  right top>
@@ -26,94 +26,45 @@
 
     <ion-item>
       <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
-      <h2>To: Museum of Football</h2>
-      <p>11 N. Way St, Madison, WI 53703</p>
+      <h2>To:</h2>
+      <p>{{item.PickAddress}}</p>
     </ion-item>
 
     <ion-item>
       <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>
-      <h2>From: Institute of Fine Cocktails</h2>
-      <p>14 S. Hop Avenue, Madison, WI 53703</p>
+      <h2>From:</h2>
+      <p>{{item.DestAddress}}</p>
     </ion-item>
 
     <ion-row>
       <ion-col col-4>
         <ion-item>
-          <ion-icon class="ioniconcolor1" name="cash"></ion-icon>
+          <h2></h2>
           <p>RS:2500</p>
         </ion-item>
       </ion-col>
       <ion-col col-4>
         <ion-item>
-          <ion-icon class="ioniconcolor1" name="ios-open"></ion-icon>
-          <p>Small</p>
+          <h2>Package Size:</h2>
+          <p>{{item.PackageSize}}</p>
         </ion-item>
       </ion-col>
       <ion-col col-4>
         <ion-item>
             <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>
-          <p>Car</p>
+          <p>{{item.TransportType}}</p>
         </ion-item>
       </ion-col>
     </ion-row>
 
 
-    <button ion-button full class="buttonitem ">
+    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)" >
       Accept
     </button>
 
 
-  </ion-card>
-  <ion-card (click)="openPackageDetailsPage()">
-
-
-
-    <ion-fab  right>
-      <button class="buttoncolor" ion-fab>
-        <ion-icon name="pin"></ion-icon>
-      </button>
-    </ion-fab>
-
-    <img src="assets/imgs/Borough-market.jpg">
-
-    <ion-item>
-      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
-      <h2>To: Museum of American-Footaball</h2>
-      <p>11 N. Way St, Madison, WI 53703</p>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>
-      <h2>From: Vegetable Market</h2>
-      <p>14 S. Hop Avenue, Madison, WI 53703</p>
-    </ion-item>
-
-    <ion-row>
-        <ion-col col-4>
-          <ion-item>
-            <ion-icon class="ioniconcolor1" name="cash"></ion-icon>
-            <p>RS:2500</p>
-          </ion-item>
-        </ion-col>
-        <ion-col col-4>
-          <ion-item>
-            <ion-icon class="ioniconcolor1" name="ios-open"></ion-icon>
-            <p>Small</p>
-          </ion-item>
-        </ion-col>
-        <ion-col col-4>
-          <ion-item>
-              <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>
-            <p>Car</p>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-    <button ion-button full class="buttonitem">
-      Accept
-    </button>
-
-
-
-  </ion-card>
+ </ion-card>
+ <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

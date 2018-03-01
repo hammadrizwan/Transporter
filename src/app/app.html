@@ -10,7 +10,7 @@
                 <ion-col align-self-center col-6>
                     <h2 class="textcol">John Wick</h2>
                     <p>★ ★ ★ ★ ★</p>
-                    <button class="profilebutton " ion-button icon-left menuClose (click)="openProfile(prof)">
+                    <button class="buttontheme" ion-button icon-left menuClose (click)="openProfile(prof)">
                         <ion-icon name="person"></ion-icon>Profile
                     </button>
                 </ion-col>
@@ -22,7 +22,7 @@
 
         <ion-row>
             <ion-col col-2 align-self-center>
-                <ion-icon style="font-size:35px" class="textcol" name="ios-home"></ion-icon>
+                <ion-icon  class="textcol iconsize" name="ios-home"></ion-icon>
             </ion-col>
             <ion-col col-10>
                 <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[0])">
@@ -32,7 +32,7 @@
         </ion-row>
         <ion-row>
             <ion-col col-2 align-self-center>
-                <ion-icon style="font-size:35px" class="textcol" name="bookmarks"></ion-icon>
+                <ion-icon  class="textcol iconsize" name="bookmarks"></ion-icon>
             </ion-col>
             <ion-col col-10>
                 <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[1])">
@@ -42,7 +42,7 @@
         </ion-row>
         <ion-row>
             <ion-col col-2 align-self-center>
-                <ion-icon style="font-size:35px" class="textcol" name="calendar"></ion-icon>
+                <ion-icon  class="textcol iconsize" name="calendar"></ion-icon>
             </ion-col>
             <ion-col col-10>
                 <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[2])">
@@ -52,7 +52,7 @@
         </ion-row>
         <ion-row>
             <ion-col col-2 align-self-center>
-                <ion-icon style="font-size:35px" class="textcol" name="chatbubbles"></ion-icon>
+                <ion-icon  class="textcol iconsize" name="chatbubbles"></ion-icon>
             </ion-col>
             <ion-col col-10>
                 <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">
@@ -63,7 +63,7 @@
 
         <ion-row>
             <ion-col col-2 align-self-center>
-                <ion-icon style="font-size:35px" class="textcol" name="help-circle"></ion-icon>
+                <ion-icon  class="textcol iconsize" name="help-circle"></ion-icon>
             </ion-col>
             <ion-col col-10>
                 <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">
@@ -74,7 +74,7 @@
 
 
         <ion-footer class="themeblue">
-            <button class="logout " ion-button (click)="openProfile(prof)">
+            <button ion-button full ion-button (click)="openProfile(prof)">
                 Log Out
             </button>
         </ion-footer>

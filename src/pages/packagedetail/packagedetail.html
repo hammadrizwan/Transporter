@@ -16,13 +16,13 @@
 
 </ion-header>
 
-<ion-content class="background1">
+<ion-content class="background1" >
 
-  <ion-card>
-    <div class="text-center">
-      <h1 class="headertop" style="text-align: center;">Package Name</h1>
+  <ion-card  >
+    <div class="text-center" *ngFor="let data of data">
+      <h1 class="headertop"  style="text-align: center;">{{data.PackageName}}</h1>
 
-      <h2 class="headertop" style="text-align: center;">Grocery Bag</h2>
+      
     </div>
     <img style="width:392px; height:291px;" src="assets/imgs/advance-card-map-madison.png" />
     <ion-card-content>
@@ -30,9 +30,7 @@
       <ion-card-title>
         Details:
       </ion-card-title>
-      <p>
-        Grocery Bag containing some pack of chips, some snacks, medicines, oil, noodles,some fruit. Thats it.
-      </p>
+      <p></p>
     </ion-card-content>
   </ion-card>
 
@@ -151,4 +149,5 @@
   <ion-card>
     <img src="assets/imgs/Capture.JPG">
   </ion-card>
+  
 </ion-content>

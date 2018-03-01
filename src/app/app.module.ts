@@ -3,7 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
+import { HttpModule } from '@angular/http';
+import {IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SignUpPage } from '../pages/sign-up/sign-up';
@@ -11,8 +12,6 @@ import { EnroutePage } from '../pages/enroute/enroute';
 import { ListPage } from '../pages/list/list';
 import { NearbyPage } from '../pages/nearby/nearby';
 import { TabsPage } from '../pages/tabs/tabs';
-
-
 import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
@@ -25,6 +24,7 @@ import { AllPackagesPage } from '../pages/all-packages/all-packages';
 import { EnqueuePage } from '../pages/enqueue/enqueue';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import {HelpPage} from '../pages/help/help'
+import {LoginPage} from '../pages/login/login'
 
 @NgModule({
   declarations: [
@@ -41,13 +41,16 @@ import {HelpPage} from '../pages/help/help'
     AllPackagesPage,
     EnqueuePage,
     NotificationsPage,
-    HelpPage
+    HelpPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp,{
       tabsPlacement :'top',
-    })
+    }),
+    IonicStorageModule.forRoot(), 
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -64,7 +67,8 @@ import {HelpPage} from '../pages/help/help'
     AllPackagesPage,
     EnqueuePage,
     NotificationsPage,
-    HelpPage
+    HelpPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
@@ -73,6 +77,7 @@ import {HelpPage} from '../pages/help/help'
     Transfer,
     Camera,
     FilePath,
+    Storage,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

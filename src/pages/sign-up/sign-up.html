@@ -12,51 +12,124 @@
 
 </ion-header>
 
-
+<ion-item>
+  <ion-label floating>Pickup Address: </ion-label>
+  <ion-textarea></ion-textarea>
+</ion-item>
 
 
 <ion-content padding>
+
   <ion-item>
     <ion-avatar item-start>
-      <ion-icon class="photo1"  *ngIf="lastImage1==null" name="add-circle" large></ion-icon>
+      <ion-icon class="photo1" *ngIf="lastImage1==null" name="add-circle" large></ion-icon>
       <img src="{{pathForImage(lastImage1)}}" class="avatar1" *ngIf="lastImage1!=null">
     </ion-avatar>
-    <ion-buttons></ion-buttons>
-    <h3>Take a Selfie!</h3>
-    <button ion-button (click)="presentActionSheet(1)">
+    <h2>Take a Selfie!</h2>
+    <button ion-button icon-left (click)="presentActionSheet(1)">
       <ion-icon name="camera"></ion-icon>Select Image
     </button>
   </ion-item>
 
+  <!-- Image Liscence input -->
+  <ion-item>
+    <h2>Liscence</h2>
+    <ion-avatar item-start>
+      <ion-icon class="photo1" *ngIf="lastImage2==null" name="add-circle" large></ion-icon>
+      <img src="{{pathForImage(lastImage2)}}" class="avatar1" *ngIf="lastImage3!=null">
+    </ion-avatar>
+    <button ion-button icon-left (click)="presentActionSheet(2)">
+      <ion-icon name="camera"></ion-icon>Select Image
+    </button>
+  </ion-item>
+
+  <!-- Image Car registration papers input -->
+  <ion-item>
+    <ion-avatar item-start>
+      <ion-icon class="photo1" *ngIf="lastImage3==null" name="add-circle" large></ion-icon>
+      <img src="{{pathForImage(lastImage3)}}" class="avatar1" *ngIf="lastImage3!=null">
+    </ion-avatar>
+    <h2>Vehicle Registration</h2>
+    <button ion-button icon-left (click)="presentActionSheet(3)">
+      <ion-icon name="camera"></ion-icon>Select Image
+    </button>
+  </ion-item>
+
+  <form [formGroup]="data" (ngSubmit)="logForm()">
+    <!-- Name input -->
+    <ion-item>
+      <ion-label color="primary" floating>Name</ion-label>
+      <ion-input type="text" formControlName="Name"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="Name.hasError('required') && submitAttempted">
+      <p ion-text color="danger">*Please enter full name</p>
+    </ion-item>
 
 
-  <form (ngSubmit)="logForm()">
+    <!-- Email input -->
     <ion-item>
-      <ion-label color="primary" stacked>Name</ion-label>
-      <ion-input placeholder="Enter Name"></ion-input>
+      <ion-label color="primary" floating>Email</ion-label>
+      <ion-input type="email" formControlName="Email"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Email</ion-label>
-      <ion-input type="email" placeholder="Enter Email"></ion-input>
+    <ion-item *ngIf="Email.hasError('required') && submitAttempted">
+      <p ion-text color="danger">*Please enter email</p>
     </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>CNIC</ion-label>
-      <ion-input placeholder="Enter Cnic" maxlength="15"></ion-input>
+    <ion-item *ngIf="Email.hasError('email') && Email.touched">
+      <p ion-text color="danger">*Please enter proper email</p>
     </ion-item>
+
+    <!-- CNIC input -->
     <ion-item>
-      <ion-label color="primary" stacked>Phone</ion-label>
-      <ion-input placeholder="Phone Number +92" maxlength="13"></ion-input>
+      <ion-label color="primary" floating>CNIC</ion-label>
+      <ion-input formControlName="CNIC" type="text"></ion-input>
     </ion-item>
+    <ion-item *ngIf="(CNIC.hasError('required')  && submitAttempted)">
+      <p ion-text color="danger">*Please enter CNIC</p>
+    </ion-item>
+    <ion-item *ngIf="  CNIC.hasError('pattern') && CNIC.touched">
+      <p ion-text color="danger"> *Please enter CNIC with dashes included</p>
+    </ion-item>
+
+    <!-- Phone Number input -->
     <ion-item>
-      <ion-label color="primary" stacked>Address</ion-label>
-      <ion-textarea placeholder="Enter Address"></ion-textarea>
+      <ion-label color="primary" floating>Phone Number</ion-label>
+      <ion-input formControlName="Phone" type="text"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="Phone.hasError('required')  && submitAttempted">
+      <p ion-text color="danger">*Please enter phone number</p>
+    </ion-item>
+    <ion-item *ngIf="Phone.hasError('pattern')  && Phone.touched">
+      <p ion-text color="danger"> *Please enter proper phone number(no +92)</p>
+    </ion-item>
+
+    <!-- Address input -->
+    <ion-item>
+      <ion-label color="primary" floating>Address</ion-label>
+      <ion-textarea formControlName="Address"></ion-textarea>
+    </ion-item>
+    <ion-item *ngIf="Address.hasError('required')  && submitAttempted">
+      <p ion-text color="danger">*Please enter Address</p>
     </ion-item>
 
 
+    <!-- Gender input -->
     <ion-item>
       <ion-label color="primary">Gender</ion-label>
-      <ion-select>
-        <ion-option selected>Date</ion-option>
+      <ion-select formControlName="Gender">
+        <ion-option value="gender" selected>Gender</ion-option>
+        <ion-option value="male">Male</ion-option>
+        <ion-option value="female">Female</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="Gender.hasError('pattern')  && submitAttempted">
+      <p ion-text color="danger">*Please select Gender</p>
+    </ion-item>
+    <ion-item>
+
+      <!-- Date of Birth input -->
+      <ion-label color="primary">D.O.B</ion-label>
+      <ion-select formControlName="Date">
+        <ion-option value="date" selected>Date</ion-option>
         <ion-option value="1">1</ion-option>
         <ion-option value="2">2</ion-option>
         <ion-option value="3">3</ion-option>
@@ -89,8 +162,8 @@
         <ion-option value="30">30</ion-option>
         <ion-option value="31">31</ion-option>
       </ion-select>
-      <ion-select>
-        <ion-option value="f" selected>Month</ion-option>
+      <ion-select formControlName="Month">
+        <ion-option value="month" selected>Month</ion-option>
         <ion-option value="Janaury">Janaury</ion-option>
         <ion-option value="February">February</ion-option>
         <ion-option value="March">March</ion-option>
@@ -104,8 +177,8 @@
         <ion-option value="November">November</ion-option>
         <ion-option value="December">December</ion-option>
       </ion-select>
-      <ion-select>
-        <ion-option value="f" selected>Year</ion-option>
+      <ion-select formControlName="Year">
+        <ion-option value="year" selected>Year</ion-option>
         <ion-option value="1947">1947</ion-option>
         <ion-option value="1948">1948</ion-option>
         <ion-option value="1949">1949</ion-option>
@@ -180,43 +253,31 @@
         <ion-option value="2018">2018</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Car Registration</ion-label>
-      <ion-input placeholder="Car Plate no." maxlength="13"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Password</ion-label>
-      <ion-input type="email" placeholder="Enter Password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Confirm Password</ion-label>
-      <ion-input type="password" placeholder="ReEnter Password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <h3>Liscence</h3>
-      <ion-avatar item-start>
-        <ion-icon class="photo1"  *ngIf="lastImage1==null" name="add-circle" large></ion-icon>
-        <img src="{{pathForImage(lastImage2)}}" class="avatar1" *ngIf="lastImage1!=null">
-      </ion-avatar>
-      <ion-buttons></ion-buttons>
-      <button ion-button (click)="presentActionSheet(2)" >
-        <ion-icon name="camera"></ion-icon>Select Image
-      </button>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-start>
-        <ion-icon class="photo1"  *ngIf="lastImage1==null" name="add-circle" large></ion-icon>
-        <img src="{{pathForImage(lastImage3)}}" class="avatar1" *ngIf="lastImage1!=null">
-      </ion-avatar>
-      <ion-buttons></ion-buttons>
-      <h3>Vehicle Registration</h3>
-      <button ion-button (click)="presentActionSheet(3)">
-        <ion-icon name="camera"></ion-icon>Select Image
-      </button>
+    <ion-item *ngIf="(this.Date.hasError('pattern') || this.Month.hasError('pattern') || this.Year.hasError('pattern'))  && submitAttempted">
+      <p ion-text color="danger">*Please Enter proper DOB</p>
     </ion-item>
 
+    <!-- Vehicle Registration No input -->
+    <ion-item>
+      <ion-label color="primary" floating>Vehicle Registration No.</ion-label>
+      <ion-input type="text" formControlName="CarRegistrationNo"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="CarRegistrationNo.hasError('required')  && submitAttempted">
+      <p ion-text color="danger">*Please enter Vehicle registration number</p>
+    </ion-item>
+    <ion-item *ngIf="CarRegistrationNo.hasError('pattern')  && CarRegistrationNo.touched">
+      <p ion-text color="danger"> *Please enter proper Vehicle registration number</p>
+    </ion-item>
 
+    <!-- Password input -->
+    <ion-item>
+      <ion-label color="primary" floating>Password</ion-label>
+      <ion-input type="password" formControlName="Password"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="(Password.hasError('pattern') && Password.touched) ||(submitAttempted && Password.hasError('required')) ">
+      <p ion-text color="danger"> *Password minimum length 6</p>
+    </ion-item>
     <button ion-button type="submit" block>Create Profile</button>
-
   </form>
+  <button ion-button (click)="imageupload()" block>Create Profile</button>
 </ion-content>

@@ -33358,8 +33358,8 @@ ion-avatar img {
   height: 120px !important;
 }
 
-.menic {
-  font-size: 15px;
+.iconsize {
+  font-size: 35px;
 }
 
 .textcol {
@@ -33370,21 +33370,16 @@ ion-avatar img {
   background-color: #033860;
 }
 
-.profilebutton {
-  background-color: #033860;
-}
-
 .buttontheme {
   background-color: #033860;
 }
 
-.logout {
-  width: 100%;
-  height: 25px;
-  padding-bottom: none;
-  background-color: #033860;
-}
-
+/*.logout{
+    width:100%;
+    height:25px;
+    padding-bottom: none;
+    background-color:color($colors, themeblue);
+}*/
 .colornavbar {
   background-color: #e52d27;
 }
@@ -33485,6 +33480,10 @@ ion-avatar img {
 
 .colornavbar {
   background-color: #e52d27;
+}
+
+.forms {
+  padding-top: 35%;
 }
 
 .buttonitem {
@@ -33592,4 +33591,12 @@ ion-avatar img {
 
 .photo1 {
   font-size: 70px;
+}
+
+.iconsize {
+  font-size: 35px;
+}
+
+.errorline {
+  color: red;
 }
