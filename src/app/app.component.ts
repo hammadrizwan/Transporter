@@ -18,29 +18,40 @@ import { EnqueuePage } from '../pages/enqueue/enqueue';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { HelpPage } from '../pages/help/help';
 import {LoginPage} from '../pages/login/login';
+import { Storage } from '@ionic/storage';
+import { Events } from 'ionic-angular';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = LoginPage;
-  prof:any=ProfilePage;
+  rootPage:any = NearbyPage;
   pages: Array<{title: string, component: any}>;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  Name: string;
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,public events: Events
+  ,public storage: Storage) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
     });
+    this.Name="";
     this.pages = [
       { title: 'All Packages', component: HomePage },   
       { title: 'Pending Requests', component: PendingRequestsPage },
       { title: 'Enqueue Packages', component: EnqueuePage },      
       { title: 'Notifications', component: NotificationsPage },  
       { title: 'Help', component:  HelpPage},  
-          
     ];
+
+    events.subscribe('user:loggedin', (text) => {
+      
+      this.storage.get('Name').then((val) => {
+        this.Name=val;
+      });
+      console.log(text);
+    });
     
   }
   openPage(page) {
@@ -48,11 +59,19 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
-  openProfile(page) {
+  openProfile() {
     // profile Open
     
-    this.nav.setRoot(page);
-
+    this.nav.setRoot(ProfilePage);
+  }
+  logout(){
+    this.Name="";
+    this.storage.set('Name', "");
+    this.storage.set('Email', "");
+    this.storage.set('Password',"")
+    this.storage.set('ID', "");
+    this.storage.set('Rating',"");
+    this.nav.setRoot(LoginPage);
   }
 }
 

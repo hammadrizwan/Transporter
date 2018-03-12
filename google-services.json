@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "680127595430",
+    "firebase_url": "https://transporterdnd.firebaseio.com",
+    "project_id": "transporterdnd",
+    "storage_bucket": "transporterdnd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680127595430:android:f4607507dd4b2c10",
+        "android_client_info": {
+          "package_name": "com.Transporter.push"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680127595430-9e7063ocerl0l5n2p2imue7oitpbf423.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkOiQ0yUgUmQUQPHE0EQ0lGWixXZ8A4RQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

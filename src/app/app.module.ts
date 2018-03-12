@@ -25,6 +25,7 @@ import { EnqueuePage } from '../pages/enqueue/enqueue';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import {HelpPage} from '../pages/help/help'
 import {LoginPage} from '../pages/login/login'
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import {LoginPage} from '../pages/login/login'
     Camera,
     FilePath,
     Storage,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

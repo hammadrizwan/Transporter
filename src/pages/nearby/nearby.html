@@ -15,6 +15,15 @@
   </ion-navbar>
 </ion-header>
 <ion-content  class="background1">
+  <ion-card>
+      <div class="map">
+      
+          <ion-searchbar #searchbar1  placeholder="Enter Location:"></ion-searchbar>
+        <ion-item></ion-item>
+          <ion-searchbar #searchbar placeholder="Enter Destination:"></ion-searchbar>
+        <div id="map" #map></div>
+      </div>
+  </ion-card>
   <ion-card  (click)="openPackageDetailsPage()">
     
     <img class="imagepackage" src="assets/imgs/logo.png">

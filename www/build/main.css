@@ -33362,6 +33362,11 @@ ion-avatar img {
   font-size: 35px;
 }
 
+.starsize {
+  font-size: 10px;
+  color: white;
+}
+
 .textcol {
   color: white;
 }
@@ -33514,6 +33519,50 @@ ion-avatar img {
   color: #e52d27;
 }
 
+#map {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute !important;
+  overflow: hidden !important;
+}
+
+.hidemap {
+  visibility: hidden;
+  margin-top: -1000px;
+}
+
+ion-searchbar {
+  position: absolute;
+  opacity: .7;
+  z-index: 3;
+}
+
+.switch {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  width: 80%;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 100;
+  opacity: .9;
+}
+
+.switch .active {
+  background: #3366CC !important;
+  color: #fff;
+}
+
+.switch .button {
+  width: 100px;
+  margin: 0;
+  padding: 0;
+}
+
 .background1 {
   background: #f4f4f4;
 }
@@ -33571,15 +33620,11 @@ ion-avatar img {
   font-size: 15px;
 }
 
-.title {
-  text-align: center;
-  padding: 20px;
-}
-
 .badge {
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .avatar1 {

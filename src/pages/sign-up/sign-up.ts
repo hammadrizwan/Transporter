@@ -10,7 +10,9 @@ import { Storage } from '@ionic/storage';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/timeout';
+import { HomePage } from '../home/home';
 declare var cordova: any;
+import { FCM } from '@ionic-native/fcm';
 /**
  * Generated class for the SignUpPage page.
  *
@@ -25,7 +27,6 @@ declare var cordova: any;
 })
 export class SignUpPage {
   id: number;
-  lastrecord: any
   loading: Loading;
   lastImage1: string = null;
   lastImage2: string = null;
@@ -43,10 +44,12 @@ export class SignUpPage {
   Month: AbstractControl;
   Year: AbstractControl;
   Gender: AbstractControl;
+  Token: any;
   constructor(public navCtrl: NavController, private camera: Camera,
     private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController,
-    private formBuilder: FormBuilder, private alertCtrl: AlertController, public http: Http, public storage: Storage) {
+    private formBuilder: FormBuilder, private alertCtrl: AlertController, public http: Http, public storage:Storage,
+    private fcm:FCM) {
 
     this.data = this.formBuilder.group({
       lastImage1: ['', Validators.required],
@@ -86,58 +89,62 @@ export class SignUpPage {
     let path = 'http://localhost:5000/';
     let encodedPath = encodeURI(path);
     if (this.Name.hasError('required')) {
-      this.presentToast("Some values have been entered Incorectyl");
+      this.presentErrorAlert("Some values have been entered Incorectyl");
       return;
     }
     else if (this.Email.hasError('required') || this.Email.hasError('email')) {
       console.log("Email error");
-      this.presentToast("Some values have been entered Incorectyl");
+      this.presentErrorAlert("Some values have been entered Incorectyl");
       return;
     }
     else if (this.CNIC.hasError('required') || this.CNIC.hasError('pattern')) {
       console.log("CNIC error");
-      this.presentToast("Some values have been entered Incorectyl");
+      this.presentErrorAlert("Some values have been entered Incorectyl");
       return;
     }
     else if (this.Phone.hasError('required') || this.Phone.hasError('pattern')) {
       console.log("Phone number error");
-      this.presentToast("Some values have been entered Incorectyl");
+      this.presentErrorAlert("Some values have been entered Incorectyl");
       return;
     }
     else if (this.CarRegistrationNo.hasError('required') || this.CarRegistrationNo.hasError('pattern')) {
       console.log("Car registration error");
-      this.presentToast("Some values have been entered Incorectyl");
+      this.presentErrorAlert("Some values have been entered Incorectyl");
       return;
     }
     else if (this.Password.hasError('required') || this.Password.hasError('pattern')) {
       console.log("Passworderror");
-      this.presentToast("Some values have been entered Incorectyl");
+      this.presentErrorAlert("Some values have been entered Incorectyl");
       return;
     }
     else if (this.Date.hasError('required') || this.Month.hasError('required') || this.Year.hasError('required')) {
       console.log(" Date Month Year error");
-      this.presentToast("Some values have been entered Incorectyl");
+      this.presentErrorAlert("Some values have been entered Incorectyl");
       return;
     }
     else if (this.Gender.hasError('required')) {
       console.log("Gender error");
-      this.presentToast("Some values have been entered Incorectyl");
+      this.presentErrorAlert("Some values have been entered Incorectyl");
       return;
     }
+    this.loading = this.loadingCtrl.create({
+      content: 'Creating Profile...',
+    });
+    this.loading.present();
 
     this.http.get('http://localhost:5000/lasttransporterid').map(res => res.json()).subscribe(response => {
-      console.log(response.content);
-      this.lastrecord = JSON.parse(response.content);
-      //console.log(this.lastrecord[0].ID);
-      if (this.lastrecord[0] == null) {
+      console.log(response.content);  
+      if (response.content == null) {
         this.id = 1;
-        console.log("aloha");
         console.log(this.id);
       }
       else {
-        this.id = this.lastrecord[0].ID + 1;
+        this.id = response.content[0].ID + 1;
         console.log(this.id);
       }
+      // this.fcm.getToken().then(token=>{
+      //   this.Token=token;
+      // })
       let Userdata = {
         'ID': this.id,
         'Name': this.Name.value,
@@ -154,22 +161,31 @@ export class SignUpPage {
         'Clearence Due': 0,
         'Rating': 0,
         'ActivePackages': 0,
-        'CancelledPackages': 0,
+        'CancelledPackages': 0.0,
+        // 'Token':this.Token,
       };
       console.log(Userdata);
-      // this.storage.set('Name', this.Email.value);
-      // this.storage.set('Password', this.Password.value);
+      
       this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
         let responseData = data;
         console.log(responseData.Error);
-        if(responseData.Error!=""){
-          this.presentErrorActionSheet(responseData.Error);
+        this.loading.dismissAll()
+        if (responseData.Error != "none") {
+          this.presentErrorAlert(responseData.Error);
+        }
+        else{
+          this.storage.set('Name', this.Name.value);
+          this.storage.set('Email', this.Email.value);
+          this.storage.set('Password', this.Password.value)
+          this.storage.set('ID', this.id);
+          this.storage.set('Rating',0);
+          this.openPage(HomePage);
         }
       },
         err => {
           console.log('error');
         });
-      
+
     },
       err => {
         console.log('error');
@@ -210,22 +226,15 @@ export class SignUpPage {
       //ALL things are now set just need to send data to the back end check for valid!!!/
       */
   }
+  openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.navCtrl.setRoot(page);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignUpPage');
   }
 
-  public presentErrorActionSheet(Error) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: Error,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    });
-    actionSheet.present();
-  }
   public presentActionSheet(id) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
@@ -275,7 +284,7 @@ export class SignUpPage {
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName(), id);
       }
     }, (err) => {
-      this.presentToast('Error while selecting image.');
+      this.presentErrorAlert('Error while selecting image.');
     });
   }
 
@@ -301,19 +310,18 @@ export class SignUpPage {
           break;
       }
     }, error => {
-      this.presentToast('Error while storing file.');
+      this.presentErrorAlert('Error while storing file.');
     });
   }
 
-  private presentToast(text) {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 3000,
-      position: 'top'
+  presentErrorAlert(text) {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: text,
+      buttons: ['Dismiss']
     });
-    toast.present();
+    alert.present();
   }
-
   // Always get the accurate path to your apps folder
   public pathForImage(img) {
     if (img === null) {
@@ -353,10 +361,10 @@ export class SignUpPage {
     // Use the FileTransfer to upload the image
     fileTransfer.upload(targetPath, url, options).then(data => {
       this.loading.dismissAll()
-      this.presentToast('Image succesful uploaded.');
+      this.presentErrorAlert('Image succesful uploaded.');
     }, err => {
       this.loading.dismissAll()
-      this.presentToast('Error while uploading file.');
+      this.presentErrorAlert('Error while uploading file.');
     });
   }
 

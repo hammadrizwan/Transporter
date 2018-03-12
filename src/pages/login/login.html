@@ -23,11 +23,6 @@
       <ion-item *ngIf="Email.hasError('required') && submitAttempted">
         <p ion-text color="danger">*Please enter email</p>
       </ion-item>
-      <ion-item *ngIf="Email.hasError('email') && Email.touched">
-        <p ion-text color="danger">*Please enter proper email</p>
-      </ion-item>
-
-
       <ion-item>
         <ion-label color="primary" floating>Password</ion-label>
         <ion-input type="password" formControlName="Password"></ion-input>

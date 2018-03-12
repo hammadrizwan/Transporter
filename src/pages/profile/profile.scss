@@ -16,20 +16,17 @@ page-profile {
 .headerlabel
 {
     text-align: center;
-    font-size:15px;
-    
+    font-size:15px; 
 }
 .badgevalues{
     width:100%;
     background-color: color($colors, themeblue);
     font-size:15px;
 }
-.title{
-    text-align: center;
-    padding: 20px;
-}
+
 .badge{
     padding-left: 20px;
     padding-right:20px;
     padding-bottom:10px;
+    padding-top:10px;
 }

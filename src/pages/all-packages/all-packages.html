@@ -15,10 +15,10 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="background1">
-  <ion-card *ngFor="let item of responseData, let i= index" >
+  <ion-card *ngFor="let item of responseData, let i= index">
 
     <img src="assets/imgs/advance-card-map-madison.png">
-    <ion-fab  right top>
+    <ion-fab right top>
       <button class="buttoncolor" ion-fab>
         <ion-icon name="pin"></ion-icon>
       </button>
@@ -51,20 +51,20 @@
       </ion-col>
       <ion-col col-4>
         <ion-item>
-            <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>
+          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>
           <p>{{item.TransportType}}</p>
         </ion-item>
       </ion-col>
     </ion-row>
 
 
-    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)" >
+    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">
       Accept
     </button>
 
 
- </ion-card>
- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-card>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
