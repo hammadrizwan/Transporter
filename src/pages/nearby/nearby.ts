@@ -9,9 +9,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
 
-declare var google: any;
+declare var google: any;  
 declare var MarkerClusterer: any;
-
 /**
  * Generated class for the NearbyPage page.
  *
@@ -152,7 +151,6 @@ export class NearbyPage {
       };
       this.map.setOptions(options);
       this.addMarker(location, "Searched");
-
     });
 
 
@@ -168,8 +166,13 @@ export class NearbyPage {
       };
       this.map.setOptions(options);
       this.addMarker(location, "Searched");
-      
+      console.log('The Source'+this.Source);
+      console.log('The Destination'+this.Destination);
+      let distance=google.maps.geometry.spherical.computeDistanceBetween(this.Source,this.Destination);
+      console.log('distance',distance);
+        
     });
+  
   }
   findPath(){
     let directionsService = new google.maps.DirectionsService;
@@ -444,24 +447,19 @@ export class NearbyPage {
 
   // go show currrent location
   getCurrentPosition() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Searching Location ...'
-    });
-    this.loading.present();
-
-    let locationOptions = { timeout: 10000, enableHighAccuracy: true };
-
-    this.geolocation.getCurrentPosition(locationOptions).then(
+   
+   
+    this.geolocation.getCurrentPosition().then(
       (position) => {
         this.loading.dismiss().then(() => {
-
+          
           this.showToast('Location found!');
 
-          console.log(position.coords.latitude, position.coords.longitude);
+          console.log("hello"+position.coords.latitude, position.coords.longitude);
           let myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           let options = {
             center: myPos,
-            zoom: 16
+            zoom: 12
           };
           this.map.setOptions(options);
           this.addMarker(myPos, "I am Here!");

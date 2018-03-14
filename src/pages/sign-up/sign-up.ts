@@ -132,16 +132,7 @@ export class SignUpPage {
     });
     this.loading.present();
 
-    this.http.get('http://localhost:5000/lasttransporterid').map(res => res.json()).subscribe(response => {
-      console.log(response.content);  
-      if (response.content == null) {
-        this.id = 1;
-        console.log(this.id);
-      }
-      else {
-        this.id = response.content[0].ID + 1;
-        console.log(this.id);
-      }
+    
       // this.fcm.getToken().then(token=>{
       //   this.Token=token;
       // })
@@ -183,13 +174,8 @@ export class SignUpPage {
         }
       },
         err => {
-          console.log('error');
+          console.log('error'); 
         });
-
-    },
-      err => {
-        console.log('error');
-      });
 
 
 
