@@ -137,7 +137,7 @@ export class SignUpPage {
       //   this.Token=token;
       // })
       let Userdata = {
-        'ID': this.id,
+        'ID': 0,
         'Name': this.Name.value,
         'Email': this.Email.value,
         'CNIC': this.CNIC.value,

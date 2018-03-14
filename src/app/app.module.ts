@@ -26,6 +26,7 @@ import { NotificationsPage } from '../pages/notifications/notifications';
 import {HelpPage} from '../pages/help/help'
 import {LoginPage} from '../pages/login/login'
 import { Geolocation } from '@ionic-native/geolocation';
+import { FCM } from '@ionic-native/fcm';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     FilePath,
     Storage,
     Geolocation,
+    FCM,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
