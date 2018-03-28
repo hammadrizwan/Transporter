@@ -25,7 +25,7 @@ import { Events } from 'ionic-angular';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = SignUpPage;
+  rootPage:any = NearbyPage;
   pages: Array<{title: string, component: any}>;
   Name: string;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,public events: Events

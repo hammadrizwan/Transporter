@@ -160,7 +160,7 @@ export class SignUpPage {
       this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
         let responseData = data;
         console.log(responseData.Error);
-        this.loading.dismissAll()
+        this.loading.dismissAll();
         if (responseData.Error != "none") {
           this.presentErrorAlert(responseData.Error);
         }

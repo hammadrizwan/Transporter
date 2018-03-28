@@ -24,14 +24,30 @@ page-nearby {
   }
 .maps{
     height: 50%;
-    width: 100%;
+    
+    padding:0px;
 
         
+}
+#distanceInput{
+    margin:0px;
+    background-color:white;
+    opacity: 0.5;
+    z-index: 3;
+    padding:0px;
+}
+#goButton{
+    opacity: 0.7;
+    width:100%;
+    heigth:100%;
+    padding:0px;
+}
+#goButton:active{
+    opacity: 1;
 }
     // map style
     #map {
         height: 50%;
-        width: 100%;
         top: 0;
         left: 0;
         position: absolute!important;
