@@ -27,9 +27,11 @@ declare var google: any;
 })
 export class NearbyPage {
 
-
+  currentLat: number;
+  currentLong: number;
   ionViewDidLoad() {
     console.log('ionViewDidLoad NearbyPage');
+    this.platform.ready().then(() => this.loadMaps());
   }
   openPackageDetailsPage() {
     this.navCtrl.push(PackagedetailPage);
@@ -54,7 +56,7 @@ export class NearbyPage {
   search: boolean = false;
   error: any;
   switch: string = "map";
-
+  responseData = [];
   regionals: any = [];
   currentregional: any;
 
@@ -69,9 +71,10 @@ export class NearbyPage {
     public storage: Storage,
     public actionSheetCtrl: ActionSheetController,
     public geolocation: Geolocation,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public http: Http,
   ) {
-    this.platform.ready().then(() => this.loadMaps());
+    
 
   }
 
@@ -106,26 +109,27 @@ export class NearbyPage {
       this.markers.setMap(null);
       this.cityCircle.setMap(null);
       this.getCurrentPosition();
-      this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
-        let responseData = data;
-        console.log(responseData.Error);
-        this.loading.dismissAll();
-        if (responseData.Error != "none") {
-          this.presentErrorAlert(responseData.Error);
-        }
-        else {
-          this.storage.set('Name', this.Name.value);
-          this.storage.set('Email', this.Email.value);
-          this.storage.set('Password', this.Password.value)
-          this.storage.set('ID', this.id);
-          this.storage.set('Rating', 0);
-          this.openPage(HomePage);
+      let Userdata = {
+        'Lat': this.currentLat,
+        'Long': this.currentLong,
+      };
+      this.http.get('http://localhost:5000/nearbypackages?Lat=' + this.currentLat + '&Long=' + this.currentLong + '&Radius=' + this.rad).map(res => res.json()).subscribe(response => {
+        // let responseData = data;
+        // console.log(responseData.Error);
+        // this.loading.dismissAll();
+        // if (responseData.Error != "none") {
+        //   this.presentErrorAlert(responseData.Error);
+        // }
+        // else{
+
+        // }
+        for (let i = 0; i < response.content.length; i++) {
+          this.responseData.push(response.content[i]);
         }
       },
         err => {
           console.log('error');
         });
-
       this.loading.dismiss()
     }
     else {
@@ -167,6 +171,8 @@ export class NearbyPage {
     this.geolocation.getCurrentPosition().then(
       (position) => {
         console.log("hello" + position.coords.latitude, position.coords.longitude);
+        this.currentLat = position.coords.latitude;
+        this.currentLong = position.coords.longitude;
         let myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         let options = {
           center: myPos,

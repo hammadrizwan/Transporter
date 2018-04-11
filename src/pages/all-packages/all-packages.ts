@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PackagedetailPage } from '../packagedetail/packagedetail';
+  import { PackagedetailPage } from '../packagedetail/packagedetail';
 import { Http, RequestOptions } from '@angular/http';
 import { AlertController } from 'ionic-angular';
 /**

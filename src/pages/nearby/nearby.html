@@ -15,9 +15,6 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="background1">
-
-
-
   <ion-card id="map" #map></ion-card>
   <ion-card>
     <ion-row>
@@ -25,12 +22,59 @@
         <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default)" type="text"></ion-input>
       </ion-col>
       <ion-col col-3>
-        <button id="goButton"(click)="reload()" ion-button>GO!</button>
+        <button id="goButton" (click)="reload()" ion-button>GO!</button>
       </ion-col>
     </ion-row>
   </ion-card>
+  <ion-card id="divider"></ion-card>
+    <ion-card *ngFor="let item of responseData, let i= index">
+
+      <img src="assets/imgs/advance-card-map-madison.png">
+      <ion-fab right top>
+        <button class="buttoncolor" ion-fab>
+          <ion-icon name="pin"></ion-icon>
+        </button>
+      </ion-fab>
+
+      <ion-item>
+        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
+        <h2>To:</h2>
+        <p>{{item.PickAddress}}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>
+        <h2>From:</h2>
+        <p>{{item.DestAddress}}</p>
+      </ion-item>
+
+      <ion-row>
+        <ion-col col-4>
+          <ion-item>
+            <h2></h2>
+            <p>RS:2500</p>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+            <h2>Package Size:</h2>
+            <p>{{item.PackageSize}}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+            <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>
+            <p>{{item.TransportType}}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">
+        Accept
+      </button>
+    </ion-card>
 
 
 
 
-</ion-content>
+
+  </ion-content>
