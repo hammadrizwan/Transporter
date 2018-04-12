@@ -1,6 +1,6 @@
 page-enroute {
 
-}
+
 .buttonitem{
     padding:none;
     font-size: 15px;
@@ -20,3 +20,42 @@ page-enroute {
 .ioniconcolor2{
     color : color($colors, navbarcolor);
  }
+ #map {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute!important;
+    overflow: hidden!important;
+}
+
+.hidemap {
+    visibility: hidden;
+    margin-top: -1000px;
+}
+ion-searchbar {
+    position: absolute;
+    opacity: .7;
+    z-index: 3;
+}
+.switch {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 80%;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 100;
+    opacity: .9;
+    .active {
+        background: #3366CC!important;
+        color: #fff;
+    }
+    .button {
+        width: 100px;
+        margin: 0;
+        padding: 0;
+    }
+}
+}

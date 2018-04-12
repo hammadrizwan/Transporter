@@ -1,9 +1,10 @@
+import { HomePage } from './../pages/home/home';
 import { Component, ViewChild } from '@angular/core';
 import { Nav ,Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
+
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { EnroutePage } from '../pages/enroute/enroute';
 import { ListPage } from '../pages/list/list';
@@ -25,7 +26,7 @@ import { Events } from 'ionic-angular';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = NearbyPage;
+  rootPage:any = EnroutePage;
   pages: Array<{title: string, component: any}>;
   Name: string;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,public events: Events

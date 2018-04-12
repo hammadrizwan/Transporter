@@ -33459,7 +33459,7 @@ ion-avatar img {
   background: #e52d27;
 }
 
-.buttonitem {
+page-enroute .buttonitem {
   padding: none;
   font-size: 15px;
   width: 100%;
@@ -33467,20 +33467,64 @@ ion-avatar img {
   background: #e52d27;
 }
 
-.background1 {
+page-enroute .background1 {
   background: #f4f4f4;
 }
 
-.buttoncolor {
+page-enroute .buttoncolor {
   background-color: #e52d27;
 }
 
-.ioniconcolor1 {
+page-enroute .ioniconcolor1 {
   color: #033860;
 }
 
-.ioniconcolor2 {
+page-enroute .ioniconcolor2 {
   color: #e52d27;
+}
+
+page-enroute #map {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute !important;
+  overflow: hidden !important;
+}
+
+page-enroute .hidemap {
+  visibility: hidden;
+  margin-top: -1000px;
+}
+
+page-enroute ion-searchbar {
+  position: absolute;
+  opacity: .7;
+  z-index: 3;
+}
+
+page-enroute .switch {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  width: 80%;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 100;
+  opacity: .9;
+}
+
+page-enroute .switch .active {
+  background: #3366CC !important;
+  color: #fff;
+}
+
+page-enroute .switch .button {
+  width: 100px;
+  margin: 0;
+  padding: 0;
 }
 
 .colornavbar {
