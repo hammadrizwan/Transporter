@@ -65,19 +65,7 @@ export class EnroutePage {
     public geolocation: Geolocation
   ) {
     this.platform.ready().then(() => this.loadMaps());
-    this.regionals = [{
-      "title": "Marker 3",
-      "latitude": 30.3753,
-      "longitude": 69.3451,
-    }, {
-      "title": "Marker 2",
-      "latitude": 31.5204,
-      "longitude": 74.3587
-    }];
-  }
-
-  calculateAndDisplayRoute() {
-
+    
   }
 
 
@@ -160,14 +148,15 @@ export class EnroutePage {
       };
       this.map.setOptions(options);
       this.addMarker(location, "Searched");
-      
+      this.findPath();
     });
   }
+
   findPath(){
     let directionsService = new google.maps.DirectionsService;
       let directionsDisplay = new google.maps.DirectionsRenderer;
       const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 7,
+        zoom: 9,
         center: { lat: 41.85, lng: -87.65 }
       });
       directionsDisplay.setMap(map);
@@ -187,37 +176,20 @@ export class EnroutePage {
   createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
 
     {
-      let locationOptions = { timeout: 10000, enableHighAccuracy: true };
-      this.geolocation.getCurrentPosition(locationOptions).then(
+    //  let locationOptions = { timeout: 10000, enableHighAccuracy: true };
+      this.geolocation.getCurrentPosition().then(
         (position) => {
           console.log(position.coords.latitude, position.coords.longitude);
           let myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           //this.MyLocation= new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           let options = {
             center: myPos,
-            zoom: 12
+            zoom: 13
           };
           this.map.setOptions(options);
           this.addMarker(myPos, "I am Here!");
-          let cityCircle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-            map: this.map,
-            center:myPos,
-            radius: 2000,
-          });
-          let ps=JSON.stringify(myPos);
-          ps=JSON.parse(ps);
           
-          
-          let latitude= ps.lat+ps.lat*(2/110.574);
-          let longitude= ps.lng+2*Math.cos(ps.lng);
-          console.log("lat"+latitude);
-          console.log("long"+longitude);
-          this.addMarker(new google.maps.LatLng(latitude,longitude), "I amdadas");
+         
         },
         (error) => {
           this.loading.dismiss().then(() => {
@@ -247,14 +219,12 @@ export class EnroutePage {
       });
     });
   }
-  checker(){
-     let R=6378137
-  }
+  
   initializeMap() {
     this.zone.run(() => {
       var mapEle = this.mapElement.nativeElement;
       this.map = new google.maps.Map(mapEle, {
-        zoom: 15,
+        zoom: 12,
         center: { lat: 31.5360264, lng: 74.4069842 },
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
@@ -263,90 +233,7 @@ export class EnroutePage {
         zoomControl: true,
         scaleControl: true,
       });
-      
-
-      let markers = [];
-      for (let regional of this.regionals) {
-        regional.distance = 0;
-        regional.visible = false;
-        regional.current = false;
-
-        let markerData = {
-          position: {
-            lat: regional.latitude,
-            lng: regional.longitude
-          },
-          map: this.map,
-          title: regional.title,
-        };
-
-        regional.marker = new google.maps.Marker(markerData);
-        markers.push(regional.marker);
-
-        regional.marker.addListener('click', () => {
-          for (let c of this.regionals) {
-            c.current = false;
-            //c.infoWindow.close();
-          }
-          this.currentregional = regional;
-          regional.current = true;
-
-          //regional.infoWindow.open(this.map, regional.marker);
-          this.map.panTo(regional.marker.getPosition());
-        });
-            }
-
-      new MarkerClusterer(this.map, markers, {
-        styles: [
-          {
-            height: 53,
-            url: "assets/img/cluster/MapMarkerJS.png",
-            width: 53,
-            textColor: '#fff'
-          },
-          {
-            height: 56,
-            url: "assets/img/cluster/MapMarkerJS.png",
-            width: 56,
-            textColor: '#fff'
-          },
-          {
-            height: 66,
-            url: "assets/img/cluster/MapMarkerJS.png",
-            width: 66,
-            textColor: '#fff'
-          },
-          {
-            height: 78,
-            url: "assets/img/cluster/MapMarkerJS.png",
-            width: 78,
-            textColor: '#fff'
-          },
-          {
-            height: 90,
-            url: "assets/img/cluster/MapMarkerJS.png",
-            width: 90,
-            textColor: '#fff'
-          }
-        ]
-      });
-
-
-
-
-      google.maps.event.addListenerOnce(this.map, 'idle', () => {
-        google.maps.event.trigger(this.map, 'resize');
-        mapEle.classList.add('show-map');
-        this.bounceMap(markers);
-        // this.getCurrentPositionfromStorage(markers)
-      });
-
-      google.maps.event.addListener(this.map, 'bounds_changed', () => {
-        this.zone.run(() => {
-          this.resizeMap();
-        });
-      });
-
+     // this.getCurrentPosition();
 
     });
   }
@@ -397,42 +284,6 @@ export class EnroutePage {
     toast.present();
   }
 
-  choosePosition() {
-    this.storage.get('lastLocation').then((result) => {
-      if (result) {
-        let actionSheet = this.actionSheetCtrl.create({
-          title: 'Last Location: ' + result.location,
-          buttons: [
-            {
-              text: 'Reload',
-              handler: () => {
-                this.getCurrentPosition();
-              }
-            },
-            {
-              text: 'Delete',
-              handler: () => {
-                this.storage.set('lastLocation', null);
-                this.showToast('Location deleted!');
-                this.initializeMap();
-              }
-            },
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => {
-              }
-            }
-          ]
-        });
-        actionSheet.present();
-      } else {
-        this.getCurrentPosition();
-
-      }
-    });
-  }
-
   // go show currrent location
   getCurrentPosition() {
     this.loading = this.loadingCtrl.create({
@@ -452,7 +303,8 @@ export class EnroutePage {
           let myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           let options = {
             center: myPos,
-            zoom: 16
+            zoom: 12
+
           };
           this.map.setOptions(options);
           this.addMarker(myPos, "I am Here!");

@@ -15,12 +15,17 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="background1">
+  <ion-row>
   <div class="map">
       
     <ion-searchbar #searchbar1  placeholder="Enter Location:"></ion-searchbar>
-  <ion-item></ion-item>
+    <ion-item></ion-item>
     <ion-searchbar #searchbar placeholder="Enter Destination:"></ion-searchbar>
   <div id="map" #map></div>
 </div>
-
+</ion-row>
+<ion-item></ion-item>
+<ion-row>
+<button ion-button (click)=findPath()>Find Path</button>
+</ion-row>
 </ion-content>

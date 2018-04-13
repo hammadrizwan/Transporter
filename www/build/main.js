@@ -201,506 +201,6 @@ EnqueuedetailsPage = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnroutePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(32);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-/**
- * Generated class for the EnroutePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var EnroutePage = (function () {
-    function EnroutePage(loadingCtrl, toastCtrl, app, navCtrl, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation) {
-        var _this = this;
-        this.loadingCtrl = loadingCtrl;
-        this.toastCtrl = toastCtrl;
-        this.app = app;
-        this.navCtrl = navCtrl;
-        this.zone = zone;
-        this.platform = platform;
-        this.alertCtrl = alertCtrl;
-        this.storage = storage;
-        this.actionSheetCtrl = actionSheetCtrl;
-        this.geolocation = geolocation;
-        this.addressElement = null;
-        this.addressElement1 = null;
-        this.Source = null;
-        this.Destination = null;
-        this.listSearch = '';
-        this.search = false;
-        this.switch = "map";
-        this.regionals = [];
-        this.platform.ready().then(function () { return _this.loadMaps(); });
-        this.regionals = [{
-                "title": "Marker 3",
-                "latitude": 30.3753,
-                "longitude": 69.3451,
-            }, {
-                "title": "Marker 2",
-                "latitude": 31.5204,
-                "longitude": 74.3587
-            }];
-    }
-    EnroutePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad EnroutePage');
-    };
-    EnroutePage.prototype.openPackageDetailsPage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__["a" /* PackagedetailPage */]);
-    };
-    EnroutePage.prototype.calculateAndDisplayRoute = function () {
-    };
-    EnroutePage.prototype.viewPlace = function (id) {
-        console.log('Clicked Marker', id);
-    };
-    EnroutePage.prototype.loadMaps = function () {
-        if (!!google) {
-            this.initializeMap();
-            this.initAutocomplete();
-        }
-        else {
-            this.errorAlert('Error', 'Something went wrong with the Internet Connection. Please check your Internet.');
-        }
-    };
-    EnroutePage.prototype.errorAlert = function (title, message) {
-        var _this = this;
-        var alert = this.alertCtrl.create({
-            title: title,
-            message: message,
-            buttons: [
-                {
-                    text: 'OK',
-                    handler: function (data) {
-                        _this.loadMaps();
-                    }
-                }
-            ]
-        });
-        alert.present();
-    };
-    EnroutePage.prototype.mapsSearchBar = function (ev) {
-        // set input to the value of the searchbar
-        //this.search = ev.target.value;
-        //    console.log(ev);
-        var autocomplete = new google.maps.places.Autocomplete(ev);
-        autocomplete.bindTo('bounds', this.map);
-        return new __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"](function (sub) {
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    sub.error({
-                        message: 'Autocomplete returned place with no geometry'
-                    });
-                }
-                else {
-                    sub.next(place.geometry.location);
-                    sub.complete();
-                }
-            });
-        });
-    };
-    EnroutePage.prototype.initAutocomplete = function () {
-        var _this = this;
-        this.addressElement1 = this.searchbar1.nativeElement.querySelector('.searchbar-input');
-        this.createAutocomplete(this.addressElement1).subscribe(function (location) {
-            console.log('First Search', location);
-            _this.Source = new google.maps.LatLng(location.lat(), location.lng());
-            var options = {
-                center: location,
-                zoom: 13
-            };
-            _this.map.setOptions(options);
-            _this.addMarker(location, "Searched");
-        });
-        this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
-        this.createAutocomplete(this.addressElement).subscribe(function (location) {
-            console.log('Second Search', location);
-            _this.Destination = new google.maps.LatLng(location.lat(), location.lng());
-            var options = {
-                center: location,
-                zoom: 13
-            };
-            _this.map.setOptions(options);
-            _this.addMarker(location, "Searched");
-        });
-    };
-    EnroutePage.prototype.findPath = function () {
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 7,
-            center: { lat: 41.85, lng: -87.65 }
-        });
-        directionsDisplay.setMap(map);
-        directionsService.route({
-            origin: this.Source,
-            destination: this.Destination,
-            travelMode: 'DRIVING'
-        }, function (response, status) {
-            if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-            }
-            else {
-                window.alert('Directions request failed due to ' + status);
-            }
-        });
-    };
-    EnroutePage.prototype.createAutocomplete = function (addressEl) {
-        var _this = this;
-        {
-            var locationOptions = { timeout: 10000, enableHighAccuracy: true };
-            this.geolocation.getCurrentPosition(locationOptions).then(function (position) {
-                console.log(position.coords.latitude, position.coords.longitude);
-                var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                //this.MyLocation= new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                var options = {
-                    center: myPos,
-                    zoom: 12
-                };
-                _this.map.setOptions(options);
-                _this.addMarker(myPos, "I am Here!");
-                var cityCircle = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.35,
-                    map: _this.map,
-                    center: myPos,
-                    radius: 2000,
-                });
-                var ps = JSON.stringify(myPos);
-                ps = JSON.parse(ps);
-                var latitude = ps.lat + ps.lat * (2 / 110.574);
-                var longitude = ps.lng + 2 * Math.cos(ps.lng);
-                console.log("lat" + latitude);
-                console.log("long" + longitude);
-                _this.addMarker(new google.maps.LatLng(latitude, longitude), "I amdadas");
-            }, function (error) {
-                _this.loading.dismiss().then(function () {
-                    _this.showToast('Location not found. Please enable your GPS!');
-                    console.log(error);
-                });
-            });
-        }
-        var autocomplete = new google.maps.places.Autocomplete(addressEl);
-        autocomplete.bindTo('bounds', this.map);
-        return new __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"](function (sub) {
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    sub.error({
-                        message: 'Autocomplete returned place with no geometry'
-                    });
-                }
-                else {
-                    //console.log('Search', place.geometry.locat;
-                    console.log('Search Lat', place.geometry.location.lat());
-                    console.log('Search Lng', place.geometry.location.lng());
-                    sub.next(place.geometry.location);
-                    //sub.complete();
-                }
-            });
-        });
-    };
-    EnroutePage.prototype.checker = function () {
-        var R = 6378137;
-    };
-    EnroutePage.prototype.initializeMap = function () {
-        var _this = this;
-        this.zone.run(function () {
-            var mapEle = _this.mapElement.nativeElement;
-            _this.map = new google.maps.Map(mapEle, {
-                zoom: 15,
-                center: { lat: 31.5360264, lng: 74.4069842 },
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
-                disableDoubleClickZoom: false,
-                disableDefaultUI: true,
-                zoomControl: true,
-                scaleControl: true,
-            });
-            var markers = [];
-            var _loop_1 = function (regional) {
-                regional.distance = 0;
-                regional.visible = false;
-                regional.current = false;
-                var markerData = {
-                    position: {
-                        lat: regional.latitude,
-                        lng: regional.longitude
-                    },
-                    map: _this.map,
-                    title: regional.title,
-                };
-                regional.marker = new google.maps.Marker(markerData);
-                markers.push(regional.marker);
-                regional.marker.addListener('click', function () {
-                    for (var _i = 0, _a = _this.regionals; _i < _a.length; _i++) {
-                        var c = _a[_i];
-                        c.current = false;
-                        //c.infoWindow.close();
-                    }
-                    _this.currentregional = regional;
-                    regional.current = true;
-                    //regional.infoWindow.open(this.map, regional.marker);
-                    _this.map.panTo(regional.marker.getPosition());
-                });
-            };
-            for (var _i = 0, _a = _this.regionals; _i < _a.length; _i++) {
-                var regional = _a[_i];
-                _loop_1(regional);
-            }
-            new MarkerClusterer(_this.map, markers, {
-                styles: [
-                    {
-                        height: 53,
-                        url: "assets/img/cluster/MapMarkerJS.png",
-                        width: 53,
-                        textColor: '#fff'
-                    },
-                    {
-                        height: 56,
-                        url: "assets/img/cluster/MapMarkerJS.png",
-                        width: 56,
-                        textColor: '#fff'
-                    },
-                    {
-                        height: 66,
-                        url: "assets/img/cluster/MapMarkerJS.png",
-                        width: 66,
-                        textColor: '#fff'
-                    },
-                    {
-                        height: 78,
-                        url: "assets/img/cluster/MapMarkerJS.png",
-                        width: 78,
-                        textColor: '#fff'
-                    },
-                    {
-                        height: 90,
-                        url: "assets/img/cluster/MapMarkerJS.png",
-                        width: 90,
-                        textColor: '#fff'
-                    }
-                ]
-            });
-            google.maps.event.addListenerOnce(_this.map, 'idle', function () {
-                google.maps.event.trigger(_this.map, 'resize');
-                mapEle.classList.add('show-map');
-                _this.bounceMap(markers);
-                // this.getCurrentPositionfromStorage(markers)
-            });
-            google.maps.event.addListener(_this.map, 'bounds_changed', function () {
-                _this.zone.run(function () {
-                    _this.resizeMap();
-                });
-            });
-        });
-    };
-    //Center zoom
-    //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
-    EnroutePage.prototype.bounceMap = function (markers) {
-        var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < markers.length; i++) {
-            bounds.extend(markers[i].getPosition());
-        }
-        this.map.fitBounds(bounds);
-    };
-    EnroutePage.prototype.resizeMap = function () {
-        var _this = this;
-        setTimeout(function () {
-            google.maps.event.trigger(_this.map, 'resize');
-        }, 200);
-    };
-    /*
-      getCurrentPositionfromStorage(markers) {
-        this.storage.get('lastLocation').then((result) => {
-          if (result) {
-            let myPos = new google.maps.LatLng(result.lat, result.long);
-            this.map.setOptions({
-              center: myPos,
-              zoom: 16
-            });
-            let marker = this.addMarker(myPos, "My last saved Location: " + result.location);
-    
-            markers.push(marker);
-            this.bounceMap(markers);
-    
-            this.resizeMap();
-          }
-        });
-      }
-    */
-    EnroutePage.prototype.showToast = function (message) {
-        var toast = this.toastCtrl.create({
-            message: message,
-            duration: 3000
-        });
-        toast.present();
-    };
-    EnroutePage.prototype.choosePosition = function () {
-        var _this = this;
-        this.storage.get('lastLocation').then(function (result) {
-            if (result) {
-                var actionSheet = _this.actionSheetCtrl.create({
-                    title: 'Last Location: ' + result.location,
-                    buttons: [
-                        {
-                            text: 'Reload',
-                            handler: function () {
-                                _this.getCurrentPosition();
-                            }
-                        },
-                        {
-                            text: 'Delete',
-                            handler: function () {
-                                _this.storage.set('lastLocation', null);
-                                _this.showToast('Location deleted!');
-                                _this.initializeMap();
-                            }
-                        },
-                        {
-                            text: 'Cancel',
-                            role: 'cancel',
-                            handler: function () {
-                            }
-                        }
-                    ]
-                });
-                actionSheet.present();
-            }
-            else {
-                _this.getCurrentPosition();
-            }
-        });
-    };
-    // go show currrent location
-    EnroutePage.prototype.getCurrentPosition = function () {
-        var _this = this;
-        this.loading = this.loadingCtrl.create({
-            content: 'Searching Location ...'
-        });
-        this.loading.present();
-        var locationOptions = { timeout: 10000, enableHighAccuracy: true };
-        this.geolocation.getCurrentPosition(locationOptions).then(function (position) {
-            _this.loading.dismiss().then(function () {
-                _this.showToast('Location found!');
-                console.log(position.coords.latitude, position.coords.longitude);
-                var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                var options = {
-                    center: myPos,
-                    zoom: 16
-                };
-                _this.map.setOptions(options);
-                _this.addMarker(myPos, "I am Here!");
-                /*
-                          let alert = this.alertCtrl.create({
-                            title: 'Location',
-                            message: 'Do you want to save the Location?',
-                            buttons: [
-                              {
-                                text: 'Cancel'
-                              },
-                              {
-                                text: 'Save',
-                                handler: data => {
-                                  let lastLocation = { lat: position.coords.latitude, long: position.coords.longitude };
-                                  console.log(lastLocation);
-                                  this.storage.set('lastLocation', lastLocation).then(() => {
-                                    this.showToast('Location saved');
-                                  });
-                                }
-                              }
-                            ]
-                          });
-                          alert.present();
-                */
-            });
-        }, function (error) {
-            _this.loading.dismiss().then(function () {
-                _this.showToast('Location not found. Please enable your GPS!');
-                console.log(error);
-            });
-        });
-    };
-    EnroutePage.prototype.toggleSearch = function () {
-        if (this.search) {
-            this.search = false;
-        }
-        else {
-            this.search = true;
-        }
-    };
-    EnroutePage.prototype.addMarker = function (position, content) {
-        var marker = new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: position
-        });
-        this.addInfoWindow(marker, content);
-        return marker;
-    };
-    EnroutePage.prototype.addInfoWindow = function (marker, content) {
-        var _this = this;
-        var infoWindow = new google.maps.InfoWindow({
-            content: content
-        });
-        google.maps.event.addListener(marker, 'click', function () {
-            infoWindow.open(_this.map, marker);
-        });
-    };
-    return EnroutePage;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('map'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _a || Object)
-], EnroutePage.prototype, "mapElement", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _b || Object)
-], EnroutePage.prototype, "searchbar", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar1', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
-    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _c || Object)
-], EnroutePage.prototype, "searchbar1", void 0);
-EnroutePage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
-        selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <div class="map">\n      \n    <ion-searchbar #searchbar1  placeholder="Enter Location:"></ion-searchbar>\n  <ion-item></ion-item>\n    <ion-searchbar #searchbar placeholder="Enter Destination:"></ion-searchbar>\n  <div id="map" #map></div>\n</div>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
-    }),
-    __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _o || Object])
-], EnroutePage);
-
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
-//# sourceMappingURL=enroute.js.map
-
-/***/ }),
-
-/***/ 112:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HelpPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
@@ -739,6 +239,225 @@ HelpPage = __decorate([
 ], HelpPage);
 
 //# sourceMappingURL=help.js.map
+
+/***/ }),
+
+/***/ 112:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NearbyPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(32);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+/**
+ * Generated class for the NearbyPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var NearbyPage = (function () {
+    function NearbyPage(loadingCtrl, toastCtrl, app, nav, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation, navCtrl, http) {
+        this.loadingCtrl = loadingCtrl;
+        this.toastCtrl = toastCtrl;
+        this.app = app;
+        this.nav = nav;
+        this.zone = zone;
+        this.platform = platform;
+        this.alertCtrl = alertCtrl;
+        this.storage = storage;
+        this.actionSheetCtrl = actionSheetCtrl;
+        this.geolocation = geolocation;
+        this.navCtrl = navCtrl;
+        this.http = http;
+        this.listSearch = '';
+        this.radius = 1000;
+        this.search = false;
+        this.switch = "map";
+        this.responseData = [];
+        this.regionals = [];
+    }
+    NearbyPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        console.log('ionViewDidLoad NearbyPage');
+        this.platform.ready().then(function () { return _this.loadMaps(); });
+    };
+    NearbyPage.prototype.openPackageDetailsPage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__["a" /* PackagedetailPage */]);
+    };
+    NearbyPage.prototype.viewPlace = function (id) {
+        console.log('Clicked Marker', id);
+    };
+    NearbyPage.prototype.loadMaps = function () {
+        if (!!google) {
+            this.initializeMap();
+        }
+        /*
+              console.log('The Source'+this.Source);
+              console.log('The Destination'+this.Destination);
+              let distance=google.maps.geometry.spherical.computeDistanceBetween(this.Source,this.Destination);
+              console.log('distance',distance);
+          */
+    };
+    NearbyPage.prototype.reload = function () {
+        var _this = this;
+        if (Number.isInteger(parseInt(this.rad))) {
+            this.loading = this.loadingCtrl.create({
+                spinner: 'bubbles',
+                content: 'Reloading...',
+            });
+            this.loading.present();
+            this.radius = (this.rad * 1000);
+            this.markers.setMap(null);
+            this.cityCircle.setMap(null);
+            this.getCurrentPosition();
+            var Userdata = {
+                'Lat': this.currentLat,
+                'Long': this.currentLong,
+            };
+            this.http.get('http://localhost:5000/nearbypackages?Lat=' + this.currentLat + '&Long=' + this.currentLong + '&Radius=' + this.rad).map(function (res) { return res.json(); }).subscribe(function (response) {
+                // let responseData = data;
+                // console.log(responseData.Error);
+                // this.loading.dismissAll();
+                // if (responseData.Error != "none") {
+                //   this.presentErrorAlert(responseData.Error);
+                // }
+                // else{
+                // }
+                for (var i = 0; i < response.content.length; i++) {
+                    _this.responseData.push(response.content[i]);
+                }
+            }, function (err) {
+                console.log('error');
+            });
+            this.loading.dismiss();
+        }
+        else {
+            this.presentErrorAlert("Enter a number");
+        }
+    };
+    NearbyPage.prototype.presentErrorAlert = function (text) {
+        var alert = this.alertCtrl.create({
+            title: 'Wrong input',
+            subTitle: text,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
+    NearbyPage.prototype.initializeMap = function () {
+        var _this = this;
+        this.zone.run(function () {
+            var mapEle = _this.mapElement.nativeElement;
+            _this.map = new google.maps.Map(mapEle, {
+                zoom: 12,
+                center: { lat: 31.5360264, lng: 74.4069842 },
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
+                disableDoubleClickZoom: false,
+                disableDefaultUI: true,
+                zoomControl: true,
+                scaleControl: true,
+            });
+            _this.getCurrentPosition();
+        });
+    };
+    //Center zoom
+    //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
+    // go show currrent location
+    NearbyPage.prototype.getCurrentPosition = function () {
+        var _this = this;
+        this.geolocation.getCurrentPosition().then(function (position) {
+            console.log("hello" + position.coords.latitude, position.coords.longitude);
+            _this.currentLat = position.coords.latitude;
+            _this.currentLong = position.coords.longitude;
+            var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var options = {
+                center: myPos,
+                zoom: 12
+            };
+            _this.map.setOptions(options);
+            _this.markers = _this.addMarker(myPos, "I am Here!");
+            _this.cityCircle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: _this.map,
+                center: myPos,
+                radius: _this.radius,
+            });
+        }, function (error) {
+            console.log(error);
+        });
+    };
+    NearbyPage.prototype.addMarker = function (position, content) {
+        var marker = new google.maps.Marker({
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+            position: position
+        });
+        this.addInfoWindow(marker, content);
+        return marker;
+    };
+    NearbyPage.prototype.addInfoWindow = function (marker, content) {
+        var _this = this;
+        var infoWindow = new google.maps.InfoWindow({
+            content: content
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.open(_this.map, marker);
+        });
+    };
+    return NearbyPage;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('map'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
+], NearbyPage.prototype, "mapElement", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('distanceInput'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
+], NearbyPage.prototype, "inputElement", void 0);
+NearbyPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
+        selector: 'page-nearby',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/'<!--\n    Generated template for the AllPackagesPage page.\n\n    See http://ionicframework.com/docs/components/#navigation for more info on\n    Ionic pages and navigation.\n    \n  -->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-card id="map" #map></ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-9>\n        <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default)" type="text"></ion-input>\n      </ion-col>\n      <ion-col col-3>\n        <button id="goButton" (click)="reload()" ion-button>GO!</button>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  <ion-card id="divider"></ion-card>\n    <ion-card *ngFor="let item of responseData, let i= index">\n\n      <img src="assets/imgs/advance-card-map-madison.png">\n      <ion-fab right top>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n\n      <ion-item>\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2>To:</h2>\n        <p>{{item.PickAddress}}</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2>From:</h2>\n        <p>{{item.DestAddress}}</p>\n      </ion-item>\n\n      <ion-row>\n        <ion-col col-4>\n          <ion-item>\n            <h2></h2>\n            <p>RS:2500</p>\n          </ion-item>\n        </ion-col>\n        <ion-col col-4>\n          <ion-item>\n            <h2>Package Size:</h2>\n            <p>{{item.PackageSize}}</p>\n          </ion-item>\n        </ion-col>\n        <ion-col col-4>\n          <ion-item>\n            <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n            <p>{{item.TransportType}}</p>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        Accept\n      </button>\n    </ion-card>\n\n\n\n\n\n  </ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* App */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* ActionSheetController */],
+        __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Http */]])
+], NearbyPage);
+
+//# sourceMappingURL=nearby.js.map
 
 /***/ }),
 
@@ -1572,9 +1291,9 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_list_list__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file__ = __webpack_require__(169);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_transfer__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_file_path__ = __webpack_require__(171);
@@ -1586,7 +1305,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_all_packages_all_packages__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_enqueue_enqueue__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_notifications_notifications__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_help_help__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_help_help__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_login_login__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_geolocation__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_fcm__ = __webpack_require__(86);
@@ -1719,12 +1438,12 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__ = __webpack_require__(215);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_enroute_enroute__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_enroute_enroute__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_pending_requests_pending_requests__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_profile_profile__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_enqueue_enqueue__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_notifications_notifications__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_help_help__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_help_help__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_login_login__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_storage__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1799,15 +1518,15 @@ var MyApp = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Nav */]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Nav */]) === "function" && _a || Object)
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Nav */])
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"Y:\Angular\Transporter\src\app\app.html"*/'<ion-menu swipeEnable="true" [content]="content">\n    <ion-header class="themeblue">\n        <ion-item class="themeblue" no-lines>\n            <ion-row>\n                <ion-col col-6>\n                    <ion-avatar item-start>\n                        <img src="assets/imgs/Borough-market.jpg">\n                    </ion-avatar>\n                </ion-col>\n                <ion-col align-self-center col-6>\n                    <h2 class="textcol">{{Name}}</h2>\n                    <button class="buttontheme" ion-button icon-left menuClose (click)="openProfile()">\n                        <ion-icon name="person"></ion-icon>Profile\n                    </button>\n                </ion-col>\n            </ion-row>\n        </ion-item>\n\n    </ion-header>\n    <ion-content class="buttontheme">\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="ios-home"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[0])">\n                    All Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="bookmarks"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[1])">\n                    Pending Requests\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="calendar"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[2])">\n                    Enqueue Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="chatbubbles"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">\n                    Notifications\n                </button>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="help-circle"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">\n                    Help\n                </button>\n            </ion-col>\n        </ion-row>\n\n\n        <ion-footer class="themeblue">\n            <button ion-button full ion-button class="buttontheme" menuToggle (click)="logout()">\n                Log Out\n            </button>\n        </ion-footer>\n    </ion-content>\n</ion-menu>\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"Y:\Angular\Transporter\src\app\app.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_12__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12__ionic_storage__["b" /* Storage */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */],
+        __WEBPACK_IMPORTED_MODULE_12__ionic_storage__["b" /* Storage */]])
 ], MyApp);
 
-var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -1920,8 +1639,8 @@ PackagedetailPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__all_packages_all_packages__ = __webpack_require__(108);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1971,12 +1690,13 @@ HomePage = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NearbyPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(84);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnroutePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1994,102 +1714,179 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 /**
- * Generated class for the NearbyPage page.
+ * Generated class for the EnroutePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var NearbyPage = (function () {
-    function NearbyPage(loadingCtrl, toastCtrl, app, nav, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation, navCtrl, http) {
+var EnroutePage = (function () {
+    function EnroutePage(loadingCtrl, toastCtrl, app, navCtrl, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation) {
+        var _this = this;
         this.loadingCtrl = loadingCtrl;
         this.toastCtrl = toastCtrl;
         this.app = app;
-        this.nav = nav;
+        this.navCtrl = navCtrl;
         this.zone = zone;
         this.platform = platform;
         this.alertCtrl = alertCtrl;
         this.storage = storage;
         this.actionSheetCtrl = actionSheetCtrl;
         this.geolocation = geolocation;
-        this.navCtrl = navCtrl;
-        this.http = http;
+        this.addressElement = null;
+        this.addressElement1 = null;
+        this.Source = null;
+        this.Destination = null;
         this.listSearch = '';
-        this.radius = 1000;
         this.search = false;
         this.switch = "map";
-        this.responseData = [];
         this.regionals = [];
-    }
-    NearbyPage.prototype.ionViewDidLoad = function () {
-        var _this = this;
-        console.log('ionViewDidLoad NearbyPage');
         this.platform.ready().then(function () { return _this.loadMaps(); });
+    }
+    EnroutePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad EnroutePage');
     };
-    NearbyPage.prototype.openPackageDetailsPage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__["a" /* PackagedetailPage */]);
+    EnroutePage.prototype.openPackageDetailsPage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__["a" /* PackagedetailPage */]);
     };
-    NearbyPage.prototype.viewPlace = function (id) {
+    EnroutePage.prototype.viewPlace = function (id) {
         console.log('Clicked Marker', id);
     };
-    NearbyPage.prototype.loadMaps = function () {
+    EnroutePage.prototype.loadMaps = function () {
         if (!!google) {
             this.initializeMap();
-        }
-        /*
-              console.log('The Source'+this.Source);
-              console.log('The Destination'+this.Destination);
-              let distance=google.maps.geometry.spherical.computeDistanceBetween(this.Source,this.Destination);
-              console.log('distance',distance);
-          */
-    };
-    NearbyPage.prototype.reload = function () {
-        var _this = this;
-        if (Number.isInteger(parseInt(this.rad))) {
-            this.loading = this.loadingCtrl.create({
-                spinner: 'bubbles',
-                content: 'Reloading...',
-            });
-            this.loading.present();
-            this.radius = (this.rad * 1000);
-            this.markers.setMap(null);
-            this.cityCircle.setMap(null);
-            this.getCurrentPosition();
-            var Userdata = {
-                'Lat': this.currentLat,
-                'Long': this.currentLong,
-            };
-            this.http.get('http://localhost:5000/nearbypackages?Lat=' + this.currentLat + '&Long=' + this.currentLong + '&Radius=' + this.rad).map(function (res) { return res.json(); }).subscribe(function (response) {
-                // let responseData = data;
-                // console.log(responseData.Error);
-                // this.loading.dismissAll();
-                // if (responseData.Error != "none") {
-                //   this.presentErrorAlert(responseData.Error);
-                // }
-                // else{
-                // }
-                for (var i = 0; i < response.content.length; i++) {
-                    _this.responseData.push(response.content[i]);
-                }
-            }, function (err) {
-                console.log('error');
-            });
-            this.loading.dismiss();
+            this.initAutocomplete();
         }
         else {
-            this.presentErrorAlert("Enter a number");
+            this.errorAlert('Error', 'Something went wrong with the Internet Connection. Please check your Internet.');
         }
     };
-    NearbyPage.prototype.presentErrorAlert = function (text) {
+    EnroutePage.prototype.errorAlert = function (title, message) {
+        var _this = this;
         var alert = this.alertCtrl.create({
-            title: 'Wrong input',
-            subTitle: text,
-            buttons: ['Dismiss']
+            title: title,
+            message: message,
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: function (data) {
+                        _this.loadMaps();
+                    }
+                }
+            ]
         });
         alert.present();
     };
-    NearbyPage.prototype.initializeMap = function () {
+    EnroutePage.prototype.mapsSearchBar = function (ev) {
+        // set input to the value of the searchbar
+        //this.search = ev.target.value;
+        //    console.log(ev);
+        var autocomplete = new google.maps.places.Autocomplete(ev);
+        autocomplete.bindTo('bounds', this.map);
+        return new __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"](function (sub) {
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    sub.error({
+                        message: 'Autocomplete returned place with no geometry'
+                    });
+                }
+                else {
+                    sub.next(place.geometry.location);
+                    sub.complete();
+                }
+            });
+        });
+    };
+    EnroutePage.prototype.initAutocomplete = function () {
+        var _this = this;
+        this.addressElement1 = this.searchbar1.nativeElement.querySelector('.searchbar-input');
+        this.createAutocomplete(this.addressElement1).subscribe(function (location) {
+            console.log('First Search', location);
+            _this.Source = new google.maps.LatLng(location.lat(), location.lng());
+            var options = {
+                center: location,
+                zoom: 13
+            };
+            _this.map.setOptions(options);
+            _this.addMarker(location, "Searched");
+        });
+        this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+        this.createAutocomplete(this.addressElement).subscribe(function (location) {
+            console.log('Second Search', location);
+            _this.Destination = new google.maps.LatLng(location.lat(), location.lng());
+            var options = {
+                center: location,
+                zoom: 13
+            };
+            _this.map.setOptions(options);
+            _this.addMarker(location, "Searched");
+            _this.findPath();
+        });
+    };
+    EnroutePage.prototype.findPath = function () {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 9,
+            center: { lat: 41.85, lng: -87.65 }
+        });
+        directionsDisplay.setMap(map);
+        directionsService.route({
+            origin: this.Source,
+            destination: this.Destination,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            }
+            else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    };
+    EnroutePage.prototype.createAutocomplete = function (addressEl) {
+        var _this = this;
+        {
+            //  let locationOptions = { timeout: 10000, enableHighAccuracy: true };
+            this.geolocation.getCurrentPosition().then(function (position) {
+                console.log(position.coords.latitude, position.coords.longitude);
+                var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                //this.MyLocation= new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var options = {
+                    center: myPos,
+                    zoom: 13
+                };
+                _this.map.setOptions(options);
+                _this.addMarker(myPos, "I am Here!");
+            }, function (error) {
+                _this.loading.dismiss().then(function () {
+                    _this.showToast('Location not found. Please enable your GPS!');
+                    console.log(error);
+                });
+            });
+        }
+        var autocomplete = new google.maps.places.Autocomplete(addressEl);
+        autocomplete.bindTo('bounds', this.map);
+        return new __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"](function (sub) {
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    sub.error({
+                        message: 'Autocomplete returned place with no geometry'
+                    });
+                }
+                else {
+                    //console.log('Search', place.geometry.locat;
+                    console.log('Search Lat', place.geometry.location.lat());
+                    console.log('Search Lng', place.geometry.location.lng());
+                    sub.next(place.geometry.location);
+                    //sub.complete();
+                }
+            });
+        });
+    };
+    EnroutePage.prototype.initializeMap = function () {
         var _this = this;
         this.zone.run(function () {
             var mapEle = _this.mapElement.nativeElement;
@@ -2103,40 +1900,108 @@ var NearbyPage = (function () {
                 zoomControl: true,
                 scaleControl: true,
             });
-            _this.getCurrentPosition();
+            // this.getCurrentPosition();
         });
     };
     //Center zoom
     //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
-    // go show currrent location
-    NearbyPage.prototype.getCurrentPosition = function () {
+    EnroutePage.prototype.bounceMap = function (markers) {
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < markers.length; i++) {
+            bounds.extend(markers[i].getPosition());
+        }
+        this.map.fitBounds(bounds);
+    };
+    EnroutePage.prototype.resizeMap = function () {
         var _this = this;
-        this.geolocation.getCurrentPosition().then(function (position) {
-            console.log("hello" + position.coords.latitude, position.coords.longitude);
-            _this.currentLat = position.coords.latitude;
-            _this.currentLong = position.coords.longitude;
-            var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            var options = {
-                center: myPos,
-                zoom: 12
-            };
-            _this.map.setOptions(options);
-            _this.markers = _this.addMarker(myPos, "I am Here!");
-            _this.cityCircle = new google.maps.Circle({
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35,
-                map: _this.map,
-                center: myPos,
-                radius: _this.radius,
+        setTimeout(function () {
+            google.maps.event.trigger(_this.map, 'resize');
+        }, 200);
+    };
+    /*
+      getCurrentPositionfromStorage(markers) {
+        this.storage.get('lastLocation').then((result) => {
+          if (result) {
+            let myPos = new google.maps.LatLng(result.lat, result.long);
+            this.map.setOptions({
+              center: myPos,
+              zoom: 16
+            });
+            let marker = this.addMarker(myPos, "My last saved Location: " + result.location);
+    
+            markers.push(marker);
+            this.bounceMap(markers);
+    
+            this.resizeMap();
+          }
+        });
+      }
+    */
+    EnroutePage.prototype.showToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000
+        });
+        toast.present();
+    };
+    // go show currrent location
+    EnroutePage.prototype.getCurrentPosition = function () {
+        var _this = this;
+        this.loading = this.loadingCtrl.create({
+            content: 'Searching Location ...'
+        });
+        this.loading.present();
+        var locationOptions = { timeout: 10000, enableHighAccuracy: true };
+        this.geolocation.getCurrentPosition(locationOptions).then(function (position) {
+            _this.loading.dismiss().then(function () {
+                _this.showToast('Location found!');
+                console.log(position.coords.latitude, position.coords.longitude);
+                var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var options = {
+                    center: myPos,
+                    zoom: 12
+                };
+                _this.map.setOptions(options);
+                _this.addMarker(myPos, "I am Here!");
+                /*
+                          let alert = this.alertCtrl.create({
+                            title: 'Location',
+                            message: 'Do you want to save the Location?',
+                            buttons: [
+                              {
+                                text: 'Cancel'
+                              },
+                              {
+                                text: 'Save',
+                                handler: data => {
+                                  let lastLocation = { lat: position.coords.latitude, long: position.coords.longitude };
+                                  console.log(lastLocation);
+                                  this.storage.set('lastLocation', lastLocation).then(() => {
+                                    this.showToast('Location saved');
+                                  });
+                                }
+                              }
+                            ]
+                          });
+                          alert.present();
+                */
             });
         }, function (error) {
-            console.log(error);
+            _this.loading.dismiss().then(function () {
+                _this.showToast('Location not found. Please enable your GPS!');
+                console.log(error);
+            });
         });
     };
-    NearbyPage.prototype.addMarker = function (position, content) {
+    EnroutePage.prototype.toggleSearch = function () {
+        if (this.search) {
+            this.search = false;
+        }
+        else {
+            this.search = true;
+        }
+    };
+    EnroutePage.prototype.addMarker = function (position, content) {
         var marker = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
@@ -2145,7 +2010,7 @@ var NearbyPage = (function () {
         this.addInfoWindow(marker, content);
         return marker;
     };
-    NearbyPage.prototype.addInfoWindow = function (marker, content) {
+    EnroutePage.prototype.addInfoWindow = function (marker, content) {
         var _this = this;
         var infoWindow = new google.maps.InfoWindow({
             content: content
@@ -2154,35 +2019,29 @@ var NearbyPage = (function () {
             infoWindow.open(_this.map, marker);
         });
     };
-    return NearbyPage;
+    return EnroutePage;
 }());
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('map'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
-], NearbyPage.prototype, "mapElement", void 0);
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('map'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _a || Object)
+], EnroutePage.prototype, "mapElement", void 0);
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('distanceInput'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
-], NearbyPage.prototype, "inputElement", void 0);
-NearbyPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-nearby',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/'<!--\n    Generated template for the AllPackagesPage page.\n\n    See http://ionicframework.com/docs/components/#navigation for more info on\n    Ionic pages and navigation.\n    \n  -->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-card id="map" #map></ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-9>\n        <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default)" type="text"></ion-input>\n      </ion-col>\n      <ion-col col-3>\n        <button id="goButton" (click)="reload()" ion-button>GO!</button>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  <ion-card id="divider"></ion-card>\n    <ion-card *ngFor="let item of responseData, let i= index">\n\n      <img src="assets/imgs/advance-card-map-madison.png">\n      <ion-fab right top>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n\n      <ion-item>\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2>To:</h2>\n        <p>{{item.PickAddress}}</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2>From:</h2>\n        <p>{{item.DestAddress}}</p>\n      </ion-item>\n\n      <ion-row>\n        <ion-col col-4>\n          <ion-item>\n            <h2></h2>\n            <p>RS:2500</p>\n          </ion-item>\n        </ion-col>\n        <ion-col col-4>\n          <ion-item>\n            <h2>Package Size:</h2>\n            <p>{{item.PackageSize}}</p>\n          </ion-item>\n        </ion-col>\n        <ion-col col-4>\n          <ion-item>\n            <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n            <p>{{item.TransportType}}</p>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        Accept\n      </button>\n    </ion-card>\n\n\n\n\n\n  </ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _b || Object)
+], EnroutePage.prototype, "searchbar", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar1', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
+    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _c || Object)
+], EnroutePage.prototype, "searchbar1", void 0);
+EnroutePage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
+        selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-row>\n  <div class="map">\n      \n    <ion-searchbar #searchbar1  placeholder="Enter Location:"></ion-searchbar>\n    <ion-item></ion-item>\n    <ion-searchbar #searchbar placeholder="Enter Destination:"></ion-searchbar>\n  <div id="map" #map></div>\n</div>\n</ion-row>\n<ion-item></ion-item>\n<ion-row>\n<button ion-button (click)=findPath()>Find Path</button>\n</ion-row>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* App */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* ActionSheetController */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Http */]])
-], NearbyPage);
+    __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _o || Object])
+], EnroutePage);
 
-//# sourceMappingURL=nearby.js.map
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+//# sourceMappingURL=enroute.js.map
 
 /***/ })
 
