@@ -10,3 +10,22 @@ page-packagedetail {
 .background1{
     background: color($colors, light);
 }
+.ioniconcolor1{
+    color : color($colors, themeblue);
+    font-size:20px;
+
+ }
+.ioniconcolor2{
+     color : color($colors, navbarcolor);
+  }
+  #mapdetail {
+    height: 70%;
+    top: 0;
+    left: 0;
+
+}
+
+
+#divider{
+    height:60%;
+}

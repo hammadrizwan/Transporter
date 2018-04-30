@@ -82,6 +82,9 @@ export class LoginPage {
         this.storage.set('ID', responseData.content[0].ID);
         this.storage.set('Rating', responseData.content[0].Rating);
         this.events.publish('user:loggedin',"yo");
+        console.log(this.storage.get('ID').then((val) => {
+          console.log('Your age is', val);
+        }));
         this.openPage(HomePage);
       }
     },

@@ -3,7 +3,7 @@ import { PackagedetailPage } from '../packagedetail/packagedetail';
 import { Component, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { ActionSheetController, AlertController, App, LoadingController, Platform, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
 
@@ -27,10 +27,10 @@ export class EnroutePage {
     console.log('ionViewDidLoad EnroutePage');
   }
 
-  openPackageDetailsPage(){
-    this.navCtrl.push(PackagedetailPage);
+  openPackageDetailsPage(i: any) {
+    this.navCtrl.push(PackagedetailPage, this.responseData[i]);
   }
-  @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('mapEnroute') mapElement: ElementRef;
 
   @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
   addressElement: HTMLInputElement = null;
@@ -39,7 +39,7 @@ export class EnroutePage {
   Source: any = null;
   Destination: any = null;
   MyLocation: any;
-
+  responseData = [];
   listSearch: string = '';
 
   map: any;
@@ -48,7 +48,7 @@ export class EnroutePage {
   search: boolean = false;
   error: any;
   switch: string = "map";
-
+  rad:any;
   regionals: any = [];
   currentregional: any;
 
@@ -62,16 +62,13 @@ export class EnroutePage {
     public alertCtrl: AlertController,
     public storage: Storage,
     public actionSheetCtrl: ActionSheetController,
-    public geolocation: Geolocation
+    public geolocation: Geolocation,
+    public http: Http,
   ) {
     this.platform.ready().then(() => this.loadMaps());
     
   }
 
-
-  viewPlace(id) {
-    console.log('Clicked Marker', id);
-  }
 
 
   loadMaps() {
@@ -148,16 +145,19 @@ export class EnroutePage {
       };
       this.map.setOptions(options);
       this.addMarker(location, "Searched");
-      this.findPath();
     });
   }
 
   findPath(){
     let directionsService = new google.maps.DirectionsService;
       let directionsDisplay = new google.maps.DirectionsRenderer;
-      const map = new google.maps.Map(document.getElementById('map'), {
+      this.loading = this.loadingCtrl.create({
+        spinner: 'bubbles',
+        content: 'Reloading...',
+      });
+      const map = new google.maps.Map(document.getElementById('mapEnroute'), {
         zoom: 9,
-        center: { lat: 41.85, lng: -87.65 }
+        center: { lat: 31.4826352, lng: 74.0712721 }
       });
       directionsDisplay.setMap(map);
       directionsService.route({
@@ -171,6 +171,53 @@ export class EnroutePage {
           window.alert('Directions request failed due to ' + status);
         }
       });
+      let cityCircle1 = new google.maps.Circle({
+        strokeColor: '#033860',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#2a4255',
+        fillOpacity: 0.35,
+        map: map,
+        center:this.Destination,
+        radius: 2000,
+      });
+      let cityCircle2 = new google.maps.Circle({
+        strokeColor: '#033860',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#2a4255',
+        fillOpacity: 0.35,
+        map: map,
+        center:this.Source,
+        radius: 2000,
+      });
+      
+      //this.loading.present();
+      this.rad=2000;
+      let Src=JSON.parse(JSON.stringify(this.Source));
+      let Des=JSON.parse(JSON.stringify(this.Destination));
+      let SourceLat=Src["lat"];
+      let SourceLng=Src["lng"];
+      let DestinationLat=Des["lat"];
+      let DestinationLng=Des["lng"];
+      console.log(SourceLat);
+      console.log(SourceLng);
+      console.log(DestinationLat);
+      console.log(DestinationLng);
+      this.responseData=[];
+      this.http.get('http://localhost:5000/enroutepackages?SourceLat=' +SourceLat + '&SourceLng=' + SourceLng + 
+      '&DestinationLat=' + DestinationLat +'&DestinationLng=' + DestinationLng + '&Radius=' + this.rad).map(res => res.json()).subscribe(response => {
+        console.log(response);
+        for (let i = 0; i < response.content.length; i++) {
+          this.responseData.push(response.content[i]);
+        
+        }
+      },
+        err => {
+          console.log('error');
+        });
+        //this.loading.dismiss();
+     
   }
 
   createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
@@ -192,10 +239,11 @@ export class EnroutePage {
          
         },
         (error) => {
-          this.loading.dismiss().then(() => {
-            this.showToast('Location not found. Please enable your GPS!');
-            console.log(error);
-          });
+          // this.loading.dismiss().then(() => {
+          //   this.showToast('Location not found. Please enable your GPS!');
+          //   console.log(error);
+          // });
+          console.log(error);
         }
       )
     }
@@ -225,7 +273,7 @@ export class EnroutePage {
       var mapEle = this.mapElement.nativeElement;
       this.map = new google.maps.Map(mapEle, {
         zoom: 12,
-        center: { lat: 31.5360264, lng: 74.4069842 },
+        center: { lat: 31.4826352, lng: 74.0712721 },
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
         disableDoubleClickZoom: false,
@@ -233,7 +281,7 @@ export class EnroutePage {
         zoomControl: true,
         scaleControl: true,
       });
-     // this.getCurrentPosition();
+     this.getCurrentPosition();
 
     });
   }
@@ -289,15 +337,13 @@ export class EnroutePage {
     this.loading = this.loadingCtrl.create({
       content: 'Searching Location ...'
     });
-    this.loading.present();
+    //this.loading.present();
 
-    let locationOptions = { timeout: 10000, enableHighAccuracy: true };
+    let locationOptions = { timeout: 10000 };
 
     this.geolocation.getCurrentPosition(locationOptions).then(
       (position) => {
-        this.loading.dismiss().then(() => {
-
-          this.showToast('Location found!');
+        
 
           console.log(position.coords.latitude, position.coords.longitude);
           let myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -308,38 +354,17 @@ export class EnroutePage {
           };
           this.map.setOptions(options);
           this.addMarker(myPos, "I am Here!");
-          /*
-                    let alert = this.alertCtrl.create({
-                      title: 'Location',
-                      message: 'Do you want to save the Location?',
-                      buttons: [
-                        {
-                          text: 'Cancel'
-                        },
-                        {
-                          text: 'Save',
-                          handler: data => {
-                            let lastLocation = { lat: position.coords.latitude, long: position.coords.longitude };
-                            console.log(lastLocation);
-                            this.storage.set('lastLocation', lastLocation).then(() => {
-                              this.showToast('Location saved');
-                            });
-                          }
-                        }
-                      ]
-                    });
-                    alert.present();
-          */
-        });
-      },
+          //this.loading.dismiss();
+        }),
       (error) => {
-        this.loading.dismiss().then(() => {
-          this.showToast('Location not found. Please enable your GPS!');
-
-          console.log(error);
-        });
+      //     this.loading.dismiss().then(() => {
+      //     this.showToast('Location not found. Please enable your GPS!');
+      //     this.loading.dismiss();
+      //     console.log(error);
+      //   });
+        console.log(error);
       }
-    )
+    
   }
 
   toggleSearch() {
@@ -370,6 +395,10 @@ export class EnroutePage {
       infoWindow.open(this.map, marker);
     });
   }
+  viewPlace(id) {
+    console.log('Clicked Marker', id);
+  }
+
 
 
 }

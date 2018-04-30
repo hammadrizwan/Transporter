@@ -9,6 +9,7 @@ import { AlertController } from 'ionic-angular';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+declare var google: any;
 
 @IonicPage()
 @Component({
@@ -34,7 +35,6 @@ export class AllPackagesPage {
       err => {
         console.log('error');
       });
-
   }
 
   ionViewDidLoad() {
@@ -42,7 +42,6 @@ export class AllPackagesPage {
   }
 
   openPackageDetailsPage(i: any) {
-    console.log(this.responseData[i]);
     this.navCtrl.push(PackagedetailPage, this.responseData[i]);
   }
   doInfinite(infiniteScroll){
@@ -52,7 +51,9 @@ export class AllPackagesPage {
       setTimeout(() => {
         this.http.get('http://localhost:5000/allpackages?skips=' + this.skips).map(res => res.json()).subscribe(response => {
           for (let i = 0; i < response.content.length; i++) {
-            this.responseData.push(response.content[i]);
+            let temp=JSON.parse(JSON.stringify(response.content[i]));
+            console.log(temp);
+            this.responseData.push(temp);
           }
           if (response.content == '') {
             console.log("End reached");
@@ -71,14 +72,16 @@ export class AllPackagesPage {
         console.log('Async operation has ended');
         infiniteScroll.complete();
       }, 300);
+      
   }
   presentErrorAlert(text) {
     let alert = this.alertCtrl.create({
-      title: 'Error',
+      title: 'Alert',
       subTitle: text,
       buttons: ['Dismiss']
     });
     alert.present();
   }
+  
 
 }

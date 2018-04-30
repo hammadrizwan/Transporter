@@ -16,7 +16,7 @@ import { Http } from '@angular/http';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  ID: number
+  ID: any;
   Name:any;
   ContantInfo:any;
   Rating:any;
@@ -28,11 +28,9 @@ export class ProfilePage {
   ,public http:Http) {
     this.storage.get('ID').then((val) => {
       this.ID=val;
-    });
-    this.ID=1;
-    console.log(this.ID);
     
-    this.http.get('http://localhost:5000/getransporterdata?ID='+this.ID).map(res => res.json()).subscribe(response => {
+    console.log('http://localhost:5000/getransporterdata?TransporterID='+this.ID);
+    this.http.get('http://localhost:5000/getransporterdata?TransporterID='+this.ID).map(res => res.json()).subscribe(response => {
       console.log(response.content);  
       this.Name=response.content[0].Name;
       console.log(this.Name);
@@ -49,6 +47,7 @@ export class ProfilePage {
         err => {
         console.log('error');
       });
+    });
 
 
 

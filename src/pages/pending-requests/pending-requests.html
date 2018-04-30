@@ -14,30 +14,31 @@
 </ion-header>
 
 <ion-content class="background1">
-  <ion-card (click)="openPackageDetailsPage()">
-    <ion-item>
-      <ion-icon name="football" item-start large></ion-icon>
-      <h2>To: Museum of Football</h2>
-      <p>11 N. Way St, Madison, WI 53703</p>
+  <ion-card *ngFor="let item of responseDataPending, let i= index">
+    <ion-fab right>
+      <button class="buttoncolor" ion-fab>
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-fab>
+    <img class="imagePackage" src="assets/imgs/advance-card-map-madison.png">
+    <ion-item >
+      <h2 >Name</h2>
+      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.PackageName}}/-</ion-note>
     </ion-item>
-    <ion-row>
-      <ion-col col-6>
-        <ion-item>
-          <ion-icon name="cash" item-left large></ion-icon>
-          <p>RS 2500</p>
-        </ion-item>
-      </ion-col>
-      <ion-col col-6>
-        <ion-item>
-          <ion-icon name="ios-open" item-left large></ion-icon>
-          <p>Small</p>
-        </ion-item>
-      </ion-col>
-      <ion-col col-4>
-      </ion-col>
-    </ion-row>
-    <button ion-button full class="buttonitem ">
-      Accept
+    <ion-item >
+      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
+      <h2 class="ioniconcolor1">To: {{item.DestAddress}}
+      </h2>
+    </ion-item >
+
+    <ion-item >
+      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>
+      <h2 class="ioniconcolor1">From: {{item.PickAddress}}
+      </h2>
+    </ion-item>
+
+    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">
+      View Details
     </button>
   </ion-card>
 

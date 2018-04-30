@@ -1,10 +1,10 @@
 page-nearby {
-}
+
 .buttonitem{
     padding:none;
-    font-size: 15px;
+    font-size: 12px;
     width:100%;
-    height:50px ;
+    height: 40px;
     background:color($colors,navbarcolor);
 }
 .background1{
@@ -18,19 +18,13 @@ page-nearby {
 }
 .ioniconcolor1{
     color : color($colors, themeblue);
+    font-size:20px;
  }
 .ioniconcolor2{
      color : color($colors, navbarcolor);
   }
-.maps{
-    height: 50%;
-    
-    padding:0px;
-
-        
-}
 #divider{
-    height:210px;
+    height:60%;
 }
 #distanceInput{
     margin:0px;
@@ -49,8 +43,8 @@ page-nearby {
     opacity: 1;
 }
     // map style
-    #map {
-        height: 50%;
+    #mapNearby {
+        height: 70%;
         top: 0;
         left: 0;
         position: absolute!important;
@@ -85,3 +79,4 @@ page-nearby {
             padding: 0;
         }
     }
+}

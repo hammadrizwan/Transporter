@@ -1,6 +1,6 @@
 webpackJsonp([13],{
 
-/***/ 108:
+/***/ 107:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ webpackJsonp([13],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(19);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -23,12 +23,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/**
- * Generated class for the AllPackagesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 var AllPackagesPage = (function () {
     function AllPackagesPage(navCtrl, navParams, http, alertCtrl) {
         var _this = this;
@@ -51,7 +45,6 @@ var AllPackagesPage = (function () {
         console.log('ionViewDidLoad AllPackagesPage');
     };
     AllPackagesPage.prototype.openPackageDetailsPage = function (i) {
-        console.log(this.responseData[i]);
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseData[i]);
     };
     AllPackagesPage.prototype.doInfinite = function (infiniteScroll) {
@@ -61,7 +54,9 @@ var AllPackagesPage = (function () {
         setTimeout(function () {
             _this.http.get('http://localhost:5000/allpackages?skips=' + _this.skips).map(function (res) { return res.json(); }).subscribe(function (response) {
                 for (var i = 0; i < response.content.length; i++) {
-                    _this.responseData.push(response.content[i]);
+                    var temp = JSON.parse(JSON.stringify(response.content[i]));
+                    console.log(temp);
+                    _this.responseData.push(temp);
                 }
                 if (response.content == '') {
                     console.log("End reached");
@@ -82,7 +77,7 @@ var AllPackagesPage = (function () {
     };
     AllPackagesPage.prototype.presentErrorAlert = function (text) {
         var alert = this.alertCtrl.create({
-            title: 'Error',
+            title: 'Alert',
             subTitle: text,
             buttons: ['Dismiss']
         });
@@ -92,24 +87,24 @@ var AllPackagesPage = (function () {
 }());
 AllPackagesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-all-packages',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-card *ngFor="let item of responseData, let i= index">\n\n    <img src="assets/imgs/advance-card-map-madison.png">\n    <ion-fab right top>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2>To:</h2>\n      <p>{{item.PickAddress}}</p>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2>From:</h2>\n      <p>{{item.DestAddress}}</p>\n    </ion-item>\n\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n          <h2></h2>\n          <p>RS:2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <h2>Package Size:</h2>\n          <p>{{item.PackageSize}}</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n          <p>{{item.TransportType}}</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      Accept\n    </button>\n\n\n  </ion-card>\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/,
+        selector: 'page-all-packages',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-card *ngFor="let item of responseData, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n      <img src="assets/imgs/advance-card-map-madison.png">\n\n  \n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2>To:</h2>\n      <p>{{item.PickAddress}}</p>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2>From:</h2>\n      <p>{{item.DestAddress}}</p>\n    </ion-item>\n\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n          <h2></h2>\n          <p>RS:2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <label>Package Size:</label>\n          <h2 ion-text>{{item.PackageSize}}</h2>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n          <p>{{item.TransportType}}</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      Accept\n    </button>\n\n\n  </ion-card> -->\n\n  <ion-card *ngFor="let item of responseData, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="assets/imgs/advance-card-map-madison.png">\n    <ion-item >\n      <h2 >Fare</h2>\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n    </ion-item>\n    <ion-item >\n      <h2 >Transport Type:</h2>\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n    </ion-item>\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item >\n\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n\n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _d || Object])
 ], AllPackagesPage);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=all-packages.js.map
 
 /***/ }),
 
-/***/ 109:
+/***/ 108:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnqueuePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enqueuedetails_enqueuedetails__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enqueuedetails_enqueuedetails__ = __webpack_require__(109);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -152,7 +147,7 @@ EnqueuePage = __decorate([
 
 /***/ }),
 
-/***/ 110:
+/***/ 109:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -194,6 +189,405 @@ EnqueuedetailsPage = __decorate([
 ], EnqueuedetailsPage);
 
 //# sourceMappingURL=enqueuedetails.js.map
+
+/***/ }),
+
+/***/ 110:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnroutePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(22);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+/**
+ * Generated class for the EnroutePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var EnroutePage = (function () {
+    function EnroutePage(loadingCtrl, toastCtrl, app, navCtrl, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation, http) {
+        var _this = this;
+        this.loadingCtrl = loadingCtrl;
+        this.toastCtrl = toastCtrl;
+        this.app = app;
+        this.navCtrl = navCtrl;
+        this.zone = zone;
+        this.platform = platform;
+        this.alertCtrl = alertCtrl;
+        this.storage = storage;
+        this.actionSheetCtrl = actionSheetCtrl;
+        this.geolocation = geolocation;
+        this.http = http;
+        this.addressElement = null;
+        this.addressElement1 = null;
+        this.Source = null;
+        this.Destination = null;
+        this.responseData = [];
+        this.listSearch = '';
+        this.search = false;
+        this.switch = "map";
+        this.regionals = [];
+        this.platform.ready().then(function () { return _this.loadMaps(); });
+    }
+    EnroutePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad EnroutePage');
+    };
+    EnroutePage.prototype.openPackageDetailsPage = function (i) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseData[i]);
+    };
+    EnroutePage.prototype.loadMaps = function () {
+        if (!!google) {
+            this.initializeMap();
+            this.initAutocomplete();
+        }
+        else {
+            this.errorAlert('Error', 'Something went wrong with the Internet Connection. Please check your Internet.');
+        }
+    };
+    EnroutePage.prototype.errorAlert = function (title, message) {
+        var _this = this;
+        var alert = this.alertCtrl.create({
+            title: title,
+            message: message,
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: function (data) {
+                        _this.loadMaps();
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    EnroutePage.prototype.mapsSearchBar = function (ev) {
+        // set input to the value of the searchbar
+        //this.search = ev.target.value;
+        //    console.log(ev);
+        var autocomplete = new google.maps.places.Autocomplete(ev);
+        autocomplete.bindTo('bounds', this.map);
+        return new __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"](function (sub) {
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    sub.error({
+                        message: 'Autocomplete returned place with no geometry'
+                    });
+                }
+                else {
+                    sub.next(place.geometry.location);
+                    sub.complete();
+                }
+            });
+        });
+    };
+    EnroutePage.prototype.initAutocomplete = function () {
+        var _this = this;
+        this.addressElement1 = this.searchbar1.nativeElement.querySelector('.searchbar-input');
+        this.createAutocomplete(this.addressElement1).subscribe(function (location) {
+            console.log('First Search', location);
+            _this.Source = new google.maps.LatLng(location.lat(), location.lng());
+            var options = {
+                center: location,
+                zoom: 13
+            };
+            _this.map.setOptions(options);
+            _this.addMarker(location, "Searched");
+        });
+        this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+        this.createAutocomplete(this.addressElement).subscribe(function (location) {
+            console.log('Second Search', location);
+            _this.Destination = new google.maps.LatLng(location.lat(), location.lng());
+            var options = {
+                center: location,
+                zoom: 13
+            };
+            _this.map.setOptions(options);
+            _this.addMarker(location, "Searched");
+        });
+    };
+    EnroutePage.prototype.findPath = function () {
+        var _this = this;
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        this.loading = this.loadingCtrl.create({
+            spinner: 'bubbles',
+            content: 'Reloading...',
+        });
+        var map = new google.maps.Map(document.getElementById('mapEnroute'), {
+            zoom: 9,
+            center: { lat: 31.4826352, lng: 74.0712721 }
+        });
+        directionsDisplay.setMap(map);
+        directionsService.route({
+            origin: this.Source,
+            destination: this.Destination,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            }
+            else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+        var cityCircle1 = new google.maps.Circle({
+            strokeColor: '#033860',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#2a4255',
+            fillOpacity: 0.35,
+            map: map,
+            center: this.Destination,
+            radius: 2000,
+        });
+        var cityCircle2 = new google.maps.Circle({
+            strokeColor: '#033860',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#2a4255',
+            fillOpacity: 0.35,
+            map: map,
+            center: this.Source,
+            radius: 2000,
+        });
+        //this.loading.present();
+        this.rad = 2000;
+        var Src = JSON.parse(JSON.stringify(this.Source));
+        var Des = JSON.parse(JSON.stringify(this.Destination));
+        var SourceLat = Src["lat"];
+        var SourceLng = Src["lng"];
+        var DestinationLat = Des["lat"];
+        var DestinationLng = Des["lng"];
+        console.log(SourceLat);
+        console.log(SourceLng);
+        console.log(DestinationLat);
+        console.log(DestinationLng);
+        this.responseData = [];
+        this.http.get('http://localhost:5000/enroutepackages?SourceLat=' + SourceLat + '&SourceLng=' + SourceLng +
+            '&DestinationLat=' + DestinationLat + '&DestinationLng=' + DestinationLng + '&Radius=' + this.rad).map(function (res) { return res.json(); }).subscribe(function (response) {
+            console.log(response);
+            for (var i = 0; i < response.content.length; i++) {
+                _this.responseData.push(response.content[i]);
+            }
+        }, function (err) {
+            console.log('error');
+        });
+        //this.loading.dismiss();
+    };
+    EnroutePage.prototype.createAutocomplete = function (addressEl) {
+        var _this = this;
+        {
+            //  let locationOptions = { timeout: 10000, enableHighAccuracy: true };
+            this.geolocation.getCurrentPosition().then(function (position) {
+                console.log(position.coords.latitude, position.coords.longitude);
+                var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                //this.MyLocation= new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var options = {
+                    center: myPos,
+                    zoom: 13
+                };
+                _this.map.setOptions(options);
+                _this.addMarker(myPos, "I am Here!");
+            }, function (error) {
+                // this.loading.dismiss().then(() => {
+                //   this.showToast('Location not found. Please enable your GPS!');
+                //   console.log(error);
+                // });
+                console.log(error);
+            });
+        }
+        var autocomplete = new google.maps.places.Autocomplete(addressEl);
+        autocomplete.bindTo('bounds', this.map);
+        return new __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"](function (sub) {
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    sub.error({
+                        message: 'Autocomplete returned place with no geometry'
+                    });
+                }
+                else {
+                    //console.log('Search', place.geometry.locat;
+                    console.log('Search Lat', place.geometry.location.lat());
+                    console.log('Search Lng', place.geometry.location.lng());
+                    sub.next(place.geometry.location);
+                    //sub.complete();
+                }
+            });
+        });
+    };
+    EnroutePage.prototype.initializeMap = function () {
+        var _this = this;
+        this.zone.run(function () {
+            var mapEle = _this.mapElement.nativeElement;
+            _this.map = new google.maps.Map(mapEle, {
+                zoom: 12,
+                center: { lat: 31.4826352, lng: 74.0712721 },
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
+                disableDoubleClickZoom: false,
+                disableDefaultUI: true,
+                zoomControl: true,
+                scaleControl: true,
+            });
+            _this.getCurrentPosition();
+        });
+    };
+    //Center zoom
+    //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
+    EnroutePage.prototype.bounceMap = function (markers) {
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < markers.length; i++) {
+            bounds.extend(markers[i].getPosition());
+        }
+        this.map.fitBounds(bounds);
+    };
+    EnroutePage.prototype.resizeMap = function () {
+        var _this = this;
+        setTimeout(function () {
+            google.maps.event.trigger(_this.map, 'resize');
+        }, 200);
+    };
+    /*
+      getCurrentPositionfromStorage(markers) {
+        this.storage.get('lastLocation').then((result) => {
+          if (result) {
+            let myPos = new google.maps.LatLng(result.lat, result.long);
+            this.map.setOptions({
+              center: myPos,
+              zoom: 16
+            });
+            let marker = this.addMarker(myPos, "My last saved Location: " + result.location);
+    
+            markers.push(marker);
+            this.bounceMap(markers);
+    
+            this.resizeMap();
+          }
+        });
+      }
+    */
+    EnroutePage.prototype.showToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000
+        });
+        toast.present();
+    };
+    // go show currrent location
+    EnroutePage.prototype.getCurrentPosition = function () {
+        var _this = this;
+        this.loading = this.loadingCtrl.create({
+            content: 'Searching Location ...'
+        });
+        //this.loading.present();
+        var locationOptions = { timeout: 10000 };
+        this.geolocation.getCurrentPosition(locationOptions).then(function (position) {
+            console.log(position.coords.latitude, position.coords.longitude);
+            var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var options = {
+                center: myPos,
+                zoom: 12
+            };
+            _this.map.setOptions(options);
+            _this.addMarker(myPos, "I am Here!");
+            //this.loading.dismiss();
+        }),
+            function (error) {
+                //     this.loading.dismiss().then(() => {
+                //     this.showToast('Location not found. Please enable your GPS!');
+                //     this.loading.dismiss();
+                //     console.log(error);
+                //   });
+                console.log(error);
+            };
+    };
+    EnroutePage.prototype.toggleSearch = function () {
+        if (this.search) {
+            this.search = false;
+        }
+        else {
+            this.search = true;
+        }
+    };
+    EnroutePage.prototype.addMarker = function (position, content) {
+        var marker = new google.maps.Marker({
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+            position: position
+        });
+        this.addInfoWindow(marker, content);
+        return marker;
+    };
+    EnroutePage.prototype.addInfoWindow = function (marker, content) {
+        var _this = this;
+        var infoWindow = new google.maps.InfoWindow({
+            content: content
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.open(_this.map, marker);
+        });
+    };
+    EnroutePage.prototype.viewPlace = function (id) {
+        console.log('Clicked Marker', id);
+    };
+    return EnroutePage;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('mapEnroute'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
+], EnroutePage.prototype, "mapElement", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
+], EnroutePage.prototype, "searchbar", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar1', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
+], EnroutePage.prototype, "searchbar1", void 0);
+EnroutePage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
+        selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  \n  <ion-card class="map">\n      \n    <ion-searchbar class="searchbars" #searchbar1  placeholder="Enter Location:"></ion-searchbar>\n    <ion-item></ion-item>\n    <ion-searchbar class="searchbars" #searchbar placeholder="Enter Destination:"></ion-searchbar>\n  <ion-card id="mapEnroute" #mapEnroute></ion-card>\n\n\n\n\n<button id="buttonSearch" ion-button (click)=findPath()>Find Path</button>\n  </ion-card>\n  <ion-card id="divider"></ion-card>\n \n\n  \n  <ion-card *ngFor="let item of responseData, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <img class="imagePackage" src="assets/imgs/advance-card-map-madison.png">\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
+        __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]])
+], EnroutePage);
+
+//# sourceMappingURL=enroute.js.map
 
 /***/ }),
 
@@ -247,12 +641,12 @@ HelpPage = __decorate([
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NearbyPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -302,8 +696,8 @@ var NearbyPage = (function () {
         console.log('ionViewDidLoad NearbyPage');
         this.platform.ready().then(function () { return _this.loadMaps(); });
     };
-    NearbyPage.prototype.openPackageDetailsPage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__["a" /* PackagedetailPage */]);
+    NearbyPage.prototype.openPackageDetailsPage = function (i) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseData[i]);
     };
     NearbyPage.prototype.viewPlace = function (id) {
         console.log('Clicked Marker', id);
@@ -326,31 +720,23 @@ var NearbyPage = (function () {
                 spinner: 'bubbles',
                 content: 'Reloading...',
             });
-            this.loading.present();
+            // this.loading.present();
             this.radius = (this.rad * 1000);
-            this.markers.setMap(null);
-            this.cityCircle.setMap(null);
-            this.getCurrentPosition();
-            var Userdata = {
-                'Lat': this.currentLat,
-                'Long': this.currentLong,
-            };
+            if (this.markers != null) {
+                this.markers.setMap(null);
+                this.cityCircle.setMap(null);
+            }
+            this.getCurrentPositions();
+            // this.loading.dismissAll();
+            this.responseData = [];
             this.http.get('http://localhost:5000/nearbypackages?Lat=' + this.currentLat + '&Long=' + this.currentLong + '&Radius=' + this.rad).map(function (res) { return res.json(); }).subscribe(function (response) {
-                // let responseData = data;
-                // console.log(responseData.Error);
-                // this.loading.dismissAll();
-                // if (responseData.Error != "none") {
-                //   this.presentErrorAlert(responseData.Error);
-                // }
-                // else{
-                // }
                 for (var i = 0; i < response.content.length; i++) {
                     _this.responseData.push(response.content[i]);
                 }
+                // this.loading.dismiss();
             }, function (err) {
                 console.log('error');
             });
-            this.loading.dismiss();
         }
         else {
             this.presentErrorAlert("Enter a number");
@@ -360,7 +746,7 @@ var NearbyPage = (function () {
         var alert = this.alertCtrl.create({
             title: 'Wrong input',
             subTitle: text,
-            buttons: ['Dismiss']
+            buttons: ['Dismiss'],
         });
         alert.present();
     };
@@ -370,7 +756,7 @@ var NearbyPage = (function () {
             var mapEle = _this.mapElement.nativeElement;
             _this.map = new google.maps.Map(mapEle, {
                 zoom: 12,
-                center: { lat: 31.5360264, lng: 74.4069842 },
+                center: { lat: 31.4826352, lng: 74.0712721 },
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
                 disableDoubleClickZoom: false,
@@ -378,13 +764,13 @@ var NearbyPage = (function () {
                 zoomControl: true,
                 scaleControl: true,
             });
-            _this.getCurrentPosition();
+            _this.getCurrentPositions();
         });
     };
     //Center zoom
     //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
     // go show currrent location
-    NearbyPage.prototype.getCurrentPosition = function () {
+    NearbyPage.prototype.getCurrentPositions = function () {
         var _this = this;
         this.geolocation.getCurrentPosition().then(function (position) {
             console.log("hello" + position.coords.latitude, position.coords.longitude);
@@ -398,10 +784,10 @@ var NearbyPage = (function () {
             _this.map.setOptions(options);
             _this.markers = _this.addMarker(myPos, "I am Here!");
             _this.cityCircle = new google.maps.Circle({
-                strokeColor: '#FF0000',
+                strokeColor: '#033860',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: '#FF0000',
+                fillColor: '#2a4255',
                 fillOpacity: 0.35,
                 map: _this.map,
                 center: myPos,
@@ -410,6 +796,13 @@ var NearbyPage = (function () {
         }, function (error) {
             console.log(error);
         });
+    };
+    NearbyPage.prototype.showToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000
+        });
+        toast.present();
     };
     NearbyPage.prototype.addMarker = function (position, content) {
         var marker = new google.maps.Marker({
@@ -432,7 +825,7 @@ var NearbyPage = (function () {
     return NearbyPage;
 }());
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('map'),
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('mapNearby'),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
 ], NearbyPage.prototype, "mapElement", void 0);
 __decorate([
@@ -441,7 +834,7 @@ __decorate([
 ], NearbyPage.prototype, "inputElement", void 0);
 NearbyPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-nearby',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/'<!--\n    Generated template for the AllPackagesPage page.\n\n    See http://ionicframework.com/docs/components/#navigation for more info on\n    Ionic pages and navigation.\n    \n  -->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-card id="map" #map></ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-9>\n        <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default)" type="text"></ion-input>\n      </ion-col>\n      <ion-col col-3>\n        <button id="goButton" (click)="reload()" ion-button>GO!</button>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  <ion-card id="divider"></ion-card>\n    <ion-card *ngFor="let item of responseData, let i= index">\n\n      <img src="assets/imgs/advance-card-map-madison.png">\n      <ion-fab right top>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n\n      <ion-item>\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2>To:</h2>\n        <p>{{item.PickAddress}}</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2>From:</h2>\n        <p>{{item.DestAddress}}</p>\n      </ion-item>\n\n      <ion-row>\n        <ion-col col-4>\n          <ion-item>\n            <h2></h2>\n            <p>RS:2500</p>\n          </ion-item>\n        </ion-col>\n        <ion-col col-4>\n          <ion-item>\n            <h2>Package Size:</h2>\n            <p>{{item.PackageSize}}</p>\n          </ion-item>\n        </ion-col>\n        <ion-col col-4>\n          <ion-item>\n            <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n            <p>{{item.TransportType}}</p>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        Accept\n      </button>\n    </ion-card>\n\n\n\n\n\n  </ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/,
+        selector: 'page-nearby',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/'<!--\n    Generated template for the AllPackagesPage page.\n\n    See http://ionicframework.com/docs/components/#navigation for more info on\n    Ionic pages and navigation.\n    \n  -->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-card id="mapNearby" #mapNearby></ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-9>\n        <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default)" type="text"></ion-input>\n      </ion-col>\n      <ion-col col-3>\n        <button id="goButton" (click)="reload()" ion-button>GO!</button>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  \n  <ion-card id="divider"></ion-card>\n\n\n  <ion-card *ngFor="let item of responseData, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <img class="imagePackage" src="assets/imgs/advance-card-map-madison.png">\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>  \n  </ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ToastController */],
@@ -471,12 +864,12 @@ NearbyPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_timeout__ = __webpack_require__(174);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_timeout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -560,6 +953,9 @@ var LoginPage = (function () {
                 _this.storage.set('ID', responseData.content[0].ID);
                 _this.storage.set('Rating', responseData.content[0].Rating);
                 _this.events.publish('user:loggedin', "yo");
+                console.log(_this.storage.get('ID').then(function (val) {
+                    console.log('Your age is', val);
+                }));
                 _this.openPage(__WEBPACK_IMPORTED_MODULE_1__home_home__["a" /* HomePage */]);
             }
         }, function (err) {
@@ -607,17 +1003,17 @@ LoginPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_transfer__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_path__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_camera__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_timeout__ = __webpack_require__(174);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_timeout__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__home_home__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_fcm__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_fcm__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -955,7 +1351,7 @@ SignUpPage = __decorate([
         selector: 'page-sign-up',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\sign-up\sign-up.html"*/'<!--\n  Generated template for the SignUpPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>SignUp</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-item>\n  <ion-label floating>Pickup Address: </ion-label>\n  <ion-textarea></ion-textarea>\n</ion-item>\n\n\n<ion-content padding>\n\n  <ion-item>\n    <ion-avatar item-start>\n      <ion-icon class="photo1" *ngIf="lastImage1==null" name="add-circle" large></ion-icon>\n      <img src="{{pathForImage(lastImage1)}}" class="avatar1" *ngIf="lastImage1!=null">\n    </ion-avatar>\n    <h2>Take a Selfie!</h2>\n    <button ion-button icon-left (click)="presentActionSheet(1)">\n      <ion-icon name="camera"></ion-icon>Select Image\n    </button>\n  </ion-item>\n\n  <!-- Image Liscence input -->\n  <ion-item>\n    <h2>Liscence</h2>\n    <ion-avatar item-start>\n      <ion-icon class="photo1" *ngIf="lastImage2==null" name="add-circle" large></ion-icon>\n      <img src="{{pathForImage(lastImage2)}}" class="avatar1" *ngIf="lastImage3!=null">\n    </ion-avatar>\n    <button ion-button icon-left (click)="presentActionSheet(2)">\n      <ion-icon name="camera"></ion-icon>Select Image\n    </button>\n  </ion-item>\n\n  <!-- Image Car registration papers input -->\n  <ion-item>\n    <ion-avatar item-start>\n      <ion-icon class="photo1" *ngIf="lastImage3==null" name="add-circle" large></ion-icon>\n      <img src="{{pathForImage(lastImage3)}}" class="avatar1" *ngIf="lastImage3!=null">\n    </ion-avatar>\n    <h2>Vehicle Registration</h2>\n    <button ion-button icon-left (click)="presentActionSheet(3)">\n      <ion-icon name="camera"></ion-icon>Select Image\n    </button>\n  </ion-item>\n\n  <form [formGroup]="data" (ngSubmit)="logForm()">\n    <!-- Name input -->\n    <ion-item>\n      <ion-label color="primary" floating>Name</ion-label>\n      <ion-input type="text" formControlName="Name"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="Name.hasError(\'required\') && submitAttempted">\n      <p ion-text color="danger">*Please enter full name</p>\n    </ion-item>\n\n\n    <!-- Email input -->\n    <ion-item>\n      <ion-label color="primary" floating>Email</ion-label>\n      <ion-input type="email" formControlName="Email"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="Email.hasError(\'required\') && submitAttempted">\n      <p ion-text color="danger">*Please enter email</p>\n    </ion-item>\n    <ion-item *ngIf="Email.hasError(\'email\') && Email.touched">\n      <p ion-text color="danger">*Please enter proper email</p>\n    </ion-item>\n\n    <!-- CNIC input -->\n    <ion-item>\n      <ion-label color="primary" floating>CNIC</ion-label>\n      <ion-input formControlName="CNIC" type="text"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="(CNIC.hasError(\'required\')  && submitAttempted)">\n      <p ion-text color="danger">*Please enter CNIC</p>\n    </ion-item>\n    <ion-item *ngIf="  CNIC.hasError(\'pattern\') && CNIC.touched">\n      <p ion-text color="danger"> *Please enter CNIC with dashes included</p>\n    </ion-item>\n\n    <!-- Phone Number input -->\n    <ion-item>\n      <ion-label color="primary" floating>Phone Number</ion-label>\n      <ion-input formControlName="Phone" type="text"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="Phone.hasError(\'required\')  && submitAttempted">\n      <p ion-text color="danger">*Please enter phone number</p>\n    </ion-item>\n    <ion-item *ngIf="Phone.hasError(\'pattern\')  && Phone.touched">\n      <p ion-text color="danger"> *Please enter proper phone number(no +92)</p>\n    </ion-item>\n\n    <!-- Address input -->\n    <ion-item>\n      <ion-label color="primary" floating>Address</ion-label>\n      <ion-textarea formControlName="Address"></ion-textarea>\n    </ion-item>\n    <ion-item *ngIf="Address.hasError(\'required\')  && submitAttempted">\n      <p ion-text color="danger">*Please enter Address</p>\n    </ion-item>\n\n\n    <!-- Gender input -->\n    <ion-item>\n      <ion-label color="primary">Gender</ion-label>\n      <ion-select formControlName="Gender">\n        <ion-option value="gender" selected>Gender</ion-option>\n        <ion-option value="male">Male</ion-option>\n        <ion-option value="female">Female</ion-option>\n      </ion-select>\n    </ion-item>\n    <ion-item *ngIf="Gender.hasError(\'pattern\')  && submitAttempted">\n      <p ion-text color="danger">*Please select Gender</p>\n    </ion-item>\n    <ion-item>\n\n      <!-- Date of Birth input -->\n      <ion-label color="primary">D.O.B</ion-label>\n      <ion-select formControlName="Date">\n        <ion-option value="date" selected>Date</ion-option>\n        <ion-option value="1">1</ion-option>\n        <ion-option value="2">2</ion-option>\n        <ion-option value="3">3</ion-option>\n        <ion-option value="4">4</ion-option>\n        <ion-option value="5">5</ion-option>\n        <ion-option value="6">6</ion-option>\n        <ion-option value="7">7</ion-option>\n        <ion-option value="8">8</ion-option>\n        <ion-option value="9">9</ion-option>\n        <ion-option value="10">10</ion-option>\n        <ion-option value="11">11</ion-option>\n        <ion-option value="12">12</ion-option>\n        <ion-option value="13">13</ion-option>\n        <ion-option value="14">14</ion-option>\n        <ion-option value="15">15</ion-option>\n        <ion-option value="16">16</ion-option>\n        <ion-option value="17">17</ion-option>\n        <ion-option value="18">18</ion-option>\n        <ion-option value="19">19</ion-option>\n        <ion-option value="20">20</ion-option>\n        <ion-option value="21">21</ion-option>\n        <ion-option value="22">22</ion-option>\n        <ion-option value="23">23</ion-option>\n        <ion-option value="24">24</ion-option>\n        <ion-option value="25">25</ion-option>\n        <ion-option value="26">26</ion-option>\n        <ion-option value="27">27</ion-option>\n        <ion-option value="28">28</ion-option>\n        <ion-option value="29">29</ion-option>\n        <ion-option value="30">30</ion-option>\n        <ion-option value="31">31</ion-option>\n      </ion-select>\n      <ion-select formControlName="Month">\n        <ion-option value="month" selected>Month</ion-option>\n        <ion-option value="Janaury">Janaury</ion-option>\n        <ion-option value="February">February</ion-option>\n        <ion-option value="March">March</ion-option>\n        <ion-option value="April">April</ion-option>\n        <ion-option value="May">May</ion-option>\n        <ion-option value="June">June</ion-option>\n        <ion-option value="July">July</ion-option>\n        <ion-option value="August">August</ion-option>\n        <ion-option value="September">September</ion-option>\n        <ion-option value="October">October</ion-option>\n        <ion-option value="November">November</ion-option>\n        <ion-option value="December">December</ion-option>\n      </ion-select>\n      <ion-select formControlName="Year">\n        <ion-option value="year" selected>Year</ion-option>\n        <ion-option value="1947">1947</ion-option>\n        <ion-option value="1948">1948</ion-option>\n        <ion-option value="1949">1949</ion-option>\n        <ion-option value="1950">1950</ion-option>\n        <ion-option value="1951">1951</ion-option>\n        <ion-option value="1952">1952</ion-option>\n        <ion-option value="1953">1953</ion-option>\n        <ion-option value="1954">1954</ion-option>\n        <ion-option value="1955">1955</ion-option>\n        <ion-option value="1956">1956</ion-option>\n        <ion-option value="1957">1957</ion-option>\n        <ion-option value="1958">1958</ion-option>\n        <ion-option value="1959">1959</ion-option>\n        <ion-option value="1960">1960</ion-option>\n        <ion-option value="1961">1961</ion-option>\n        <ion-option value="1962">1962</ion-option>\n        <ion-option value="1963">1963</ion-option>\n        <ion-option value="1964">1964</ion-option>\n        <ion-option value="1965">1965</ion-option>\n        <ion-option value="1966">1966</ion-option>\n        <ion-option value="1967">1967</ion-option>\n        <ion-option value="1968">1968</ion-option>\n        <ion-option value="1969">1969</ion-option>\n        <ion-option value="1970">1970</ion-option>\n        <ion-option value="1971">1971</ion-option>\n        <ion-option value="1972">1972</ion-option>\n        <ion-option value="1973">1973</ion-option>\n        <ion-option value="1974">1974</ion-option>\n        <ion-option value="1975">1975</ion-option>\n        <ion-option value="1976">1976</ion-option>\n        <ion-option value="1977">1977</ion-option>\n        <ion-option value="1978">1978</ion-option>\n        <ion-option value="1979">1979</ion-option>\n        <ion-option value="1980">1980</ion-option>\n        <ion-option value="1981">1981</ion-option>\n        <ion-option value="1982">1982</ion-option>\n        <ion-option value="1983">1983</ion-option>\n        <ion-option value="1984">1984</ion-option>\n        <ion-option value="1985">1985</ion-option>\n        <ion-option value="1986">1986</ion-option>\n        <ion-option value="1987">1987</ion-option>\n        <ion-option value="1988">1988</ion-option>\n        <ion-option value="1989">1989</ion-option>\n        <ion-option value="1990">1990</ion-option>\n        <ion-option value="1991">1991</ion-option>\n        <ion-option value="1992">1992</ion-option>\n        <ion-option value="1993">1993</ion-option>\n        <ion-option value="1994">1994</ion-option>\n        <ion-option value="1995">1995</ion-option>\n        <ion-option value="1996">1996</ion-option>\n        <ion-option value="1997">1997</ion-option>\n        <ion-option value="1998">1998</ion-option>\n        <ion-option value="1999">1999</ion-option>\n        <ion-option value="2000">2000</ion-option>\n        <ion-option value="2001">2001</ion-option>\n        <ion-option value="2002">2002</ion-option>\n        <ion-option value="2003">2003</ion-option>\n        <ion-option value="2004">2004</ion-option>\n        <ion-option value="2005">2005</ion-option>\n        <ion-option value="2006">2006</ion-option>\n        <ion-option value="2007">2007</ion-option>\n        <ion-option value="2008">2008</ion-option>\n        <ion-option value="2009">2009</ion-option>\n        <ion-option value="2010">2010</ion-option>\n        <ion-option value="2011">2011</ion-option>\n        <ion-option value="2012">2012</ion-option>\n        <ion-option value="2013">2013</ion-option>\n        <ion-option value="2014">2014</ion-option>\n        <ion-option value="2015">2015</ion-option>\n        <ion-option value="2016">2016</ion-option>\n        <ion-option value="2017">2017</ion-option>\n        <ion-option value="2018">2018</ion-option>\n      </ion-select>\n    </ion-item>\n    <ion-item *ngIf="(this.Date.hasError(\'pattern\') || this.Month.hasError(\'pattern\') || this.Year.hasError(\'pattern\'))  && submitAttempted">\n      <p ion-text color="danger">*Please Enter proper DOB</p>\n    </ion-item>\n\n    <!-- Vehicle Registration No input -->\n    <ion-item>\n      <ion-label color="primary" floating>Vehicle Registration No.</ion-label>\n      <ion-input type="text" formControlName="CarRegistrationNo"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="CarRegistrationNo.hasError(\'required\')  && submitAttempted">\n      <p ion-text color="danger">*Please enter Vehicle registration number</p>\n    </ion-item>\n    <ion-item *ngIf="CarRegistrationNo.hasError(\'pattern\')  && CarRegistrationNo.touched">\n      <p ion-text color="danger"> *Please enter proper Vehicle registration number</p>\n    </ion-item>\n\n    <!-- Password input -->\n    <ion-item>\n      <ion-label color="primary" floating>Password</ion-label>\n      <ion-input type="password" formControlName="Password"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="(Password.hasError(\'pattern\') && Password.touched) ||(submitAttempted && Password.hasError(\'required\')) ">\n      <p ion-text color="danger"> *Password minimum length 6</p>\n    </ion-item>\n    <button ion-button type="submit" block>Create Profile</button>\n  </form>\n  <!-- <button ion-button (click)="imageupload()" block>Create Profile</button> -->\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\sign-up\sign-up.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_camera__["a" /* Camera */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_native_transfer__["a" /* Transfer */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_path__["a" /* FilePath */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */],
+        __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_path__["a" /* FilePath */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */],
         __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_8__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */],
         __WEBPACK_IMPORTED_MODULE_12__ionic_native_fcm__["a" /* FCM */]])
@@ -972,7 +1368,8 @@ SignUpPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(19);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -986,40 +1383,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
  * Generated class for the NotificationsPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var NotificationsPage = NotificationsPage_1 = (function () {
-    function NotificationsPage(navCtrl, navParams, fcm, alertCtrl) {
+var NotificationsPage = (function () {
+    function NotificationsPage(navCtrl, navParams, fcm, alertCtrl, http) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fcm = fcm;
         this.alertCtrl = alertCtrl;
+        this.http = http;
         this.NotificationData = [];
-        this.onNotification();
+        //  this.onNotification();
     }
     NotificationsPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad NotificationsPage');
     };
-    NotificationsPage.prototype.onNotification = function () {
-        var _this = this;
-        this.fcm.getToken().then(function (token) {
-            console.log(token);
-        });
-        this.fcm.onNotification().subscribe(function (data) {
-            if (data.wasTapped) {
-                _this.NotificationData.push(data);
-                _this.openPage(NotificationsPage_1);
-            }
-            else {
-                _this.NotificationData.push(data);
-            }
-            ;
-        });
-    };
+    // onNotification() {
+    //   this.fcm.getToken().then(token=>{
+    //     console.log(token);
+    //     this.Token=token;
+    //   });
+    //   this.fcm.onNotification().subscribe(data => {
+    //     if (data.wasTapped) {
+    //       this.NotificationData.push(data);
+    //       this.openPage(NotificationsPage);
+    //     } else {
+    //       this.NotificationData.push(data);
+    //     };
+    //   })
+    // }
     NotificationsPage.prototype.openPage = function (page) {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
@@ -1033,17 +1430,22 @@ var NotificationsPage = NotificationsPage_1 = (function () {
         });
         alert.present();
     };
+    NotificationsPage.prototype.sendNotify = function () {
+        this.http.get('http://localhost:5000/notify').map(function (res) { return res.json(); }).subscribe(function (response) {
+        }, function (err) {
+            console.log('error');
+        });
+    };
     return NotificationsPage;
 }());
-NotificationsPage = NotificationsPage_1 = __decorate([
+NotificationsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-notifications',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/'<!--\n  Generated template for the NotificationsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <ion-title>Notifications</ion-title>\n    </ion-navbar>\n  </ion-header>\n\n\n<ion-content class="background1" >\n  <ion-card>\n    <ion-row> \n      <ion-col col-2> \n        <ion-icon class="icon" name="paper-plane"></ion-icon>\n      </ion-col>\n      <ion-col col-10>  \n        <h3>This is a comment orem ipsum dolor sit amet</h3>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  \n  <ion-card>\n      <ion-row> \n        <ion-col col-2> \n          <ion-icon class="icon" name="paper-plane"></ion-icon>\n        </ion-col>\n        <ion-col col-10>  \n          <h3>This is a comment orem ipsum dolor sit amet</h3>\n        </ion-col>\n      </ion-row>\n    </ion-card>\n\n    <ion-card>\n        <ion-row> \n          <ion-col col-2> \n            <ion-icon class="icon" name="paper-plane"></ion-icon>\n          </ion-col>\n          <ion-col col-10>  \n            <h3>This is a comment orem ipsum dolor sit amet</h3>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n</ion-content>\n'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/,
+        selector: 'page-notifications',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/'<!--\n  Generated template for the NotificationsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <ion-title>Notifications</ion-title>\n    </ion-navbar>\n  </ion-header>\n\n\n<ion-content class="background1" >\n  <ion-card>\n    <ion-row> \n      <ion-col col-2> \n        <ion-icon class="icon" name="paper-plane"></ion-icon>\n      </ion-col>\n      <ion-col col-10>  \n        <h3>This is a comment orem ipsum dolor sit amet</h3>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  \n  <ion-card>\n      <ion-row> \n        <ion-col col-2> \n          <ion-icon class="icon" name="paper-plane"></ion-icon>\n        </ion-col>\n        <ion-col col-10>  \n          <h3>This is a comment orem ipsum dolor sit amet</h3>\n        </ion-col>\n      </ion-row>\n    </ion-card>\n\n    <ion-card>\n        <ion-row> \n          <ion-col col-2> \n            <ion-icon class="icon" name="paper-plane"></ion-icon>\n          </ion-col>\n          <ion-col col-10>  \n            <h3>This is a comment orem ipsum dolor sit amet</h3>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n\n      <ion-card>\n        <p class="token">{{Token}}</p>\n      </ion-card>\n      <button ion-button (click)="sendNotify()"></button>\n</ion-content>\n'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
+        __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]])
 ], NotificationsPage);
 
-var NotificationsPage_1;
 //# sourceMappingURL=notifications.js.map
 
 /***/ }),
@@ -1056,6 +1458,8 @@ var NotificationsPage_1;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1068,6 +1472,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 /**
  * Generated class for the PendingRequestsPage page.
  *
@@ -1075,23 +1482,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var PendingRequestsPage = (function () {
-    function PendingRequestsPage(navCtrl, navParams) {
+    function PendingRequestsPage(navCtrl, navParams, http, alertCtrl, storage) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.http = http;
+        this.alertCtrl = alertCtrl;
+        this.storage = storage;
+        this.responseDataPending = [];
+        this.getPackages();
     }
     PendingRequestsPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad PendingRequestsPage');
     };
-    PendingRequestsPage.prototype.openPackageDetailsPage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__["a" /* PackagedetailPage */]);
+    PendingRequestsPage.prototype.openPackageDetailsPage = function (i) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataPending[i]);
+    };
+    PendingRequestsPage.prototype.getPackages = function () {
+        var _this = this;
+        this.storage.get('ID').then(function (val) {
+            _this.ID = val;
+            console.log(_this.ID);
+            _this.http.get('http://localhost:5000/pendingpackages?TransporterID=' + _this.ID).map(function (res) { return res.json(); }).subscribe(function (response) {
+                for (var i = 0; i < response.content.length; i++) {
+                    _this.responseDataPending.push(response.content[i]);
+                }
+                console.log(response.content[0]);
+            }, function (err) {
+                console.log(err);
+            });
+        });
     };
     return PendingRequestsPage;
 }());
 PendingRequestsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-pending-requests',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/'<!--\n  Generated template for the PendingRequestsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>PendingRequests</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="background1">\n  <ion-card (click)="openPackageDetailsPage()">\n    <ion-item>\n      <ion-icon name="football" item-start large></ion-icon>\n      <h2>To: Museum of Football</h2>\n      <p>11 N. Way St, Madison, WI 53703</p>\n    </ion-item>\n    <ion-row>\n      <ion-col col-6>\n        <ion-item>\n          <ion-icon name="cash" item-left large></ion-icon>\n          <p>RS 2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-6>\n        <ion-item>\n          <ion-icon name="ios-open" item-left large></ion-icon>\n          <p>Small</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n      </ion-col>\n    </ion-row>\n    <button ion-button full class="buttonitem ">\n      Accept\n    </button>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/,
+        selector: 'page-pending-requests',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/'<!--\n  Generated template for the PendingRequestsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>PendingRequests</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of responseDataPending, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="assets/imgs/advance-card-map-madison.png">\n    <ion-item >\n      <h2 >Name</h2>\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.PackageName}}/-</ion-note>\n    </ion-item>\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item >\n\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
 ], PendingRequestsPage);
 
 //# sourceMappingURL=pending-requests.js.map
@@ -1105,8 +1533,8 @@ PendingRequestsPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(19);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1135,24 +1563,23 @@ var ProfilePage = (function () {
         this.http = http;
         this.storage.get('ID').then(function (val) {
             _this.ID = val;
-        });
-        this.ID = 1;
-        console.log(this.ID);
-        this.http.get('http://localhost:5000/getransporterdata?ID=' + this.ID).map(function (res) { return res.json(); }).subscribe(function (response) {
-            console.log(response.content);
-            _this.Name = response.content[0].Name;
-            console.log(_this.Name);
-            _this.ContantInfo = response.content[0].Phone;
-            console.log(_this.ContantInfo);
-            _this.Rating = response.content[0].Rating;
-            console.log(_this.Rating);
-            _this.ClearenceDue = response.content[0].ClearenceDue;
-            console.log(_this.ClearenceDue);
-            _this.CancelledPackages = response.content[0].CancelledPackages;
-            _this.ActivePackages = response.content[0].ActivePackages;
-            console.log(_this.CancelledPackages);
-        }, function (err) {
-            console.log('error');
+            console.log('http://localhost:5000/getransporterdata?TransporterID=' + _this.ID);
+            _this.http.get('http://localhost:5000/getransporterdata?TransporterID=' + _this.ID).map(function (res) { return res.json(); }).subscribe(function (response) {
+                console.log(response.content);
+                _this.Name = response.content[0].Name;
+                console.log(_this.Name);
+                _this.ContantInfo = response.content[0].Phone;
+                console.log(_this.ContantInfo);
+                _this.Rating = response.content[0].Rating;
+                console.log(_this.Rating);
+                _this.ClearenceDue = response.content[0].ClearenceDue;
+                console.log(_this.ClearenceDue);
+                _this.CancelledPackages = response.content[0].CancelledPackages;
+                _this.ActivePackages = response.content[0].ActivePackages;
+                console.log(_this.CancelledPackages);
+            }, function (err) {
+                console.log('error');
+            });
         });
     }
     ProfilePage.prototype.ionViewDidLoad = function () {
@@ -1281,34 +1708,34 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(215);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_list_list__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_transfer__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_file_transfer__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_file_path__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_camera__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_packagedetail_packagedetail__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_pending_requests_pending_requests__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_profile_profile__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_all_packages_all_packages__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_enqueue_enqueue__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_all_packages_all_packages__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_enqueue_enqueue__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_notifications_notifications__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_help_help__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_login_login__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_geolocation__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_fcm__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_geolocation__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_fcm__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1413,10 +1840,10 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
             __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
             __WEBPACK_IMPORTED_MODULE_13__ionic_native_file__["a" /* File */],
-            __WEBPACK_IMPORTED_MODULE_14__ionic_native_transfer__["a" /* Transfer */],
+            __WEBPACK_IMPORTED_MODULE_14__ionic_native_file_transfer__["a" /* FileTransfer */],
             __WEBPACK_IMPORTED_MODULE_16__ionic_native_camera__["a" /* Camera */],
             __WEBPACK_IMPORTED_MODULE_15__ionic_native_file_path__["a" /* FilePath */],
-            Storage,
+            __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["a" /* IonicStorageModule */],
             __WEBPACK_IMPORTED_MODULE_26__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_27__ionic_native_fcm__["a" /* FCM */],
             { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* IonicErrorHandler */] }
@@ -1438,14 +1865,14 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__ = __webpack_require__(215);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_enroute_enroute__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_fcm__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_pending_requests_pending_requests__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_profile_profile__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_enqueue_enqueue__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_enqueue_enqueue__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_notifications_notifications__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_help_help__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_login_login__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_storage__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_storage__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1469,12 +1896,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var MyApp = (function () {
-    function MyApp(platform, statusBar, splashScreen, events, storage) {
+    function MyApp(platform, statusBar, splashScreen, events, storage, fcm, alertCtrl) {
         var _this = this;
         this.events = events;
         this.storage = storage;
-        this.rootPage = __WEBPACK_IMPORTED_MODULE_5__pages_enroute_enroute__["a" /* EnroutePage */];
+        this.fcm = fcm;
+        this.alertCtrl = alertCtrl;
+        this.rootPage = __WEBPACK_IMPORTED_MODULE_11__pages_login_login__["a" /* LoginPage */];
+        this.NotificationData = [];
         platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
@@ -1495,14 +1926,12 @@ var MyApp = (function () {
             });
             console.log(text);
         });
+        // this.onNotification(); 
     }
     MyApp.prototype.openPage = function (page) {
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
     };
     MyApp.prototype.openProfile = function () {
-        // profile Open
         this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_7__pages_profile_profile__["a" /* ProfilePage */]);
     };
     MyApp.prototype.logout = function () {
@@ -1514,6 +1943,33 @@ var MyApp = (function () {
         this.storage.set('Rating', "");
         this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_11__pages_login_login__["a" /* LoginPage */]);
     };
+    MyApp.prototype.onNotification = function () {
+        var _this = this;
+        this.fcm.getToken().then(function (token) {
+            console.log(token);
+            _this.Token = token;
+        });
+        this.fcm.onNotification().subscribe(function (data) {
+            if (data.wasTapped) {
+                _this.NotificationData.push(data);
+                console.log("aloha");
+                _this.openPage(__WEBPACK_IMPORTED_MODULE_9__pages_notifications_notifications__["a" /* NotificationsPage */]);
+            }
+            else {
+                _this.showNotification(data);
+                _this.NotificationData.push(data);
+            }
+            ;
+        });
+    };
+    MyApp.prototype.showNotification = function (noti) {
+        var alert = this.alertCtrl.create({
+            title: 'Notification',
+            subTitle: noti,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
     return MyApp;
 }());
 __decorate([
@@ -1524,7 +1980,7 @@ MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"Y:\Angular\Transporter\src\app\app.html"*/'<ion-menu swipeEnable="true" [content]="content">\n    <ion-header class="themeblue">\n        <ion-item class="themeblue" no-lines>\n            <ion-row>\n                <ion-col col-6>\n                    <ion-avatar item-start>\n                        <img src="assets/imgs/Borough-market.jpg">\n                    </ion-avatar>\n                </ion-col>\n                <ion-col align-self-center col-6>\n                    <h2 class="textcol">{{Name}}</h2>\n                    <button class="buttontheme" ion-button icon-left menuClose (click)="openProfile()">\n                        <ion-icon name="person"></ion-icon>Profile\n                    </button>\n                </ion-col>\n            </ion-row>\n        </ion-item>\n\n    </ion-header>\n    <ion-content class="buttontheme">\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="ios-home"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[0])">\n                    All Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="bookmarks"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[1])">\n                    Pending Requests\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="calendar"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[2])">\n                    Enqueue Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="chatbubbles"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">\n                    Notifications\n                </button>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="help-circle"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">\n                    Help\n                </button>\n            </ion-col>\n        </ion-row>\n\n\n        <ion-footer class="themeblue">\n            <button ion-button full ion-button class="buttontheme" menuToggle (click)="logout()">\n                Log Out\n            </button>\n        </ion-footer>\n    </ion-content>\n</ion-menu>\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"Y:\Angular\Transporter\src\app\app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */],
-        __WEBPACK_IMPORTED_MODULE_12__ionic_storage__["b" /* Storage */]])
+        __WEBPACK_IMPORTED_MODULE_12__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */]])
 ], MyApp);
 
 //# sourceMappingURL=app.component.js.map
@@ -1594,6 +2050,9 @@ var ListPage_1;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PackagedetailPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1605,6 +2064,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
+
 /**
  * Generated class for the PackagedetailPage page.
  *
@@ -1612,20 +2074,98 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var PackagedetailPage = (function () {
-    function PackagedetailPage(navCtrl, navParams) {
+    function PackagedetailPage(navCtrl, navParams, geolocation, zone, loadingCtrl, platform, http, alertCtrl, storage) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.data = [];
-        this.data.push(this.navParams.data);
-        console.log(this.data);
+        this.geolocation = geolocation;
+        this.zone = zone;
+        this.loadingCtrl = loadingCtrl;
+        this.platform = platform;
+        this.http = http;
+        this.alertCtrl = alertCtrl;
+        this.storage = storage;
+        this.item = this.navParams.data;
+        console.log(this.item);
+        this.Source = new google.maps.LatLng(this.item.SourceLatitude, this.item.SourceLongitude);
+        console.log(this.Source);
+        this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);
+        console.log(this.Destination);
+        this.presentLoadingDefault();
+        this.storage.get('ID').then(function (val) {
+            _this.ID = val;
+        });
+        console.log(this.ID);
     }
+    PackagedetailPage.prototype.presentLoadingDefault = function () {
+        var _this = this;
+        var loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+        loading.present();
+        setTimeout(function () {
+            //this.platform.ready().then(() => this.initializeMap());
+            _this.platform.ready().then(function () { return _this.findPath(); });
+            loading.dismiss();
+        }, 2000);
+    };
+    PackagedetailPage.prototype.findPath = function () {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('mapdetail'), {
+            zoom: 9,
+            center: { lat: 31.4826352, lng: 74.0712721 }
+        });
+        directionsDisplay.setMap(map);
+        directionsService.route({
+            origin: this.Source,
+            destination: this.Destination,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            }
+            else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    };
+    PackagedetailPage.prototype.sendRequest = function (PackageID) {
+        var _this = this;
+        setTimeout(function () {
+            _this.http.get('http://localhost:5000/requestDelivery?PackageID=' + PackageID + "&TransporterID=" + _this.ID).map(function (res) { return res.json(); }).subscribe(function (response) {
+                if (response.content == 'success') {
+                    _this.presentNotification("Request has been sent, awaiting response from Package sender", "Success");
+                }
+                else if (response.content == 'failed') {
+                    _this.presentNotification("Request denied the package has already been booked", "Success");
+                }
+            }, function (err) {
+                console.log('error');
+            });
+        }, 300);
+    };
+    PackagedetailPage.prototype.presentNotification = function (text, header) {
+        var alert = this.alertCtrl.create({
+            title: header,
+            subTitle: text,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
     return PackagedetailPage;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])('mapdetail'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+], PackagedetailPage.prototype, "mapElement", void 0);
 PackagedetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-packagedetail',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/'<!--\n  Generated template for the PackagedetailPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Package Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="background1" >\n\n  <ion-card  >\n    <div class="text-center" *ngFor="let data of data">\n      <h1 class="headertop"  style="text-align: center;">{{data.PackageName}}</h1>\n\n      \n    </div>\n    <img style="width:392px; height:291px;" src="assets/imgs/advance-card-map-madison.png" />\n    <ion-card-content>\n\n      <ion-card-title>\n        Details:\n      </ion-card-title>\n      <p></p>\n    </ion-card-content>\n  </ion-card>\n\n\n  <ion-card>\n\n    <ion-card-content>\n      <ion-card-title>\n      </ion-card-title>\n      <ion-list>\n        <ion-item>\n          <ion-row>\n            <ion-col col-4>\n              <ion-avatar>\n                <ion-icon class="iconsize" name="ios-contact" item-start></ion-icon>\n              </ion-avatar>\n            </ion-col>\n            <ion-col col-8 align-self-center>\n              <h2>Name</h2>\n              <p>Woody</p>\n            </ion-col>\n          </ion-row>\n        </ion-item>\n        <ion-item>\n          <ion-row>\n            <ion-col col-4>\n              <ion-avatar>\n                <ion-icon class="iconsize" name="call" item-start></ion-icon>\n              </ion-avatar>\n            </ion-col>\n            <ion-col col-8 align-self-center>\n              <h2>Contact</h2>\n              <p>034441565025</p>\n            </ion-col>\n          </ion-row>\n        </ion-item>\n\n        <ion-item>\n          <ion-row>\n            <ion-col col-4>\n              <ion-avatar>\n                <ion-icon class="iconsize" name="ios-open" item-start></ion-icon>\n              </ion-avatar>\n            </ion-col>\n            <ion-col col-8 align-self-center>\n              <h2>Package Size</h2>\n              <p>Medium</p>\n            </ion-col>\n          </ion-row>\n        </ion-item>\n        <ion-item>\n          <ion-row>\n            <ion-col col-4>\n              <ion-avatar>\n                <ion-icon class="iconsize" name="cash" item-start></ion-icon>\n              </ion-avatar>\n            </ion-col>\n            <ion-col col-8 align-self-center>\n              <h2>Earnings</h2>\n              <p>Rs:700</p>\n            </ion-col>\n          </ion-row>\n        </ion-item>\n\n\n        <ion-item>\n          <ion-row>\n            <ion-col col-4>\n              <ion-avatar>\n                <ion-icon class="iconsize" name="car" item-start></ion-icon>\n              </ion-avatar>\n            </ion-col>\n            <ion-col col-8 align-self-center>\n              <h2>Transport Type</h2>\n              <p>Bike</p>\n            </ion-col>\n          </ion-row>\n        </ion-item>\n\n\n      </ion-list>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card>\n    <ion-item>\n      <ion-row>\n        <ion-col col-2>\n          <ion-avatar>\n            <ion-icon name="pin"></ion-icon>\n          </ion-avatar>\n        </ion-col>\n        <ion-col col-10 align-self-center>\n          <h3>To:</h3>\n          <p> House 454 D, street 9, askari x, lahore.</p>\n        </ion-col>\n      </ion-row>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <ion-item>\n      <ion-row>\n        <ion-col col-2>\n          <ion-avatar>\n            <ion-icon name="radio-button-off"></ion-icon>\n          </ion-avatar>\n        </ion-col>\n        <ion-col col-10 align-self-center>\n          <h3>From:</h3>\n          <p>Phase 5, food mart, defense, lahore. </p>\n        </ion-col>\n      </ion-row>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <img src="assets/imgs/Capture.JPG">\n  </ion-card>\n  \n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/,
+        selector: 'page-packagedetail',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/'<!--\n  Generated template for the PackagedetailPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Package Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="background1">  \n      <ion-card id="mapdetail" #mapdetail></ion-card>\n  <ion-card>\n    <ion-item>\n      <h2>Package Name:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n    </ion-item>\n\n    <ion-item>\n      <h2>Package Size:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageSize}} </ion-note>\n    </ion-item>\n\n    <ion-item>\n      <h2>Delivery Type:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.TransportType}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Vehicle Type:</h2>\n      <ion-note class="ioniconcolor1" item-end> {{item.VehicleType}} </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n      <img class="imagePackage" src="assets/imgs/advance-card-map-madison.png">\n  </ion-card>\n  <button ion-button full class="buttonitem" (click)="sendRequest(item.PackageID)">\n      Send Request\n    </button>\n\n\n</ion-content>\n'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
 ], PackagedetailPage);
 
 //# sourceMappingURL=packagedetail.js.map
@@ -1639,9 +2179,9 @@ PackagedetailPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__all_packages_all_packages__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__all_packages_all_packages__ = __webpack_require__(107);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1683,365 +2223,6 @@ HomePage = __decorate([
 ], HomePage);
 
 //# sourceMappingURL=home.js.map
-
-/***/ }),
-
-/***/ 55:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnroutePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(32);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-/**
- * Generated class for the EnroutePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var EnroutePage = (function () {
-    function EnroutePage(loadingCtrl, toastCtrl, app, navCtrl, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation) {
-        var _this = this;
-        this.loadingCtrl = loadingCtrl;
-        this.toastCtrl = toastCtrl;
-        this.app = app;
-        this.navCtrl = navCtrl;
-        this.zone = zone;
-        this.platform = platform;
-        this.alertCtrl = alertCtrl;
-        this.storage = storage;
-        this.actionSheetCtrl = actionSheetCtrl;
-        this.geolocation = geolocation;
-        this.addressElement = null;
-        this.addressElement1 = null;
-        this.Source = null;
-        this.Destination = null;
-        this.listSearch = '';
-        this.search = false;
-        this.switch = "map";
-        this.regionals = [];
-        this.platform.ready().then(function () { return _this.loadMaps(); });
-    }
-    EnroutePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad EnroutePage');
-    };
-    EnroutePage.prototype.openPackageDetailsPage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__["a" /* PackagedetailPage */]);
-    };
-    EnroutePage.prototype.viewPlace = function (id) {
-        console.log('Clicked Marker', id);
-    };
-    EnroutePage.prototype.loadMaps = function () {
-        if (!!google) {
-            this.initializeMap();
-            this.initAutocomplete();
-        }
-        else {
-            this.errorAlert('Error', 'Something went wrong with the Internet Connection. Please check your Internet.');
-        }
-    };
-    EnroutePage.prototype.errorAlert = function (title, message) {
-        var _this = this;
-        var alert = this.alertCtrl.create({
-            title: title,
-            message: message,
-            buttons: [
-                {
-                    text: 'OK',
-                    handler: function (data) {
-                        _this.loadMaps();
-                    }
-                }
-            ]
-        });
-        alert.present();
-    };
-    EnroutePage.prototype.mapsSearchBar = function (ev) {
-        // set input to the value of the searchbar
-        //this.search = ev.target.value;
-        //    console.log(ev);
-        var autocomplete = new google.maps.places.Autocomplete(ev);
-        autocomplete.bindTo('bounds', this.map);
-        return new __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"](function (sub) {
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    sub.error({
-                        message: 'Autocomplete returned place with no geometry'
-                    });
-                }
-                else {
-                    sub.next(place.geometry.location);
-                    sub.complete();
-                }
-            });
-        });
-    };
-    EnroutePage.prototype.initAutocomplete = function () {
-        var _this = this;
-        this.addressElement1 = this.searchbar1.nativeElement.querySelector('.searchbar-input');
-        this.createAutocomplete(this.addressElement1).subscribe(function (location) {
-            console.log('First Search', location);
-            _this.Source = new google.maps.LatLng(location.lat(), location.lng());
-            var options = {
-                center: location,
-                zoom: 13
-            };
-            _this.map.setOptions(options);
-            _this.addMarker(location, "Searched");
-        });
-        this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
-        this.createAutocomplete(this.addressElement).subscribe(function (location) {
-            console.log('Second Search', location);
-            _this.Destination = new google.maps.LatLng(location.lat(), location.lng());
-            var options = {
-                center: location,
-                zoom: 13
-            };
-            _this.map.setOptions(options);
-            _this.addMarker(location, "Searched");
-            _this.findPath();
-        });
-    };
-    EnroutePage.prototype.findPath = function () {
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 9,
-            center: { lat: 41.85, lng: -87.65 }
-        });
-        directionsDisplay.setMap(map);
-        directionsService.route({
-            origin: this.Source,
-            destination: this.Destination,
-            travelMode: 'DRIVING'
-        }, function (response, status) {
-            if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-            }
-            else {
-                window.alert('Directions request failed due to ' + status);
-            }
-        });
-    };
-    EnroutePage.prototype.createAutocomplete = function (addressEl) {
-        var _this = this;
-        {
-            //  let locationOptions = { timeout: 10000, enableHighAccuracy: true };
-            this.geolocation.getCurrentPosition().then(function (position) {
-                console.log(position.coords.latitude, position.coords.longitude);
-                var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                //this.MyLocation= new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                var options = {
-                    center: myPos,
-                    zoom: 13
-                };
-                _this.map.setOptions(options);
-                _this.addMarker(myPos, "I am Here!");
-            }, function (error) {
-                _this.loading.dismiss().then(function () {
-                    _this.showToast('Location not found. Please enable your GPS!');
-                    console.log(error);
-                });
-            });
-        }
-        var autocomplete = new google.maps.places.Autocomplete(addressEl);
-        autocomplete.bindTo('bounds', this.map);
-        return new __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"](function (sub) {
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    sub.error({
-                        message: 'Autocomplete returned place with no geometry'
-                    });
-                }
-                else {
-                    //console.log('Search', place.geometry.locat;
-                    console.log('Search Lat', place.geometry.location.lat());
-                    console.log('Search Lng', place.geometry.location.lng());
-                    sub.next(place.geometry.location);
-                    //sub.complete();
-                }
-            });
-        });
-    };
-    EnroutePage.prototype.initializeMap = function () {
-        var _this = this;
-        this.zone.run(function () {
-            var mapEle = _this.mapElement.nativeElement;
-            _this.map = new google.maps.Map(mapEle, {
-                zoom: 12,
-                center: { lat: 31.5360264, lng: 74.4069842 },
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
-                disableDoubleClickZoom: false,
-                disableDefaultUI: true,
-                zoomControl: true,
-                scaleControl: true,
-            });
-            // this.getCurrentPosition();
-        });
-    };
-    //Center zoom
-    //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
-    EnroutePage.prototype.bounceMap = function (markers) {
-        var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < markers.length; i++) {
-            bounds.extend(markers[i].getPosition());
-        }
-        this.map.fitBounds(bounds);
-    };
-    EnroutePage.prototype.resizeMap = function () {
-        var _this = this;
-        setTimeout(function () {
-            google.maps.event.trigger(_this.map, 'resize');
-        }, 200);
-    };
-    /*
-      getCurrentPositionfromStorage(markers) {
-        this.storage.get('lastLocation').then((result) => {
-          if (result) {
-            let myPos = new google.maps.LatLng(result.lat, result.long);
-            this.map.setOptions({
-              center: myPos,
-              zoom: 16
-            });
-            let marker = this.addMarker(myPos, "My last saved Location: " + result.location);
-    
-            markers.push(marker);
-            this.bounceMap(markers);
-    
-            this.resizeMap();
-          }
-        });
-      }
-    */
-    EnroutePage.prototype.showToast = function (message) {
-        var toast = this.toastCtrl.create({
-            message: message,
-            duration: 3000
-        });
-        toast.present();
-    };
-    // go show currrent location
-    EnroutePage.prototype.getCurrentPosition = function () {
-        var _this = this;
-        this.loading = this.loadingCtrl.create({
-            content: 'Searching Location ...'
-        });
-        this.loading.present();
-        var locationOptions = { timeout: 10000, enableHighAccuracy: true };
-        this.geolocation.getCurrentPosition(locationOptions).then(function (position) {
-            _this.loading.dismiss().then(function () {
-                _this.showToast('Location found!');
-                console.log(position.coords.latitude, position.coords.longitude);
-                var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                var options = {
-                    center: myPos,
-                    zoom: 12
-                };
-                _this.map.setOptions(options);
-                _this.addMarker(myPos, "I am Here!");
-                /*
-                          let alert = this.alertCtrl.create({
-                            title: 'Location',
-                            message: 'Do you want to save the Location?',
-                            buttons: [
-                              {
-                                text: 'Cancel'
-                              },
-                              {
-                                text: 'Save',
-                                handler: data => {
-                                  let lastLocation = { lat: position.coords.latitude, long: position.coords.longitude };
-                                  console.log(lastLocation);
-                                  this.storage.set('lastLocation', lastLocation).then(() => {
-                                    this.showToast('Location saved');
-                                  });
-                                }
-                              }
-                            ]
-                          });
-                          alert.present();
-                */
-            });
-        }, function (error) {
-            _this.loading.dismiss().then(function () {
-                _this.showToast('Location not found. Please enable your GPS!');
-                console.log(error);
-            });
-        });
-    };
-    EnroutePage.prototype.toggleSearch = function () {
-        if (this.search) {
-            this.search = false;
-        }
-        else {
-            this.search = true;
-        }
-    };
-    EnroutePage.prototype.addMarker = function (position, content) {
-        var marker = new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: position
-        });
-        this.addInfoWindow(marker, content);
-        return marker;
-    };
-    EnroutePage.prototype.addInfoWindow = function (marker, content) {
-        var _this = this;
-        var infoWindow = new google.maps.InfoWindow({
-            content: content
-        });
-        google.maps.event.addListener(marker, 'click', function () {
-            infoWindow.open(_this.map, marker);
-        });
-    };
-    return EnroutePage;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('map'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _a || Object)
-], EnroutePage.prototype, "mapElement", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _b || Object)
-], EnroutePage.prototype, "searchbar", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar1', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
-    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _c || Object)
-], EnroutePage.prototype, "searchbar1", void 0);
-EnroutePage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
-        selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-row>\n  <div class="map">\n      \n    <ion-searchbar #searchbar1  placeholder="Enter Location:"></ion-searchbar>\n    <ion-item></ion-item>\n    <ion-searchbar #searchbar placeholder="Enter Destination:"></ion-searchbar>\n  <div id="map" #map></div>\n</div>\n</ion-row>\n<ion-item></ion-item>\n<ion-row>\n<button ion-button (click)=findPath()>Find Path</button>\n</ion-row>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
-    }),
-    __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _o || Object])
-], EnroutePage);
-
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
-//# sourceMappingURL=enroute.js.map
 
 /***/ })
 

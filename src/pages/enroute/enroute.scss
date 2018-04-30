@@ -1,11 +1,19 @@
 page-enroute {
 
-
+#buttonSearch{
+    margin-top:50px;
+    padding:none;
+    font-size: 12px;
+    width:70px;
+    height: 40px;
+    float:right;
+    background:color($colors,navbarcolor);
+}
 .buttonitem{
     padding:none;
-    font-size: 15px;
+    font-size: 12px;
     width:100%;
-    height:50px ;
+    height: 40px;
     background:color($colors,navbarcolor);
 }
 .background1{
@@ -16,13 +24,16 @@ page-enroute {
 }
 .ioniconcolor1{
    color : color($colors, themeblue);
+   font-size:20px;
 }
 .ioniconcolor2{
     color : color($colors, navbarcolor);
  }
- #map {
-    height: 100%;
-    width: 100%;
+ #divider{
+    height: 40%;
+ }
+ #mapEnroute {
+    height: 70%;
     top: 0;
     left: 0;
     position: absolute!important;
@@ -33,10 +44,13 @@ page-enroute {
     visibility: hidden;
     margin-top: -1000px;
 }
-ion-searchbar {
+.searchbars{
+    margin-top :15px;
     position: absolute;
     opacity: .7;
     z-index: 3;
+    height: 5px;
+    width:97%;
 }
 .switch {
     position: fixed;
@@ -58,4 +72,5 @@ ion-searchbar {
         padding: 0;
     }
 }
+
 }

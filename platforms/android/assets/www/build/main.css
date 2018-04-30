@@ -33362,6 +33362,11 @@ ion-avatar img {
   font-size: 35px;
 }
 
+.starsize {
+  font-size: 10px;
+  color: white;
+}
+
 .textcol {
   color: white;
 }
@@ -33386,9 +33391,9 @@ ion-avatar img {
 
 .buttonitem {
   padding: none;
-  font-size: 15px;
+  font-size: 10px;
   width: 100%;
-  height: 50px;
+  height: 30px;
   background: #e52d27;
 }
 
@@ -33403,10 +33408,15 @@ ion-avatar img {
 
 .ioniconcolor1 {
   color: #033860;
+  font-size: 20px;
 }
 
 .ioniconcolor2 {
   color: #e52d27;
+}
+
+.imagePackage {
+  height: 150px;
 }
 
 .background1 {
@@ -33454,60 +33464,191 @@ ion-avatar img {
   background: #e52d27;
 }
 
-.buttonitem {
+page-enroute #buttonSearch {
+  margin-top: 50px;
   padding: none;
-  font-size: 15px;
-  width: 100%;
-  height: 50px;
+  font-size: 12px;
+  width: 70px;
+  height: 40px;
+  float: right;
   background: #e52d27;
 }
 
-.background1 {
+page-enroute .buttonitem {
+  padding: none;
+  font-size: 12px;
+  width: 100%;
+  height: 40px;
+  background: #e52d27;
+}
+
+page-enroute .background1 {
   background: #f4f4f4;
 }
 
-.buttoncolor {
+page-enroute .buttoncolor {
   background-color: #e52d27;
 }
 
-.ioniconcolor1 {
+page-enroute .ioniconcolor1 {
   color: #033860;
+  font-size: 20px;
 }
 
-.ioniconcolor2 {
+page-enroute .ioniconcolor2 {
   color: #e52d27;
+}
+
+page-enroute #divider {
+  height: 40%;
+}
+
+page-enroute #mapEnroute {
+  height: 70%;
+  top: 0;
+  left: 0;
+  position: absolute !important;
+  overflow: hidden !important;
+}
+
+page-enroute .hidemap {
+  visibility: hidden;
+  margin-top: -1000px;
+}
+
+page-enroute .searchbars {
+  margin-top: 15px;
+  position: absolute;
+  opacity: .7;
+  z-index: 3;
+  height: 5px;
+  width: 97%;
+}
+
+page-enroute .switch {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  width: 80%;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 100;
+  opacity: .9;
+}
+
+page-enroute .switch .active {
+  background: #3366CC !important;
+  color: #fff;
+}
+
+page-enroute .switch .button {
+  width: 100px;
+  margin: 0;
+  padding: 0;
 }
 
 .colornavbar {
   background-color: #e52d27;
 }
 
-.buttonitem {
+.forms {
+  padding-top: 35%;
+}
+
+page-nearby .buttonitem {
   padding: none;
-  font-size: 15px;
+  font-size: 12px;
   width: 100%;
-  height: 50px;
+  height: 40px;
   background: #e52d27;
 }
 
-.background1 {
+page-nearby .background1 {
   background: #f4f4f4;
 }
 
-.imagepackage {
+page-nearby .imagepackage {
   max-height: 270px;
 }
 
-.buttoncolor {
+page-nearby .buttoncolor {
   background-color: #e52d27;
 }
 
-.ioniconcolor1 {
+page-nearby .ioniconcolor1 {
   color: #033860;
+  font-size: 20px;
 }
 
-.ioniconcolor2 {
+page-nearby .ioniconcolor2 {
   color: #e52d27;
+}
+
+page-nearby #divider {
+  height: 60%;
+}
+
+page-nearby #distanceInput {
+  margin: 0px;
+  background-color: white;
+  opacity: 0.5;
+  z-index: 3;
+  padding: 0px;
+}
+
+page-nearby #goButton {
+  opacity: 0.7;
+  width: 100%;
+  heigth: 100%;
+  padding: 0px;
+}
+
+page-nearby #goButton:active {
+  opacity: 1;
+}
+
+page-nearby #mapNearby {
+  height: 70%;
+  top: 0;
+  left: 0;
+  position: absolute !important;
+  overflow: hidden !important;
+}
+
+page-nearby .hidemap {
+  visibility: hidden;
+}
+
+page-nearby ion-searchbar {
+  position: absolute;
+  opacity: .7;
+  z-index: 3;
+}
+
+page-nearby .switch {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  width: 80%;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 100;
+  opacity: .9;
+}
+
+page-nearby .switch .active {
+  background: #3366CC !important;
+  color: #fff;
+}
+
+page-nearby .switch .button {
+  width: 100px;
+  margin: 0;
+  padding: 0;
 }
 
 .background1 {
@@ -33516,6 +33657,13 @@ ion-avatar img {
 
 .icon {
   font-size: 35px;
+}
+
+.token {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .head {
@@ -33528,6 +33676,25 @@ ion-avatar img {
 
 .background1 {
   background: #f4f4f4;
+}
+
+.ioniconcolor1 {
+  color: #033860;
+  font-size: 20px;
+}
+
+.ioniconcolor2 {
+  color: #e52d27;
+}
+
+#mapdetail {
+  height: 70%;
+  top: 0;
+  left: 0;
+}
+
+#divider {
+  height: 60%;
 }
 
 .background1 {
@@ -33567,15 +33734,11 @@ ion-avatar img {
   font-size: 15px;
 }
 
-.title {
-  text-align: center;
-  padding: 20px;
-}
-
 .badge {
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .avatar1 {

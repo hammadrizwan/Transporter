@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, AbstractControl, } from '@angular/forms';
 import { File } from '@ionic-native/file';
-import { Transfer, TransferObject } from '@ionic-native/transfer';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
@@ -46,7 +46,7 @@ export class SignUpPage {
   Gender: AbstractControl;
   Token: any;
   constructor(public navCtrl: NavController, private camera: Camera,
-    private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController,
+    private transfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder, private alertCtrl: AlertController, public http: Http, public storage:Storage,
     private fcm:FCM) {
@@ -337,7 +337,7 @@ export class SignUpPage {
       params: { 'fileName': filename }
     };
 
-    const fileTransfer: TransferObject = this.transfer.create();
+    const fileTransfer: FileTransferObject = this.transfer.create();
 
     this.loading = this.loadingCtrl.create({
       content: 'Uploading...',

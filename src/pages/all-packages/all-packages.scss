@@ -6,9 +6,9 @@ page-all-packages {
 }
 .buttonitem{
     padding:none;
-    font-size: 15px;
+    font-size: 10px;
     width:100%;
-    height:50px ;
+    height:30px ;
     background:color($colors,navbarcolor);
 }
 .background1{
@@ -19,7 +19,11 @@ page-all-packages {
 }
 .ioniconcolor1{
     color : color($colors, themeblue);
+    font-size:20px;
  }
  .ioniconcolor2{
      color : color($colors, navbarcolor);
+}
+.imagePackage{
+    height: 150px;
 }

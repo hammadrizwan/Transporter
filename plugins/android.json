@@ -38,7 +38,7 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-geolocation": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "com.Transporter.push"
     }
   },
   "dependent_plugins": {}

@@ -33,13 +33,13 @@ export class NearbyPage {
     console.log('ionViewDidLoad NearbyPage');
     this.platform.ready().then(() => this.loadMaps());
   }
-  openPackageDetailsPage() {
-    this.navCtrl.push(PackagedetailPage);
-  }
+  openPackageDetailsPage(i: any) {
+    this.navCtrl.push(PackagedetailPage, this.responseData[i]);
+  } 
 
 
 
-  @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('mapNearby') mapElement: ElementRef;
   @ViewChild('distanceInput') inputElement: ElementRef;
 
 
@@ -74,7 +74,7 @@ export class NearbyPage {
     public navCtrl: NavController,
     public http: Http,
   ) {
-    
+
 
   }
 
@@ -87,15 +87,12 @@ export class NearbyPage {
     if (!!google) {
       this.initializeMap();
     }
-
-
     /*
           console.log('The Source'+this.Source);
           console.log('The Destination'+this.Destination);
           let distance=google.maps.geometry.spherical.computeDistanceBetween(this.Source,this.Destination);
           console.log('distance',distance);
       */
-
   }
 
   reload() {
@@ -104,43 +101,34 @@ export class NearbyPage {
         spinner: 'bubbles',
         content: 'Reloading...',
       });
-      this.loading.present();
+      // this.loading.present();
       this.radius = (this.rad * 1000);
-      this.markers.setMap(null);
-      this.cityCircle.setMap(null);
-      this.getCurrentPosition();
-      let Userdata = {
-        'Lat': this.currentLat,
-        'Long': this.currentLong,
-      };
-      this.http.get('http://localhost:5000/nearbypackages?Lat=' + this.currentLat + '&Long=' + this.currentLong + '&Radius=' + this.rad).map(res => res.json()).subscribe(response => {
-        // let responseData = data;
-        // console.log(responseData.Error);
-        // this.loading.dismissAll();
-        // if (responseData.Error != "none") {
-        //   this.presentErrorAlert(responseData.Error);
-        // }
-        // else{
-
-        // }
+      if (this.markers != null) {
+        this.markers.setMap(null);
+        this.cityCircle.setMap(null);
+      }
+      this.getCurrentPositions();
+      // this.loading.dismissAll();
+      this.responseData=[];
+      this.http.get('http://localhost:5000/nearbypackages?Lat=' + this.currentLat + '&Long=' + this.currentLong + '&Radius=' + this.rad).map(res => res.json()).subscribe(response => {      
         for (let i = 0; i < response.content.length; i++) {
           this.responseData.push(response.content[i]);
         }
+        // this.loading.dismiss();
       },
         err => {
           console.log('error');
-        });
-      this.loading.dismiss()
+        });     
     }
     else {
       this.presentErrorAlert("Enter a number")
-    }
+    } 
   }
   presentErrorAlert(text) {
     let alert = this.alertCtrl.create({
       title: 'Wrong input',
       subTitle: text,
-      buttons: ['Dismiss']
+      buttons: ['Dismiss'],
     });
     alert.present();
   }
@@ -150,7 +138,7 @@ export class NearbyPage {
       var mapEle = this.mapElement.nativeElement;
       this.map = new google.maps.Map(mapEle, {
         zoom: 12,
-        center: { lat: 31.5360264, lng: 74.4069842 },
+        center: { lat: 31.4826352, lng:74.0712721},
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
         disableDoubleClickZoom: false,
@@ -158,17 +146,19 @@ export class NearbyPage {
         zoomControl: true,
         scaleControl: true,
       });
-      this.getCurrentPosition();
+      this.getCurrentPositions();
     });
+    
   }
 
   //Center zoom
   //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
   // go show currrent location
-  getCurrentPosition() {
-
+  getCurrentPositions() {
+ 
 
     this.geolocation.getCurrentPosition().then(
+
       (position) => {
         console.log("hello" + position.coords.latitude, position.coords.longitude);
         this.currentLat = position.coords.latitude;
@@ -182,10 +172,10 @@ export class NearbyPage {
         this.markers = this.addMarker(myPos, "I am Here!");
 
         this.cityCircle = new google.maps.Circle({
-          strokeColor: '#FF0000',
+          strokeColor: '#033860',
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: '#FF0000',
+          fillColor: '#2a4255',
           fillOpacity: 0.35,
           map: this.map,
           center: myPos,
@@ -193,10 +183,18 @@ export class NearbyPage {
         });
       },
       (error) => {
-        console.log(error);
-      }
-    )
+      console.log(error);
   }
+)}
+showToast(message) {
+  let toast = this.toastCtrl.create({
+    message: message,
+    duration: 3000
+  });
+  toast.present();
+}
+
+
 
   addMarker(position, content) {
     let marker = new google.maps.Marker({

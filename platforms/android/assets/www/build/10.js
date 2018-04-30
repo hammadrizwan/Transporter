@@ -1,14 +1,14 @@
 webpackJsonp([10],{
 
-/***/ 278:
+/***/ 297:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EnqueuePageModule", function() { return EnqueuePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EnqueuedetailsPageModule", function() { return EnqueuedetailsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enqueue__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enqueuedetails__ = __webpack_require__(108);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var EnqueuePageModule = (function () {
-    function EnqueuePageModule() {
+var EnqueuedetailsPageModule = (function () {
+    function EnqueuedetailsPageModule() {
     }
-    return EnqueuePageModule;
+    return EnqueuedetailsPageModule;
 }());
-EnqueuePageModule = __decorate([
+EnqueuedetailsPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__enqueue__["a" /* EnqueuePage */],
+            __WEBPACK_IMPORTED_MODULE_2__enqueuedetails__["a" /* EnqueuedetailsPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__enqueue__["a" /* EnqueuePage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__enqueuedetails__["a" /* EnqueuedetailsPage */]),
         ],
     })
-], EnqueuePageModule);
+], EnqueuedetailsPageModule);
 
-//# sourceMappingURL=enqueue.module.js.map
+//# sourceMappingURL=enqueuedetails.module.js.map
 
 /***/ })
 

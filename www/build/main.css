@@ -33391,9 +33391,9 @@ ion-avatar img {
 
 .buttonitem {
   padding: none;
-  font-size: 15px;
+  font-size: 10px;
   width: 100%;
-  height: 50px;
+  height: 30px;
   background: #e52d27;
 }
 
@@ -33408,10 +33408,15 @@ ion-avatar img {
 
 .ioniconcolor1 {
   color: #033860;
+  font-size: 20px;
 }
 
 .ioniconcolor2 {
   color: #e52d27;
+}
+
+.imagePackage {
+  height: 150px;
 }
 
 .background1 {
@@ -33459,11 +33464,21 @@ ion-avatar img {
   background: #e52d27;
 }
 
+page-enroute #buttonSearch {
+  margin-top: 50px;
+  padding: none;
+  font-size: 12px;
+  width: 70px;
+  height: 40px;
+  float: right;
+  background: #e52d27;
+}
+
 page-enroute .buttonitem {
   padding: none;
-  font-size: 15px;
+  font-size: 12px;
   width: 100%;
-  height: 50px;
+  height: 40px;
   background: #e52d27;
 }
 
@@ -33477,15 +33492,19 @@ page-enroute .buttoncolor {
 
 page-enroute .ioniconcolor1 {
   color: #033860;
+  font-size: 20px;
 }
 
 page-enroute .ioniconcolor2 {
   color: #e52d27;
 }
 
-page-enroute #map {
-  height: 100%;
-  width: 100%;
+page-enroute #divider {
+  height: 40%;
+}
+
+page-enroute #mapEnroute {
+  height: 70%;
   top: 0;
   left: 0;
   position: absolute !important;
@@ -33497,10 +33516,13 @@ page-enroute .hidemap {
   margin-top: -1000px;
 }
 
-page-enroute ion-searchbar {
+page-enroute .searchbars {
+  margin-top: 15px;
   position: absolute;
   opacity: .7;
   z-index: 3;
+  height: 5px;
+  width: 97%;
 }
 
 page-enroute .switch {
@@ -33535,44 +33557,40 @@ page-enroute .switch .button {
   padding-top: 35%;
 }
 
-.buttonitem {
+page-nearby .buttonitem {
   padding: none;
-  font-size: 15px;
+  font-size: 12px;
   width: 100%;
-  height: 50px;
+  height: 40px;
   background: #e52d27;
 }
 
-.background1 {
+page-nearby .background1 {
   background: #f4f4f4;
 }
 
-.imagepackage {
+page-nearby .imagepackage {
   max-height: 270px;
 }
 
-.buttoncolor {
+page-nearby .buttoncolor {
   background-color: #e52d27;
 }
 
-.ioniconcolor1 {
+page-nearby .ioniconcolor1 {
   color: #033860;
+  font-size: 20px;
 }
 
-.ioniconcolor2 {
+page-nearby .ioniconcolor2 {
   color: #e52d27;
 }
 
-.maps {
-  height: 50%;
-  padding: 0px;
+page-nearby #divider {
+  height: 60%;
 }
 
-#divider {
-  height: 210px;
-}
-
-#distanceInput {
+page-nearby #distanceInput {
   margin: 0px;
   background-color: white;
   opacity: 0.5;
@@ -33580,36 +33598,36 @@ page-enroute .switch .button {
   padding: 0px;
 }
 
-#goButton {
+page-nearby #goButton {
   opacity: 0.7;
   width: 100%;
   heigth: 100%;
   padding: 0px;
 }
 
-#goButton:active {
+page-nearby #goButton:active {
   opacity: 1;
 }
 
-#map {
-  height: 50%;
+page-nearby #mapNearby {
+  height: 70%;
   top: 0;
   left: 0;
   position: absolute !important;
   overflow: hidden !important;
 }
 
-.hidemap {
+page-nearby .hidemap {
   visibility: hidden;
 }
 
-ion-searchbar {
+page-nearby ion-searchbar {
   position: absolute;
   opacity: .7;
   z-index: 3;
 }
 
-.switch {
+page-nearby .switch {
   position: fixed;
   bottom: 10px;
   left: 50%;
@@ -33622,12 +33640,12 @@ ion-searchbar {
   opacity: .9;
 }
 
-.switch .active {
+page-nearby .switch .active {
   background: #3366CC !important;
   color: #fff;
 }
 
-.switch .button {
+page-nearby .switch .button {
   width: 100px;
   margin: 0;
   padding: 0;
@@ -33641,6 +33659,13 @@ ion-searchbar {
   font-size: 35px;
 }
 
+.token {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 .head {
   font-size: 100px;
 }
@@ -33651,6 +33676,25 @@ ion-searchbar {
 
 .background1 {
   background: #f4f4f4;
+}
+
+.ioniconcolor1 {
+  color: #033860;
+  font-size: 20px;
+}
+
+.ioniconcolor2 {
+  color: #e52d27;
+}
+
+#mapdetail {
+  height: 70%;
+  top: 0;
+  left: 0;
+}
+
+#divider {
+  height: 60%;
 }
 
 .background1 {
