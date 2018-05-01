@@ -14,79 +14,47 @@
 
 
 <ion-content class="background1">
+  <ion-card id="mapdetail" #mapdetail></ion-card>
   <ion-card>
-    <img src="assets/imgs/Capture.JPG">
-  </ion-card>
-  <ion-card>
-    <ion-item class="text-center">
-      <h1 class="headertop" style="text-align: center;">Package Name</h1>
 
-      <h2 class="headertop" style="text-align: center;">Grocery Bag</h2>
+    <ion-item>
+      <h2>Package Name:</h2>
+      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>
     </ion-item>
-    <ion-list>
-
-
-      <ion-item>
-        <ion-row>
-          <ion-col col-4>
-            <ion-avatar>
-              <ion-icon name="pin"></ion-icon>
-            </ion-avatar>
-          </ion-col>
-          <ion-col col-8 align-self-center>
-            <h3>To</h3>
-            <p> House 454 D, street 9, askari x, lahore.</p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-      <ion-item>
-        <ion-row>
-          <ion-col col-4>
-            <ion-avatar>
-              <ion-icon name="radio-button-off"></ion-icon>
-            </ion-avatar>
-          </ion-col>
-          <ion-col col-8 align-self-center>
-            <h3>From</h3>
-            <p>Phase 5, food mart, defense, lahore. </p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-      <ion-item>
-        <ion-row>
-          <ion-col col-4>
-            <ion-avatar>
-              <ion-icon class="iconsize" name="cash" item-start></ion-icon>
-            </ion-avatar>
-          </ion-col>
-          <ion-col col-8 align-self-center>
-            <h2>Earnings</h2>
-            <p>Rs:700</p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-      <ion-item>
-        <ion-row>
-          <ion-col col-4>
-            <ion-avatar>
-              <ion-icon class="iconsize" name="barcode" item-start></ion-icon>
-            </ion-avatar>
-          </ion-col>
-          <ion-col col-8 align-self-center>
-            <h2>Tracking ID</h2>
-            <p>819261723</p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-      <ion-item>
-        <ion-icon class="iconsize" name="code" item-start></ion-icon>
-        <ion-label color="danger" stacked>Verification Code</ion-label>
-        <ion-input placeholder="XXXXXXX"></ion-input>
-      </ion-item>
-    </ion-list>
-    <button ion-button full class="buttonitem">
-      Confirm code
-    </button>
+    <ion-item>
+      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>
+    </ion-item>
+    <ion-item>
+      <h2>Fare</h2>
+      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>
+    </ion-item>
   </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
+      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}
+      </ion-note>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>
+      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}
+      </ion-note>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <img class="imagePackage" src="assets/imgs/advance-card-map-madison.png">
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-icon class="iconsize" name="code" item-start></ion-icon>
+      <ion-label color="danger" stacked>Verification Code</ion-label>
+      <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>
+    </ion-item>
+  </ion-card>
+  <button ion-button full class="buttonitem" (click)="sendDelivertConfirmation(item.PackageID)">
+    Send Request
+  </button>
 
 </ion-content>

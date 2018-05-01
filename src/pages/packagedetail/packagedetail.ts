@@ -34,9 +34,7 @@ export class PackagedetailPage {
     this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);
     console.log(this.Destination)
     this.presentLoadingDefault();
-    this.storage.get('ID').then((val) => {
-      this.ID=val;
-    }); 
+    
     console.log(this.ID);
   }
 
@@ -77,18 +75,24 @@ export class PackagedetailPage {
 
   sendRequest(PackageID){
     setTimeout(() => {
+      this.storage.get('ID').then((val) => {
+        this.ID=val;
+       
       this.http.get('http://localhost:5000/requestDelivery?PackageID=' + PackageID +"&TransporterID=" +this.ID).map(res => res.json()).subscribe(response => {
         if (response.content == 'success') {
           this.presentNotification("Request has been sent, awaiting response from Package sender","Success");
         }
         else if(response.content == 'failed') {
-          this.presentNotification("Request denied the package has already been booked","Success");
+          this.presentNotification("Request denied the package has already been booked","Failed");
+        }
+        else{
+          this.presentNotification("Request already made","Rerequest ");
         }
       },
         err => {
           console.log('error');
         });
-   
+      });
     }, 300);
     
   }

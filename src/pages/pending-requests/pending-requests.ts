@@ -35,18 +35,32 @@ export class PendingRequestsPage {
     this.storage.get('ID').then((val) => {
       this.ID = val;
       console.log(this.ID);
-      this.http.get('http://localhost:5000/pendingpackages?TransporterID='+this.ID).map(res => res.json()).subscribe(response => {
-        for (let i = 0; i < response.content.length; i++) {
-          let temp=JSON.parse(JSON.stringify((response.content[i])));
-          console.log(temp);
-          this.responseDataPending.push(temp);
+      this.http.get('http://localhost:5000/pendingpackages?TransporterID=' + this.ID).map(res => res.json()).subscribe(response => {
+        if (response.content == "failed") {
+          this.responseDataPending = [];
+          this.presentAlert("No Pending Packages Found");
         }
-        console.log(response.content[0]);
+        else {
+          for (let i = 0; i < response.content.length; i++) {
+            let temp = JSON.parse(JSON.stringify((response.content[i])));
+            console.log(temp);
+            this.responseDataPending.push(temp);
+          }
+          console.log(response.content[0]);
+        }
       },
         err => {
           console.log(err);
         });
     });
+  }
+  presentAlert(text) {
+    let alert = this.alertCtrl.create({
+      title: 'Alert',
+      subTitle: text,
+      buttons: ['Dismiss'],
+    });
+    alert.present();
   }
 
 }

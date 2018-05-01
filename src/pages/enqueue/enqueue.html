@@ -16,14 +16,24 @@
 
 
 <ion-content class="background1">
-  <ion-card (click)="openEnqueuedetailsPage()">
-    <img class="thumb" src="assets/imgs/advance-card-map-madison.png">
-    <ion-card-content>
-      <h2>To: Museum of Football</h2>
-      <p>11 N. Way St, Madison, WI 53703</p>
-    </ion-card-content>
-    <button ion-button full class="buttonitem" >
-      Details
+  <ion-card *ngFor="let item of responseDataEnqueue, let i= index">
+    <ion-fab right>
+      <button class="buttoncolor" ion-fab>
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-fab>
+    <img class="imagePackage" src="assets/imgs/advance-card-map-madison.png">
+    <ion-item >
+      <h2 >Name</h2>
+      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.PackageName}}/-</ion-note>
+    </ion-item>
+    <ion-item >
+      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
+      <h2 class="ioniconcolor1">To: {{item.DestAddress}}
+      </h2>
+    </ion-item >
+    <button ion-button full class="buttonitem" (click)="openEnqueuedetailsPage(i)">
+      View Details
     </button>
   </ion-card>
 </ion-content>
