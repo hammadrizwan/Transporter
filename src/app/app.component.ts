@@ -63,29 +63,29 @@ export class MyApp {
       this.storage.get('Name').then((val) => {
         this.Name = val;
       });
-      Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
-      this.geolocation.getCurrentPosition().then(
-        (position) => {
-          console.log(position.coords.latitude, position.coords.longitude);
-          let myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          console.log(JSON.parse(JSON.stringify(myPosition)));
-          this.storage.get('ID').then((val) => {
-            let data = {
-              'TransporterID':val,
-              'Latitude':position.coords.latitude,
-              'Longitude':position.coords.longitude,
-            }
-          this.http.post('http://localhost:5000/trackUser', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
-          },
-            err => {
-              console.log('error');
-            });
-          });
-        }),
-        (error) => {
-          console.log(error);
-        }
-    });
+    //   Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+    //   this.geolocation.getCurrentPosition().then(
+    //     (position) => {
+    //       console.log(position.coords.latitude, position.coords.longitude);
+    //       let myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    //       console.log(JSON.parse(JSON.stringify(myPosition)));
+    //       this.storage.get('ID').then((val) => {
+    //         let data = {
+    //           'TransporterID':val,
+    //           'Latitude':position.coords.latitude,
+    //           'Longitude':position.coords.longitude,
+    //         }
+    //       this.http.post('http://localhost:5000/trackUser', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
+    //       },
+    //         err => {
+    //           console.log('error');
+    //         });
+    //       });
+    //     }),
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    // });
     });
     //this.onNotification(); 
     //this.trackUser();

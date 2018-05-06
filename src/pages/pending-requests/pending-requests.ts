@@ -35,7 +35,7 @@ export class PendingRequestsPage {
     this.storage.get('ID').then((val) => {
       this.ID = val;
       console.log(this.ID);
-      this.http.get('http://localhost:5000/pendingpackages?TransporterID=' + this.ID).map(res => res.json()).subscribe(response => {
+      this.http.get('http://localhost:5000/pendingpackages',{params:{'TransporterID':  this.ID}}).map(res => res.json()).subscribe(response => {
         if (response.content == "failed") {
           this.responseDataPending = [];
           this.presentAlert("No Pending Packages Found");

@@ -84,7 +84,8 @@ export class EnqueuedetailsPage {
       setTimeout(() => {
         this.storage.get('ID').then((val) => {
           this.ID=val;
-        this.http.get('http://localhost:5000/deliveryCompleted?PackageID=' + PackageID+'&token='+this.token ).map(res => res.json()).subscribe(response => {
+        this.http.get('http://localhost:5000/deliveryCompleted',{params:{'PackageID': PackageID,'token': this.token}} 
+      ).map(res => res.json()).subscribe(response => {
           if (response.content == 'success') {
             loading.dismiss(); 
             this.presentNotification("The Package delivery is completed","Success");          

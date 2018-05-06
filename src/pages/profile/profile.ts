@@ -28,9 +28,7 @@ export class ProfilePage {
   ,public http:Http) {
     this.storage.get('ID').then((val) => {
       this.ID=val;
-    
-    console.log('http://localhost:5000/getransporterdata?TransporterID='+this.ID);
-    this.http.get('http://localhost:5000/getransporterdata?TransporterID='+this.ID).map(res => res.json()).subscribe(response => {
+    this.http.get('http://localhost:5000/getransporterdata',{params:{'TransporterID': this.ID}}).map(res => res.json()).subscribe(response => {
       console.log(response.content);  
       this.Name=response.content[0].Name;
       console.log(this.Name);

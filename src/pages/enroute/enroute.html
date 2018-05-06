@@ -22,23 +22,20 @@
     <ion-item></ion-item>
     <ion-searchbar class="searchbars" #searchbar placeholder="Enter Destination:"></ion-searchbar>
   <ion-card id="mapEnroute" #mapEnroute></ion-card>
-
-
-
-
 <button id="buttonSearch" ion-button (click)=findPath()>Find Path</button>
   </ion-card>
-  <ion-card id="divider"></ion-card>
- 
-
   
+  <ion-card id="divider"></ion-card>
+  
+  
+
   <ion-card *ngFor="let item of responseDataEnroute, let i= index">
       <ion-fab right>
         <button class="buttoncolor" ion-fab>
           <ion-icon name="pin"></ion-icon>
         </button>
       </ion-fab>
-      <img class="imagePackage" src="assets/imgs/advance-card-map-madison.png">
+      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />
       <ion-item >
         <h2 >Fare</h2>
         <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>

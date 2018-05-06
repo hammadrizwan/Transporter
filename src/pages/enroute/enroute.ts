@@ -201,17 +201,18 @@ export class EnroutePage {
     let DestinationLat = Des["lat"];
     let DestinationLng = Des["lng"];
     this.responseDataEnroute = [];
-    this.http.get('http://localhost:5000/enroutepackages?SourceLat=' + SourceLat + '&SourceLng=' + SourceLng +
-      '&DestinationLat=' + DestinationLat + '&DestinationLng=' + DestinationLng + '&Radius=' + this.rad).map(res => res.json()).subscribe(response => {
-        response.content.map(item => {
-          this.responseDataEnroute.push(item);
-          let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
-          this.addPackageMarker(myPos, this.responseDataEnroute.indexOf(item), item['PackageName']);
-        });
-      },
-        err => {
-          console.log('error');
-        });
+    this.http.get('http://localhost:5000/enroutepackages',
+      { params: { 'SourceLat': SourceLat, 'SourceLng': SourceLng, 'DestinationLat': DestinationLat, 'DestinationLng': DestinationLng, 'Radius': this.rad } }
+    ).map(res => res.json()).subscribe(response => {
+      response.content.map(item => {
+        this.responseDataEnroute.push(item);
+        let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
+        this.addPackageMarker(myPos, this.responseDataEnroute.indexOf(item), item['PackageName']);
+      });
+    },
+      err => {
+        console.log('error');
+      });
     //this.loading.dismiss();
   }
 

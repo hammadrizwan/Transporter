@@ -10,9 +10,7 @@ page-nearby {
 .background1{
     background: color($colors, light);
 }
-.imagepackage{
- max-height: 270px;
-}
+
 .buttoncolor{
     background-color: color($colors, navbarcolor);
 }
@@ -23,8 +21,18 @@ page-nearby {
 .ioniconcolor2{
      color : color($colors, navbarcolor);
   }
+.imagePackage{
+    height: 30%;
+}
 #divider{
-    height:60%;
+    height:90%;
+}
+#mapNearby {
+    height: 90%;
+    top: 0;
+    left: 0;
+    position: absolute!important;
+    overflow: hidden!important;
 }
 #distanceInput{
     margin:0px;
@@ -43,40 +51,10 @@ page-nearby {
     opacity: 1;
 }
     // map style
-    #mapNearby {
-        height: 70%;
-        top: 0;
-        left: 0;
-        position: absolute!important;
-        overflow: hidden!important;
-    }
-    
-    .hidemap {
-        visibility: hidden;
-    }
+
     ion-searchbar {
         position: absolute;
         opacity: .7;
         z-index: 3;
-    }
-    .switch {
-        position: fixed;
-        bottom: 10px;
-        left: 50%;
-        transform: translate3d(-50%, -50%, 0);
-        width: 80%;
-        border-radius: 10px;
-        text-align: center;
-        z-index: 100;
-        opacity: .9;
-        .active {
-            background: #3366CC!important;
-            color: #fff;
-        }
-        .button {
-            width: 100px;
-            margin: 0;
-            padding: 0;
-        }
     }
 }

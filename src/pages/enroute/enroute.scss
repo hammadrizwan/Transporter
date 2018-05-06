@@ -39,7 +39,9 @@ page-enroute {
     position: absolute!important;
     overflow: hidden!important;
 }
-
+.imagePackage{
+    height: 30%;
+}
 .hidemap {
     visibility: hidden;
     margin-top: -1000px;
@@ -52,25 +54,4 @@ page-enroute {
     height: 5px;
     width:97%;
 }
-.switch {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    width: 80%;
-    border-radius: 10px;
-    text-align: center;
-    z-index: 100;
-    opacity: .9;
-    .active {
-        background: #3366CC!important;
-        color: #fff;
-    }
-    .button {
-        width: 100px;
-        margin: 0;
-        padding: 0;
-    }
-}
-
 }

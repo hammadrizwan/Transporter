@@ -25,11 +25,10 @@ export class AllPackagesPage {
     private alertCtrl: AlertController) {
     this.skips = 0;
     console.log
-    this.http.get('http://localhost:5000/allpackages?skips=' + this.skips).map(res => res.json()).subscribe(response => {
+    this.http.get('http://localhost:5000/allpackages',{params:{'skips': this.skips}}).map(res => res.json()).subscribe(response => {
       response.content.map(item => {
         this.responseData.push(item);
       })
-
     },
       err => {
         console.log('error');
@@ -48,7 +47,7 @@ export class AllPackagesPage {
     this.skips = this.responseData.length;
     var length = this.responseData.length;
     setTimeout(() => {
-      this.http.get('http://localhost:5000/allpackages?skips=' + this.skips).map(res => res.json()).subscribe(response => {
+      this.http.get('http://localhost:5000/allpackages',{params:{'skips': this.skips}}).map(res => res.json()).subscribe(response => {
         response.content.map(item => {
           this.responseData.push(item);
         })

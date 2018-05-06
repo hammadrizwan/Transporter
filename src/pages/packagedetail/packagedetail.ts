@@ -78,7 +78,7 @@ export class PackagedetailPage {
       this.storage.get('ID').then((val) => {
         this.ID=val;
        
-      this.http.get('http://localhost:5000/requestDelivery?PackageID=' + PackageID +"&TransporterID=" +this.ID).map(res => res.json()).subscribe(response => {
+      this.http.get('http://localhost:5000/requestDelivery',{params:{'PackageID': PackageID,'TransporterID':this.ID}}).map(res => res.json()).subscribe(response => {
         if (response.content == 'success') {
           this.presentNotification("Request has been sent, awaiting response from Package sender","Success");
         }

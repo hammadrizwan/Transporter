@@ -34,7 +34,7 @@ export class EnqueuePage {
   getPackages() {
     this.storage.get('ID').then((val) => {
       this.ID = val;
-      this.http.get('http://localhost:5000/enquedpackages?TransporterID=' + this.ID).map(res => res.json()).subscribe(response => {
+      this.http.get('http://localhost:5000/enquedpackages',{params:{'TransporterID': this.ID}}).map(res => res.json()).subscribe(response => {
         if (response.content == "failed") {
           this.responseDataEnqueue=[];
           this.presentAlert("No Enqueued Packages Found");

@@ -33416,7 +33416,7 @@ ion-avatar img {
 }
 
 .imagePackage {
-  height: 150px;
+  height: 30%;
 }
 
 .background1 {
@@ -33443,6 +33443,10 @@ ion-avatar img {
   text-align: center;
 }
 
+.imagePackage {
+  height: 30%;
+}
+
 .headertop {
   padding-top: 15px;
 }
@@ -33462,6 +33466,10 @@ ion-avatar img {
   width: 100%;
   height: 50px;
   background: #e52d27;
+}
+
+.imagePackage {
+  height: 30%;
 }
 
 page-enroute #buttonSearch {
@@ -33511,6 +33519,10 @@ page-enroute #mapEnroute {
   overflow: hidden !important;
 }
 
+page-enroute .imagePackage {
+  height: 30%;
+}
+
 page-enroute .hidemap {
   visibility: hidden;
   margin-top: -1000px;
@@ -33523,30 +33535,6 @@ page-enroute .searchbars {
   z-index: 3;
   height: 5px;
   width: 97%;
-}
-
-page-enroute .switch {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  transform: translate3d(-50%, -50%, 0);
-  width: 80%;
-  border-radius: 10px;
-  text-align: center;
-  z-index: 100;
-  opacity: .9;
-}
-
-page-enroute .switch .active {
-  background: #3366CC !important;
-  color: #fff;
-}
-
-page-enroute .switch .button {
-  width: 100px;
-  margin: 0;
-  padding: 0;
 }
 
 .colornavbar {
@@ -33569,10 +33557,6 @@ page-nearby .background1 {
   background: #f4f4f4;
 }
 
-page-nearby .imagepackage {
-  max-height: 270px;
-}
-
 page-nearby .buttoncolor {
   background-color: #e52d27;
 }
@@ -33586,8 +33570,20 @@ page-nearby .ioniconcolor2 {
   color: #e52d27;
 }
 
+page-nearby .imagePackage {
+  height: 30%;
+}
+
 page-nearby #divider {
-  height: 60%;
+  height: 90%;
+}
+
+page-nearby #mapNearby {
+  height: 90%;
+  top: 0;
+  left: 0;
+  position: absolute !important;
+  overflow: hidden !important;
 }
 
 page-nearby #distanceInput {
@@ -33609,46 +33605,10 @@ page-nearby #goButton:active {
   opacity: 1;
 }
 
-page-nearby #mapNearby {
-  height: 70%;
-  top: 0;
-  left: 0;
-  position: absolute !important;
-  overflow: hidden !important;
-}
-
-page-nearby .hidemap {
-  visibility: hidden;
-}
-
 page-nearby ion-searchbar {
   position: absolute;
   opacity: .7;
   z-index: 3;
-}
-
-page-nearby .switch {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  transform: translate3d(-50%, -50%, 0);
-  width: 80%;
-  border-radius: 10px;
-  text-align: center;
-  z-index: 100;
-  opacity: .9;
-}
-
-page-nearby .switch .active {
-  background: #3366CC !important;
-  color: #fff;
-}
-
-page-nearby .switch .button {
-  width: 100px;
-  margin: 0;
-  padding: 0;
 }
 
 .background1 {
@@ -33693,6 +33653,10 @@ page-nearby .switch .button {
   left: 0;
 }
 
+.imagePackage {
+  height: 30%;
+}
+
 #divider {
   height: 60%;
 }
@@ -33707,6 +33671,10 @@ page-nearby .switch .button {
   width: 100%;
   height: 50px;
   background: #e52d27;
+}
+
+.imagePackage {
+  height: 30%;
 }
 
 .background1 {
