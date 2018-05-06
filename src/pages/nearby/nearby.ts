@@ -34,17 +34,11 @@ export class NearbyPage {
     this.platform.ready().then(() => this.loadMaps());
   }
   openPackageDetailsPage(i: any) {
-    this.navCtrl.push(PackagedetailPage, this.responseData[i]);
+    this.navCtrl.push(PackagedetailPage, this.responseDataNearby[i]);
   } 
-
-
-
   @ViewChild('mapNearby') mapElement: ElementRef;
   @ViewChild('distanceInput') inputElement: ElementRef;
-
-
   MyLocation: any;
-
   listSearch: string = '';
   cityCircle: any;
   radius = 1000;
@@ -56,7 +50,7 @@ export class NearbyPage {
   search: boolean = false;
   error: any;
   switch: string = "map";
-  responseData = [];
+  responseDataNearby = [];
   regionals: any = [];
   currentregional: any;
 
@@ -109,11 +103,13 @@ export class NearbyPage {
       }
       this.getCurrentPositions();
       // this.loading.dismissAll();
-      this.responseData=[];
+      this.responseDataNearby=[];
       this.http.get('http://localhost:5000/nearbypackages?Lat=' + this.currentLat + '&Long=' + this.currentLong + '&Radius=' + this.rad).map(res => res.json()).subscribe(response => {      
-        for (let i = 0; i < response.content.length; i++) {
-          this.responseData.push(response.content[i]);
-        }
+        response.content.map(item =>{
+          this.responseDataNearby.push(item);
+          let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
+          this.addPackageMarker(myPos, this.responseDataNearby.indexOf(item), item['PackageName']);
+        });
         // this.loading.dismiss();
       },
         err => {
@@ -147,16 +143,13 @@ export class NearbyPage {
         scaleControl: true,
       });
       this.getCurrentPositions();
-    });
-    
+    }); 
   }
 
   //Center zoom
   //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
   // go show currrent location
   getCurrentPositions() {
- 
-
     this.geolocation.getCurrentPosition().then(
 
       (position) => {
@@ -193,9 +186,6 @@ showToast(message) {
   });
   toast.present();
 }
-
-
-
   addMarker(position, content) {
     let marker = new google.maps.Marker({
       map: this.map,
@@ -213,6 +203,30 @@ showToast(message) {
 
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
+    });
+  }
+  addPackageMarker(position, index, content) {
+    let image = "assets/icon/package.png";
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: position,
+      title: "hello",
+      icon: image,
+    });
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+    infoWindow.open(this.map, marker);
+
+    this.addPackageMarkerEvent(marker, index);
+    return marker;
+  }
+  addPackageMarkerEvent(marker, index) {
+
+    google.maps.event.addListener(marker, 'click', () => {
+
+      this.openPackageDetailsPage(index);
     });
   }
 

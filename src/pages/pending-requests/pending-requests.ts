@@ -41,11 +41,9 @@ export class PendingRequestsPage {
           this.presentAlert("No Pending Packages Found");
         }
         else {
-          for (let i = 0; i < response.content.length; i++) {
-            let temp = JSON.parse(JSON.stringify((response.content[i])));
-            console.log(temp);
-            this.responseDataPending.push(temp);
-          }
+          response.content.map(item =>{
+            this.responseDataPending.push(item);
+          });
           console.log(response.content[0]);
         }
       },

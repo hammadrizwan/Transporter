@@ -34,20 +34,15 @@ export class EnqueuePage {
   getPackages() {
     this.storage.get('ID').then((val) => {
       this.ID = val;
-      console.log(this.ID);
       this.http.get('http://localhost:5000/enquedpackages?TransporterID=' + this.ID).map(res => res.json()).subscribe(response => {
-
         if (response.content == "failed") {
           this.responseDataEnqueue=[];
           this.presentAlert("No Enqueued Packages Found");
         }
         else {
-          for (let i = 0; i < response.content.length; i++) {
-            let temp = JSON.parse(JSON.stringify((response.content[i])));
-            console.log(temp);
-            this.responseDataEnqueue.push(temp);
-          }
-          console.log(response.content);
+          response.content.map(item =>{
+            this.responseDataEnqueue.push(item);
+          });
         }
       },
         err => {

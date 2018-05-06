@@ -45,12 +45,21 @@ export class SignUpPage {
   Year: AbstractControl;
   Gender: AbstractControl;
   Token: any;
-  constructor(public navCtrl: NavController, private camera: Camera,
-    private transfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController,
-    public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController,
-    private formBuilder: FormBuilder, private alertCtrl: AlertController, public http: Http, public storage:Storage,
-    private fcm:FCM) {
-
+  constructor(public navCtrl: NavController,
+    private camera: Camera,
+    private transfer: FileTransfer,
+    private file: File,
+    private filePath: FilePath,
+    public actionSheetCtrl: ActionSheetController,
+    public toastCtrl: ToastController,
+    public platform: Platform,
+    public loadingCtrl: LoadingController,
+    private formBuilder: FormBuilder,
+    private alertCtrl: AlertController,
+    public http: Http,
+    public storage: Storage,
+    private fcm: FCM) {
+      //formbuilder used for error checking and validation of data at client side
     this.data = this.formBuilder.group({
       lastImage1: ['', Validators.required],
       lastImage2: ['', Validators.required],
@@ -67,8 +76,7 @@ export class SignUpPage {
       Year: ['year', Validators.compose([Validators.required, Validators.pattern('^((?!year).)*$')])],
       Gender: ['gender', Validators.compose([Validators.required, Validators.pattern('^((?!gender).)*$')])],
     });
-
-
+    //bind the variables to input elements in the form making error checking and data access easier
     this.Name = this.data.controls['Name'];
     this.Email = this.data.controls['Email'];
     this.CNIC = this.data.controls['CNIC'];
@@ -81,13 +89,11 @@ export class SignUpPage {
     this.Month = this.data.controls['Month'];
     this.Year = this.data.controls['Year'];
     this.Gender = this.data.controls['Gender'];
-
   }
 
-  logForm() {
-    this.submitAttempted = true;
-    let path = 'http://localhost:5000/';
-    let encodedPath = encodeURI(path);
+  logForm() {//fucntion called when user tries to register with the server
+    this.submitAttempted = true;//set true for error checking after user has entered all information
+    //error checking for all fields in the signup form
     if (this.Name.hasError('required')) {
       this.presentErrorAlert("Some values have been entered Incorectyl");
       return;
@@ -130,52 +136,51 @@ export class SignUpPage {
     this.loading = this.loadingCtrl.create({
       content: 'Creating Profile...',
     });
-    this.loading.present();
+    this.loading.present();//show loading that request has been sent and response is bieng awaited for
 
-    
-      // this.fcm.getToken().then(token=>{
-      //   this.Token=token;
-      // })
-      let Userdata = {
-        'ID': 0,
-        'Name': this.Name.value,
-        'Email': this.Email.value,
-        'CNIC': this.CNIC.value,
-        'Phone': this.Phone.value,
-        'Address': this.Address.value,
-        'CarRegistrationNo': this.CarRegistrationNo.value,
-        'Password': this.Password.value,
-        'Date': this.Date.value,
-        'Month': this.Month.value,
-        'Year': this.Year.value,
-        'Gender': this.Gender.value,
-        'Clearence Due': 0,
-        'Rating': 0,
-        'ActivePackages': 0,
-        'CancelledPackages': 0.0,
-        // 'Token':this.Token,
-      };
-      console.log(Userdata);
-      
-      this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
-        let responseData = data;
-        console.log(responseData.Error);
-        this.loading.dismissAll();
-        if (responseData.Error != "none") {
-          this.presentErrorAlert(responseData.Error);
-        }
-        else{
-          this.storage.set('Name', this.Name.value);
-          this.storage.set('Email', this.Email.value);
-          this.storage.set('Password', this.Password.value)
-          this.storage.set('ID', this.id);
-          this.storage.set('Rating',0);
-          this.openPage(HomePage);
-        }
-      },
-        err => {
-          console.log('error'); 
-        });
+
+    // this.fcm.getToken().then(token=>{
+    //   this.Token=token;
+    // })
+    let Userdata = {
+      'ID': 0,
+      'Name': this.Name.value,
+      'Email': this.Email.value,
+      'CNIC': this.CNIC.value,
+      'Phone': this.Phone.value,
+      'Address': this.Address.value,
+      'CarRegistrationNo': this.CarRegistrationNo.value,
+      'Password': this.Password.value,
+      'Date': this.Date.value,
+      'Month': this.Month.value,
+      'Year': this.Year.value,
+      'Gender': this.Gender.value,
+      'Clearence Due': 0,
+      'Rating': 0,
+      'ActivePackages': 0,
+      'CancelledPackages': 0.0,
+      //'Token':this.Token,
+    };
+
+    this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
+      let responseData = data;
+      console.log(responseData.Error);
+      this.loading.dismissAll();
+      if (responseData.Error != "none") {
+        this.presentErrorAlert(responseData.Error);
+      }
+      else {//if account creation successfull store these value in local storage as they will be required by the application
+        this.storage.set('Name', this.Name.value);
+        this.storage.set('Email', this.Email.value);
+        this.storage.set('Password', this.Password.value)
+        this.storage.set('ID', this.id);
+        this.storage.set('Rating', 0);
+        this.openPage(HomePage);
+      }
+    },
+      err => {
+        console.log('error');
+      });
 
 
 
@@ -212,7 +217,7 @@ export class SignUpPage {
       //ALL things are now set just need to send data to the back end check for valid!!!/
       */
   }
-  openPage(page) {
+  openPage(page) {//if account creation successfull open the home page
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.setRoot(page);
@@ -221,6 +226,8 @@ export class SignUpPage {
     console.log('ionViewDidLoad SignUpPage');
   }
 
+
+  //________________________________________________________CODE FOR CAMERA PHOTOES____________________________________
   public presentActionSheet(id) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
@@ -280,7 +287,6 @@ export class SignUpPage {
       newFileName = n + ".jpg";
     return newFileName;
   }
-
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName, id) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
@@ -319,13 +325,14 @@ export class SignUpPage {
   imageupload() {
 
   }
+  //__________________________________________________________________________________________________________________
+
+  //upload images to server
   public uploadImage(image) {
     // Destination URL
     var url = "http://localhost:5000/signup";
-
     // File for Upload
     var targetPath = this.pathForImage(image);
-
     // File name only
     var filename = image;
 

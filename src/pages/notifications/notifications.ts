@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FCM } from '@ionic-native/fcm';
 import { AlertController } from 'ionic-angular';
 import { Http } from '@angular/http';
-
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the NotificationsPage page.
@@ -20,9 +20,11 @@ import { Http } from '@angular/http';
 export class NotificationsPage {
   NotificationData = [];
   Token:any;
+  ID:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private fcm: FCM,private alertCtrl: AlertController, private http:Http) {
+    private fcm: FCM,private alertCtrl: AlertController, private http:Http, public storage:Storage) {
   //  this.onNotification();
+      console.log(this.navParams.data);
   }
 
   ionViewDidLoad() {
@@ -57,12 +59,25 @@ export class NotificationsPage {
   alert.present();
   }
   sendNotify(){
-    this.http.get('http://localhost:5000/notify').map(res => res.json()).subscribe(response => {
-        
+    this.storage.get('ID').then((val) => {
+      this.ID = val;
+      let data ={
+        'appType':"Transporter",
+        'ID':this.ID,
+        'Token': "jkdfhajfasdfgafgagfjgasfgjasfgajsdgafgasgdfsagdfgagsjfjsdgf",
+      }
+      this.http.post('http://localhost:5000/updateToken', JSON.stringify(data)).map(res => res.json()).subscribe(data => {          
       },
         err => {
           console.log('error');
         });
+    });
+    // this.http.get('http://localhost:5000/notify').map(res => res.json()).subscribe(response => {
+        
+    //   },
+    //     err => {
+    //       console.log('error');
+    //     });
         
   }
 }

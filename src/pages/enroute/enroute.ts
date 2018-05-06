@@ -28,7 +28,7 @@ export class EnroutePage {
   }
 
   openPackageDetailsPage(i: any) {
-    this.navCtrl.push(PackagedetailPage, this.responseData[i]);
+    this.navCtrl.push(PackagedetailPage, this.responseDataEnroute[i]);
   }
   @ViewChild('mapEnroute') mapElement: ElementRef;
 
@@ -39,7 +39,7 @@ export class EnroutePage {
   Source: any = null;
   Destination: any = null;
   MyLocation: any;
-  responseData = [];
+  responseDataEnroute = [];
   listSearch: string = '';
 
   map: any;
@@ -48,7 +48,7 @@ export class EnroutePage {
   search: boolean = false;
   error: any;
   switch: string = "map";
-  rad:any;
+  rad: any;
   regionals: any = [];
   currentregional: any;
 
@@ -66,7 +66,7 @@ export class EnroutePage {
     public http: Http,
   ) {
     this.platform.ready().then(() => this.loadMaps());
-    
+
   }
 
 
@@ -148,105 +148,75 @@ export class EnroutePage {
     });
   }
 
-  findPath(){
+  findPath() {
     let directionsService = new google.maps.DirectionsService;
-      let directionsDisplay = new google.maps.DirectionsRenderer;
-      this.loading = this.loadingCtrl.create({
-        spinner: 'bubbles',
-        content: 'Reloading...',
-      });
-      const map = new google.maps.Map(document.getElementById('mapEnroute'), {
-        zoom: 9,
-        center: { lat: 31.4826352, lng: 74.0712721 }
-      });
-      directionsDisplay.setMap(map);
-      directionsService.route({
-        origin: this.Source,
-        destination: this.Destination,
-        travelMode: 'DRIVING'
-      }, function (response, status) {
-        if (status === 'OK') {
-          directionsDisplay.setDirections(response);
-        } else {
-          window.alert('Directions request failed due to ' + status);
-        }
-      });
-      let cityCircle1 = new google.maps.Circle({
-        strokeColor: '#033860',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#2a4255',
-        fillOpacity: 0.35,
-        map: map,
-        center:this.Destination,
-        radius: 2000,
-      });
-      let cityCircle2 = new google.maps.Circle({
-        strokeColor: '#033860',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#2a4255',
-        fillOpacity: 0.35,
-        map: map,
-        center:this.Source,
-        radius: 2000,
-      });
-      
-      //this.loading.present();
-      this.rad=2000;
-      let Src=JSON.parse(JSON.stringify(this.Source));
-      let Des=JSON.parse(JSON.stringify(this.Destination));
-      let SourceLat=Src["lat"];
-      let SourceLng=Src["lng"];
-      let DestinationLat=Des["lat"];
-      let DestinationLng=Des["lng"];
-      console.log(SourceLat);
-      console.log(SourceLng);
-      console.log(DestinationLat);
-      console.log(DestinationLng);
-      this.responseData=[];
-      this.http.get('http://localhost:5000/enroutepackages?SourceLat=' +SourceLat + '&SourceLng=' + SourceLng + 
-      '&DestinationLat=' + DestinationLat +'&DestinationLng=' + DestinationLng + '&Radius=' + this.rad).map(res => res.json()).subscribe(response => {
-        console.log(response);
-        for (let i = 0; i < response.content.length; i++) {
-          this.responseData.push(response.content[i]);
-        
-        }
+    let directionsDisplay = new google.maps.DirectionsRenderer;
+    this.loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Reloading...',
+    });
+    this.map = new google.maps.Map(document.getElementById('mapEnroute'), {
+      zoom: 9,
+      center: { lat: 31.4826352, lng: 74.0712721 }
+    });
+    directionsDisplay.setMap(this.map);
+    directionsService.route({
+      origin: this.Source,
+      destination: this.Destination,
+      travelMode: 'DRIVING'
+    }, function (response, status) {
+      if (status === 'OK') {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+    let cityCircle1 = new google.maps.Circle({
+      strokeColor: '#033860',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#2a4255',
+      fillOpacity: 0.35,
+      map: this.map,
+      center: this.Destination,
+      radius: 2000,
+    });
+    let cityCircle2 = new google.maps.Circle({
+      strokeColor: '#033860',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#2a4255',
+      fillOpacity: 0.35,
+      map: this.map,
+      center: this.Source,
+      radius: 2000,
+    });
+
+    //this.loading.present();
+    this.rad = 2000;
+    let Src = JSON.parse(JSON.stringify(this.Source));
+    let Des = JSON.parse(JSON.stringify(this.Destination));
+    let SourceLat = Src["lat"];
+    let SourceLng = Src["lng"];
+    let DestinationLat = Des["lat"];
+    let DestinationLng = Des["lng"];
+    this.responseDataEnroute = [];
+    this.http.get('http://localhost:5000/enroutepackages?SourceLat=' + SourceLat + '&SourceLng=' + SourceLng +
+      '&DestinationLat=' + DestinationLat + '&DestinationLng=' + DestinationLng + '&Radius=' + this.rad).map(res => res.json()).subscribe(response => {
+        response.content.map(item => {
+          this.responseDataEnroute.push(item);
+          let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
+          this.addPackageMarker(myPos, this.responseDataEnroute.indexOf(item), item['PackageName']);
+        });
       },
         err => {
           console.log('error');
         });
-        //this.loading.dismiss();
-     
+    //this.loading.dismiss();
   }
 
   createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
 
-    {
-    //  let locationOptions = { timeout: 10000, enableHighAccuracy: true };
-      this.geolocation.getCurrentPosition().then(
-        (position) => {
-          console.log(position.coords.latitude, position.coords.longitude);
-          let myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          //this.MyLocation= new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          let options = {
-            center: myPos,
-            zoom: 13
-          };
-          this.map.setOptions(options);
-          this.addMarker(myPos, "I am Here!");
-          
-         
-        },
-        (error) => {
-          // this.loading.dismiss().then(() => {
-          //   this.showToast('Location not found. Please enable your GPS!');
-          //   console.log(error);
-          // });
-          console.log(error);
-        }
-      )
-    }
 
     const autocomplete = new google.maps.places.Autocomplete(addressEl);
     autocomplete.bindTo('bounds', this.map);
@@ -267,7 +237,7 @@ export class EnroutePage {
       });
     });
   }
-  
+
   initializeMap() {
     this.zone.run(() => {
       var mapEle = this.mapElement.nativeElement;
@@ -281,28 +251,28 @@ export class EnroutePage {
         zoomControl: true,
         scaleControl: true,
       });
-     this.getCurrentPosition();
+      this.getCurrentPosition();
 
     });
   }
 
   //Center zoom
   //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
-  bounceMap(markers) {
-    let bounds = new google.maps.LatLngBounds();
+  // bounceMap(markers) {
+  //   let bounds = new google.maps.LatLngBounds();
 
-    for (var i = 0; i < markers.length; i++) {
-      bounds.extend(markers[i].getPosition());
-    }
+  //   for (var i = 0; i < markers.length; i++) {
+  //     bounds.extend(markers[i].getPosition());
+  //   }
 
-    this.map.fitBounds(bounds);
-  }
+  //   this.map.fitBounds(bounds);
+  // }
 
-  resizeMap() {
-    setTimeout(() => {
-      google.maps.event.trigger(this.map, 'resize');
-    }, 200);
-  }
+  // resizeMap() {
+  //   setTimeout(() => {
+  //     google.maps.event.trigger(this.map, 'resize');
+  //   }, 200);
+  // }
 
   /*
     getCurrentPositionfromStorage(markers) {
@@ -340,40 +310,37 @@ export class EnroutePage {
     //this.loading.present();
 
     let locationOptions = { timeout: 10000 };
-
     this.geolocation.getCurrentPosition(locationOptions).then(
       (position) => {
-        
+        console.log(position.coords.latitude, position.coords.longitude);
+        let myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        let options = {
+          center: myPos,
+          zoom: 12
 
-          console.log(position.coords.latitude, position.coords.longitude);
-          let myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          let options = {
-            center: myPos,
-            zoom: 12
-
-          };
-          this.map.setOptions(options);
-          this.addMarker(myPos, "I am Here!");
-          //this.loading.dismiss();
-        }),
+        };
+        this.map.setOptions(options);
+        this.addMarker(myPos, "I am Here!");
+        //this.loading.dismiss();
+      }),
       (error) => {
-      //     this.loading.dismiss().then(() => {
-      //     this.showToast('Location not found. Please enable your GPS!');
-      //     this.loading.dismiss();
-      //     console.log(error);
-      //   });
+        //     this.loading.dismiss().then(() => {
+        //     this.showToast('Location not found. Please enable your GPS!');
+        //     this.loading.dismiss();
+        //     console.log(error);
+        //   });
         console.log(error);
       }
-    
+
   }
 
-  toggleSearch() {
-    if (this.search) {
-      this.search = false;
-    } else {
-      this.search = true;
-    }
-  }
+  // toggleSearch() {
+  //   if (this.search) {
+  //     this.search = false;
+  //   } else {
+  //     this.search = true;
+  //   }
+  // }
 
   addMarker(position, content) {
     let marker = new google.maps.Marker({
@@ -393,12 +360,36 @@ export class EnroutePage {
 
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
+
     });
   }
   viewPlace(id) {
     console.log('Clicked Marker', id);
   }
 
+  addPackageMarker(position, index, content) {
+    let image = "assets/icon/package.png";
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: position,
+      title: "hello",
+      icon: image,
+    });
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+    infoWindow.open(this.map, marker);
 
+    this.addPackageMarkerEvent(marker, index);
+    return marker;
+  }
+  addPackageMarkerEvent(marker, index) {
+
+    google.maps.event.addListener(marker, 'click', () => {
+
+      this.openPackageDetailsPage(index);
+    });
+  }
 
 }

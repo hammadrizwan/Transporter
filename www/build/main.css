@@ -33500,11 +33500,11 @@ page-enroute .ioniconcolor2 {
 }
 
 page-enroute #divider {
-  height: 40%;
+  height: 60%;
 }
 
 page-enroute #mapEnroute {
-  height: 70%;
+  height: 90%;
   top: 0;
   left: 0;
   position: absolute !important;
