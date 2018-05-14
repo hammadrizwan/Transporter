@@ -26,7 +26,7 @@ declare var google: any;
   templateUrl: 'nearby.html',
 })
 export class NearbyPage {
-
+  ID:any;
   currentLat: number;
   currentLong: number;
   ionViewDidLoad() {
@@ -104,13 +104,16 @@ export class NearbyPage {
       this.getCurrentPositions();
       // this.loading.dismissAll();
       this.responseDataNearby=[];
-      this.http.get('http://localhost:5000/nearbypackages',{params:{'Lat': this.currentLat,'Long':this.currentLong,'Radius':this.rad}}).map(res => res.json()).subscribe(response => {      
+      this.storage.get('ID').then((val) => {
+        this.ID=val;
+      this.http.get('http://localhost:5000/nearbypackages',{params:{'TransporterID':this.ID,'Lat': this.currentLat,'Long':this.currentLong,'Radius':this.rad}}).map(res => res.json()).subscribe(response => {      
         response.content.map(item =>{
           this.responseDataNearby.push(item);
           let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
           this.addPackageMarker(myPos, this.responseDataNearby.indexOf(item), item['PackageName']);
         });
         // this.loading.dismiss();
+      });
       },
         err => {
           console.log('error');

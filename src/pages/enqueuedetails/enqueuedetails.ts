@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, LoadingController, Platform, Alert
 import { Geolocation } from '@ionic-native/geolocation';
 import { Http, RequestOptions } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs/Observable';
 declare var google: any;
 /**
  * Generated class for the EnqueuedetailsPage page.
@@ -26,10 +27,16 @@ export class EnqueuedetailsPage {
   ID: any;
   token: any;
   loading: Loading;
+  cancellationOption:Boolean;
+  inProgress:Boolean;
+  cancelled:Boolean;
+  observer:any
   constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation,
     public zone: NgZone, public loadingCtrl: LoadingController, public platform: Platform, public http: Http,
     private alertCtrl: AlertController, public storage: Storage) {
-
+    this.cancellationOption=true;
+    this.cancelled=false;
+    this.inProgress=false;
     this.item = this.navParams.data;
     console.log(this.item);
     this.Source = new google.maps.LatLng(this.item.SourceLatitude, this.item.SourceLongitude);
@@ -37,6 +44,29 @@ export class EnqueuedetailsPage {
     this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);
     console.log(this.Destination)
     this.presentLoadingDefault();
+    // this.observer=Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+    //     this.geolocation.getCurrentPosition().then(
+    //       (position) => {
+    //         console.log(position.coords.latitude, position.coords.longitude);
+    //         let myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    //         console.log(JSON.parse(JSON.stringify(myPosition)));
+    //         this.storage.get('ID').then((val) => {
+    //           let data = {
+    //             'TransporterID':val,
+    //             'Latitude':position.coords.latitude,
+    //             'Longitude':position.coords.longitude,
+    //           }
+    //         this.http.post('http://localhost:5000/trackUser', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
+    //         },
+    //           err => {
+    //             console.log('error');
+    //           });
+    //         });
+    //       }),
+    //       (error) => {
+    //         console.log(error);
+    //       }
+    //   });
 
     console.log(this.ID);
   }
@@ -84,10 +114,17 @@ export class EnqueuedetailsPage {
       setTimeout(() => {
         this.storage.get('ID').then((val) => {
           this.ID=val;
+          let Userdata = {
+            'ID': this.ID,
+            'token': this.token,
+            //'Token':this.Token,
+          };
         this.http.get('http://localhost:5000/deliveryCompleted',{params:{'PackageID': PackageID,'token': this.token}} 
       ).map(res => res.json()).subscribe(response => {
           if (response.content == 'success') {
             loading.dismiss(); 
+            this.cancelled=true;
+            this.cancellationOption=false;
             this.presentNotification("The Package delivery is completed","Success");          
             setTimeout(() => {
               this.navCtrl.setRoot(EnqueuePage);
@@ -109,8 +146,49 @@ export class EnqueuedetailsPage {
       this.presentNotification("Token consists of only 10 digit","Re Check Token")
     }
   }
+  cancelPackage(PackageID){
+    let loading = this.loadingCtrl.create({
+      content: 'Waiting for token validation...',
+    });
+    //loading.present();
+    
+      setTimeout(() => {
+        this.storage.get('ID').then((val) => {
+          this.ID=val;
+          let Userdata = {
+            'PackageID': PackageID,
+            'TransporterID': this.ID,
+          };
+        this.http.put('http://localhost:5000/cancelPackage', JSON.stringify(Userdata) 
+      ).map(res => res.json()).subscribe(response => {
+          if (response['status'] == 'success') {
+            loading.dismiss(); 
+            this.presentNotification("Package Cancelled","Cancelled");          
+            setTimeout(() => {
+              this.navCtrl.setRoot(EnqueuePage);
+            }, 400);      
+          }
+          else{
+            loading.dismiss();   
+            this.presentNotification("testing","Failed");
+          }
+        },
+          err => {
+            console.log('error');
+          });
+        });
+      }, 300);
+  }
 
-
+  popView(){
+    console.log("aloha")
+    this.navCtrl.pop();
+  }
+  ionViewWillLeave() {
+    console.log("Looks like I'm about to leave :(");
+    //this.observer.unsubscribe();
+  }
+  
   presentNotification(text, header) {
     let alert = this.alertCtrl.create({
       title: header,

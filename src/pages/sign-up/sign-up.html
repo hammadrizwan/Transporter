@@ -252,7 +252,19 @@
         <ion-option value="2017">2017</ion-option>
         <ion-option value="2018">2018</ion-option>
       </ion-select>
+      
     </ion-item>
+    <ion-item>
+      <!-- Transport Type  input -->
+      <ion-label color="primary">Transport Type</ion-label>
+      <ion-select formControlName="transportType">
+        <ion-option value="transportyype" selected>Vehicle</ion-option>
+        <ion-option value="Bike">Bike</ion-option>
+        <ion-option value="Car">Car</ion-option>
+        <ion-option value="Pick Up">Pick Up</ion-option>
+        <ion-option value="Truck">Truck</ion-option>
+      </ion-select>
+      </ion-item>
     <ion-item *ngIf="(this.Date.hasError('pattern') || this.Month.hasError('pattern') || this.Year.hasError('pattern'))  && submitAttempted">
       <p ion-text color="danger">*Please Enter proper DOB</p>
     </ion-item>
@@ -268,7 +280,7 @@
     <ion-item *ngIf="CarRegistrationNo.hasError('pattern')  && CarRegistrationNo.touched">
       <p ion-text color="danger"> *Please enter proper Vehicle registration number</p>
     </ion-item>
-
+    
     <!-- Password input -->
     <ion-item>
       <ion-label color="primary" floating>Password</ion-label>

@@ -41,7 +41,7 @@ export class EnroutePage {
   MyLocation: any;
   responseDataEnroute = [];
   listSearch: string = '';
-
+  ID:any;
   map: any;
   marker: any;
   loading: any;
@@ -201,14 +201,17 @@ export class EnroutePage {
     let DestinationLat = Des["lat"];
     let DestinationLng = Des["lng"];
     this.responseDataEnroute = [];
+    this.storage.get('ID').then((val) => {
+      this.ID=val;
     this.http.get('http://localhost:5000/enroutepackages',
-      { params: { 'SourceLat': SourceLat, 'SourceLng': SourceLng, 'DestinationLat': DestinationLat, 'DestinationLng': DestinationLng, 'Radius': this.rad } }
+      { params: { 'TransporterID':this.ID, 'SourceLat': SourceLat, 'SourceLng': SourceLng, 'DestinationLat': DestinationLat, 'DestinationLng': DestinationLng, 'Radius': this.rad } }
     ).map(res => res.json()).subscribe(response => {
       response.content.map(item => {
         this.responseDataEnroute.push(item);
         let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
         this.addPackageMarker(myPos, this.responseDataEnroute.indexOf(item), item['PackageName']);
       });
+    });
     },
       err => {
         console.log('error');
@@ -253,7 +256,7 @@ export class EnroutePage {
         scaleControl: true,
       });
       this.getCurrentPosition();
-
+console.log("hellaodj;ajsod;asd");
     });
   }
 
@@ -321,8 +324,17 @@ export class EnroutePage {
 
         };
         this.map.setOptions(options);
-        this.addMarker(myPos, "I am Here!");
+        let marker1 = new google.maps.Marker({
+          map: this.map,
+          animation: google.maps.Animation.DROP,
+          position: myPos,
+          draggable: true
+        });
+    //    this.addMarker(myPos, "I am Here!");
         //this.loading.dismiss();
+        console.log("this is the lat"+marker1.getPosition().lat());
+        console.log("this is the lng"+marker1.getPosition().lng());
+      
       }),
       (error) => {
         //     this.loading.dismiss().then(() => {
@@ -347,7 +359,8 @@ export class EnroutePage {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: position
+      position: position,
+      draggable: true
     });
 
     this.addInfoWindow(marker, content);

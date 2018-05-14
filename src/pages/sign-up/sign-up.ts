@@ -44,6 +44,7 @@ export class SignUpPage {
   Month: AbstractControl;
   Year: AbstractControl;
   Gender: AbstractControl;
+  transportType:AbstractControl;
   Token: any;
   constructor(public navCtrl: NavController,
     private camera: Camera,
@@ -65,6 +66,7 @@ export class SignUpPage {
       lastImage2: ['', Validators.required],
       lastImage3: ['', Validators.required],
       Name: ['', Validators.required],
+      transportType:['transportyype', [Validators.required, Validators.pattern('^((?!transportyype).)*$')]],
       Email: ['', Validators.compose([Validators.required, Validators.email])],
       CNIC: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$')])],
       Phone: ['', Validators.compose([Validators.required, Validators.pattern('03[0-9]{9}$')])],
@@ -78,6 +80,7 @@ export class SignUpPage {
     });
     //bind the variables to input elements in the form making error checking and data access easier
     this.Name = this.data.controls['Name'];
+    this.transportType = this.data.controls['transportType'];
     this.Email = this.data.controls['Email'];
     this.CNIC = this.data.controls['CNIC'];
     this.Phone = this.data.controls['Phone'];
@@ -92,8 +95,9 @@ export class SignUpPage {
   }
 
   logForm() {//fucntion called when user tries to register with the server
-    // this.submitAttempted = true;//set true for error checking after user has entered all information
-    // //error checking for all fields in the signup form
+    console.log(this.transportType.value);
+    this.submitAttempted = true;//set true for error checking after user has entered all information
+    //error checking for all fields in the signup form
     // if (this.Name.hasError('required')) {
     //   this.presentErrorAlert("Some values have been entered Incorectyl");
     //   return;
@@ -133,10 +137,10 @@ export class SignUpPage {
     //   this.presentErrorAlert("Some values have been entered Incorectyl");
     //   return;
     // }
-    // this.loading = this.loadingCtrl.create({
-    //   content: 'Creating Profile...',
-    // });
-    
+    this.loading = this.loadingCtrl.create({
+      content: 'Creating Profile...',
+    });
+    console.log(this.transportType);
     
 
     // this.fcm.getToken().then(token=>{
@@ -156,11 +160,12 @@ export class SignUpPage {
 
       }
       //this.loading.present();//show loading that request has been sent and response is bieng awaited for
-      this.upload();
+      // this.upload();
       // let Userdata = {
       //   'ID': 0,
       //   'Name': this.Name.value,
       //   'Email': this.Email.value,
+      //   'TransportType':this.transportType.value;
       //   'CNIC': this.CNIC.value,
       //   'Phone': this.Phone.value,
       //   'Address': this.Address.value,
@@ -196,7 +201,7 @@ export class SignUpPage {
       //   err => {
       //     console.log('error');
       //   });
-      // //ALL things are now set just need to send data to the back end check for valid!!!/
+      //ALL things are now set just need to send data to the back end check for valid!!!/
       
   }
   upload() {

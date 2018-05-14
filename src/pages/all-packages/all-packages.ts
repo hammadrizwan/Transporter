@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PackagedetailPage } from '../packagedetail/packagedetail';
 import { Http, RequestOptions } from '@angular/http';
 import { AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the AllPackagesPage page.
  *
@@ -19,16 +20,23 @@ declare var google: any;
 export class AllPackagesPage {
   responseData = [];
   skips: number;
+  ID:any
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http,
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public http: Http,
+    public storage: Storage,
     private alertCtrl: AlertController) {
     this.skips = 0;
-    console.log
-    this.http.get('http://localhost:5000/allpackages',{params:{'skips': this.skips}}).map(res => res.json()).subscribe(response => {
-      response.content.map(item => {
-        this.responseData.push(item);
-      })
+    this.storage.get('ID').then((val) => {
+      this.ID = val;
+      this.http.get('http://localhost:5000/allpackages', { params: {'TransporterID':this.ID, 'skips': this.skips } })
+      .map(res => res.json()).subscribe(response => {
+        response.content.map(item => {
+          this.responseData.push(item);
+        })
+        console.log(response.content);
+      });
     },
       err => {
         console.log('error');
@@ -44,10 +52,10 @@ export class AllPackagesPage {
   }
   doInfinite(infiniteScroll) {
 
-    this.skips = this.responseData.length;
+    this.skips = 10;
     var length = this.responseData.length;
     setTimeout(() => {
-      this.http.get('http://localhost:5000/allpackages',{params:{'skips': this.skips}}).map(res => res.json()).subscribe(response => {
+      this.http.get('http://localhost:5000/allpackages', { params: { 'TransporterID':this.ID,'skips': this.skips } }).map(res => res.json()).subscribe(response => {
         response.content.map(item => {
           this.responseData.push(item);
         })

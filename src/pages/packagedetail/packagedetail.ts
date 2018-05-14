@@ -23,6 +23,7 @@ export class PackagedetailPage {
   map: any;
   Destination: any;
   ID:any;
+  notRequested :Boolean;
   constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation,
     public zone: NgZone, public loadingCtrl: LoadingController, public platform: Platform,public http: Http,
     private alertCtrl: AlertController,public storage:Storage ) {
@@ -34,7 +35,7 @@ export class PackagedetailPage {
     this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);
     console.log(this.Destination)
     this.presentLoadingDefault();
-    
+    this.notRequested=true;
     console.log(this.ID);
   }
 
@@ -79,7 +80,8 @@ export class PackagedetailPage {
         this.ID=val;
        
       this.http.get('http://localhost:5000/requestDelivery',{params:{'PackageID': PackageID,'TransporterID':this.ID}}).map(res => res.json()).subscribe(response => {
-        if (response.content == 'success') {
+        if (response.content == 'requested') {
+          this.notRequested=false;
           this.presentNotification("Request has been sent, awaiting response from Package sender","Success");
         }
         else if(response.content == 'failed') {

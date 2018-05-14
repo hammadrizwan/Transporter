@@ -43,18 +43,28 @@
       </ion-note>
     </ion-item>
   </ion-card>
+  <!--ADD NG IF TO CHECK STATUS UNTILL THE PACKAGE IS PICKED UP else show cancelation button-->
   <ion-card>
     <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />
   </ion-card>
-  <ion-card>
-    <ion-item>
-      <ion-icon class="iconsize" name="code" item-start></ion-icon>
-      <ion-label color="danger" stacked>Verification Code</ion-label>
-      <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>
-    </ion-item>
-  </ion-card>
-  <button ion-button full class="buttonitem" (click)="sendDelivertConfirmation(item.PackageID)">
-    Send Request
-  </button>
+  <div *ngIf="cancellationOption">
+    <button ion-button full class="buttonitem" (click)="cancelPackage(item.PackageID)">
+      Cancel Package
+    </button>
+  </div>
+ <h2 *ngIf="cancelled">Package Cancelled</h2>
+  <div *ngIf="inProgress">
+    <ion-card>
+      <ion-item>
+        <ion-icon class="iconsize" name="code" item-start></ion-icon>
+        <ion-label color="danger" stacked>Verification Code</ion-label>
+        <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <button ion-button full class="buttonitem" (click)="sendDelivertConfirmation(item.PackageID)">
+      Send Request
+    </button>
+  </div>
 
 </ion-content>
