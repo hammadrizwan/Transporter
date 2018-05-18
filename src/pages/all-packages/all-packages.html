@@ -64,40 +64,46 @@
 
 
   </ion-card> -->
-
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      
+      <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+</ion-refresher>
   <ion-card *ngFor="let item of responseData, let i= index">
-    <ion-fab right>
-      <button class="buttoncolor" ion-fab>
-        <ion-icon name="pin"></ion-icon>
+      <ion-fab right>
+        <button class="buttoncolor" ion-fab>
+          <ion-icon name="pin"></ion-icon>
+        </button>
+      </ion-fab>
+      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />
+      <ion-item >
+        <h2 >Fare</h2>
+        <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>
+      </ion-item>
+      <ion-item >
+        <h2 >Transport Type:</h2>
+        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>
+      </ion-item>
+      <ion-item >
+        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
+        <h2 class="ioniconcolor1">To: {{item.DestAddress}}
+        </h2>
+      </ion-item >
+  
+      <ion-item >
+        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>
+        <h2 class="ioniconcolor1">From: {{item.PickAddress}}
+        </h2>
+      </ion-item>
+  
+      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">
+        View Details
       </button>
-    </ion-fab>
-    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />
-    <ion-item >
-      <h2 >Fare</h2>
-      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>
-    </ion-item>
-    <ion-item >
-      <h2 >Transport Type:</h2>
-      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>
-    </ion-item>
-    <ion-item >
-      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>
-      <h2 class="ioniconcolor1">To: {{item.DestAddress}}
-      </h2>
-    </ion-item >
-
-    <ion-item >
-      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>
-      <h2 class="ioniconcolor1">From: {{item.PickAddress}}
-      </h2>
-    </ion-item>
-
-    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">
-      View Details
-    </button>
-  </ion-card>
-
-
+    </ion-card>
+  
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>

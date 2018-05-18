@@ -4,225 +4,6 @@ webpackJsonp([13],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnqueuedetailsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enqueue_enqueue__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(14);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-/**
- * Generated class for the EnqueuedetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var EnqueuedetailsPage = (function () {
-    function EnqueuedetailsPage(navCtrl, navParams, geolocation, zone, loadingCtrl, platform, http, alertCtrl, storage) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.geolocation = geolocation;
-        this.zone = zone;
-        this.loadingCtrl = loadingCtrl;
-        this.platform = platform;
-        this.http = http;
-        this.alertCtrl = alertCtrl;
-        this.storage = storage;
-        this.cancellationOption = true;
-        this.cancelled = false;
-        this.inProgress = false;
-        this.item = this.navParams.data;
-        console.log(this.item);
-        this.Source = new google.maps.LatLng(this.item.SourceLatitude, this.item.SourceLongitude);
-        console.log(this.Source);
-        this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);
-        console.log(this.Destination);
-        this.presentLoadingDefault();
-        // this.observer=Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
-        //     this.geolocation.getCurrentPosition().then(
-        //       (position) => {
-        //         console.log(position.coords.latitude, position.coords.longitude);
-        //         let myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        //         console.log(JSON.parse(JSON.stringify(myPosition)));
-        //         this.storage.get('ID').then((val) => {
-        //           let data = {
-        //             'TransporterID':val,
-        //             'Latitude':position.coords.latitude,
-        //             'Longitude':position.coords.longitude,
-        //           }
-        //         this.http.post('http://localhost:5000/trackUser', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
-        //         },
-        //           err => {
-        //             console.log('error');
-        //           });
-        //         });
-        //       }),
-        //       (error) => {
-        //         console.log(error);
-        //       }
-        //   });
-        console.log(this.ID);
-    }
-    EnqueuedetailsPage.prototype.presentLoadingDefault = function () {
-        var _this = this;
-        var loading = this.loadingCtrl.create({
-            content: 'Please wait...'
-        });
-        loading.present();
-        setTimeout(function () {
-            //this.platform.ready().then(() => this.initializeMap());
-            _this.platform.ready().then(function () { return _this.findPath(); });
-            loading.dismiss();
-        }, 2000);
-    };
-    EnqueuedetailsPage.prototype.findPath = function () {
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('mapdetail'), {
-            zoom: 9,
-            center: { lat: 31.4826352, lng: 74.0712721 }
-        });
-        directionsDisplay.setMap(map);
-        directionsService.route({
-            origin: this.Source,
-            destination: this.Destination,
-            travelMode: 'DRIVING'
-        }, function (response, status) {
-            if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-            }
-            else {
-                window.alert('Directions request failed due to ' + status);
-            }
-        });
-    };
-    EnqueuedetailsPage.prototype.sendDelivertConfirmation = function (PackageID) {
-        var _this = this;
-        var loading = this.loadingCtrl.create({
-            content: 'Waiting for token validation...',
-        });
-        loading.present();
-        if (/^\d{10}$/.test(this.token)) {
-            setTimeout(function () {
-                _this.storage.get('ID').then(function (val) {
-                    _this.ID = val;
-                    var Userdata = {
-                        'ID': _this.ID,
-                        'token': _this.token,
-                    };
-                    _this.http.get('http://localhost:5000/deliveryCompleted', { params: { 'PackageID': PackageID, 'token': _this.token } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                        if (response.content == 'success') {
-                            loading.dismiss();
-                            _this.cancelled = true;
-                            _this.cancellationOption = false;
-                            _this.presentNotification("The Package delivery is completed", "Success");
-                            setTimeout(function () {
-                                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_0__enqueue_enqueue__["a" /* EnqueuePage */]);
-                            }, 400);
-                        }
-                        else {
-                            loading.dismiss();
-                            _this.presentNotification("Token Mismatch", "Failed");
-                        }
-                    }, function (err) {
-                        console.log('error');
-                    });
-                });
-            }, 300);
-        }
-        else {
-            loading.dismiss();
-            this.presentNotification("Token consists of only 10 digit", "Re Check Token");
-        }
-    };
-    EnqueuedetailsPage.prototype.cancelPackage = function (PackageID) {
-        var _this = this;
-        var loading = this.loadingCtrl.create({
-            content: 'Waiting for token validation...',
-        });
-        //loading.present();
-        setTimeout(function () {
-            _this.storage.get('ID').then(function (val) {
-                _this.ID = val;
-                var Userdata = {
-                    'PackageID': PackageID,
-                    'TransporterID': _this.ID,
-                };
-                _this.http.put('http://localhost:5000/cancelPackage', JSON.stringify(Userdata)).map(function (res) { return res.json(); }).subscribe(function (response) {
-                    if (response['status'] == 'success') {
-                        loading.dismiss();
-                        _this.presentNotification("Package Cancelled", "Cancelled");
-                        setTimeout(function () {
-                            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_0__enqueue_enqueue__["a" /* EnqueuePage */]);
-                        }, 400);
-                    }
-                    else {
-                        loading.dismiss();
-                        _this.presentNotification("testing", "Failed");
-                    }
-                }, function (err) {
-                    console.log('error');
-                });
-            });
-        }, 300);
-    };
-    EnqueuedetailsPage.prototype.popView = function () {
-        console.log("aloha");
-        this.navCtrl.pop();
-    };
-    EnqueuedetailsPage.prototype.ionViewWillLeave = function () {
-        console.log("Looks like I'm about to leave :(");
-        //this.observer.unsubscribe();
-    };
-    EnqueuedetailsPage.prototype.presentNotification = function (text, header) {
-        var alert = this.alertCtrl.create({
-            title: header,
-            subTitle: text,
-            buttons: ['Dismiss']
-        });
-        alert.present();
-    };
-    EnqueuedetailsPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad EnqueuedetailsPage');
-    };
-    return EnqueuedetailsPage;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('mapdetail'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
-], EnqueuedetailsPage.prototype, "mapElement", void 0);
-EnqueuedetailsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-enqueuedetails',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/'<!--\n  Generated template for the EnqueuedetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Enqueue Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="background1">\n  <ion-card id="mapdetail" #mapdetail></ion-card>\n  <ion-card>\n\n    <ion-item>\n      <h2>Package Name:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <!--ADD NG IF TO CHECK STATUS UNTILL THE PACKAGE IS PICKED UP else show cancelation button-->\n  <ion-card>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n  </ion-card>\n  <div *ngIf="cancellationOption">\n    <button ion-button full class="buttonitem" (click)="cancelPackage(item.PackageID)">\n      Cancel Package\n    </button>\n  </div>\n <h2 *ngIf="cancelled">Package Cancelled</h2>\n  <div *ngIf="inProgress">\n    <ion-card>\n      <ion-item>\n        <ion-icon class="iconsize" name="code" item-start></ion-icon>\n        <ion-label color="danger" stacked>Verification Code</ion-label>\n        <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>\n      </ion-item>\n    </ion-card>\n\n    <button ion-button full class="buttonitem" (click)="sendDelivertConfirmation(item.PackageID)">\n      Send Request\n    </button>\n  </div>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]])
-], EnqueuedetailsPage);
-
-//# sourceMappingURL=enqueuedetails.js.map
-
-/***/ }),
-
-/***/ 110:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AllPackagesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
@@ -256,6 +37,7 @@ var AllPackagesPage = (function () {
         this.skips = 0;
         this.storage.get('ID').then(function (val) {
             _this.ID = val;
+            console.log("va" + val);
             console.log(_this.ID);
             _this.http.get('http://localhost:5000/allpackages', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
                 .map(function (res) { return res.json(); }).subscribe(function (response) {
@@ -325,7 +107,721 @@ AllPackagesPage = __decorate([
 
 /***/ }),
 
+/***/ 110:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnqueuedetailsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enqueue_enqueue__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+/**
+ * Generated class for the EnqueuedetailsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var EnqueuedetailsPage = (function () {
+    function EnqueuedetailsPage(navCtrl, navParams, geolocation, zone, loadingCtrl, platform, http, alertCtrl, storage) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.geolocation = geolocation;
+        this.zone = zone;
+        this.loadingCtrl = loadingCtrl;
+        this.platform = platform;
+        this.http = http;
+        this.alertCtrl = alertCtrl;
+        this.storage = storage;
+        this.cancellationOption = true;
+        this.cancelledPackage = false;
+        this.inProgress = false;
+        this.item = this.navParams.data;
+        console.log(this.item);
+        this.Source = new google.maps.LatLng(this.item.SourceLatitude, this.item.SourceLongitude);
+        console.log(this.Source);
+        this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);
+        console.log(this.Destination);
+        this.presentLoadingDefault();
+        this.observer = __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__["Observable"].interval(3000).subscribe(function () {
+            _this.geolocation.getCurrentPosition().then(function (position) {
+                console.log("ALoha" + position.coords.latitude, position.coords.longitude);
+                var myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                console.log(JSON.parse(JSON.stringify(myPosition)));
+                _this.marker1 = new google.maps.Marker({
+                    map: _this.map,
+                    animation: google.maps.Animation.DROP,
+                    position: myPosition,
+                    draggable: false,
+                });
+            }),
+                function (error) {
+                    console.log(error);
+                };
+        });
+        console.log("This is id" + this.ID);
+    }
+    EnqueuedetailsPage.prototype.presentLoadingDefault = function () {
+        var _this = this;
+        var loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+        loading.present();
+        setTimeout(function () {
+            //this.platform.ready().then(() => this.initializeMap());
+            _this.platform.ready().then(function () { return _this.findPath(); });
+            loading.dismiss();
+        }, 2000);
+    };
+    EnqueuedetailsPage.prototype.findPath = function () {
+        this.map = new google.maps.Map(document.getElementById('mapdetail'), {
+            zoom: 9,
+            center: { lat: 31.4826352, lng: 74.0712721 }
+        });
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsDisplay.setMap(this.map);
+        directionsService.route({
+            origin: this.Source,
+            destination: this.Destination,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            }
+            else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    };
+    EnqueuedetailsPage.prototype.confirmPickUp = function (PackageID) {
+        var _this = this;
+        var loading = this.loadingCtrl.create({
+            content: 'Waiting for server response...',
+        });
+        loading.present();
+        setTimeout(function () {
+            _this.storage.get('ID').then(function (val) {
+                _this.ID = val;
+                var Userdata = {
+                    'PackageID': PackageID,
+                    'TransporterID': _this.ID,
+                };
+                _this.http.put('http://localhost:5000/confirmPickUp', JSON.stringify(Userdata)).map(function (res) { return res.json(); }).subscribe(function (response) {
+                    if (response['status'] == 'success') {
+                        loading.dismiss();
+                        _this.presentNotification("Pick Up confirmed", "picked up");
+                        _this.inProgress = true;
+                        _this.cancellationOption = false;
+                    }
+                    else {
+                        loading.dismiss();
+                        _this.presentNotification("testing", "Failed");
+                    }
+                }, function (err) {
+                    console.log('error');
+                });
+            });
+        }, 300);
+    };
+    EnqueuedetailsPage.prototype.sendDelivertConfirmation = function (PackageID) {
+        var _this = this;
+        var loading = this.loadingCtrl.create({
+            content: 'Waiting for token validation...',
+        });
+        loading.present();
+        if (/^\d{10}$/.test(this.token)) {
+            setTimeout(function () {
+                _this.storage.get('ID').then(function (val) {
+                    _this.ID = val;
+                    var Userdata = {
+                        'ID': _this.ID,
+                        'token': _this.token,
+                    };
+                    _this.http.get('http://localhost:5000/deliveryCompleted', { params: { 'PackageID': PackageID, 'token': _this.token } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                        if (response.content == 'success') {
+                            loading.dismiss();
+                            _this.cancelledPackage = true;
+                            _this.cancellationOption = false;
+                            _this.presentNotification("The Package delivery is completed", "Success");
+                            setTimeout(function () {
+                                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_0__enqueue_enqueue__["a" /* EnqueuePage */]);
+                            }, 400);
+                        }
+                        else {
+                            loading.dismiss();
+                            _this.presentNotification("Token Mismatch", "Failed");
+                        }
+                    }, function (err) {
+                        console.log('error');
+                    });
+                });
+            }, 300);
+        }
+        else {
+            loading.dismiss();
+            this.presentNotification("Token consists of only 10 digit", "Re Check Token");
+        }
+    };
+    EnqueuedetailsPage.prototype.cancelPackage = function (PackageID) {
+        var loading = this.loadingCtrl.create({
+            content: 'Waiting for token validation...',
+        });
+        //loading.present();
+        this.cancelledPackage = true;
+        this.cancellationOption = false;
+        // setTimeout(() => {
+        //   this.storage.get('ID').then((val) => {
+        //     this.ID = val;
+        //     let Userdata = {
+        //       'PackageID': PackageID,
+        //       'TransporterID': this.ID,
+        //     };
+        //     this.http.put('http://localhost:5000/cancelPackage', JSON.stringify(Userdata)).map(res => res.json()).subscribe(response => {
+        //       if (response['status'] == 'success') {
+        //         loading.dismiss();
+        //         this.presentNotification("Package Cancelled", "Cancelled");
+        //         setTimeout(() => {
+        //           this.navCtrl.setRoot(EnqueuePage);
+        //         }, 400);
+        //       }
+        //       else {
+        //         loading.dismiss();
+        //         this.presentNotification("testing", "Failed");
+        //       }
+        //     },
+        //       err => {
+        //         console.log('error');
+        //       });
+        //   });
+        // }, 300);
+    };
+    EnqueuedetailsPage.prototype.ionViewWillLeave = function () {
+        console.log("Looks like I'm about to leave :(");
+        this.observer.unsubscribe();
+    };
+    EnqueuedetailsPage.prototype.presentNotification = function (text, header) {
+        var alert = this.alertCtrl.create({
+            title: header,
+            subTitle: text,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
+    EnqueuedetailsPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad EnqueuedetailsPage');
+    };
+    return EnqueuedetailsPage;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('mapdetail'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
+], EnqueuedetailsPage.prototype, "mapElement", void 0);
+EnqueuedetailsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
+        selector: 'page-enqueuedetails',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/'<!--\n  Generated template for the EnqueuedetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Enqueue Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="background1">\n  <h2 *ngIf="cancelledPackage">Package Cancelled</h2>\n  <div *ngIf="inProgress">\n    <ion-card>\n      <ion-item>\n        <ion-icon class="iconsize" name="code" item-start></ion-icon>\n        <ion-label color="danger" stacked>Verification Code</ion-label>\n        <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>\n      </ion-item>\n    </ion-card>\n    <button ion-button full class="buttonitemblue" (click)="sendDelivertConfirmation(item.PackageID)">\n        Send Request\n      </button>\n    \n  </div>\n  <button ion-button full *ngIf="!inProgress" class="buttonitemblue" (click)="confirmPickUp(item.PackageID)">\n      Confirm Package Pickup\n    </button>\n  <ion-card id="mapdetail" #mapdetail></ion-card>\n  <ion-card>\n\n    <ion-item>\n      <h2>Package Name:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <!--ADD NG IF TO CHECK STATUS UNTILL THE PACKAGE IS PICKED UP else show cancelation button-->\n  <ion-card>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n  </ion-card>\n  <div *ngIf="cancellationOption">\n    <button ion-button full class="buttonitem" (click)="cancelPackage(item.PackageID)">\n      Cancel Package\n    </button>\n  </div>\n  \n\n\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]])
+], EnqueuedetailsPage);
+
+// findPath() {
+//   this.map = new google.maps.Map(document.getElementById('mapdetail'), {
+//     zoom: 7,
+//     center: { lat: 31.4826352, lng: 74.0712721 }
+//   });
+//   this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+//     this.geolocation.getCurrentPosition().then(
+//       (position) => {
+//         console.log(position.coords.latitude, position.coords.longitude);
+//         let myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+//         console.log(JSON.parse(JSON.stringify(myPosition)));
+//         let directionsService = new google.maps.DirectionsService;
+//         let directionsDisplay = new google.maps.DirectionsRenderer;
+//         if (this.marker1 != null && this.marker2 != null) {
+//           this.marker1.setMap(null)
+//           this.marker2.setMap(null)
+//           console.log("hello");
+//         }
+//         directionsDisplay.setMap(this.map);
+//         directionsService.route({
+//           origin: myPosition,
+//           destination: this.Destination,
+//           travelMode: 'DRIVING'
+//         }, function (response, status) {
+//           if (status === 'OK') {
+//             directionsDisplay.setDirections(response);
+//           } else {
+//             window.alert('Directions request failed due to ' + status);
+//           }
+//         });
+//       }),
+//       (error) => {
+//         console.log(error);
+//       }
+//   });
+// } 
+//# sourceMappingURL=enqueuedetails.js.map
+
+/***/ }),
+
 /***/ 111:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnroutePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(14);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+/**
+ * Generated class for the EnroutePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var EnroutePage = (function () {
+    function EnroutePage(loadingCtrl, toastCtrl, app, navCtrl, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation, http) {
+        this.loadingCtrl = loadingCtrl;
+        this.toastCtrl = toastCtrl;
+        this.app = app;
+        this.navCtrl = navCtrl;
+        this.zone = zone;
+        this.platform = platform;
+        this.alertCtrl = alertCtrl;
+        this.storage = storage;
+        this.actionSheetCtrl = actionSheetCtrl;
+        this.geolocation = geolocation;
+        this.http = http;
+        this.addressElement = null;
+        this.addressElement1 = null;
+        this.Source = null;
+        this.Destination = null;
+        this.responseDataEnroute = [];
+        this.listSearch = '';
+        this.search = false;
+        this.switch = "map";
+        this.regionals = [];
+    }
+    EnroutePage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        console.log('ionViewDidLoad EnroutePage');
+        this.platform.ready().then(function () { return _this.loadMaps(); });
+        this.checkIfLocationChange();
+    };
+    EnroutePage.prototype.openPackageDetailsPage = function (i) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataEnroute[i]);
+    };
+    EnroutePage.prototype.ionViewDidLeave = function () {
+        this.observer.unsubscribe();
+    };
+    EnroutePage.prototype.checkIfLocationChange = function () {
+        var _this = this;
+        var input = document.getElementById('s1');
+        this.observer = __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"].interval(2000).subscribe(function () {
+            if (_this.marker1 != null) {
+                if (_this.Source != _this.marker1.getPosition()) {
+                    _this.Source = _this.marker1.getPosition();
+                    console.log(_this.Source);
+                    console.log("RXJS1" + _this.marker1.getPosition());
+                    var geocoder = new google.maps.Geocoder;
+                    geocoder.geocode({ 'location': _this.Source }, function (results, status) {
+                        if (status === 'OK') {
+                            if (results[0]) {
+                                //map.setZoom(11);
+                                // let input = document.getElementById('s1');
+                                input.innerText = results[0].formatted_address;
+                                //infowindow.setContent(results[0].formatted_address);
+                                //infowindow.open(map, marker123);
+                            }
+                        }
+                    });
+                }
+            }
+            if (_this.marker2 != null) {
+                if (_this.Destination != _this.marker2.getPosition()) {
+                    _this.Destination = _this.marker2.getPosition();
+                    console.log(_this.Destination);
+                    console.log("RXJS1" + _this.marker2.getPosition());
+                    var geocoder = new google.maps.Geocoder;
+                    geocoder.geocode({ 'location': _this.Destination }, function (results, status) {
+                        if (status === 'OK') {
+                            if (results[0]) {
+                                //map.setZoom(11);
+                                // let input = document.getElementById('s1');
+                                input.innerText = results[0].formatted_address;
+                                //infowindow.setContent(results[0].formatted_address);
+                                //infowindow.open(map, marker123);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    };
+    EnroutePage.prototype.loadMaps = function () {
+        if (!!google) {
+            this.initializeMap();
+            this.initAutocomplete();
+        }
+        else {
+            this.errorAlert('Error', 'Something went wrong with the Internet Connection. Please check your Internet.');
+        }
+    };
+    EnroutePage.prototype.errorAlert = function (title, message) {
+        var _this = this;
+        var alert = this.alertCtrl.create({
+            title: title,
+            message: message,
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: function (data) {
+                        _this.loadMaps();
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    EnroutePage.prototype.initializeMap = function () {
+        var _this = this;
+        this.zone.run(function () {
+            var mapEle = _this.mapElement.nativeElement;
+            _this.map = new google.maps.Map(mapEle, {
+                zoom: 12,
+                center: { lat: 31.4826352, lng: 74.0712721 },
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
+                disableDoubleClickZoom: false,
+                disableDefaultUI: true,
+                zoomControl: true,
+                scaleControl: true,
+            });
+            _this.getCurrentPosition();
+        });
+    };
+    EnroutePage.prototype.getCurrentPosition = function () {
+        var _this = this;
+        this.loading = this.loadingCtrl.create({
+            content: 'Searching Location ...'
+        });
+        //this.loading.present();
+        var locationOptions = { timeout: 10000 };
+        this.geolocation.getCurrentPosition(locationOptions).then(function (position) {
+            console.log(position.coords.latitude, position.coords.longitude);
+            _this.Source = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var options = {
+                center: _this.Source,
+                zoom: 12
+            };
+            _this.map.setOptions(options);
+            _this.marker1 = new google.maps.Marker({
+                map: _this.map,
+                animation: google.maps.Animation.DROP,
+                position: _this.Source,
+                draggable: true
+            });
+            //   this.addMarker(myPos, "I am Here!");
+            //this.loading.dismiss();
+            console.log("this is the lat" + _this.marker1.getPosition().lat());
+            console.log("this is the lng" + _this.marker1.getPosition().lng());
+        }),
+            function (error) {
+                //     this.loading.dismiss().then(() => {
+                //     this.showToast('Location not found. Please enable your GPS!');
+                //     this.loading.dismiss();
+                //     console.log(error);
+                //   });
+                console.log(error);
+            };
+    };
+    EnroutePage.prototype.initAutocomplete = function () {
+        var _this = this;
+        this.addressElement1 = this.searchbar1.nativeElement.querySelector('.searchbar-input');
+        this.createAutocomplete(this.addressElement1).subscribe(function (location) {
+            console.log('First Search', location);
+            _this.Source = new google.maps.LatLng(location.lat(), location.lng());
+            var options = {
+                center: _this.Source,
+                zoom: 13
+            };
+            _this.map.setOptions(options);
+            _this.marker1.setMap(null);
+            // this.addMarker(this.Origin, "Origin",this.marker1);
+            _this.marker1 = new google.maps.Marker({
+                map: _this.map,
+                animation: google.maps.Animation.DROP,
+                position: _this.Source,
+                draggable: true
+            });
+            _this.addInfoWindow(_this.marker1, "Origin");
+        });
+        this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+        this.createAutocomplete(this.addressElement).subscribe(function (location) {
+            console.log('Second Search', location);
+            _this.Destination = new google.maps.LatLng(location.lat(), location.lng());
+            var options = {
+                center: _this.Destination,
+                zoom: 13
+            };
+            _this.map.setOptions(options);
+            // this.addMarker(this.Dest, "Destination",this.marker2  );
+            _this.marker2 = new google.maps.Marker({
+                map: _this.map,
+                animation: google.maps.Animation.DROP,
+                position: _this.Destination,
+                draggable: true
+            });
+            _this.addInfoWindow(_this.marker2, "Destination");
+        });
+    };
+    EnroutePage.prototype.findPath = function () {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        this.loading = this.loadingCtrl.create({
+            spinner: 'bubbles',
+            content: 'Reloading...',
+        });
+        this.map = new google.maps.Map(document.getElementById('mapEnroute'), {
+            zoom: 9,
+            center: { lat: 31.4826352, lng: 74.0712721 }
+        });
+        directionsDisplay.setMap(this.map);
+        directionsService.route({
+            origin: this.Source,
+            destination: this.Destination,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            }
+            else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+        this.cityCircle1 = new google.maps.Circle({
+            strokeColor: '#033860',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#2a4255',
+            fillOpacity: 0.35,
+            map: this.map,
+            center: this.Destination,
+            radius: 2000,
+        });
+        this.cityCircle2 = new google.maps.Circle({
+            strokeColor: '#033860',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#2a4255',
+            fillOpacity: 0.35,
+            map: this.map,
+            center: this.Source,
+            radius: 2000,
+        });
+        //this.loading.present();
+        this.radiusEarth = 2000;
+        var Src = JSON.parse(JSON.stringify(this.Source));
+        var Des = JSON.parse(JSON.stringify(this.Destination));
+        var SourceLat = Src["lat"];
+        var SourceLng = Src["lng"];
+        var DestinationLat = Des["lat"];
+        var DestinationLng = Des["lng"];
+        this.responseDataEnroute = [];
+        // this.storage.get('ID').then((val) => {
+        //   this.ID = val;
+        //   this.http.get('http://localhost:5000/enroutepackages',
+        //     { params: { 'TransporterID': this.ID, 'SourceLat': SourceLat, 'SourceLng': SourceLng, 'DestinationLat': DestinationLat, 'DestinationLng': DestinationLng, 'Radius': this.radiusEarth } }
+        //   ).map(res => res.json()).subscribe(response => {
+        //     response.content.map(item => {
+        //       this.responseDataEnroute.push(item);
+        //       let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
+        //       this.addPackageMarker(myPos, this.responseDataEnroute.indexOf(item), item['PackageName']);
+        //     });
+        //   });
+        // },
+        //   err => {
+        //     console.log('error');
+        //   });
+        //this.loading.dismiss();
+    };
+    EnroutePage.prototype.createAutocomplete = function (addressEl) {
+        var autocomplete = new google.maps.places.Autocomplete(addressEl);
+        autocomplete.bindTo('bounds', this.map);
+        return new __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"](function (sub) {
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                console.log(place.formatted_address);
+                //this.LocationText=autocomplete.gm_accessors_.place.fd.formattedPrediction;
+                if (!place) {
+                    sub.error({
+                        message: 'Autocomplete returned place with no geometry'
+                    });
+                }
+                else {
+                    //console.log('Search', place.geometry.locat;
+                    console.log('Search Lat', place.geometry.location.lat());
+                    console.log('Search Lng', place.geometry.location.lng());
+                    sub.next(place.geometry.location);
+                    //sub.complete();
+                }
+            });
+        });
+    };
+    // geocodeLatLng(latlng):any{
+    //   let geocoder = new google.maps.Geocoder;
+    //   geocoder.geocode({ 'location': latlng }, function (results, status) {
+    //     if (status === 'OK') {
+    //       if (results[0]) {
+    //         //map.setZoom(11);
+    //         return results[0].formatted_address;
+    //         //infowindow.setContent(results[0].formatted_address);
+    //         //infowindow.open(map, marker123);
+    //       } else {
+    //         window.alert('No results found');
+    //         return "fails";
+    //       }
+    //     } else {
+    //       window.alert('Geocoder failed due to: ' + status);
+    //       return "fails";
+    //     }
+    //   });
+    // }
+    EnroutePage.prototype.addMarker = function (position, content, marker) {
+        marker = new google.maps.Marker({
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+            position: position,
+            draggable: true
+        });
+        this.addInfoWindow(marker, content);
+        return marker;
+    };
+    EnroutePage.prototype.addInfoWindow = function (marker, content) {
+        var _this = this;
+        var infoWindow = new google.maps.InfoWindow({
+            content: content
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.open(_this.map, marker);
+        });
+    };
+    EnroutePage.prototype.viewPlace = function (id) {
+        console.log('Clicked Marker', id);
+    };
+    EnroutePage.prototype.addPackageMarker = function (position, index, content) {
+        var image = "assets/icon/package.png";
+        var marker = new google.maps.Marker({
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+            position: position,
+            title: "hello",
+            icon: image,
+        });
+        var infoWindow = new google.maps.InfoWindow({
+            content: content
+        });
+        infoWindow.open(this.map, marker);
+        this.addPackageMarkerEvent(marker, index);
+        return marker;
+    };
+    EnroutePage.prototype.addPackageMarkerEvent = function (marker, index) {
+        var _this = this;
+        google.maps.event.addListener(marker, 'click', function () {
+            _this.openPackageDetailsPage(index);
+        });
+    };
+    EnroutePage.prototype.showToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000
+        });
+        toast.present();
+    };
+    return EnroutePage;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('s1'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["E" /* Input */])
+], EnroutePage.prototype, "input", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('mapEnroute'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
+], EnroutePage.prototype, "mapElement", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
+], EnroutePage.prototype, "searchbar", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar1', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
+], EnroutePage.prototype, "searchbar1", void 0);
+EnroutePage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
+        selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n\n  <ion-card class="map">\n\n    <ion-searchbar  class="searchbars"  #searchbar1 placeholder="Enter Location:"></ion-searchbar>\n    <ion-item></ion-item>\n    <ion-searchbar class="searchbars" #searchbar placeholder="Enter Destination:"></ion-searchbar>\n    <ion-card id="mapEnroute" #mapEnroute></ion-card>\n    <button id="buttonSearch" ion-button (click)=findPath()>Find Path</button>\n    \n  </ion-card>\n\n  <ion-card id="divider"></ion-card>\n  <ion-item>\n    <ion-textarea id=\'s1\'></ion-textarea>\n  </ion-item>\n    \n\n\n\n\n  <ion-card *ngFor="let item of responseDataEnroute, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Transport Type:</h2>\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
+        __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]])
+], EnroutePage);
+
+//# sourceMappingURL=enroute.js.map
+
+/***/ }),
+
+/***/ 112:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -370,19 +866,17 @@ HelpPage = __decorate([
 
 /***/ }),
 
-/***/ 112:
+/***/ 113:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnroutePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(14);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NearbyPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(14);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -401,203 +895,97 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 /**
- * Generated class for the EnroutePage page.
+ * Generated class for the NearbyPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var EnroutePage = (function () {
-    function EnroutePage(loadingCtrl, toastCtrl, app, navCtrl, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation, http) {
-        var _this = this;
+var NearbyPage = (function () {
+    function NearbyPage(loadingCtrl, toastCtrl, app, nav, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation, navCtrl, http) {
         this.loadingCtrl = loadingCtrl;
         this.toastCtrl = toastCtrl;
         this.app = app;
-        this.navCtrl = navCtrl;
+        this.nav = nav;
         this.zone = zone;
         this.platform = platform;
         this.alertCtrl = alertCtrl;
         this.storage = storage;
         this.actionSheetCtrl = actionSheetCtrl;
         this.geolocation = geolocation;
+        this.navCtrl = navCtrl;
         this.http = http;
-        this.addressElement = null;
-        this.addressElement1 = null;
-        this.Source = null;
-        this.Destination = null;
-        this.responseDataEnroute = [];
         this.listSearch = '';
+        this.radius = 1000;
         this.search = false;
         this.switch = "map";
+        this.responseDataNearby = [];
         this.regionals = [];
-        this.platform.ready().then(function () { return _this.loadMaps(); });
     }
-    EnroutePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad EnroutePage');
+    NearbyPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        console.log('ionViewDidLoad NearbyPage');
+        this.platform.ready().then(function () { return _this.loadMaps(); });
     };
-    EnroutePage.prototype.openPackageDetailsPage = function (i) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataEnroute[i]);
+    NearbyPage.prototype.openPackageDetailsPage = function (i) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataNearby[i]);
     };
-    EnroutePage.prototype.loadMaps = function () {
+    NearbyPage.prototype.viewPlace = function (id) {
+        console.log('Clicked Marker', id);
+    };
+    NearbyPage.prototype.loadMaps = function () {
         if (!!google) {
             this.initializeMap();
-            this.initAutocomplete();
+        }
+        /*
+              console.log('The Source'+this.Source);
+              console.log('The Destination'+this.Destination);
+              let distance=google.maps.geometry.spherical.computeDistanceBetween(this.Source,this.Destination);
+              console.log('distance',distance);
+          */
+    };
+    NearbyPage.prototype.reload = function () {
+        var _this = this;
+        if (Number.isInteger(parseInt(this.rad))) {
+            this.loading = this.loadingCtrl.create({
+                spinner: 'bubbles',
+                content: 'Reloading...',
+            });
+            // this.loading.present();
+            this.radius = (this.rad * 1000);
+            if (this.markers != null) {
+                this.markers.setMap(null);
+                this.cityCircle.setMap(null);
+            }
+            this.getCurrentPositions();
+            // this.loading.dismissAll();
+            this.responseDataNearby = [];
+            this.storage.get('ID').then(function (val) {
+                _this.ID = val;
+                _this.http.get('http://localhost:5000/nearbypackages', { params: { 'TransporterID': _this.ID, 'Lat': _this.currentLat, 'Long': _this.currentLong, 'Radius': _this.rad } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                    response.content.map(function (item) {
+                        _this.responseDataNearby.push(item);
+                        var myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
+                        _this.addPackageMarker(myPos, _this.responseDataNearby.indexOf(item), item['PackageName']);
+                    });
+                    // this.loading.dismiss();
+                });
+            }, function (err) {
+                console.log('error');
+            });
         }
         else {
-            this.errorAlert('Error', 'Something went wrong with the Internet Connection. Please check your Internet.');
+            this.presentErrorAlert("Enter a number");
         }
     };
-    EnroutePage.prototype.errorAlert = function (title, message) {
-        var _this = this;
+    NearbyPage.prototype.presentErrorAlert = function (text) {
         var alert = this.alertCtrl.create({
-            title: title,
-            message: message,
-            buttons: [
-                {
-                    text: 'OK',
-                    handler: function (data) {
-                        _this.loadMaps();
-                    }
-                }
-            ]
+            title: 'Wrong input',
+            subTitle: text,
+            buttons: ['Dismiss'],
         });
         alert.present();
     };
-    EnroutePage.prototype.mapsSearchBar = function (ev) {
-        // set input to the value of the searchbar
-        //this.search = ev.target.value;
-        //    console.log(ev);
-        var autocomplete = new google.maps.places.Autocomplete(ev);
-        autocomplete.bindTo('bounds', this.map);
-        return new __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"](function (sub) {
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    sub.error({
-                        message: 'Autocomplete returned place with no geometry'
-                    });
-                }
-                else {
-                    sub.next(place.geometry.location);
-                    sub.complete();
-                }
-            });
-        });
-    };
-    EnroutePage.prototype.initAutocomplete = function () {
-        var _this = this;
-        this.addressElement1 = this.searchbar1.nativeElement.querySelector('.searchbar-input');
-        this.createAutocomplete(this.addressElement1).subscribe(function (location) {
-            console.log('First Search', location);
-            _this.Source = new google.maps.LatLng(location.lat(), location.lng());
-            var options = {
-                center: location,
-                zoom: 13
-            };
-            _this.map.setOptions(options);
-            _this.addMarker(location, "Searched");
-        });
-        this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
-        this.createAutocomplete(this.addressElement).subscribe(function (location) {
-            console.log('Second Search', location);
-            _this.Destination = new google.maps.LatLng(location.lat(), location.lng());
-            var options = {
-                center: location,
-                zoom: 13
-            };
-            _this.map.setOptions(options);
-            _this.addMarker(location, "Searched");
-        });
-    };
-    EnroutePage.prototype.findPath = function () {
-        var _this = this;
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        this.loading = this.loadingCtrl.create({
-            spinner: 'bubbles',
-            content: 'Reloading...',
-        });
-        this.map = new google.maps.Map(document.getElementById('mapEnroute'), {
-            zoom: 9,
-            center: { lat: 31.4826352, lng: 74.0712721 }
-        });
-        directionsDisplay.setMap(this.map);
-        directionsService.route({
-            origin: this.Source,
-            destination: this.Destination,
-            travelMode: 'DRIVING'
-        }, function (response, status) {
-            if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-            }
-            else {
-                window.alert('Directions request failed due to ' + status);
-            }
-        });
-        var cityCircle1 = new google.maps.Circle({
-            strokeColor: '#033860',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#2a4255',
-            fillOpacity: 0.35,
-            map: this.map,
-            center: this.Destination,
-            radius: 2000,
-        });
-        var cityCircle2 = new google.maps.Circle({
-            strokeColor: '#033860',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#2a4255',
-            fillOpacity: 0.35,
-            map: this.map,
-            center: this.Source,
-            radius: 2000,
-        });
-        //this.loading.present();
-        this.rad = 2000;
-        var Src = JSON.parse(JSON.stringify(this.Source));
-        var Des = JSON.parse(JSON.stringify(this.Destination));
-        var SourceLat = Src["lat"];
-        var SourceLng = Src["lng"];
-        var DestinationLat = Des["lat"];
-        var DestinationLng = Des["lng"];
-        this.responseDataEnroute = [];
-        this.storage.get('ID').then(function (val) {
-            _this.ID = val;
-            _this.http.get('http://localhost:5000/enroutepackages', { params: { 'TransporterID': _this.ID, 'SourceLat': SourceLat, 'SourceLng': SourceLng, 'DestinationLat': DestinationLat, 'DestinationLng': DestinationLng, 'Radius': _this.rad } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                response.content.map(function (item) {
-                    _this.responseDataEnroute.push(item);
-                    var myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
-                    _this.addPackageMarker(myPos, _this.responseDataEnroute.indexOf(item), item['PackageName']);
-                });
-            });
-        }, function (err) {
-            console.log('error');
-        });
-        //this.loading.dismiss();
-    };
-    EnroutePage.prototype.createAutocomplete = function (addressEl) {
-        var autocomplete = new google.maps.places.Autocomplete(addressEl);
-        autocomplete.bindTo('bounds', this.map);
-        return new __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"](function (sub) {
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    sub.error({
-                        message: 'Autocomplete returned place with no geometry'
-                    });
-                }
-                else {
-                    //console.log('Search', place.geometry.locat;
-                    console.log('Search Lat', place.geometry.location.lat());
-                    console.log('Search Lng', place.geometry.location.lng());
-                    sub.next(place.geometry.location);
-                    //sub.complete();
-                }
-            });
-        });
-    };
-    EnroutePage.prototype.initializeMap = function () {
+    NearbyPage.prototype.initializeMap = function () {
         var _this = this;
         this.zone.run(function () {
             var mapEle = _this.mapElement.nativeElement;
@@ -611,104 +999,56 @@ var EnroutePage = (function () {
                 zoomControl: true,
                 scaleControl: true,
             });
-            _this.getCurrentPosition();
-            console.log("hellaodj;ajsod;asd");
+            _this.getCurrentPositions();
         });
     };
     //Center zoom
     //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
-    // bounceMap(markers) {
-    //   let bounds = new google.maps.LatLngBounds();
-    //   for (var i = 0; i < markers.length; i++) {
-    //     bounds.extend(markers[i].getPosition());
-    //   }
-    //   this.map.fitBounds(bounds);
-    // }
-    // resizeMap() {
-    //   setTimeout(() => {
-    //     google.maps.event.trigger(this.map, 'resize');
-    //   }, 200);
-    // }
-    /*
-      getCurrentPositionfromStorage(markers) {
-        this.storage.get('lastLocation').then((result) => {
-          if (result) {
-            let myPos = new google.maps.LatLng(result.lat, result.long);
-            this.map.setOptions({
-              center: myPos,
-              zoom: 16
-            });
-            let marker = this.addMarker(myPos, "My last saved Location: " + result.location);
-    
-            markers.push(marker);
-            this.bounceMap(markers);
-    
-            this.resizeMap();
-          }
-        });
-      }
-    */
-    EnroutePage.prototype.showToast = function (message) {
-        var toast = this.toastCtrl.create({
-            message: message,
-            duration: 3000
-        });
-        toast.present();
-    };
     // go show currrent location
-    EnroutePage.prototype.getCurrentPosition = function () {
+    NearbyPage.prototype.getCurrentPositions = function () {
         var _this = this;
-        this.loading = this.loadingCtrl.create({
-            content: 'Searching Location ...'
-        });
-        //this.loading.present();
-        var locationOptions = { timeout: 10000 };
-        this.geolocation.getCurrentPosition(locationOptions).then(function (position) {
-            console.log(position.coords.latitude, position.coords.longitude);
+        this.geolocation.getCurrentPosition().then(function (position) {
+            console.log("hello" + position.coords.latitude, position.coords.longitude);
+            _this.currentLat = position.coords.latitude;
+            _this.currentLong = position.coords.longitude;
             var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             var options = {
                 center: myPos,
                 zoom: 12
             };
             _this.map.setOptions(options);
-            var marker1 = new google.maps.Marker({
+            _this.markers = _this.addMarker(myPos, "I am Here!");
+            _this.cityCircle = new google.maps.Circle({
+                strokeColor: '#033860',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#2a4255',
+                fillOpacity: 0.35,
                 map: _this.map,
-                animation: google.maps.Animation.DROP,
-                position: myPos,
-                draggable: true
+                center: myPos,
+                radius: _this.radius,
             });
-            //    this.addMarker(myPos, "I am Here!");
-            //this.loading.dismiss();
-            console.log("this is the lat" + marker1.getPosition().lat());
-            console.log("this is the lng" + marker1.getPosition().lng());
-        }),
-            function (error) {
-                //     this.loading.dismiss().then(() => {
-                //     this.showToast('Location not found. Please enable your GPS!');
-                //     this.loading.dismiss();
-                //     console.log(error);
-                //   });
-                console.log(error);
-            };
+        }, function (error) {
+            console.log(error);
+        });
     };
-    // toggleSearch() {
-    //   if (this.search) {
-    //     this.search = false;
-    //   } else {
-    //     this.search = true;
-    //   }
-    // }
-    EnroutePage.prototype.addMarker = function (position, content) {
+    NearbyPage.prototype.showToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000
+        });
+        toast.present();
+    };
+    NearbyPage.prototype.addMarker = function (position, content) {
         var marker = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
-            position: position,
-            draggable: true
+            position: position
         });
         this.addInfoWindow(marker, content);
         return marker;
     };
-    EnroutePage.prototype.addInfoWindow = function (marker, content) {
+    NearbyPage.prototype.addInfoWindow = function (marker, content) {
         var _this = this;
         var infoWindow = new google.maps.InfoWindow({
             content: content
@@ -717,10 +1057,7 @@ var EnroutePage = (function () {
             infoWindow.open(_this.map, marker);
         });
     };
-    EnroutePage.prototype.viewPlace = function (id) {
-        console.log('Clicked Marker', id);
-    };
-    EnroutePage.prototype.addPackageMarker = function (position, index, content) {
+    NearbyPage.prototype.addPackageMarker = function (position, index, content) {
         var image = "assets/icon/package.png";
         var marker = new google.maps.Marker({
             map: this.map,
@@ -736,53 +1073,50 @@ var EnroutePage = (function () {
         this.addPackageMarkerEvent(marker, index);
         return marker;
     };
-    EnroutePage.prototype.addPackageMarkerEvent = function (marker, index) {
+    NearbyPage.prototype.addPackageMarkerEvent = function (marker, index) {
         var _this = this;
         google.maps.event.addListener(marker, 'click', function () {
             _this.openPackageDetailsPage(index);
         });
     };
-    return EnroutePage;
+    return NearbyPage;
 }());
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('mapEnroute'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
-], EnroutePage.prototype, "mapElement", void 0);
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('mapNearby'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
+], NearbyPage.prototype, "mapElement", void 0);
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
-], EnroutePage.prototype, "searchbar", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar1', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
-], EnroutePage.prototype, "searchbar1", void 0);
-EnroutePage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
-        selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  \n  <ion-card class="map">\n      \n    <ion-searchbar class="searchbars" #searchbar1  placeholder="Enter Location:"></ion-searchbar>\n    <ion-item></ion-item>\n    <ion-searchbar class="searchbars" #searchbar placeholder="Enter Destination:"></ion-searchbar>\n  <ion-card id="mapEnroute" #mapEnroute></ion-card>\n<button id="buttonSearch" ion-button (click)=findPath()>Find Path</button>\n  </ion-card>\n  \n  <ion-card id="divider"></ion-card>\n  \n  \n\n  <ion-card *ngFor="let item of responseDataEnroute, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('distanceInput'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
+], NearbyPage.prototype, "inputElement", void 0);
+NearbyPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
+        selector: 'page-nearby',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/'<!--\n    Generated template for the AllPackagesPage page.\n\n    See http://ionicframework.com/docs/components/#navigation for more info on\n    Ionic pages and navigation.\n    \n  -->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-card id="mapNearby" #mapNearby></ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-9>\n        <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default)" type="text"></ion-input>\n      </ion-col>\n      <ion-col col-3>\n        <button id="goButton" (click)="reload()" ion-button>GO!</button>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  \n  <ion-card id="divider"></ion-card>\n\n\n  <ion-card *ngFor="let item of responseDataNearby, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>  \n  </ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */],
-        __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
-        __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]])
-], EnroutePage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* App */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* ActionSheetController */],
+        __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Http */]])
+], NearbyPage);
 
-//# sourceMappingURL=enroute.js.map
+//# sourceMappingURL=nearby.js.map
 
 /***/ }),
 
-/***/ 113:
+/***/ 114:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(6);
@@ -917,7 +1251,7 @@ LoginPage = __decorate([
 
 /***/ }),
 
-/***/ 114:
+/***/ 115:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1286,251 +1620,6 @@ SignUpPage = __decorate([
 
 /***/ }),
 
-/***/ 115:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NearbyPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(14);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-/**
- * Generated class for the NearbyPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var NearbyPage = (function () {
-    function NearbyPage(loadingCtrl, toastCtrl, app, nav, zone, platform, alertCtrl, storage, actionSheetCtrl, geolocation, navCtrl, http) {
-        this.loadingCtrl = loadingCtrl;
-        this.toastCtrl = toastCtrl;
-        this.app = app;
-        this.nav = nav;
-        this.zone = zone;
-        this.platform = platform;
-        this.alertCtrl = alertCtrl;
-        this.storage = storage;
-        this.actionSheetCtrl = actionSheetCtrl;
-        this.geolocation = geolocation;
-        this.navCtrl = navCtrl;
-        this.http = http;
-        this.listSearch = '';
-        this.radius = 1000;
-        this.search = false;
-        this.switch = "map";
-        this.responseDataNearby = [];
-        this.regionals = [];
-    }
-    NearbyPage.prototype.ionViewDidLoad = function () {
-        var _this = this;
-        console.log('ionViewDidLoad NearbyPage');
-        this.platform.ready().then(function () { return _this.loadMaps(); });
-    };
-    NearbyPage.prototype.openPackageDetailsPage = function (i) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataNearby[i]);
-    };
-    NearbyPage.prototype.viewPlace = function (id) {
-        console.log('Clicked Marker', id);
-    };
-    NearbyPage.prototype.loadMaps = function () {
-        if (!!google) {
-            this.initializeMap();
-        }
-        /*
-              console.log('The Source'+this.Source);
-              console.log('The Destination'+this.Destination);
-              let distance=google.maps.geometry.spherical.computeDistanceBetween(this.Source,this.Destination);
-              console.log('distance',distance);
-          */
-    };
-    NearbyPage.prototype.reload = function () {
-        var _this = this;
-        if (Number.isInteger(parseInt(this.rad))) {
-            this.loading = this.loadingCtrl.create({
-                spinner: 'bubbles',
-                content: 'Reloading...',
-            });
-            // this.loading.present();
-            this.radius = (this.rad * 1000);
-            if (this.markers != null) {
-                this.markers.setMap(null);
-                this.cityCircle.setMap(null);
-            }
-            this.getCurrentPositions();
-            // this.loading.dismissAll();
-            this.responseDataNearby = [];
-            this.storage.get('ID').then(function (val) {
-                _this.ID = val;
-                _this.http.get('http://localhost:5000/nearbypackages', { params: { 'TransporterID': _this.ID, 'Lat': _this.currentLat, 'Long': _this.currentLong, 'Radius': _this.rad } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                    response.content.map(function (item) {
-                        _this.responseDataNearby.push(item);
-                        var myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
-                        _this.addPackageMarker(myPos, _this.responseDataNearby.indexOf(item), item['PackageName']);
-                    });
-                    // this.loading.dismiss();
-                });
-            }, function (err) {
-                console.log('error');
-            });
-        }
-        else {
-            this.presentErrorAlert("Enter a number");
-        }
-    };
-    NearbyPage.prototype.presentErrorAlert = function (text) {
-        var alert = this.alertCtrl.create({
-            title: 'Wrong input',
-            subTitle: text,
-            buttons: ['Dismiss'],
-        });
-        alert.present();
-    };
-    NearbyPage.prototype.initializeMap = function () {
-        var _this = this;
-        this.zone.run(function () {
-            var mapEle = _this.mapElement.nativeElement;
-            _this.map = new google.maps.Map(mapEle, {
-                zoom: 12,
-                center: { lat: 31.4826352, lng: 74.0712721 },
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
-                disableDoubleClickZoom: false,
-                disableDefaultUI: true,
-                zoomControl: true,
-                scaleControl: true,
-            });
-            _this.getCurrentPositions();
-        });
-    };
-    //Center zoom
-    //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
-    // go show currrent location
-    NearbyPage.prototype.getCurrentPositions = function () {
-        var _this = this;
-        this.geolocation.getCurrentPosition().then(function (position) {
-            console.log("hello" + position.coords.latitude, position.coords.longitude);
-            _this.currentLat = position.coords.latitude;
-            _this.currentLong = position.coords.longitude;
-            var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            var options = {
-                center: myPos,
-                zoom: 12
-            };
-            _this.map.setOptions(options);
-            _this.markers = _this.addMarker(myPos, "I am Here!");
-            _this.cityCircle = new google.maps.Circle({
-                strokeColor: '#033860',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#2a4255',
-                fillOpacity: 0.35,
-                map: _this.map,
-                center: myPos,
-                radius: _this.radius,
-            });
-        }, function (error) {
-            console.log(error);
-        });
-    };
-    NearbyPage.prototype.showToast = function (message) {
-        var toast = this.toastCtrl.create({
-            message: message,
-            duration: 3000
-        });
-        toast.present();
-    };
-    NearbyPage.prototype.addMarker = function (position, content) {
-        var marker = new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: position
-        });
-        this.addInfoWindow(marker, content);
-        return marker;
-    };
-    NearbyPage.prototype.addInfoWindow = function (marker, content) {
-        var _this = this;
-        var infoWindow = new google.maps.InfoWindow({
-            content: content
-        });
-        google.maps.event.addListener(marker, 'click', function () {
-            infoWindow.open(_this.map, marker);
-        });
-    };
-    NearbyPage.prototype.addPackageMarker = function (position, index, content) {
-        var image = "assets/icon/package.png";
-        var marker = new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: position,
-            title: "hello",
-            icon: image,
-        });
-        var infoWindow = new google.maps.InfoWindow({
-            content: content
-        });
-        infoWindow.open(this.map, marker);
-        this.addPackageMarkerEvent(marker, index);
-        return marker;
-    };
-    NearbyPage.prototype.addPackageMarkerEvent = function (marker, index) {
-        var _this = this;
-        google.maps.event.addListener(marker, 'click', function () {
-            _this.openPackageDetailsPage(index);
-        });
-    };
-    return NearbyPage;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('mapNearby'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
-], NearbyPage.prototype, "mapElement", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('distanceInput'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
-], NearbyPage.prototype, "inputElement", void 0);
-NearbyPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-nearby',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/'<!--\n    Generated template for the AllPackagesPage page.\n\n    See http://ionicframework.com/docs/components/#navigation for more info on\n    Ionic pages and navigation.\n    \n  -->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-card id="mapNearby" #mapNearby></ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-9>\n        <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default)" type="text"></ion-input>\n      </ion-col>\n      <ion-col col-3>\n        <button id="goButton" (click)="reload()" ion-button>GO!</button>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  \n  <ion-card id="divider"></ion-card>\n\n\n  <ion-card *ngFor="let item of responseDataNearby, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>  \n  </ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* App */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* ActionSheetController */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Http */]])
-], NearbyPage);
-
-//# sourceMappingURL=nearby.js.map
-
-/***/ }),
-
 /***/ 116:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1822,55 +1911,55 @@ webpackEmptyAsyncContext.id = 125;
 
 var map = {
 	"../pages/all-packages/all-packages.module": [
-		301,
+		300,
 		12
 	],
 	"../pages/enqueue/enqueue.module": [
-		300,
+		301,
 		11
 	],
 	"../pages/enqueuedetails/enqueuedetails.module": [
-		303,
+		302,
 		10
 	],
 	"../pages/enroute/enroute.module": [
-		304,
+		303,
 		9
 	],
 	"../pages/help/help.module": [
-		302,
+		304,
 		8
 	],
 	"../pages/home/home.module": [
-		306,
+		305,
 		7
 	],
 	"../pages/login/login.module": [
-		305,
+		306,
 		6
 	],
 	"../pages/nearby/nearby.module": [
-		308,
+		307,
 		5
 	],
 	"../pages/notifications/notifications.module": [
-		307,
+		308,
 		4
 	],
 	"../pages/packagedetail/packagedetail.module": [
-		310,
+		309,
 		3
 	],
 	"../pages/pending-requests/pending-requests.module": [
-		309,
+		310,
 		2
 	],
 	"../pages/profile/profile.module": [
-		312,
+		311,
 		1
 	],
 	"../pages/sign-up/sign-up.module": [
-		311,
+		312,
 		0
 	]
 };
@@ -1918,23 +2007,23 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(294);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_list_list__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file__ = __webpack_require__(169);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_file_transfer__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_file_path__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_camera__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_packagedetail_packagedetail__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_pending_requests_pending_requests__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_profile_profile__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_all_packages_all_packages__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_all_packages_all_packages__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_enqueue_enqueue__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_notifications_notifications__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_help_help__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_login_login__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_help_help__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_login_login__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_geolocation__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_fcm__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2002,19 +2091,19 @@ AppModule = __decorate([
                 tabsPlacement: 'top',
             }, {
                 links: [
-                    { loadChildren: '../pages/enqueue/enqueue.module#EnqueuePageModule', name: 'EnqueuePage', segment: 'enqueue', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/all-packages/all-packages.module#AllPackagesPageModule', name: 'AllPackagesPage', segment: 'all-packages', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/help/help.module#HelpPageModule', name: 'HelpPage', segment: 'help', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/enqueue/enqueue.module#EnqueuePageModule', name: 'EnqueuePage', segment: 'enqueue', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/enqueuedetails/enqueuedetails.module#EnqueuedetailsPageModule', name: 'EnqueuedetailsPage', segment: 'enqueuedetails', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/help/help.module#HelpPageModule', name: 'HelpPage', segment: 'help', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule', name: 'NotificationsPage', segment: 'notifications', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/nearby/nearby.module#NearbyPageModule', name: 'NearbyPage', segment: 'nearby', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/pending-requests/pending-requests.module#PendingRequestsPageModule', name: 'PendingRequestsPage', segment: 'pending-requests', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule', name: 'NotificationsPage', segment: 'notifications', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/packagedetail/packagedetail.module#PackagedetailPageModule', name: 'PackagedetailPage', segment: 'packagedetail', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/pending-requests/pending-requests.module#PendingRequestsPageModule', name: 'PendingRequestsPage', segment: 'pending-requests', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] }
                 ]
             }),
             __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -2074,8 +2163,8 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_profile_profile__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enqueue_enqueue__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_notifications_notifications__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_help_help__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_login_login__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_help_help__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_login_login__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_storage__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_geolocation__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2435,9 +2524,9 @@ PackagedetailPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__all_packages_all_packages__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__all_packages_all_packages__ = __webpack_require__(109);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2489,7 +2578,7 @@ HomePage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnqueuePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enqueuedetails_enqueuedetails__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enqueuedetails_enqueuedetails__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(14);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

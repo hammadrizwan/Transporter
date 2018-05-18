@@ -76,6 +76,7 @@ export class LoginPage {
       }
       else{
         this.loading.dismissAll();
+        
         this.storage.set('Name', responseData.content[0].Name);
         this.storage.set('Email', responseData.content[0].Email);
         this.storage.set('Password', responseData.content[0].Password)

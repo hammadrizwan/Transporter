@@ -30,7 +30,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = EnroutePage;
+  rootPage: any = LoginPage;
   pages: Array<{ title: string, component: any }>;
   Name: string;
   NotificationData = [];

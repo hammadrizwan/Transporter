@@ -21,6 +21,7 @@ export class AllPackagesPage {
   responseData = [];
   skips: number;
   ID:any
+  infiniteScroll:any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,6 +31,7 @@ export class AllPackagesPage {
     this.skips = 0;
     this.storage.get('ID').then((val) => {
       this.ID = val;
+      console.log("va"+val);
       console.log(this.ID)
       this.http.get('http://localhost:5000/allpackages', { params: {'TransporterID':this.ID, 'skips': this.skips } })
       .map(res => res.json()).subscribe(response => {
@@ -52,7 +54,7 @@ export class AllPackagesPage {
     this.navCtrl.push(PackagedetailPage, this.responseData[i]);
   }
   doInfinite(infiniteScroll) {
-
+    this.infiniteScroll=infiniteScroll;
     this.skips = 10;
     var length = this.responseData.length;
     setTimeout(() => {
@@ -87,6 +89,33 @@ export class AllPackagesPage {
     });
     alert.present();
   }
-
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    this.responseData=[]
+    this.skips = 0;
+    setTimeout(() => {
+      console.log('Async operation has ended');
+     
+    this.storage.get('ID').then((val) => {
+      this.ID = val;
+      console.log("va"+val);
+      console.log(this.ID)
+      this.http.get('http://localhost:5000/allpackages', { params: {'TransporterID':this.ID, 'skips': this.skips } })
+      .map(res => res.json()).subscribe(response => {
+        response.content.map(item => {
+          this.responseData.push(item);
+        })
+        console.log(response.content);
+      });
+    },
+      err => {
+        console.log('error');
+      }); 
+      refresher.complete();
+      if(this.infiniteScroll!=null){
+        this.infiniteScroll.enable(true)
+      }
+    }, 2000);     
+  }
 
 }

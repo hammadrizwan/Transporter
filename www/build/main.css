@@ -33480,6 +33480,16 @@ ion-avatar img {
   height: 30%;
 }
 
+#buttonSearch {
+  margin-top: 50px;
+  padding: none;
+  font-size: 12px;
+  width: 70px;
+  height: 40px;
+  float: right;
+  background: #e52d27;
+}
+
 page-enroute #buttonSearch {
   margin-top: 50px;
   padding: none;

@@ -178,7 +178,6 @@ export class EnroutePage {
       content: 'Searching Location ...'
     });
     //this.loading.present();
-
     let locationOptions = { timeout: 10000 };
     this.geolocation.getCurrentPosition(locationOptions).then(
       (position) => {
@@ -377,7 +376,6 @@ export class EnroutePage {
   //     }
   //   });
   // }
-
   addMarker(position, content, marker) {
     marker = new google.maps.Marker({
       map: this.map,
@@ -464,20 +462,16 @@ export class EnroutePage {
   //http://stackoverflow.com/questions/19304574/center-set-zoom-of-map-to-cover-all-visible-markers
   // bounceMap(markers) {
   //   let bounds = new google.maps.LatLngBounds();
-
   //   for (var i = 0; i < markers.length; i++) {
   //     bounds.extend(markers[i].getPosition());
   //   }
-
   //   this.map.fitBounds(bounds);
   // }
-
   // resizeMap() {
   //   setTimeout(() => {
   //     google.maps.event.trigger(this.map, 'resize');
   //   }, 200);
   // }
-
 
   /*
     getCurrentPositionfromStorage(markers) {
@@ -502,7 +496,6 @@ export class EnroutePage {
 
 
   // go show currrent location
-
 
   // toggleSearch() {
   //   if (this.search) {

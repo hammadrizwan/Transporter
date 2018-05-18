@@ -14,10 +14,25 @@
 
 
 <ion-content class="background1">
+  <h2 *ngIf="cancelledPackage">Package Cancelled</h2>
+  <div *ngIf="inProgress">
+    <ion-card>
+      <ion-item>
+        <ion-icon class="iconsize" name="code" item-start></ion-icon>
+        <ion-label color="danger" stacked>Verification Code</ion-label>
+        <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>
+      </ion-item>
+    </ion-card>
     <button ion-button full class="buttonitemblue" (click)="sendDelivertConfirmation(item.PackageID)">
         Send Request
+      </button>
+    
+  </div>
+  <button ion-button full *ngIf="!inProgress" class="buttonitemblue" (click)="confirmPickUp(item.PackageID)">
+      Confirm Package Pickup
     </button>
   <ion-card id="mapdetail" #mapdetail></ion-card>
+  <button id="buttonSearch" ion-button full (click)=findPath()>Find Path</button>
   <ion-card>
 
     <ion-item>
@@ -55,19 +70,8 @@
       Cancel Package
     </button>
   </div>
- <h2 *ngIf="cancelled">Package Cancelled</h2>
-  <div *ngIf="inProgress">
-    <ion-card>
-      <ion-item>
-        <ion-icon class="iconsize" name="code" item-start></ion-icon>
-        <ion-label color="danger" stacked>Verification Code</ion-label>
-        <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>
-      </ion-item>
-    </ion-card>
+  
 
-    <button ion-button full class="buttonitem" (click)="sendDelivertConfirmation(item.PackageID)">
-      Send Request
-    </button>
-  </div>
+
 
 </ion-content>
