@@ -33468,6 +33468,14 @@ ion-avatar img {
   background: #e52d27;
 }
 
+.buttonitemblue {
+  padding: none;
+  font-size: 15px;
+  width: 100%;
+  height: 50px;
+  background: #033860;
+}
+
 .imagePackage {
   height: 30%;
 }

@@ -30,6 +30,7 @@ export class AllPackagesPage {
     this.skips = 0;
     this.storage.get('ID').then((val) => {
       this.ID = val;
+      console.log(this.ID)
       this.http.get('http://localhost:5000/allpackages', { params: {'TransporterID':this.ID, 'skips': this.skips } })
       .map(res => res.json()).subscribe(response => {
         response.content.map(item => {

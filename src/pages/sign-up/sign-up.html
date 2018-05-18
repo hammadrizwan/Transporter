@@ -254,6 +254,9 @@
       </ion-select>
       
     </ion-item>
+    <ion-item *ngIf="(this.Date.hasError('pattern') || this.Month.hasError('pattern') || this.Year.hasError('pattern'))  && submitAttempted">
+      <p ion-text color="danger">*Please Enter proper DOB</p>
+    </ion-item>
     <ion-item>
       <!-- Transport Type  input -->
       <ion-label color="primary">Transport Type</ion-label>
@@ -265,9 +268,10 @@
         <ion-option value="Truck">Truck</ion-option>
       </ion-select>
       </ion-item>
-    <ion-item *ngIf="(this.Date.hasError('pattern') || this.Month.hasError('pattern') || this.Year.hasError('pattern'))  && submitAttempted">
-      <p ion-text color="danger">*Please Enter proper DOB</p>
-    </ion-item>
+      <ion-item *ngIf="this.transportType.hasError('pattern')  && submitAttempted">
+        <p ion-text color="danger">*Please select a vehicly type</p>
+      </ion-item>
+    
 
     <!-- Vehicle Registration No input -->
     <ion-item>

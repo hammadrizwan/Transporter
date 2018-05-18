@@ -95,57 +95,61 @@ export class SignUpPage {
   }
 
   logForm() {//fucntion called when user tries to register with the server
-    console.log(this.transportType.value);
+    
     this.submitAttempted = true;//set true for error checking after user has entered all information
     //error checking for all fields in the signup form
-    // if (this.Name.hasError('required')) {
-    //   this.presentErrorAlert("Some values have been entered Incorectyl");
-    //   return;
-    // }
-    // else if (this.Email.hasError('required') || this.Email.hasError('email')) {
-    //   console.log("Email error");
-    //   this.presentErrorAlert("Some values have been entered Incorectyl");
-    //   return;
-    // }
-    // else if (this.CNIC.hasError('required') || this.CNIC.hasError('pattern')) {
-    //   console.log("CNIC error");
-    //   this.presentErrorAlert("Some values have been entered Incorectyl");
-    //   return;
-    // }
-    // else if (this.Phone.hasError('required') || this.Phone.hasError('pattern')) {
-    //   console.log("Phone number error");
-    //   this.presentErrorAlert("Some values have been entered Incorectyl");
-    //   return;
-    // }
-    // else if (this.CarRegistrationNo.hasError('required') || this.CarRegistrationNo.hasError('pattern')) {
-    //   console.log("Car registration error");
-    //   this.presentErrorAlert("Some values have been entered Incorectyl");
-    //   return;
-    // }
-    // else if (this.Password.hasError('required') || this.Password.hasError('pattern')) {
-    //   console.log("Passworderror");
-    //   this.presentErrorAlert("Some values have been entered Incorectyl");
-    //   return;
-    // }
-    // else if (this.Date.hasError('required') || this.Month.hasError('required') || this.Year.hasError('required')) {
-    //   console.log(" Date Month Year error");
-    //   this.presentErrorAlert("Some values have been entered Incorectyl");
-    //   return;
-    // }
-    // else if (this.Gender.hasError('required')) {
-    //   console.log("Gender error");
-    //   this.presentErrorAlert("Some values have been entered Incorectyl");
-    //   return;
-    // }
+    if (this.Name.hasError('required')) {
+      this.presentErrorAlert("Some values have been entered Incorectly");
+      return;
+    }
+    else if (this.Email.hasError('required') || this.Email.hasError('email')) {
+      //console.log("Email error");
+      this.presentErrorAlert("Some values have been entered Incorectly");
+      return;
+    }
+    else if (this.CNIC.hasError('required') || this.CNIC.hasError('pattern')) {
+      //console.log("CNIC error");
+      this.presentErrorAlert("Some values have been entered Incorectly");
+      return;
+    }
+    else if (this.Phone.hasError('required') || this.Phone.hasError('pattern')) {
+      //console.log("Phone number error");
+      this.presentErrorAlert("Some values have been entered Incorectly");
+      return;
+    }
+    else if (this.CarRegistrationNo.hasError('required') || this.CarRegistrationNo.hasError('pattern')) {
+      //console.log("Car registration error");
+      this.presentErrorAlert("Some values have been entered Incorectly");
+      return;
+    }
+    
+    else if (this.Date.hasError('pattern') || this.Month.hasError('pattern') || this.Year.hasError('pattern')) {
+      //console.log(" Date Month Year error");
+      this.presentErrorAlert("Some values have been entered Incorectly");
+      return;
+    }
+    else if (this.Gender.hasError('pattern')) {
+      //console.log("Gender error");
+      this.presentErrorAlert("Some values have been entered Incorectly");
+      return;
+    }
+    else if (this.transportType.hasError('pattern') ) {
+      //console.log("transportType error");
+      this.presentErrorAlert("Some values have been entered Incorectly");
+      return;
+    }
+    else if (this.Password.hasError('required') || this.Password.hasError('pattern')) {
+      //console.log("Passworderror");
+      this.presentErrorAlert("Some values have been entered Incorectly");
+      return;
+    }
     this.loading = this.loadingCtrl.create({
       content: 'Creating Profile...',
     });
     console.log(this.transportType);
     
 
-    // this.fcm.getToken().then(token=>{
-    //   this.Token=token;
-    // })
+    
     console.log("ALosda")
       if(this.lastImage1 ==null || this.lastImage2==null || this.lastImage3==null ){
         if(this.lastImage1 ==null){
@@ -159,50 +163,54 @@ export class SignUpPage {
         }
 
       }
-      //this.loading.present();//show loading that request has been sent and response is bieng awaited for
-      // this.upload();
-      // let Userdata = {
-      //   'ID': 0,
-      //   'Name': this.Name.value,
-      //   'Email': this.Email.value,
-      //   'TransportType':this.transportType.value;
-      //   'CNIC': this.CNIC.value,
-      //   'Phone': this.Phone.value,
-      //   'Address': this.Address.value,
-      //   'CarRegistrationNo': this.CarRegistrationNo.value,
-      //   'Password': this.Password.value,
-      //   'Date': this.Date.value,
-      //   'Month': this.Month.value,
-      //   'Year': this.Year.value,
-      //   'Gender': this.Gender.value,
-      //   'Clearence Due': 0,
-      //   'Rating': 0,
-      //   'ActivePackages': 0,
-      //   'CancelledPackages': 0.0,
-      //   //'Token':this.Token,
-      // };
-  
-      // this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
-      //   let responseData = data;
-      //   console.log(responseData.Error);
-      //   this.loading.dismissAll();
-      //   if (responseData.Error != "none") {
-      //     this.presentErrorAlert(responseData.Error);
-      //   }
-      //   else {//if account creation successfull store these value in local storage as they will be required by the application
-      //     this.storage.set('Name', this.Name.value);
-      //     this.storage.set('Email', this.Email.value);
-      //     this.storage.set('Password', this.Password.value)
-      //     this.storage.set('ID', this.id);
-      //     this.storage.set('Rating', 0);
-      //     this.navCtrl.setRoot(HomePage);
-      //   }
-      // },
-      //   err => {
-      //     console.log('error');
-      //   });
-      //ALL things are now set just need to send data to the back end check for valid!!!/
+      this.fcm.getToken().then(token=>{
+        this.Token=token;
       
+      this.loading.present();//show loading that request has been sent and response is bieng awaited for
+      this.upload();
+      let Userdata = {
+        'ID': 0,
+        'Name': this.Name.value,
+        'Email': this.Email.value,
+        'TransportType':this.transportType.value,
+        'CNIC': this.CNIC.value,
+        'Phone': this.Phone.value,
+        'Address': this.Address.value,
+        'CarRegistrationNo': this.CarRegistrationNo.value,
+        'Password': this.Password.value,
+        'Date': this.Date.value,
+        'Month': this.Month.value,
+        'Year': this.Year.value,
+        'Gender': this.Gender.value,
+        'Clearence Due': 0,
+        'Rating': 0,
+        'ActivePackages': 0,
+        'CancelledPackages': 0.0,
+        'FCMToken':this.Token,
+      };
+  
+      this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
+        let responseData = data;
+        console.log(responseData.Error);
+        this.loading.dismissAll();
+        if (responseData.Error != "none") {
+          this.presentErrorAlert(responseData.Error);
+        }
+        else {//if account creation successfull store these value in local storage as they will be required by the application
+          this.storage.set('Name', this.Name.value);
+          this.storage.set('Email', this.Email.value);
+          this.storage.set('Password', this.Password.value)
+          this.storage.set('ID', this.id);
+          this.storage.set('Rating', 0);
+          this.storage.set('FCMToken',this.Token);
+          this.navCtrl.setRoot(HomePage);
+        }
+      },
+        err => {
+          console.log('error');
+        });
+      //ALL things are now set just need to send data to the back end check for valid!!!/
+    });
   }
   upload() {
     let fileTransfer: FileTransferObject = this.transfer.create();
