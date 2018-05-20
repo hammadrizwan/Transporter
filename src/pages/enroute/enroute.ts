@@ -316,22 +316,22 @@ export class EnroutePage {
     let DestinationLat = Des["lat"];
     let DestinationLng = Des["lng"];
     this.responseDataEnroute = [];
-    // this.storage.get('ID').then((val) => {
-    //   this.ID = val;
-    //   this.http.get('http://localhost:5000/enroutepackages',
-    //     { params: { 'TransporterID': this.ID, 'SourceLat': SourceLat, 'SourceLng': SourceLng, 'DestinationLat': DestinationLat, 'DestinationLng': DestinationLng, 'Radius': this.radiusEarth } }
-    //   ).map(res => res.json()).subscribe(response => {
-    //     response.content.map(item => {
-    //       this.responseDataEnroute.push(item);
-    //       let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
-    //       this.addPackageMarker(myPos, this.responseDataEnroute.indexOf(item), item['PackageName']);
-    //     });
-    //   });
-    // },
-    //   err => {
-    //     console.log('error');
-    //   });
-    //this.loading.dismiss();
+    this.storage.get('ID').then((val) => {
+      this.ID = val;
+      this.http.get('http://localhost:5000/enroutepackages',
+        { params: { 'TransporterID': this.ID, 'SourceLat': SourceLat, 'SourceLng': SourceLng, 'DestinationLat': DestinationLat, 'DestinationLng': DestinationLng, 'Radius': this.radiusEarth } }
+      ).map(res => res.json()).subscribe(response => {
+        response.content.map(item => {
+          this.responseDataEnroute.push(item);
+          let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
+          this.addPackageMarker(myPos, this.responseDataEnroute.indexOf(item), item['PackageName']);
+        });
+      });
+    },
+      err => {
+        console.log('error');
+      });
+    this.loading.dismiss();
   }
   
   createAutocomplete(addressEl: HTMLInputElement): Observable<any> {

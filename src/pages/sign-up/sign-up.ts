@@ -13,6 +13,7 @@ import 'rxjs/add/operator/timeout';
 import { HomePage } from '../home/home';
 declare var cordova: any;
 import { FCM } from '@ionic-native/fcm';
+import { Events } from 'ionic-angular';
 /**
  * Generated class for the SignUpPage page.
  *
@@ -59,7 +60,8 @@ export class SignUpPage {
     private alertCtrl: AlertController,
     public http: Http,
     public storage: Storage,
-    private fcm: FCM) {
+    private fcm: FCM,
+    public events: Events,) {
       //formbuilder used for error checking and validation of data at client side
     this.data = this.formBuilder.group({
       lastImage1: ['', Validators.required],
@@ -187,12 +189,13 @@ export class SignUpPage {
         'ActivePackages': 0,
         'CancelledPackages': 0.0,
         'FCMToken':this.Token,
+        'ProfileImage':this.lastImage1,
       };
   
       this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
         let responseData = data;
         console.log(responseData.Error);
-        this.loading.dismissAll();
+        
         if (responseData.Error != "none") {
           this.presentErrorAlert(responseData.Error);
         }
@@ -203,6 +206,11 @@ export class SignUpPage {
           this.storage.set('ID', this.id);
           this.storage.set('Rating', 0);
           this.storage.set('FCMToken',this.Token);
+          this.storage.set('ProfileImage',this.lastImage1);
+          let Notifications=[];
+          this.storage.set('NotificationData',Notifications);
+          this.events.publish('user:loggedin',"yo");
+          this.loading.dismissAll();
           this.navCtrl.setRoot(HomePage);
         }
       },
@@ -214,28 +222,40 @@ export class SignUpPage {
   }
   upload() {
     let fileTransfer: FileTransferObject = this.transfer.create();
-    let options: FileUploadOptions = {
+    let options1: FileUploadOptions = {
       fileKey: 'file',
       fileName: this.lastImage1,
       headers: {}
 
     }
 
-    fileTransfer.upload(this.pathForImage(this.lastImage1), 'http://localhost:5000/imageupload?type='+'Profile', options, true)
+    fileTransfer.upload(this.pathForImage(this.lastImage1), 'http://localhost:5000/imageupload?type='+'Profile', options1, true)
       .then((data) => {
         console.log(data)
       }, (err) => {
         console.log("ALosda1")
         console.log(err)
       })
-      fileTransfer.upload(this.pathForImage(this.lastImage2), 'http://localhost:5000/imageupload?type='+'Liscence', options, true)
+      let options2: FileUploadOptions = {
+        fileKey: 'file',
+        fileName: this.lastImage2,
+        headers: {}
+  
+      }
+      fileTransfer.upload(this.pathForImage(this.lastImage2), 'http://localhost:5000/imageupload?type='+'Liscence', options2, true)
       .then((data) => {
         console.log(data)
       }, (err) => {
         console.log("ALosda2")
         console.log(err)
       })
-      fileTransfer.upload(this.pathForImage(this.lastImage3), 'http://localhost:5000/imageupload?type='+'VehicleRegistration', options, true)
+      let options3: FileUploadOptions = {
+        fileKey: 'file',
+        fileName: this.lastImage3,
+        headers: {}
+  
+      }
+      fileTransfer.upload(this.pathForImage(this.lastImage3), 'http://localhost:5000/imageupload?type='+'VehicleRegistration', options3, true)
       .then((data) => {
         console.log(data)
       }, (err) => {

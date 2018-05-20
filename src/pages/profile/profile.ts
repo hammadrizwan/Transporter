@@ -16,42 +16,45 @@ import { Http } from '@angular/http';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  ID: any;
-  Name:any;
-  ContantInfo:any;
-  Rating:any;
-  ClearenceDue:any;
-  ActivePackages:any;
-  CancelledPackages:any;
-  DeliveriesDone:any;
+  ID: any;//Transporter ID
+  name:any;//Transporter name
+  contantInfo:any;//Transporter phone number
+  rating:any;//Transporter rating
+  clearenceDue:any;//Transporter amount to be settled
+  activePackages:any;//Transporter package deliveries in progress
+  cancelledPackages:any;//Transporter  cancelled
+  deliveriesDone:any;//Transporter  number of deliveries completed
+  profileImage:any;//Transporter profile image 
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage
   ,public http:Http) {
+    /*get Transporter ID from localstorage and  request data and put it into variables to show in view________________*/
     this.storage.get('ID').then((val) => {
       this.ID=val;
+      
     this.http.get('http://localhost:5000/getransporterdata',{params:{'TransporterID': this.ID}}).map(res => res.json()).subscribe(response => {
       console.log(response.content);  
-      this.Name=response.content[0].Name;
-      console.log(this.Name);
-      this.ContantInfo=response.content[0].Phone;
-      console.log(this.ContantInfo);
-      this.Rating=response.content[0].Rating;
-      console.log(this.Rating);
-      this.ClearenceDue=response.content[0].ClearenceDue;
-      console.log(this.ClearenceDue);
-      this.CancelledPackages=response.content[0].CancelledPackages;
-      this.ActivePackages=response.content[0].ActivePackages;
-      console.log(this.CancelledPackages);
+      this.name=response.content[0].Name;
+      console.log(this.name);
+      this.contantInfo=response.content[0].Phone;
+      console.log(this.contantInfo);
+      this.rating=response.content[0].Rating;
+      console.log(this.rating);
+      this.clearenceDue=response.content[0].ClearenceDue;
+      console.log(this.clearenceDue);
+      this.cancelledPackages=response.content[0].CancelledPackages;
+      this.activePackages=response.content[0].ActivePackages;
+      console.log(this.cancelledPackages);
+      this.profileImage=response.content[0].ProfileImage;
+     
     },
         err => {
         console.log('error');
       });
     });
-
-
-
+     /*_______________________________________________________________________________________________________________*/
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() {//page has loaded
     console.log('ionViewDidLoad ProfilePage');
   }
 

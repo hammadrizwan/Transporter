@@ -25,6 +25,10 @@ export class NotificationsPage {
     private fcm: FCM,private alertCtrl: AlertController, private http:Http, public storage:Storage) {
   //  this.onNotification();
       console.log(this.navParams.data);
+      this.storage.get('NotificationData').then((val) => {
+        this.NotificationData = val;
+        this.NotificationData.push(this.navParams.data);
+      });
   }
 
   ionViewDidLoad() {
@@ -59,19 +63,23 @@ export class NotificationsPage {
   alert.present();
   }
   sendNotify(){
-    this.storage.get('ID').then((val) => {
-      this.ID = val;
+    
+    
+    this.storage.get('FCMToken').then((val)=>{
+      this.Token=val;
       let data ={
-        'appType':"Transporter",
-        'ID':this.ID,
-        'Token': "jkdfhajfasdfgafgagfjgasfgjasfgajsdgafgasgdfsagdfgagsjfjsdgf",
+        'TransporterID':this.ID,
+        'FCMToken': this.Token,
       }
-      this.http.post('http://localhost:5000/updateToken', JSON.stringify(data)).map(res => res.json()).subscribe(data => {          
+      this.http.post('http://localhost:5000/notify', JSON.stringify(data)).map(res => res.json()).subscribe(data => { 
+        this.showNotification(data); 
+        console.log(data)        
       },
         err => {
           console.log('error');
         });
-    });
+      });
+    
     // this.http.get('http://localhost:5000/notify').map(res => res.json()).subscribe(response => {
         
     //   },

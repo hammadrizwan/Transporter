@@ -71,7 +71,7 @@ export class LoginPage {
     this.http.post('http://localhost:5000/login', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
       let responseData = data;
       if (responseData.Error != "none") {
-        this.loading.dismissAll();
+        
         this.presentErrorAlert(responseData.Error);
       }
       else{
@@ -82,11 +82,13 @@ export class LoginPage {
         this.storage.set('Password', responseData.content[0].Password)
         this.storage.set('ID', responseData.content[0].ID);
         this.storage.set('Rating', responseData.content[0].Rating);
+        this.storage.set('FCMToken',responseData.content[0].FCMToken);
+        this.storage.set('ProfileImage',responseData.content[0].ProfileImage);
+        let Notifications=[];
+          this.storage.set('NotificationData',Notifications);
         this.events.publish('user:loggedin',"yo");
-        console.log(this.storage.get('ID').then((val) => {
-          console.log('Your age is', val);
-        }));
-        this.openPage(HomePage);
+        this.loading.dismissAll();
+        this.navCtrl.setRoot(HomePage);
       }
     },
       err => {

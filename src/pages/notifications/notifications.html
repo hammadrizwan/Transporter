@@ -5,51 +5,33 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>Notifications</ion-title>
-    </ion-navbar>
-  </ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Notifications</ion-title>
+  </ion-navbar>
+</ion-header>
 
+<!--ADD FOR LOOP Over data here-->
 
-<ion-content class="background1" >
-  <ion-card>
-    <ion-row> 
-      <ion-col col-2> 
-        <ion-icon class="icon" name="paper-plane"></ion-icon>
-      </ion-col>
-      <ion-col col-10>  
-        <h3>This is a comment orem ipsum dolor sit amet</h3>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-  
-  <ion-card>
-      <ion-row> 
-        <ion-col col-2> 
+<ion-content class="background1">
+  <ion-card *ngFor="let item of NotificationData, let i= index">
+    <ion-card>
+      <ion-row>
+        <ion-col col-2>
           <ion-icon class="icon" name="paper-plane"></ion-icon>
         </ion-col>
-        <ion-col col-10>  
+        <ion-col col-10>
           <h3>This is a comment orem ipsum dolor sit amet</h3>
         </ion-col>
       </ion-row>
     </ion-card>
+  </ion-card>
 
-    <ion-card>
-        <ion-row> 
-          <ion-col col-2> 
-            <ion-icon class="icon" name="paper-plane"></ion-icon>
-          </ion-col>
-          <ion-col col-10>  
-            <h3>This is a comment orem ipsum dolor sit amet</h3>
-          </ion-col>
-        </ion-row>
-      </ion-card>
 
-      <ion-card>
-        <p class="token">{{Token}}</p>
-      </ion-card>
-      <button ion-button (click)="sendNotify()"></button>
+  <ion-card>
+    <p class="token">{{Token}}</p>
+  </ion-card>
+  <button ion-button (click)="sendNotify()"></button>
 </ion-content>

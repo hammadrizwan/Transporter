@@ -33555,6 +33555,15 @@ page-enroute .searchbars {
   width: 97%;
 }
 
+page-help #map {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute !important;
+  overflow: hidden !important;
+}
+
 .colornavbar {
   background-color: #e52d27;
 }

@@ -25,6 +25,16 @@ import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import * as firebase from 'Firebase';
+var config = {
+  apiKey: "AIzaSyDK3eYlkVHJTY83OOYXVIZQRq5C549pBcc",
+  authDomain: "transporterdnd.firebaseapp.com",
+  databaseURL: "https://transporterdnd.firebaseio.com",
+  projectId: "transporterdnd",
+  storageBucket: "transporterdnd.appspot.com",
+  messagingSenderId: "680127595430"
+};
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -36,6 +46,8 @@ export class MyApp {
   NotificationData = [];
   Token: any;
   ID: any;
+  profileImage: any;
+  loggedIn: Boolean;
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
@@ -49,8 +61,10 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
+      splashScreen.hide();  
     });
+    firebase.initializeApp(config);
+    this.loggedIn=false;
     this.Name = "";
     this.pages = [
       { title: 'All Packages', component: HomePage },
@@ -60,38 +74,52 @@ export class MyApp {
       { title: 'Help', component: HelpPage },
     ];
 
-    events.subscribe('user:loggedin', (text) => {
+    this.events.subscribe('user:loggedin', (text) => {
+     
+      
       this.storage.get('Name').then((val) => {
         this.Name = val;
+        this.showNotification("thy name"+this.Name);
+        
       });
-    //   Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
-    //   this.geolocation.getCurrentPosition().then(
-    //     (position) => {
-    //       console.log(position.coords.latitude, position.coords.longitude);
-    //       let myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    //       console.log(JSON.parse(JSON.stringify(myPosition)));
-    //       this.storage.get('ID').then((val) => {
-    //         let data = {
-    //           'TransporterID':val,
-    //           'Latitude':position.coords.latitude,
-    //           'Longitude':position.coords.longitude,
-    //         }
-    //       this.http.post('http://localhost:5000/trackUser', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
-    //       },
-    //         err => {
-    //           console.log('error');
-    //         });
-    //       });
-    //     }),
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    // });
+      this.storage.get('ProfileImage').then((val) => {
+        this.profileImage = val;
+      });
+      this.onNotification();
+      this.loggedIn=true;
+      console.log(this.loggedIn)
+    
     });
-    //this.onNotification(); 
+      //   Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+      //   this.geolocation.getCurrentPosition().then(
+      //     (position) => {
+      //       console.log(position.coords.latitude, position.coords.longitude);
+      //       let myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      //       console.log(JSON.parse(JSON.stringify(myPosition)));
+      //       this.storage.get('ID').then((val) => {
+      //         let data = {
+      //           'TransporterID':val,
+      //           'Latitude':position.coords.latitude,
+      //           'Longitude':position.coords.longitude,
+      //         }
+      //       this.http.post('http://localhost:5000/trackUser', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
+      //       },
+      //         err => {
+      //           console.log('error');
+      //         });
+      //       });
+      //     }),
+      //     (error) => {
+      //       console.log(error);
+      //     }
+      // });
+    
+    
     //this.trackUser();
   }
-  
+  ionViewDidLoad(){
+    
+  }
 
   // trackUser(): Observable<any> {
 
@@ -104,12 +132,17 @@ export class MyApp {
     this.nav.setRoot(ProfilePage);
   }
   logout() {
+    this.loggedIn=false;  
     this.Name = "";
+    this.profileImage="";
     this.storage.set('Name', "");
     this.storage.set('Email', "");
     this.storage.set('Password', "")
     this.storage.set('ID', "");
     this.storage.set('Rating', "");
+    this.storage.set('ProfileImage', "");
+    this.storage.set('FCMToken', "");
+    
     this.nav.setRoot(LoginPage);
   }
   onNotification() {
@@ -121,10 +154,11 @@ export class MyApp {
     this.fcm.onNotification().subscribe(data => {
       if (data.wasTapped) {
         this.NotificationData.push(data);
-        console.log("aloha");
+        console.log(data);
         this.nav.setRoot(NotificationsPage, this.NotificationData);
       } else {
         this.showNotification(data);
+        console.log(data);
         this.NotificationData.push(data);
         this.nav.setRoot(NotificationsPage, this.NotificationData);
       }
@@ -132,8 +166,12 @@ export class MyApp {
     this.fcm.onTokenRefresh().subscribe(token => {
       this.storage.get('ID').then((val) => {
         this.ID = val;
-
-        this.http.post('http://localhost:5000/updateToken', JSON.stringify(this.ID)).map(res => res.json()).subscribe(data => {
+        let data = {
+          'ID': this.ID,
+          'appType':"Transporter",
+          'FCMToken':token,
+        };
+        this.http.post('http://localhost:5000/updateToken', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
         },
           err => {
             console.log('error');
