@@ -277,8 +277,8 @@ var EnqueuedetailsPage = (function () {
     EnqueuedetailsPage.prototype.confirmPickUp = function (PackageID) {
         var _this = this;
         var alert = this.alertCtrl.create({
-            title: 'Confirm purchase',
-            message: 'Do you want to buy this book?',
+            title: 'Confirm PickUp',
+            message: 'You have picked up the package?',
             buttons: [
                 {
                     text: 'Cancel',
@@ -415,7 +415,7 @@ var EnqueuedetailsPage = (function () {
 }());
 EnqueuedetailsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-enqueuedetails',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/'<!--\n  Generated template for the EnqueuedetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Enqueue Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="background1">\n  <h2 *ngIf="cancelledPackage">Package Cancelled</h2>\n  <div *ngIf="inProgress">\n    <ion-card>\n      <ion-item>\n        <ion-icon class="iconsize" name="code" item-start></ion-icon>\n        <ion-label color="danger" stacked>Verification Code</ion-label>\n        <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>\n      </ion-item>\n    </ion-card>\n    <button ion-button full class="buttonitemblue" (click)="sendDelivertConfirmation(item.PackageID)">\n        Send Request\n      </button>\n    \n  </div>\n  <button ion-button full *ngIf="!inProgress" class="buttonitemblue" (click)="confirmPickUp(item.PackageID)">\n      Confirm Package Pickup\n    </button>\n  <ion-card id="mapdetail" #mapdetail></ion-card>\n  <button id="buttonSearch" ion-button full (click)=findPath()>Find Path</button>\n  <ion-card>\n\n    <ion-item>\n      <h2>Package Name:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <!--ADD NG IF TO CHECK STATUS UNTILL THE PACKAGE IS PICKED UP else show cancelation button-->\n  <ion-card>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n  </ion-card>\n  <div *ngIf="cancellationOption">\n    <button ion-button full class="buttonitem" (click)="cancelPackage(item.PackageID)">\n      Cancel Package\n    </button>\n  </div>\n  \n\n\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/,
+        selector: 'page-enqueuedetails',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/'<!--\n  Generated template for the EnqueuedetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Enqueue Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content class="background1">\n  <h2 *ngIf="cancelledPackage">Package Cancelled</h2>\n  <div *ngIf="inProgress">\n    <ion-card>\n      <ion-item>\n        <ion-icon class="iconsize" name="code" item-start></ion-icon>\n        <ion-label color="danger" stacked>Verification Code</ion-label>\n        <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>\n      </ion-item>\n    </ion-card>\n    <button ion-button full class="buttonitemblue" (click)="sendDelivertConfirmation(item.PackageID)">\n        Send Request\n      </button>\n    \n  </div>\n  <button ion-button full *ngIf="!inProgress" class="buttonitemblue" (click)="confirmPickUp(item.PackageID)">\n      Confirm Package Pickup\n    </button>\n  <ion-card id="mapdetail" #mapdetail></ion-card>\n  <ion-card><button class="buttonitemblue" ion-button full (click)=findPath()>Find Path</button></ion-card>\n  <ion-card>\n\n    <ion-item>\n      <h2>Package Name:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <!--ADD NG IF TO CHECK STATUS UNTILL THE PACKAGE IS PICKED UP else show cancelation button-->\n  <ion-card>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n  </ion-card>\n  <div *ngIf="cancellationOption">\n    <button ion-button full class="buttonitem" (click)="cancelPackage(item.PackageID)">\n      Cancel Package\n    </button>\n  </div>\n  \n\n\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
         __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */],
@@ -1378,9 +1378,9 @@ var LoginPage = (function () {
             var responseData = data;
             if (responseData.Error != "none") {
                 _this.presentErrorAlert(responseData.Error);
+                _this.loading.dismissAll();
             }
             else {
-                _this.loading.dismissAll();
                 _this.storage.set('Name', responseData.content[0].Name);
                 _this.storage.set('Email', responseData.content[0].Email);
                 _this.storage.set('Password', responseData.content[0].Password);
@@ -1388,9 +1388,11 @@ var LoginPage = (function () {
                 _this.storage.set('Rating', responseData.content[0].Rating);
                 _this.storage.set('FCMToken', responseData.content[0].FCMToken);
                 _this.storage.set('ProfileImage', responseData.content[0].ProfileImage);
+                var Notifications = [];
+                _this.storage.set('NotificationData', Notifications);
                 _this.events.publish('user:loggedin', "yo");
                 _this.loading.dismissAll();
-                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_1__home_home__["a" /* HomePage */]);
+                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__home_home__["a" /* HomePage */]);
             }
         }, function (err) {
             console.log('error');
@@ -1634,6 +1636,8 @@ var SignUpPage = (function () {
                     _this.storage.set('Rating', 0);
                     _this.storage.set('FCMToken', _this.Token);
                     _this.storage.set('ProfileImage', _this.lastImage1);
+                    var Notifications = [];
+                    _this.storage.set('NotificationData', Notifications);
                     _this.events.publish('user:loggedin', "yo");
                     _this.loading.dismissAll();
                     _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_11__home_home__["a" /* HomePage */]);
@@ -1846,6 +1850,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var NotificationsPage = (function () {
     function NotificationsPage(navCtrl, navParams, fcm, alertCtrl, http, storage) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fcm = fcm;
@@ -1855,6 +1860,10 @@ var NotificationsPage = (function () {
         this.NotificationData = [];
         //  this.onNotification();
         console.log(this.navParams.data);
+        this.storage.get('NotificationData').then(function (val) {
+            _this.NotificationData = val;
+            _this.NotificationData.push(_this.navParams.data);
+        });
     }
     NotificationsPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad NotificationsPage');
@@ -1888,9 +1897,6 @@ var NotificationsPage = (function () {
     };
     NotificationsPage.prototype.sendNotify = function () {
         var _this = this;
-        this.storage.get('ID').then(function (val) {
-            _this.ID = val;
-        });
         this.storage.get('FCMToken').then(function (val) {
             _this.Token = val;
             var data = {
@@ -1914,7 +1920,7 @@ var NotificationsPage = (function () {
 }());
 NotificationsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-notifications',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/'<!--\n  Generated template for the NotificationsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <ion-title>Notifications</ion-title>\n    </ion-navbar>\n  </ion-header>\n\n\n<ion-content class="background1" >\n  <ion-card>\n    <ion-row> \n      <ion-col col-2> \n        <ion-icon class="icon" name="paper-plane"></ion-icon>\n      </ion-col>\n      <ion-col col-10>  \n        <h3>This is a comment orem ipsum dolor sit amet</h3>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  \n  <ion-card>\n      <ion-row> \n        <ion-col col-2> \n          <ion-icon class="icon" name="paper-plane"></ion-icon>\n        </ion-col>\n        <ion-col col-10>  \n          <h3>This is a comment orem ipsum dolor sit amet</h3>\n        </ion-col>\n      </ion-row>\n    </ion-card>\n\n    <ion-card>\n        <ion-row> \n          <ion-col col-2> \n            <ion-icon class="icon" name="paper-plane"></ion-icon>\n          </ion-col>\n          <ion-col col-10>  \n            <h3>This is a comment orem ipsum dolor sit amet</h3>\n          </ion-col>\n        </ion-row>\n      </ion-card>\n\n      <ion-card>\n        <p class="token">{{Token}}</p>\n      </ion-card>\n      <button ion-button (click)="sendNotify()"></button>\n</ion-content>\n'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/,
+        selector: 'page-notifications',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/'<!--\n  Generated template for the NotificationsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Notifications</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<!--ADD FOR LOOP Over data here-->\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of NotificationData, let i= index">\n    <ion-card>\n      <ion-row>\n        <ion-col col-2>\n          <ion-icon class="icon" name="paper-plane"></ion-icon>\n        </ion-col>\n        <ion-col col-10>\n          <h3>This is a comment orem ipsum dolor sit amet</h3>\n        </ion-col>\n      </ion-row>\n    </ion-card>\n  </ion-card>\n\n\n  <ion-card>\n    <p class="token">{{Token}}</p>\n  </ion-card>\n  <button ion-button (click)="sendNotify()"></button>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
         __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
@@ -2115,11 +2121,11 @@ var map = {
 		12
 	],
 	"../pages/enqueue/enqueue.module": [
-		461,
+		462,
 		11
 	],
 	"../pages/enqueuedetails/enqueuedetails.module": [
-		462,
+		461,
 		10
 	],
 	"../pages/enroute/enroute.module": [
@@ -2155,11 +2161,11 @@ var map = {
 		2
 	],
 	"../pages/profile/profile.module": [
-		471,
+		472,
 		1
 	],
 	"../pages/sign-up/sign-up.module": [
-		472,
+		471,
 		0
 	]
 };
@@ -2292,8 +2298,8 @@ AppModule = __decorate([
             }, {
                 links: [
                     { loadChildren: '../pages/all-packages/all-packages.module#AllPackagesPageModule', name: 'AllPackagesPage', segment: 'all-packages', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/enqueue/enqueue.module#EnqueuePageModule', name: 'EnqueuePage', segment: 'enqueue', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/enqueuedetails/enqueuedetails.module#EnqueuedetailsPageModule', name: 'EnqueuedetailsPage', segment: 'enqueuedetails', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/enqueue/enqueue.module#EnqueuePageModule', name: 'EnqueuePage', segment: 'enqueue', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/help/help.module#HelpPageModule', name: 'HelpPage', segment: 'help', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
@@ -2302,8 +2308,8 @@ AppModule = __decorate([
                     { loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule', name: 'NotificationsPage', segment: 'notifications', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/packagedetail/packagedetail.module#PackagedetailPageModule', name: 'PackagedetailPage', segment: 'packagedetail', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/pending-requests/pending-requests.module#PendingRequestsPageModule', name: 'PendingRequestsPage', segment: 'pending-requests', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] }
                 ]
             }),
             __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -2437,10 +2443,11 @@ var MyApp = (function () {
                 _this.Name = val;
                 _this.showNotification("thy name" + _this.Name);
             });
+            _this.showNotification("thy name" + _this.Name);
             _this.storage.get('ProfileImage').then(function (val) {
                 _this.profileImage = val;
             });
-            _this.onNotification();
+            //this.onNotification();
             _this.loggedIn = true;
             console.log(_this.loggedIn);
         });
@@ -2478,12 +2485,10 @@ var MyApp = (function () {
         this.nav.setRoot(page.component);
     };
     MyApp.prototype.openProfile = function () {
-        this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_9__pages_profile_profile__["a" /* ProfilePage */]);
+        this.nav.push(__WEBPACK_IMPORTED_MODULE_9__pages_profile_profile__["a" /* ProfilePage */]);
     };
     MyApp.prototype.logout = function () {
         this.loggedIn = false;
-        this.Name = "";
-        this.profileImage = "";
         this.storage.set('Name', "");
         this.storage.set('Email', "");
         this.storage.set('Password', "");
@@ -2699,12 +2704,12 @@ var PackagedetailPage = (function () {
             }
         });
     };
-    PackagedetailPage.prototype.sendRequest = function (PackageID) {
+    PackagedetailPage.prototype.sendRequest = function (PackageID, PackageName) {
         var _this = this;
         setTimeout(function () {
             _this.storage.get('ID').then(function (val) {
                 _this.ID = val;
-                _this.http.get('http://localhost:5000/requestDelivery', { params: { 'PackageID': PackageID, 'TransporterID': _this.ID } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                _this.http.get('http://localhost:5000/requestDelivery', { params: { 'PackageID': PackageID, 'PackageName': PackageName, 'TransporterID': _this.ID } }).map(function (res) { return res.json(); }).subscribe(function (response) {
                     if (response.content == 'requested') {
                         _this.notRequested = false;
                         _this.presentNotification("Request has been sent, awaiting response from Package sender", "Success");
@@ -2737,7 +2742,7 @@ __decorate([
 ], PackagedetailPage.prototype, "mapElement", void 0);
 PackagedetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-packagedetail',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/'<!--\n  Generated template for the PackagedetailPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Package Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="background1">  \n      <ion-card id="mapdetail" #mapdetail></ion-card>\n  <ion-card>\n    <ion-item>\n      <h2>Package Name:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n    </ion-item>\n\n    <ion-item>\n      <h2>Package Size:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageSize}} </ion-note>\n    </ion-item>\n\n    <ion-item>\n      <h2>Delivery Type:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.TransportType}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Vehicle Type:</h2>\n      <ion-note class="ioniconcolor1" item-end> {{item.VehicleType}} </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n  </ion-card>\n  <button *ngIf="notRequested" ion-button full class="buttonitem" (click)="sendRequest(item.PackageID)">\n      Send Request\n  </button>\n\n\n</ion-content>\n'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/,
+        selector: 'page-packagedetail',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/'<!--\n  Generated template for the PackagedetailPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Package Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="background1">  \n      <ion-card id="mapdetail" #mapdetail></ion-card>\n  <ion-card>\n    <ion-item>\n      <h2>Package Name:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n    </ion-item>\n\n    <ion-item>\n      <h2>Package Size:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageSize}} </ion-note>\n    </ion-item>\n\n    <ion-item>\n      <h2>Delivery Type:</h2>\n      <ion-note class="ioniconcolor1" item-end>{{item.TransportType}}</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Vehicle Type:</h2>\n      <ion-note class="ioniconcolor1" item-end> {{item.VehicleType}} </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n      </ion-note>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n  </ion-card>\n  <button *ngIf="notRequested" ion-button full class="buttonitem" (click)="sendRequest(item.PackageID,item.PackageName)">\n      Send Request\n  </button>\n\n\n</ion-content>\n'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */],
         __WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],

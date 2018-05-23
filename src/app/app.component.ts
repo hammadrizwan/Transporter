@@ -82,10 +82,11 @@ export class MyApp {
         this.showNotification("thy name"+this.Name);
         
       });
+      this.showNotification("thy name"+this.Name);
       this.storage.get('ProfileImage').then((val) => {
         this.profileImage = val;
       });
-      this.onNotification();
+      //this.onNotification();
       this.loggedIn=true;
       console.log(this.loggedIn)
     
@@ -129,12 +130,11 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
   openProfile() {
-    this.nav.setRoot(ProfilePage);
+    this.nav.push(ProfilePage);
   }
   logout() {
     this.loggedIn=false;  
-    this.Name = "";
-    this.profileImage="";
+    
     this.storage.set('Name', "");
     this.storage.set('Email', "");
     this.storage.set('Password', "")

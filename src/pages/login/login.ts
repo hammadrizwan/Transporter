@@ -73,10 +73,9 @@ export class LoginPage {
       if (responseData.Error != "none") {
         
         this.presentErrorAlert(responseData.Error);
+        this.loading.dismissAll();
       }
       else{
-        this.loading.dismissAll();
-        
         this.storage.set('Name', responseData.content[0].Name);
         this.storage.set('Email', responseData.content[0].Email);
         this.storage.set('Password', responseData.content[0].Password)
@@ -88,7 +87,7 @@ export class LoginPage {
           this.storage.set('NotificationData',Notifications);
         this.events.publish('user:loggedin',"yo");
         this.loading.dismissAll();
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.push(HomePage);
       }
     },
       err => {

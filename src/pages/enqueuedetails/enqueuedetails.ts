@@ -139,8 +139,8 @@ export class EnqueuedetailsPage {
   }
   confirmPickUp(PackageID) {
     let alert = this.alertCtrl.create({
-      title: 'Confirm purchase',
-      message: 'Do you want to buy this book?',
+      title: 'Confirm PickUp',
+      message: 'You have picked up the package?',
       buttons: [
         {
           text: 'Cancel',

@@ -62,7 +62,7 @@
   <ion-card>
     <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />
   </ion-card>
-  <button *ngIf="notRequested" ion-button full class="buttonitem" (click)="sendRequest(item.PackageID)">
+  <button *ngIf="notRequested" ion-button full class="buttonitem" (click)="sendRequest(item.PackageID,item.PackageName)">
       Send Request
   </button>
 
