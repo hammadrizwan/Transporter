@@ -335,7 +335,6 @@ export class EnroutePage {
   }
   
   createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
-
     const autocomplete = new google.maps.places.Autocomplete(addressEl);
     autocomplete.bindTo('bounds', this.map);
     return new Observable((sub: any) => {

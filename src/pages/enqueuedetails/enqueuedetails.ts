@@ -19,7 +19,7 @@ declare var google: any;
   templateUrl: 'enqueuedetails.html',
 })
 export class EnqueuedetailsPage {
-  
+
   item: any;
   Source: any;
   map: any;
@@ -38,7 +38,7 @@ export class EnqueuedetailsPage {
     private alertCtrl: AlertController, public storage: Storage) {
 
     this.cancelledPackage = false;
-    
+
     this.item = this.navParams.data;
     console.log(this.item.Status);
     if (this.item.Status == "Awaiting") {
@@ -49,49 +49,47 @@ export class EnqueuedetailsPage {
       this.inProgress = true;
       this.cancellationOption = false;
     }
-    this.Source = new google.maps.LatLng(this.item.SourceLatitude, this.item.SourceLongitude);
-    console.log(this.Source)
-    this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);
-    console.log(this.Destination)
-    this.presentLoadingDefault();
-    this.observer = Observable.interval(3000).subscribe(() => {//update timer to 20 seconds
-      this.geolocation.getCurrentPosition().then(
-        (position) => {
-          console.log("ALoha" + position.coords.latitude, position.coords.longitude);
-          this.myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-          if (this.marker1 != null) {
-            this.marker1.setMap(null)
+    this.setData().then(() => {
+      this.findPath();
+      this.observer = Observable.interval(3000).subscribe(() => {//update timer to 20 seconds
+        this.geolocation.getCurrentPosition().then(
+          (position) => {
+            console.log("ALoha" + position.coords.latitude, position.coords.longitude);
+            let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            if (this.myPosition != newPosition) {
+              if (this.marker1 != null) {
+                this.marker1.setMap(null)
+              }
+              this.marker1 = new google.maps.Marker({
+                map: this.map,
+                position: this.myPosition,
+                draggable: false,
+              });
+              console.log("ASDSA")
+            }
+          }),
+          (error) => {
+            console.log(error);
           }
-          this.marker1 = new google.maps.Marker({
-            map: this.map,
-            position: this.myPosition,
-            draggable: false,
-          });
-        }),
-        (error) => {
-          console.log(error);
-        }
-    });
-
+      });
+    })
     console.log("This is id" + this.ID);
   }
-  presentLoadingDefault() {
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-
-    loading.present();
-
-    setTimeout(() => {
-      //this.platform.ready().then(() => this.initializeMap());
-      this.platform.ready().then(() => this.findPath());
-      loading.dismiss();
-    }, 2000);
+  setData(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.Source = new google.maps.LatLng(this.item.SourceLatitude, this.item.SourceLongitude);
+      console.log(this.Source)
+      this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);
+      console.log(this.Destination);
+      setTimeout(() => {
+        console.log("yolo");
+        resolve();
+      }, 1000);//wait just in case
+    })
   }
 
-  findPath() {
 
+  findPath() {
     this.map = new google.maps.Map(document.getElementById('mapdetail'), {
       zoom: 9,
       center: { lat: 31.4826352, lng: 74.0712721 }
@@ -99,12 +97,14 @@ export class EnqueuedetailsPage {
     let directionsService = new google.maps.DirectionsService;
     let directionsDisplay = new google.maps.DirectionsRenderer;
     directionsDisplay.setMap(this.map);
+    console.log("outprogresso");
     this.geolocation.getCurrentPosition().then(
       (position) => {
         console.log("ALoha" + position.coords.latitude, position.coords.longitude);
         this.myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
         if (this.inProgress) {
+          console.log("inprogresso");
           directionsService.route({
             origin: this.myPosition,
             destination: this.Destination,
@@ -118,6 +118,7 @@ export class EnqueuedetailsPage {
           });
         }
         else {
+          console.log("noint progresso");
           directionsService.route({
             origin: this.myPosition,
             destination: this.Source,
@@ -137,8 +138,8 @@ export class EnqueuedetailsPage {
 
 
   }
-  confirmPickUp(PackageID) {
-    let alert = this.alertCtrl.create({
+  confirmPickUp(PackageID) {//congfirm that the package has been picked up
+    let alert = this.alertCtrl.create({//create a prompt to confirm that the user has pciked up the package this is to avoid missclicks
       title: 'Confirm PickUp',
       message: 'You have picked up the package?',
       buttons: [
@@ -146,93 +147,91 @@ export class EnqueuedetailsPage {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            //do nothing
+            //in case of no do nothing and remove prompt
           }
         },
         {
           text: 'Confirm',
           handler: () => {
-            console.log('Buy clicked');
 
-            alert.present();
             let loading = this.loadingCtrl.create({
               content: 'Waiting for server response...',
             });
-            loading.present();
+            loading.present();//present notification to show user that request is bieng processed
             this.storage.get('ID').then((val) => {
               this.ID = val;
-              let Userdata = {
-                'PackageID': PackageID,
-                'TransporterID': this.ID,
+              let requestData = {//data to be sent in the request
+                'PackageID': PackageID,//the package id 
+                'TransporterID': this.ID,//the user id of the transporter
               };
-              this.http.put('http://localhost:5000/confirmPickUp', JSON.stringify(Userdata)).map(res => res.json()).subscribe(response => {
+              /*put request send to update package status from awaiting to intransit*/
+              this.http.put('http://localhost:5000/confirmPickUp', JSON.stringify(requestData)).map(res => res.json()).subscribe(response => {
                 if (response['status'] == 'success') {
                   loading.dismiss();
                   this.presentNotification("Pick Up confirmed", "picked up");
-                  this.inProgress = true;
-                  this.cancellationOption = false;
-                  this.findPath();
+                  this.inProgress = true;//in progress set to true shows the input field to enter key and verify the PIN
+                  this.cancellationOption = false;//cancell package button is now hidden from view
+                  this.findPath();//new route from the user to the destination instead of the source of the package
                 }
                 else {
                   loading.dismiss();
-                  this.presentNotification("testing", "Failed");
+                  this.presentNotification("testing", "Failed");// if the request has failed
                 }
               },
                 err => {
                   console.log('error');
+                  console.log(err);
                 });
             });
-
           }
         }
       ]
     });
-    alert.present();
+    alert.present();//present the alert created above to the user
   }
 
-  sendDelivertConfirmation(PackageID) {
-    let loading = this.loadingCtrl.create({
+  sendDelivertConfirmation(PackageID) {//confirmation of delivery
+    let loading = this.loadingCtrl.create({//loading to show the request is being processed
       content: 'Waiting for token validation...',
     });
 
-    loading.present();
-    if (/^\d{10}$/.test(this.token)) {
-      setTimeout(() => {
-        this.storage.get('ID').then((val) => {
-          this.ID = val;
-          let Userdata = {
-            'ID': this.ID,
-            'token': this.token,
-            //'Token':this.Token,
-          };
-          this.http.get('http://localhost:5000/deliveryCompleted', { params: { 'PackageID': PackageID, 'token': this.token } }
-          ).map(res => res.json()).subscribe(response => {
-            if (response.content == 'success') {
-              loading.dismiss();
-              this.cancelledPackage = true;
-              this.cancellationOption = false;
-              this.presentNotification("The Package delivery is completed", "Success");
-              setTimeout(() => {
-                this.navCtrl.setRoot(EnqueuePage);
-              }, 400);
-            }
-            else {
-              loading.dismiss();
-              this.presentNotification("Token Mismatch", "Failed");
-            }
-          },
-            err => {
-              console.log('error');
-            });
+    loading.present();//present the loading
+    if (/^\d{10}$/.test(this.token)) {//Regex check that the value entered only consist of 10 digits
+      // setTimeout(() => {
+      //   this.storage.get('ID').then((val) => {
+      //     this.ID = val;
+      //     let Userdata = {
+      //       'ID': this.ID,
+      //       'token': this.token,
+      //       //'Token':this.Token,
+      //     };
+      /*update package status to completed */
+      this.http.get('http://localhost:5000/deliveryCompleted', { params: { 'PackageID': PackageID, 'token': this.token } }
+      ).map(res => res.json()).subscribe(response => {
+        if (response.content == 'success') {
+          loading.dismiss();
+          this.presentNotification("The Package delivery is completed", "Success");//tell the user that delivery has been completed
+          setTimeout(() => {
+            this.navCtrl.setRoot(EnqueuePage);//reroute to previous page
+          }, 400);
+        }
+        else {
+          loading.dismiss();
+          this.presentNotification("Token Mismatch", "Failed");//wrong token was entered
+        }
+      },
+        err => {
+          console.log('error');
         });
-      }, 300);
+      //   });
+      // }, 300);
     }
     else {
       loading.dismiss();
       this.presentNotification("Token consists of only 10 digit", "Re Check Token")
     }
   }
-  cancelPackage(PackageID) {
+  cancelPackage(PackageID) {//method to cancel the package
     let loading = this.loadingCtrl.create({
       content: 'Waiting for token validation...',
     });
@@ -240,40 +239,40 @@ export class EnqueuedetailsPage {
     this.cancelledPackage = true;
     this.cancellationOption = false;
     // setTimeout(() => {
-    //   this.storage.get('ID').then((val) => {
-    //     this.ID = val;
-    //     let Userdata = {
-    //       'PackageID': PackageID,
-    //       'TransporterID': this.ID,
-    //     };
-    //     this.http.put('http://localhost:5000/cancelPackage', JSON.stringify(Userdata)).map(res => res.json()).subscribe(response => {
-    //       if (response['status'] == 'success') {
-    //         loading.dismiss();
-    //         this.presentNotification("Package Cancelled", "Cancelled");
-    //         setTimeout(() => {
-    //           this.navCtrl.setRoot(EnqueuePage);
-    //         }, 400);
+    this.storage.get('ID').then((val) => {
+      this.ID = val;
+      let requestData = {//data to be sent along with the request
+        'PackageID': PackageID,
+        'TransporterID': this.ID,
+      };
+      this.http.put('http://localhost:5000/cancelPackage', JSON.stringify(requestData)).map(res => res.json()).subscribe(response => {
+        if (response['status'] == 'success') {
+          loading.dismiss();
+          this.presentNotification("Package Cancelled", "Cancelled");//tell the user that the package has been cancelled
+          setTimeout(() => {
+            this.navCtrl.setRoot(EnqueuePage);//reroute to previous page
+          }, 400);
 
-    //       }
-    //       else {
-    //         loading.dismiss();
-    //         this.presentNotification("testing", "Failed");
-    //       }
-    //     },
-    //       err => {
-    //         console.log('error');
-    //       });
-    //   });
+        }
+        else {
+          loading.dismiss();
+          this.presentNotification("testing", "Failed");//tell the user the request has been denied
+        }
+      },
+        err => {
+          console.log('error');
+        });
+    });
     // }, 300);
   }
 
 
   ionViewWillLeave() {
     console.log("Looks like I'm about to leave :(");
-    this.observer.unsubscribe();
+    this.observer.unsubscribe();//unsubsribe to geolocation tracking
   }
 
-  presentNotification(text, header) {
+  presentNotification(text, header) {//notification creation method
     let alert = this.alertCtrl.create({
       title: header,
       subTitle: text,

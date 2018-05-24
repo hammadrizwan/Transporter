@@ -27,9 +27,10 @@ export class LoginPage {
   data: any;
   Password: AbstractControl;
   loading: Loading;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private formBuilder: FormBuilder, public http: Http, public storage: Storage, 
-    public alertCtrl:AlertController,public loadingCtrl: LoadingController,public events: Events ) {
+  constructor(private navCtrl: NavController, private navParams: NavParams,
+    private formBuilder: FormBuilder, private http: Http,
+    private storage: Storage,private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController, private events: Events) {
 
     this.data = this.formBuilder.group({
       Email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -55,9 +56,9 @@ export class LoginPage {
       return;
     }
 
-    let Userdata = {
-      'Email': this.Email.value,
-      'Password': this.Password.value,
+    let Userdata = {//user data sent for user authentication
+      'Email': this.Email.value,//email 
+      'Password': this.Password.value,//password
     };
     this.loading = this.loadingCtrl.create({
       content: 'Uploading...',
@@ -71,23 +72,16 @@ export class LoginPage {
     this.http.post('http://localhost:5000/login', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
       let responseData = data;
       if (responseData.Error != "none") {
-        
         this.presentErrorAlert(responseData.Error);
         this.loading.dismissAll();
       }
-      else{
-        this.storage.set('Name', responseData.content[0].Name);
-        this.storage.set('Email', responseData.content[0].Email);
-        this.storage.set('Password', responseData.content[0].Password)
-        this.storage.set('ID', responseData.content[0].ID);
-        this.storage.set('Rating', responseData.content[0].Rating);
-        this.storage.set('FCMToken',responseData.content[0].FCMToken);
-        this.storage.set('ProfileImage',responseData.content[0].ProfileImage);
-        let Notifications=[];
-          this.storage.set('NotificationData',Notifications);
-        this.events.publish('user:loggedin',"yo");
-        this.loading.dismissAll();
-        this.navCtrl.push(HomePage);
+      else {
+        this.dataloaded(responseData).then(() => {//promise to wait for the data to be loaded
+          this.events.publish('user:loggedin', "dataloaded");//to set data values
+          this.loading.dismissAll();//dismiss loading
+          this.navCtrl.setRoot(HomePage);//go to home page
+        })
+
       }
     },
       err => {
@@ -95,7 +89,24 @@ export class LoginPage {
       });
     return;
   }
-  presentErrorAlert(text) {
+  dataloaded(responseData): Promise<any> {//promise used to ensure data has been loaded before it is acessed
+    return new Promise((resolve, reject) => {
+      //put the values in local storage
+      this.storage.set('Name', responseData.content[0].Name);
+      this.storage.set('Email', responseData.content[0].Email);
+      this.storage.set('Password', responseData.content[0].Password)
+      this.storage.set('ID', responseData.content[0].ID);
+      this.storage.set('Rating', responseData.content[0].Rating);
+      this.storage.set('FCMToken', responseData.content[0].FCMToken);
+      this.storage.set('ProfileImage', responseData.content[0].ProfileImage);
+      let Notifications = [];
+      this.storage.set('NotificationData', Notifications);//try to make this global 
+      setTimeout(() => {
+        resolve();
+      }, 2000);//wait just in case
+    })
+  }
+  presentErrorAlert(text) {//error alert creator method
     let alert = this.alertCtrl.create({
       title: 'Error',
       subTitle: text,
@@ -103,13 +114,8 @@ export class LoginPage {
     });
     alert.present();
   }
-  
-  signuppage(page) {
+
+  signuppage(page) {//push the signup page in event the user has no account
     this.navCtrl.push(SignUpPage);
-  }
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.navCtrl.setRoot(page);
   }
 }

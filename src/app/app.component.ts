@@ -1,14 +1,10 @@
 import { EnroutePage } from './../pages/enroute/enroute';
-import { Observable } from 'rxjs/Observable';
-import "rxjs/add/observable/interval";
 import { HomePage } from './../pages/home/home';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { FCM } from '@ionic-native/fcm';
 import { SignUpPage } from '../pages/sign-up/sign-up';
-
 import { ListPage } from '../pages/list/list';
 import { NearbyPage } from '../pages/nearby/nearby';
 import { Http } from '@angular/http';
@@ -26,6 +22,9 @@ import { Events } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import * as firebase from 'Firebase';
+import { FCM } from '@ionic-native/fcm';
+import { Observable } from 'rxjs/Observable';
+import "rxjs/add/observable/interval";
 var config = {
   apiKey: "AIzaSyDK3eYlkVHJTY83OOYXVIZQRq5C549pBcc",
   authDomain: "transporterdnd.firebaseapp.com",
@@ -48,6 +47,10 @@ export class MyApp {
   ID: any;
   profileImage: any;
   loggedIn: Boolean;
+  watch: any;
+  ref: any;
+  observer:any;
+  myPosition:any;
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
@@ -61,11 +64,13 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();  
+      splashScreen.hide();
     });
-    firebase.initializeApp(config);
-    this.loggedIn=false;
-    this.Name = "";
+
+    firebase.initializeApp(config);//intialise firebase
+    this.ref = firebase.database().ref('geolocations/');//assign data base to store gelocation
+    this.loggedIn = false;//user is not initailly logged in
+    this.Name = "";//name value is not set
     this.pages = [
       { title: 'All Packages', component: HomePage },
       { title: 'Pending Requests', component: PendingRequestsPage },
@@ -73,59 +78,79 @@ export class MyApp {
       { title: 'Notifications', component: NotificationsPage },
       { title: 'Help', component: HelpPage },
     ];
+    this.loadData().then(() => {
+      this.loggedIn = true;
+      this.subscribeWatch();
+    })
 
-    this.events.subscribe('user:loggedin', (text) => {
-     
-      
-      this.storage.get('Name').then((val) => {
-        this.Name = val;
-        this.showNotification("thy name"+this.Name);
-        
+    //this.onNotification();
+    //this.subscribeWatch();//function that starts sending gelocation to database
+    //console.log(this.loggedIn)  
+  }
+  private loadData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
+    return new Promise((resolve, reject) => {
+      //put the values in local storage
+      this.events.subscribe('user:loggedin', (text) => {
+        this.storage.get('Name').then((val) => {
+          this.Name = val;
+          this.showNotification("thy name" + val);
+
+        });
+        this.storage.get('ProfileImage').then((val) => {
+          this.profileImage = val;
+
+        });
+        setTimeout(() => {
+          resolve();
+        }, 2000);//wait just in case
       });
-      this.showNotification("thy name"+this.Name);
-      this.storage.get('ProfileImage').then((val) => {
-        this.profileImage = val;
-      });
-      //this.onNotification();
-      this.loggedIn=true;
-      console.log(this.loggedIn)
-    
     });
-      //   Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
-      //   this.geolocation.getCurrentPosition().then(
-      //     (position) => {
-      //       console.log(position.coords.latitude, position.coords.longitude);
-      //       let myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      //       console.log(JSON.parse(JSON.stringify(myPosition)));
-      //       this.storage.get('ID').then((val) => {
-      //         let data = {
-      //           'TransporterID':val,
-      //           'Latitude':position.coords.latitude,
-      //           'Longitude':position.coords.longitude,
-      //         }
-      //       this.http.post('http://localhost:5000/trackUser', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
-      //       },
-      //         err => {
-      //           console.log('error');
-      //         });
-      //       });
-      //     }),
-      //     (error) => {
-      //       console.log(error);
-      //     }
-      // });
-    
-    
-    //this.trackUser();
-  }
-  ionViewDidLoad(){
-    
   }
 
-  // trackUser(): Observable<any> {
+  subscribeWatch() {
+    //this.watch = this.geolocation.watchPosition();
+    //this.watch.subscribe((data) => {
+      // you can set your id here
+      //this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
 
-  //   return new
-  // }
+    //});
+    //this.watch.unsubscribe();
+    this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+      this.geolocation.getCurrentPosition().then(
+        (position) => {
+          console.log("ALoha" + position.coords.latitude, position.coords.longitude);
+          let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          if (JSON.stringify(this.myPosition) !=JSON.stringify(newPosition)) {
+            this.updateGeolocation(position.coords.latitude,position.coords.longitude);
+            this.myPosition=newPosition;
+            console.log("my:"+this.myPosition)
+            console.log("new:"+newPosition)
+          }
+    });
+  });
+  }
+  updateGeolocation(lat, lng) {
+    this.storage.get('ID').then((val) => {
+      this.ID = val;
+
+
+      if (this.ID != null) {
+        firebase.database().ref('geolocations/' + this.ID).set({
+          ID: this.ID,
+          latitude: lat,
+          longitude: lng
+        });
+        console.log("hello general kneobi");
+      } else {
+        console.log("op errors");
+      }
+    });
+  }
+  ionViewDidLoad() {
+
+  }
+
+
   openPage(page) {
     this.nav.setRoot(page.component);
   }
@@ -133,17 +158,17 @@ export class MyApp {
     this.nav.push(ProfilePage);
   }
   logout() {
-    this.loggedIn=false;  
-    
-    this.storage.set('Name', "");
-    this.storage.set('Email', "");
-    this.storage.set('Password', "")
-    this.storage.set('ID', "");
-    this.storage.set('Rating', "");
-    this.storage.set('ProfileImage', "");
-    this.storage.set('FCMToken', "");
-    
-    this.nav.setRoot(LoginPage);
+
+    /*remove all storage values*/
+    this.storage.set('Name', null);
+    this.storage.set('Email', null);
+    this.storage.set('Password', null)
+    this.storage.set('ID', null);
+    this.storage.set('Rating', null);
+    this.storage.set('ProfileImage', null);
+    this.storage.set('FCMToken', null);
+    /*________________________________*/
+    this.nav.setRoot(LoginPage);//reroute to to login page
   }
   onNotification() {
     this.fcm.getToken().then(token => {
@@ -168,8 +193,8 @@ export class MyApp {
         this.ID = val;
         let data = {
           'ID': this.ID,
-          'appType':"Transporter",
-          'FCMToken':token,
+          'appType': "Transporter",
+          'FCMToken': token,
         };
         this.http.post('http://localhost:5000/updateToken', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
         },
@@ -190,3 +215,26 @@ export class MyApp {
   }
 }
 
+//Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+  //   this.geolocation.getCurrentPosition().then(
+  //     (position) => {
+  //       console.log(position.coords.latitude, position.coords.longitude);
+  //       let myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  //       console.log(JSON.parse(JSON.stringify(myPosition)));
+  //       this.storage.get('ID').then((val) => {
+  //         let data = {
+  //           'TransporterID':val,
+  //           'Latitude':position.coords.latitude,
+  //           'Longitude':position.coords.longitude,
+  //         }
+  //       this.http.post('http://localhost:5000/trackUser', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
+  //       },
+  //         err => {
+  //           console.log('error');
+  //         });
+  //       });
+  //     }),
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  // });

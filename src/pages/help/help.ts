@@ -131,7 +131,7 @@ export const snapshotToArray = snapshot => {
      item.key = childSnapshot.key;
   //  console.log("value of item.key"+item.key);
 
-
+ 
      if(item.ID=="Ad")
      {
        console.log(item.longitude);

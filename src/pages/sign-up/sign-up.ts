@@ -45,30 +45,23 @@ export class SignUpPage {
   Month: AbstractControl;
   Year: AbstractControl;
   Gender: AbstractControl;
-  transportType:AbstractControl;
+  transportType: AbstractControl;
   Token: any;
-  constructor(public navCtrl: NavController,
-    private camera: Camera,
-    private transfer: FileTransfer,
-    private file: File,
-    private filePath: FilePath,
-    public actionSheetCtrl: ActionSheetController,
-    public toastCtrl: ToastController,
-    public platform: Platform,
-    public loadingCtrl: LoadingController,
-    private formBuilder: FormBuilder,
-    private alertCtrl: AlertController,
-    public http: Http,
-    public storage: Storage,
-    private fcm: FCM,
-    public events: Events,) {
-      //formbuilder used for error checking and validation of data at client side
+  constructor(private navCtrl: NavController,
+    private camera: Camera,private transfer: FileTransfer,
+    private file: File,private filePath: FilePath,
+    private actionSheetCtrl: ActionSheetController,private toastCtrl: ToastController,
+    private platform: Platform,private loadingCtrl: LoadingController,
+    private formBuilder: FormBuilder,private alertCtrl: AlertController,
+    private http: Http,private storage: Storage,
+    private fcm: FCM,private events: Events,) {
+    //formbuilder used for error checking and validation of data at client side
     this.data = this.formBuilder.group({
       lastImage1: ['', Validators.required],
       lastImage2: ['', Validators.required],
       lastImage3: ['', Validators.required],
       Name: ['', Validators.required],
-      transportType:['transportyype', [Validators.required, Validators.pattern('^((?!transportyype).)*$')]],
+      transportType: ['transportyype', [Validators.required, Validators.pattern('^((?!transportyype).)*$')]],
       Email: ['', Validators.compose([Validators.required, Validators.email])],
       CNIC: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$')])],
       Phone: ['', Validators.compose([Validators.required, Validators.pattern('03[0-9]{9}$')])],
@@ -78,7 +71,7 @@ export class SignUpPage {
       Date: ['date', Validators.compose([Validators.required, Validators.pattern('^((?!date).)*$')])],
       Month: ['month', Validators.compose([Validators.required, Validators.pattern('^((?!month).)*$')])],
       Year: ['year', Validators.compose([Validators.required, Validators.pattern('^((?!year).)*$')])],
-      Gender: ['gender', Validators.compose([Validators.required, Validators.pattern('^((?!gender).)*$')])],
+      Gender: ['gender', Validators.compose([Validators.required, Validators.pattern('^((?!gender).)*$')])],//'gender' is the defaul value viewed
     });
     //bind the variables to input elements in the form making error checking and data access easier
     this.Name = this.data.controls['Name'];
@@ -97,7 +90,7 @@ export class SignUpPage {
   }
 
   logForm() {//fucntion called when user tries to register with the server
-    
+
     this.submitAttempted = true;//set true for error checking after user has entered all information
     //error checking for all fields in the signup form
     if (this.Name.hasError('required')) {
@@ -124,7 +117,7 @@ export class SignUpPage {
       this.presentErrorAlert("Some values have been entered Incorectly");
       return;
     }
-    
+
     else if (this.Date.hasError('pattern') || this.Month.hasError('pattern') || this.Year.hasError('pattern')) {
       //console.log(" Date Month Year error");
       this.presentErrorAlert("Some values have been entered Incorectly");
@@ -135,7 +128,7 @@ export class SignUpPage {
       this.presentErrorAlert("Some values have been entered Incorectly");
       return;
     }
-    else if (this.transportType.hasError('pattern') ) {
+    else if (this.transportType.hasError('pattern')) {
       //console.log("transportType error");
       this.presentErrorAlert("Some values have been entered Incorectly");
       return;
@@ -149,32 +142,32 @@ export class SignUpPage {
       content: 'Creating Profile...',
     });
     console.log(this.transportType);
-    
 
-    
+
+
     console.log("ALosda")
-      if(this.lastImage1 ==null || this.lastImage2==null || this.lastImage3==null ){
-        if(this.lastImage1 ==null){
-          this.presentErrorAlert("Profile image missing");         
-        }
-        if(this.lastImage2 ==null){
-          this.presentErrorAlert("Liscence Image Missing");
-        }
-        if(this.lastImage3 ==null){
-          this.presentErrorAlert("Vehicle Registration Image Missing");
-        }
-
+    if (this.lastImage1 == null || this.lastImage2 == null || this.lastImage3 == null) {
+      if (this.lastImage1 == null) {
+        this.presentErrorAlert("Profile image missing");
       }
-      this.fcm.getToken().then(token=>{
-        this.Token=token;
-      
+      if (this.lastImage2 == null) {
+        this.presentErrorAlert("Liscence Image Missing");
+      }
+      if (this.lastImage3 == null) {
+        this.presentErrorAlert("Vehicle Registration Image Missing");
+      }
+
+    }
+    this.fcm.getToken().then(token => {
+      this.Token = token;
+
       this.loading.present();//show loading that request has been sent and response is bieng awaited for
-      this.upload();
+      this.uploadImages();
       let Userdata = {
         'ID': 0,
         'Name': this.Name.value,
         'Email': this.Email.value,
-        'TransportType':this.transportType.value,
+        'TransportType': this.transportType.value,
         'CNIC': this.CNIC.value,
         'Phone': this.Phone.value,
         'Address': this.Address.value,
@@ -188,30 +181,23 @@ export class SignUpPage {
         'Rating': 0,
         'ActivePackages': 0,
         'CancelledPackages': 0.0,
-        'FCMToken':this.Token,
-        'ProfileImage':this.lastImage1,
+        'FCMToken': this.Token,
+        'ProfileImage': this.lastImage1,
       };
-  
+
       this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
         let responseData = data;
         console.log(responseData.Error);
-        
+
         if (responseData.Error != "none") {
           this.presentErrorAlert(responseData.Error);
         }
         else {//if account creation successfull store these value in local storage as they will be required by the application
-          this.storage.set('Name', this.Name.value);
-          this.storage.set('Email', this.Email.value);
-          this.storage.set('Password', this.Password.value)
-          this.storage.set('ID', this.id);
-          this.storage.set('Rating', 0);
-          this.storage.set('FCMToken',this.Token);
-          this.storage.set('ProfileImage',this.lastImage1);
-          let Notifications=[];
-          this.storage.set('NotificationData',Notifications);
-          this.events.publish('user:loggedin',"yo");
-          this.loading.dismissAll();
-          this.navCtrl.setRoot(HomePage);
+          this.dataloaded(responseData).then(() => {//promise to wait for the data to be loaded
+            this.events.publish('user:loggedin', "dataloaded");//to set data values
+            this.loading.dismissAll();//dismiss loading
+            this.navCtrl.setRoot(HomePage);//go to home page
+          })
         }
       },
         err => {
@@ -220,7 +206,24 @@ export class SignUpPage {
       //ALL things are now set just need to send data to the back end check for valid!!!/
     });
   }
-  upload() {
+  private dataloaded(responseData): Promise<any> {//promise used to ensure data has been loaded before it is acessed
+    return new Promise((resolve, reject) => {
+      //put the values in local storage
+      this.storage.set('Name', this.Name.value);
+      this.storage.set('Email', this.Email.value);
+      this.storage.set('Password', this.Password.value)
+      this.storage.set('ID', this.id);
+      this.storage.set('Rating', 0);
+      this.storage.set('FCMToken', this.Token);
+      this.storage.set('ProfileImage', this.lastImage1);
+      let Notifications = [];
+      this.storage.set('NotificationData', Notifications);
+      setTimeout(() => {
+        resolve();
+      }, 2000);//wait just in case
+    })
+  }
+  private uploadImages() {
     let fileTransfer: FileTransferObject = this.transfer.create();
     let options1: FileUploadOptions = {
       fileKey: 'file',
@@ -228,53 +231,43 @@ export class SignUpPage {
       headers: {}
 
     }
+    fileTransfer.upload(this.pathForImage(this.lastImage1), 'http://localhost:5000/imageupload?type=' + 'Profile', options1, true)
+      .then((data) => {
+        console.log(data)
+      }, (err) => {
+        console.log(err)
+      })
+    let options2: FileUploadOptions = {
+      fileKey: 'file',
+      fileName: this.lastImage2,
+      headers: {}
+    }
+    fileTransfer.upload(this.pathForImage(this.lastImage2), 'http://localhost:5000/imageupload?type=' + 'Liscence', options2, true)
+      .then((data) => {
+        console.log(data)
+      }, (err) => {
+        console.log(err)
+      })
+    let options3: FileUploadOptions = {
+      fileKey: 'file',
+      fileName: this.lastImage3,
+      headers: {}
+    }
+    fileTransfer.upload(this.pathForImage(this.lastImage3), 'http://localhost:5000/imageupload?type=' + 'VehicleRegistration', options3, true)
+      .then((data) => {
+        console.log(data)
+      }, (err) => {
+        console.log(err)
+      })
+  }
 
-    fileTransfer.upload(this.pathForImage(this.lastImage1), 'http://localhost:5000/imageupload?type='+'Profile', options1, true)
-      .then((data) => {
-        console.log(data)
-      }, (err) => {
-        console.log("ALosda1")
-        console.log(err)
-      })
-      let options2: FileUploadOptions = {
-        fileKey: 'file',
-        fileName: this.lastImage2,
-        headers: {}
-  
-      }
-      fileTransfer.upload(this.pathForImage(this.lastImage2), 'http://localhost:5000/imageupload?type='+'Liscence', options2, true)
-      .then((data) => {
-        console.log(data)
-      }, (err) => {
-        console.log("ALosda2")
-        console.log(err)
-      })
-      let options3: FileUploadOptions = {
-        fileKey: 'file',
-        fileName: this.lastImage3,
-        headers: {}
-  
-      }
-      fileTransfer.upload(this.pathForImage(this.lastImage3), 'http://localhost:5000/imageupload?type='+'VehicleRegistration', options3, true)
-      .then((data) => {
-        console.log(data)
-      }, (err) => {
-        console.log("ALosd3")
-        console.log(err)
-      })
-  }
-  openPage(page) {//if account creation successfull open the home page
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.navCtrl.setRoot(page);
-  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignUpPage');
   }
 
 
   //________________________________________________________CODE FOR CAMERA PHOTOES____________________________________
-  public presentActionSheet(id) {
+  private presentActionSheet(id) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
       buttons: [
@@ -298,7 +291,7 @@ export class SignUpPage {
     });
     actionSheet.present();
   }
-  public takePicture(sourceType, id) {
+  private takePicture(sourceType, id) {
     // Create options for the Camera Dialog
     var options = {
       quality: 100,
@@ -323,7 +316,7 @@ export class SignUpPage {
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName(), id);
       }
     }, (err) => {
-      this.presentErrorAlert('Error while selecting image.');
+      //this.presentErrorAlert('Error while selecting image.');
     });
   }
 
@@ -361,15 +354,15 @@ export class SignUpPage {
     alert.present();
   }
   // Always get the accurate path to your apps folder
-  public pathForImage(img) {
+  private pathForImage(img) {
     if (img === null) {
       return '';
     } else {
       return cordova.file.dataDirectory + img;
     }
   }
-  
+
   //__________________________________________________________________________________________________________________
 
- 
+
 }
