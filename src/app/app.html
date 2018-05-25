@@ -50,11 +50,21 @@
             </ion-col>
         </ion-row>
         <ion-row>
+                <ion-col col-2 align-self-center>
+                    <ion-icon class="textcol iconsize" name="chatbubbles"></ion-icon>
+                </ion-col>
+                <ion-col col-10>
+                    <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">
+                        Delivered Packages
+                    </button>
+                </ion-col>
+            </ion-row>
+        <ion-row>
             <ion-col col-2 align-self-center>
                 <ion-icon class="textcol iconsize" name="chatbubbles"></ion-icon>
             </ion-col>
             <ion-col col-10>
-                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">
+                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">
                     Notifications
                 </button>
             </ion-col>
@@ -65,7 +75,7 @@
                 <ion-icon class="textcol iconsize" name="help-circle"></ion-icon>
             </ion-col>
             <ion-col col-10>
-                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">
+                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[5])">
                     Help
                 </button>
             </ion-col>

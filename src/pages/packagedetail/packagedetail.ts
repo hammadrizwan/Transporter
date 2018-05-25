@@ -27,7 +27,6 @@ export class PackagedetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation,
     public zone: NgZone, public loadingCtrl: LoadingController, public platform: Platform,public http: Http,
     private alertCtrl: AlertController,public storage:Storage ) {
-
     this.item = this.navParams.data;
     console.log(this.item);
     this.Source = new google.maps.LatLng(this.item.SourceLatitude, this.item.SourceLongitude);

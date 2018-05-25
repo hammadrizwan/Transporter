@@ -50,6 +50,8 @@ export class EnqueuedetailsPage {
       this.cancellationOption = false;
     }
     this.setData().then(() => {
+          
+      this.createMap();
       this.findPath();
       this.observer = Observable.interval(3000).subscribe(() => {//update timer to 20 seconds
         this.geolocation.getCurrentPosition().then(
@@ -87,15 +89,19 @@ export class EnqueuedetailsPage {
       }, 1000);//wait just in case
     })
   }
-
+  createMap(){
+    this.map = new google.maps.Map(document.getElementById('mapdetail'), {
+      zoom: 12,
+      center: this.Source
+    });
+  }
 
   findPath() {
-    this.map = new google.maps.Map(document.getElementById('mapdetail'), {
-      zoom: 9,
-      center: { lat: 31.4826352, lng: 74.0712721 }
-    });
     let directionsService = new google.maps.DirectionsService;
-    let directionsDisplay = new google.maps.DirectionsRenderer;
+    var rendererOptions = {
+      preserveViewport: true
+    };
+    let directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
     directionsDisplay.setMap(this.map);
     console.log("outprogresso");
     this.geolocation.getCurrentPosition().then(
@@ -111,6 +117,14 @@ export class EnqueuedetailsPage {
             travelMode: 'DRIVING'
           }, function (response, status) {
             if (status === 'OK') {
+              // for (var i = 0; i < response.routes.length; i++) {
+              //   directionsDisplay.setDirections(response);
+              //   // Tell the DirectionsRenderer which route to display
+              //   directionsDisplay.setRouteIndex(i);
+              //   //directionsDisplay.setMap(this.map);
+              //   console.log(response.routes[i].legs[0].distance.value / 1000);
+              //}
+              console.log(response.routes[0].legs[0].distance.value / 1000);
               directionsDisplay.setDirections(response);
             } else {
               window.alert('Directions request failed due to ' + status);
@@ -122,9 +136,21 @@ export class EnqueuedetailsPage {
           directionsService.route({
             origin: this.myPosition,
             destination: this.Source,
-            travelMode: 'DRIVING'
+            travelMode: google.maps.DirectionsTravelMode.DRIVING,
+            provideRouteAlternatives: true
           }, function (response, status) {
             if (status === 'OK') {
+              // for (var i = 0; i < response.routes.length; i++) {
+              //   var dr = new google.maps.DirectionsRenderer();
+              //   directionsDisplay.setDirections(response);
+              //   // Tell the DirectionsRenderer which route to display
+              //   directionsDisplay.setRouteIndex(i);
+              //   //directionsDisplay.setMap(this.map);
+              //   console.log(response.routes[i].legs[0].distance.value / 1000);
+              //  }
+              let options = { preserveViewport: true };
+              console.log(response.routes[0].legs[0].distance.value / 1000);
+              directionsDisplay.setOptions(options);
               directionsDisplay.setDirections(response);
             } else {
               window.alert('Directions request failed due to ' + status);

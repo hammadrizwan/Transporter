@@ -29,6 +29,7 @@ export class NearbyPage {
   ID:any;
   currentLat: number;
   currentLong: number;
+  packageMarkers=[];
   ionViewDidLoad() {
     console.log('ionViewDidLoad NearbyPage');
     this.platform.ready().then(() => this.loadMaps());
@@ -109,8 +110,9 @@ export class NearbyPage {
       this.http.get('http://localhost:5000/nearbypackages',{params:{'TransporterID':this.ID,'Lat': this.currentLat,'Long':this.currentLong,'Radius':this.rad}}).map(res => res.json()).subscribe(response => {      
         response.content.map(item =>{
           this.responseDataNearby.push(item);
-          let myPos = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));
-          this.addPackageMarker(myPos, this.responseDataNearby.indexOf(item), item['PackageName']);
+          let packageSource = new google.maps.LatLng(Number(item['SourceLatitude']), Number(item['SourceLongitude']));//source packge  location
+          let packageDestination = new google.maps.LatLng(Number(item['DestinationLatitude']), Number(item['DestinationLongitude']));//destination package location
+          this.addPackageMarker(packageSource, packageDestination, this.responseDataNearby.indexOf(item), item['PackageName']);//drop package marker
         });
         // this.loading.dismiss();
       });
@@ -208,22 +210,32 @@ showToast(message) {
       infoWindow.open(this.map, marker);
     });
   }
-  addPackageMarker(position, index, content) {
+  addPackageMarker(packageSource, packageDestination, index, content) {
     let image = "assets/icon/package.png";
-    let marker = new google.maps.Marker({
+    let marker1 = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: position,
-      title: "hello",
+      position: packageSource,
       icon: image,
     });
-    let infoWindow = new google.maps.InfoWindow({
+    let marker2 = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: packageDestination,
+      icon: image,
+    });
+    let infoWindow1 = new google.maps.InfoWindow({//show text above package
       content: content
     });
-    infoWindow.open(this.map, marker);
-
-    this.addPackageMarkerEvent(marker, index);
-    return marker;
+    let infoWindow2 = new google.maps.InfoWindow({//show text above package
+      content: content
+    });
+    infoWindow1.open(this.map, marker1);
+    infoWindow2.open(this.map, marker2);
+    this.packageMarkers.push(marker1);
+    this.packageMarkers.push(marker2);
+    this.addPackageMarkerEvent(marker1, index);
+    this.addPackageMarkerEvent(marker2, index);
   }
   addPackageMarkerEvent(marker, index) {
 
@@ -232,5 +244,6 @@ showToast(message) {
       this.openPackageDetailsPage(index);
     });
   }
+
 
 }

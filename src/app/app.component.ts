@@ -8,6 +8,7 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ListPage } from '../pages/list/list';
 import { NearbyPage } from '../pages/nearby/nearby';
 import { Http } from '@angular/http';
+import { DeliveredPage } from '../pages/delivered/delivered';
 import { EnqueuedetailsPage } from '../pages/enqueuedetails/enqueuedetails';
 import { PackagedetailPage } from '../pages/packagedetail/packagedetail';
 import { PendingRequestsPage } from '../pages/pending-requests/pending-requests';
@@ -75,6 +76,7 @@ export class MyApp {
       { title: 'All Packages', component: HomePage },
       { title: 'Pending Requests', component: PendingRequestsPage },
       { title: 'Enqueue Packages', component: EnqueuePage },
+      { title: 'Delivered Packages', component: DeliveredPage },
       { title: 'Notifications', component: NotificationsPage },
       { title: 'Help', component: HelpPage },
     ];
@@ -93,7 +95,7 @@ export class MyApp {
       this.events.subscribe('user:loggedin', (text) => {
         this.storage.get('Name').then((val) => {
           this.Name = val;
-          this.showNotification("thy name" + val);
+          //this.showNotification("thy name" + val);
 
         });
         this.storage.get('ProfileImage').then((val) => {
@@ -115,19 +117,19 @@ export class MyApp {
 
     //});
     //this.watch.unsubscribe();
-    this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
-      this.geolocation.getCurrentPosition().then(
-        (position) => {
-          console.log("ALoha" + position.coords.latitude, position.coords.longitude);
-          let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          if (JSON.stringify(this.myPosition) !=JSON.stringify(newPosition)) {
-            this.updateGeolocation(position.coords.latitude,position.coords.longitude);
-            this.myPosition=newPosition;
-            console.log("my:"+this.myPosition)
-            console.log("new:"+newPosition)
-          }
-    });
-  });
+  //   this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+  //     this.geolocation.getCurrentPosition().then(
+  //       (position) => {
+  //         console.log("ALoha" + position.coords.latitude, position.coords.longitude);
+  //         let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  //         if (JSON.stringify(this.myPosition) !=JSON.stringify(newPosition)) {
+  //           this.updateGeolocation(position.coords.latitude,position.coords.longitude);
+  //           this.myPosition=newPosition;
+  //           console.log("my:"+this.myPosition)
+  //           console.log("new:"+newPosition)
+  //         }
+  //   });
+  // });
   }
   updateGeolocation(lat, lng) {
     this.storage.get('ID').then((val) => {

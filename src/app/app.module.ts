@@ -23,6 +23,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { AllPackagesPage } from '../pages/all-packages/all-packages';
 import { EnqueuePage } from '../pages/enqueue/enqueue';
 import { NotificationsPage } from '../pages/notifications/notifications';
+import { DeliveredPage } from '../pages/delivered/delivered';
 import { HelpPage} from '../pages/help/help'
 import { LoginPage} from '../pages/login/login'
 import { Geolocation } from '@ionic-native/geolocation';
@@ -42,6 +43,7 @@ import { FCM } from '@ionic-native/fcm';
     ProfilePage,
     AllPackagesPage,
     EnqueuePage,
+    DeliveredPage,
     NotificationsPage,
     HelpPage,
     LoginPage
@@ -68,6 +70,7 @@ import { FCM } from '@ionic-native/fcm';
     ProfilePage,
     AllPackagesPage,
     EnqueuePage,
+    DeliveredPage,
     NotificationsPage,
     HelpPage,
     LoginPage

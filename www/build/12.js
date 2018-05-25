@@ -1,14 +1,14 @@
 webpackJsonp([12],{
 
-/***/ 460:
+/***/ 462:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AllPackagesPageModule", function() { return AllPackagesPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeliveredPageModule", function() { return DeliveredPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__all_packages__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__delivered__ = __webpack_require__(149);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var AllPackagesPageModule = (function () {
-    function AllPackagesPageModule() {
+var DeliveredPageModule = (function () {
+    function DeliveredPageModule() {
     }
-    return AllPackagesPageModule;
+    return DeliveredPageModule;
 }());
-AllPackagesPageModule = __decorate([
+DeliveredPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__all_packages__["a" /* AllPackagesPage */],
+            __WEBPACK_IMPORTED_MODULE_2__delivered__["a" /* DeliveredPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__all_packages__["a" /* AllPackagesPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__delivered__["a" /* DeliveredPage */]),
         ],
     })
-], AllPackagesPageModule);
+], DeliveredPageModule);
 
-//# sourceMappingURL=all-packages.module.js.map
+//# sourceMappingURL=delivered.module.js.map
 
 /***/ })
 

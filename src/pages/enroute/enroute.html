@@ -15,10 +15,17 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="background1">
-
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      
+    <ion-refresher-content
+    pullingIcon="arrow-dropdown"
+    pullingText="Pull to refresh"
+    refreshingText="Refreshing...">
+  </ion-refresher-content>
+  </ion-refresher>
   <ion-card class="map">
 
-    <ion-searchbar  class="searchbars"  #searchbar1 placeholder="Enter Location:"></ion-searchbar>
+    <ion-searchbar  class="searchbars"  #searchbar1 placeholder="Enter Location:(Default Current Location)"></ion-searchbar>
     <ion-item></ion-item>
     <ion-searchbar class="searchbars" #searchbar placeholder="Enter Destination:"></ion-searchbar>
     <ion-card id="mapEnroute" #mapEnroute></ion-card>
@@ -28,12 +35,8 @@
 
   <ion-card id="divider"></ion-card>
   <ion-item>
-    <ion-textarea id='s1'></ion-textarea>
+    <ion-textarea id="textDisplay"></ion-textarea>
   </ion-item>
-    
-
-
-
 
   <ion-card *ngFor="let item of responseDataEnroute, let i= index">
     <ion-fab right>
