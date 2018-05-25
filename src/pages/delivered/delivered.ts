@@ -17,7 +17,7 @@ import { PackagedetailPage } from '../packagedetail/packagedetail';
   templateUrl: 'delivered.html',
 })
 export class DeliveredPage {
-  responseData = [];
+  responseDataDelivered = [];
   skips: number;
   ID:any
   infiniteScroll:any;
@@ -31,7 +31,7 @@ export class DeliveredPage {
       this.http.get('http://localhost:5000/deliveredPackges', { params: {'TransporterID':this.ID, 'skips': this.skips } })
       .map(res => res.json()).subscribe(response => {
         response.content.map(item => {
-          this.responseData.push(item);
+          this.responseDataDelivered.push(item);
         })
         console.log(response.content);
       });
@@ -41,7 +41,7 @@ export class DeliveredPage {
       });
   }
   openPackageDetailsPage(i: any) {
-    this.navCtrl.push(PackagedetailPage, this.responseData[i]);
+    this.navCtrl.push(PackagedetailPage, this.responseDataDelivered[i]);
   }
 
   ionViewDidLoad() {
@@ -50,11 +50,11 @@ export class DeliveredPage {
   doInfinite(infiniteScroll) {
     this.infiniteScroll=infiniteScroll;
     this.skips = 10;
-    var length = this.responseData.length;
+    var length = this.responseDataDelivered.length;
     setTimeout(() => {
       this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID':this.ID,'skips': this.skips } }).map(res => res.json()).subscribe(response => {
         response.content.map(item => {
-          this.responseData.push(item);
+          this.responseDataDelivered.push(item);
         })
         if (response.content == '') {
           console.log("End reached");
@@ -66,7 +66,7 @@ export class DeliveredPage {
       // for (let i = 0; i < 30; i++) {
       //   this.items.push( this.items.length );
       // }
-      if (length == this.responseData.length) {
+      if (length == this.responseDataDelivered.length) {
         this.presentErrorAlert("There are no more packages left to show");
         infiniteScroll.enable(false);
       }
@@ -85,7 +85,7 @@ export class DeliveredPage {
   }
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
-    this.responseData=[]
+    this.responseDataDelivered=[]
     this.skips = 0;
     setTimeout(() => {
       console.log('Async operation has ended');
@@ -97,7 +97,7 @@ export class DeliveredPage {
       this.http.get('http://localhost:5000/deliveredPackges', { params: {'TransporterID':this.ID, 'skips': this.skips } })
       .map(res => res.json()).subscribe(response => {
         response.content.map(item => {
-          this.responseData.push(item);
+          this.responseDataDelivered.push(item);
         })
         console.log(response.content);
       });

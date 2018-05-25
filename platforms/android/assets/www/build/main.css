@@ -33385,11 +33385,45 @@ ion-avatar img {
     padding-bottom: none;
     background-color:color($colors, themeblue);
 }*/
-.colornavbar {
+page-all-packages .colornavbar {
   background-color: #e52d27;
 }
 
-.buttonitem {
+page-all-packages .buttonitem {
+  padding: none;
+  font-size: 12px;
+  width: 100%;
+  height: 40px;
+  background: #e52d27;
+}
+
+page-all-packages .background1 {
+  background: #f4f4f4;
+  /* fallback for old browsers */
+}
+
+page-all-packages .buttoncolor {
+  background-color: #e52d27;
+}
+
+page-all-packages .ioniconcolor1 {
+  color: #033860;
+  font-size: 20px;
+}
+
+page-all-packages .ioniconcolor2 {
+  color: #e52d27;
+}
+
+page-all-packages .imagePackage {
+  height: 30%;
+}
+
+page-delivered .colornavbar {
+  background-color: #e52d27;
+}
+
+page-delivered .buttonitem {
   padding: none;
   font-size: 10px;
   width: 100%;
@@ -33397,25 +33431,25 @@ ion-avatar img {
   background: #e52d27;
 }
 
-.background1 {
+page-delivered .background1 {
   background: #f4f4f4;
   /* fallback for old browsers */
 }
 
-.buttoncolor {
+page-delivered .buttoncolor {
   background-color: #e52d27;
 }
 
-.ioniconcolor1 {
+page-delivered .ioniconcolor1 {
   color: #033860;
   font-size: 20px;
 }
 
-.ioniconcolor2 {
+page-delivered .ioniconcolor2 {
   color: #e52d27;
 }
 
-.imagePackage {
+page-delivered .imagePackage {
   height: 30%;
 }
 

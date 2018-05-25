@@ -75,15 +75,17 @@ export class EnroutePage {
     this.radiusCircle = 2000;//radius in which to find the packages
 
   }
-  doRefresh(refresher) {//pull to refersh
-    console.log('Begin async operation', refresher);
-    this.responseDataEnroute = [];//remove all packages from display
-    for (let i = 0; i < this.packageMarkers.length; i++) {//remove all package markers
-      this.packageMarkers[i].setMap(null);
-    }
-    this.findPackages();//find the packages and display them
-    refresher.complete();//complete the refreshing process
-  }
+  // doRefresh(refresher) {//pull to refersh
+  //   console.log('Begin async operation', refresher);
+  //   this.responseDataEnroute = [];//remove all packages from display
+  //   for (let i = 0; i < this.packageMarkers.length; i++) {//remove all package markers
+  //     this.packageMarkers[i].setMap(null);
+  //   }
+  //   if (this.marker1 != null && this.marker2 != null) {
+  //     this.findPackages();//find the packages and display them
+  //   }
+  //   refresher.complete();//complete the refreshing process
+  // }
   ionViewDidLeave() {
     this.observer.unsubscribe();//unsubscribe to any changes made to markers
   }
@@ -245,51 +247,60 @@ export class EnroutePage {
   }
 
   findPath() {
-    let directionsService = new google.maps.DirectionsService;
-    let directionsDisplay = new google.maps.DirectionsRenderer;
-    this.map = new google.maps.Map(document.getElementById('mapEnroute'), {
-      zoom: 9,
-      center: { lat: 31.4826352, lng: 74.0712721 }
-    });//new map
-    directionsDisplay.setMap(this.map);//set direction diplay method to show on this map
-    directionsService.route({//create new route show on  map
-      origin: this.Source,//location A origin marker
-      destination: this.Destination,//location B destination marker
-      travelMode: 'DRIVING'
-    }, function (response, status) {
-      if (status === 'OK') {
-        directionsDisplay.setDirections(response);//diplay directions
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
+    if (this.marker2 != null) {
+      this.responseDataEnroute=[];
+      for (let i = 0; i < this.packageMarkers.length; i++) {//remove all package markers
+            this.packageMarkers[i].setMap(null);
+          }
+      let directionsService = new google.maps.DirectionsService;
+      let directionsDisplay = new google.maps.DirectionsRenderer;
+      this.map = new google.maps.Map(document.getElementById('mapEnroute'), {
+        zoom: 9,
+        center: { lat: 31.4826352, lng: 74.0712721 }
+      });//new map
+      directionsDisplay.setMap(this.map);//set direction diplay method to show on this map
+      directionsService.route({//create new route show on  map
+        origin: this.Source,//location A origin marker
+        destination: this.Destination,//location B destination marker
+        travelMode: 'DRIVING'
+      }, function (response, status) {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);//diplay directions
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
 
 
-    this.cityCircle1 = new google.maps.Circle({//create the destination circle to be used on the map
-      strokeColor: '#033860',//color the outline
-      strokeOpacity: 0.8,//seethrough boundary color
-      strokeWeight: 2,//width boundary
-      fillColor: '#2a4255',//color inside the circle
-      fillOpacity: 0.35,//seethrough inside color
-      map: this.map,//the map to draw on
-      center: this.Destination,//marker location
-      radius: this.radiusCircle,//size of the circle
-    });
+      this.cityCircle1 = new google.maps.Circle({//create the destination circle to be used on the map
+        strokeColor: '#033860',//color the outline
+        strokeOpacity: 0.8,//seethrough boundary color
+        strokeWeight: 2,//width boundary
+        fillColor: '#2a4255',//color inside the circle
+        fillOpacity: 0.35,//seethrough inside color
+        map: this.map,//the map to draw on
+        center: this.Destination,//marker location
+        radius: this.radiusCircle,//size of the circle
+      });
 
-    this.cityCircle2 = new google.maps.Circle({//create the Source Circel to be displayed on the map
-      strokeColor: '#033860',//color the outline
-      strokeOpacity: 0.8,//seethrough boundary color
-      strokeWeight: 2,//width boundary
-      fillColor: '#2a4255',//color inside the circle
-      fillOpacity: 0.35,//seethrough inside color
-      map: this.map,//the map to draw on
-      center: this.Source,//marker location
-      radius: this.radiusCircle,//size of the circle
-    });
+      this.cityCircle2 = new google.maps.Circle({//create the Source Circel to be displayed on the map
+        strokeColor: '#033860',//color the outline
+        strokeOpacity: 0.8,//seethrough boundary color
+        strokeWeight: 2,//width boundary
+        fillColor: '#2a4255',//color inside the circle
+        fillOpacity: 0.35,//seethrough inside color
+        map: this.map,//the map to draw on
+        center: this.Source,//marker location
+        radius: this.radiusCircle,//size of the circle
+      });
 
-    //this.loading.present();
-    this.findPackages();//find and diplay the packages
-    //this.loading.dismiss();//dismiss loading display
+      //this.loading.present();
+      this.findPackages();//find and diplay the packages
+      //this.loading.dismiss();//dismiss loading display
+    }
+    else{
+      this.errorAlert("Destiantion Missing","Please enter destination address")
+    }
   }
   findPackages() {
 

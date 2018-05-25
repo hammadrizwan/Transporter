@@ -61,14 +61,16 @@
   </ion-card>
 
 
-  <ion-card>
+  <ion-card *ngFor="let review of userReviews">
     <ion-card-header>
-      Put Stars here
+      {{review.rating}}
     </ion-card-header>
     <ion-card-content>
-      <p>This is a comment orem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et sem dolor. Proin lobortis dolor
-        quis est elementum, in feugiat quam maximus.</p>
+      <p>{{review.content}}</p>
     </ion-card-content>
 
   </ion-card>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

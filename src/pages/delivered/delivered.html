@@ -19,7 +19,7 @@
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  <ion-card *ngFor="let item of responseData, let i= index">
+  <ion-card *ngFor="let item of responseDataDelivered, let i= index">
     <ion-item>
       <h2>Fare</h2>
       <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>

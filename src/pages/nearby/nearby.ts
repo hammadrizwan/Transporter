@@ -91,11 +91,15 @@ export class NearbyPage {
   }
 
   reload() {
-    if (Number.isInteger(parseInt(this.rad))) {
+    if (Number.isInteger(parseInt(this.rad)) && (this.rad <5)) {
       this.loading = this.loadingCtrl.create({
         spinner: 'bubbles',
         content: 'Reloading...',
       });
+      this.responseDataNearby=[];
+      for (let i = 0; i < this.packageMarkers.length; i++) {//remove all package markers
+            this.packageMarkers[i].setMap(null);
+          }
       // this.loading.present();
       this.radius = (this.rad * 1000);
       if (this.markers != null) {

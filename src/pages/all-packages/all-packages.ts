@@ -55,7 +55,7 @@ export class AllPackagesPage {
   }
   doInfinite(infiniteScroll) {
     this.infiniteScroll=infiniteScroll;
-    this.skips = 10;
+    this.skips =this.skips+10;
     var length = this.responseData.length;
     setTimeout(() => {
       this.http.get('http://localhost:5000/allpackages', { params: { 'TransporterID':this.ID,'skips': this.skips } }).map(res => res.json()).subscribe(response => {

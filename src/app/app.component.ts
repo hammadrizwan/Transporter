@@ -81,7 +81,7 @@ export class MyApp {
       { title: 'Help', component: HelpPage },
     ];
     this.loadData().then(() => {
-      this.loggedIn = true;
+      
       this.subscribeWatch();
     })
 
@@ -92,6 +92,7 @@ export class MyApp {
   private loadData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
     return new Promise((resolve, reject) => {
       //put the values in local storage
+      this.loggedIn = true;
       this.events.subscribe('user:loggedin', (text) => {
         this.storage.get('Name').then((val) => {
           this.Name = val;
@@ -102,9 +103,8 @@ export class MyApp {
           this.profileImage = val;
 
         });
-        setTimeout(() => {
           resolve();
-        }, 2000);//wait just in case
+        //wait just in case
       });
     });
   }
