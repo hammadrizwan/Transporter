@@ -91,7 +91,7 @@ export class NearbyPage {
   }
 
   reload() {
-    if (Number.isInteger(parseInt(this.rad)) && (this.rad <5)) {
+    if (Number.isInteger(parseInt(this.rad)) && (this.rad <8)) {
       this.loading = this.loadingCtrl.create({
         spinner: 'bubbles',
         content: 'Reloading...',

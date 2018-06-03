@@ -40,7 +40,7 @@ var config = {
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = LoginPage;
+  rootPage: any;
   pages: Array<{ title: string, component: any }>;
   Name: string;
   NotificationData = [];
@@ -66,11 +66,19 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.storage.get('Name').then((val) => {
+        if(val==null){
+          this.rootPage=LoginPage
+        }
+        else{
+          this.rootPage=HomePage;
+        }
+      })
     });
-
+    this.loggedIn = false;//user is not initailly logged in
     firebase.initializeApp(config);//intialise firebase
     this.ref = firebase.database().ref('geolocations/');//assign data base to store gelocation
-    this.loggedIn = false;//user is not initailly logged in
+    
     this.Name = "";//name value is not set
     this.pages = [
       { title: 'All Packages', component: HomePage },
@@ -81,8 +89,8 @@ export class MyApp {
       { title: 'Help', component: HelpPage },
     ];
     this.loadData().then(() => {
-      
-      this.subscribeWatch();
+      //onNotification();
+     // this.subscribeWatch();
     })
 
     //this.onNotification();
@@ -109,28 +117,28 @@ export class MyApp {
     });
   }
 
-  subscribeWatch() {
-    //this.watch = this.geolocation.watchPosition();
-    //this.watch.subscribe((data) => {
-      // you can set your id here
-      //this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
+  // subscribeWatch() {
+  //   //this.watch = this.geolocation.watchPosition();
+  //   //this.watch.subscribe((data) => {
+  //     // you can set your id here
+  //     //this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
 
-    //});
-    //this.watch.unsubscribe();
-  //   this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
-  //     this.geolocation.getCurrentPosition().then(
-  //       (position) => {
-  //         console.log("ALoha" + position.coords.latitude, position.coords.longitude);
-  //         let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-  //         if (JSON.stringify(this.myPosition) !=JSON.stringify(newPosition)) {
-  //           this.updateGeolocation(position.coords.latitude,position.coords.longitude);
-  //           this.myPosition=newPosition;
-  //           console.log("my:"+this.myPosition)
-  //           console.log("new:"+newPosition)
-  //         }
-  //   });
-  // });
-  }
+  //   //});
+  //   //this.watch.unsubscribe();
+  // //   this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+  // //     this.geolocation.getCurrentPosition().then(
+  // //       (position) => {
+  // //         console.log("ALoha" + position.coords.latitude, position.coords.longitude);
+  // //         let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  // //         if (JSON.stringify(this.myPosition) !=JSON.stringify(newPosition)) {
+  // //           this.updateGeolocation(position.coords.latitude,position.coords.longitude);
+  // //           this.myPosition=newPosition;
+  // //           console.log("my:"+this.myPosition)
+  // //           console.log("new:"+newPosition)
+  // //         }
+  // //   });
+  // // });
+  // }
   updateGeolocation(lat, lng) {
     this.storage.get('ID').then((val) => {
       this.ID = val;

@@ -33353,9 +33353,9 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
-ion-avatar img {
-  width: 120px !important;
-  height: 120px !important;
+.profileImage {
+  width: 140px !important;
+  height: 100px !important;
 }
 
 .iconsize {
@@ -33738,36 +33738,53 @@ page-nearby ion-searchbar {
   height: 30%;
 }
 
-.background1 {
+page-profile .background1 {
   background: #f4f4f4;
 }
 
-.round {
+page-profile .round {
   width: 140px !important;
   height: 140px !important;
 }
 
-.card2 {
+page-profile .card2 {
   padding: -15px;
   text-align: center;
 }
 
-.headerlabel {
+page-profile .headerlabel {
   text-align: center;
   font-size: 15px;
 }
 
-.badgevalues {
+page-profile .badgevalues {
+  width: 100%;
+  background-color: #2a4255;
+  font-size: 15px;
+}
+
+page-profile .headings {
   width: 100%;
   background-color: #033860;
   font-size: 15px;
 }
 
-.badge {
+page-profile .badge {
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 10px;
   padding-top: 10px;
+}
+
+page-profile .rating {
+  color: #e52d27;
+  size: small;
+}
+
+page-profile .contents {
+  color: #2a4255;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .avatar1 {

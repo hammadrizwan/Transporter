@@ -27,11 +27,11 @@ export class ProfilePage {
   deliveriesDone: any;//Transporter  number of deliveries completed
   profileImage: any;//Transporter profile image 
   userReviews = [];
-  skips:number;
-  infiniteScroll:any;
+  skips: number;
+  infiniteScroll: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage
-    , public http: Http,private alertCtrl: AlertController) {
-      this.skips = 0;
+    , public http: Http, private alertCtrl: AlertController) {
+    this.skips = 0;
     /*get Transporter ID from localstorage and  request data and put it into variables to show in view________________*/
     this.storage.get('ID').then((val) => {
       this.ID = val;
@@ -42,7 +42,7 @@ export class ProfilePage {
         console.log(this.name);
         this.contantInfo = response.content[0].Phone;
         console.log(this.contantInfo);
-        this.rating = response.content[0].Rating;
+        this.rating = Array(response.content[0].Rating).fill(response.content[0].Rating);
         console.log(this.rating);
         this.clearenceDue = response.content[0].ClearenceDue;
         console.log(this.clearenceDue);
@@ -55,29 +55,33 @@ export class ProfilePage {
         err => {
           console.log('error');
         });
-    
-    /*_______________________________________________________________________________________________________________*/
-    this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': this.ID, 'skips':this.skips } }).map(res => res.json()).subscribe(response => {
-      console.log("yohoo");
-      console.log(response.content)  
-    response.content.map(item => {
-        this.userReviews.push(item);
-        console.log("yohoo");
-      });
-    },
-      err => {
-        console.log('error');
-      });
+
+      /*_______________________________________________________________________________________________________________*/
+      this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': this.ID, 'skips': this.skips } }).map(res => res.json()).subscribe(response => {
+
+        response.content.map(item => {
+          //console.log(item['rating'])
+          item['ratings'] = Array(item['rating']).fill(item['rating']);  
+          //console.log("After"+item['ratings'])
+          //console.log(item)
+          this.userReviews.push(item);
+          console.log("yohoo");
+        });
+      },
+        err => {
+          console.log('error');
+        });
     });
   }
   doInfinite(infiniteScroll) {
-    this.infiniteScroll=infiniteScroll;
-    this.skips =this.skips+3;
-    console.log("skips",this.skips)
+    this.infiniteScroll = infiniteScroll;
+    this.skips = this.skips + 3;
+    console.log("skips", this.skips)
     var length = this.userReviews.length;
     setTimeout(() => {
-      this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID':this.ID,'skips': this.skips } }).map(res => res.json()).subscribe(response => {
+      this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': this.ID, 'skips': this.skips } }).map(res => res.json()).subscribe(response => {
         response.content.map(item => {
+          item['ratings'] = Array(item['rating']).fill(item['rating']);
           this.userReviews.push(item);
         })
         if (response.content == '') {

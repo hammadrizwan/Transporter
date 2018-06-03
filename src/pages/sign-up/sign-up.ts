@@ -88,9 +88,7 @@ export class SignUpPage {
     this.Year = this.data.controls['Year'];
     this.Gender = this.data.controls['Gender'];
   }
-
   logForm() {//fucntion called when user tries to register with the server
-
     this.submitAttempted = true;//set true for error checking after user has entered all information
     //error checking for all fields in the signup form
     if (this.Name.hasError('required')) {

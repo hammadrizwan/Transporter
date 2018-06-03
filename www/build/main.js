@@ -122,7 +122,7 @@ var AllPackagesPage = (function () {
 }());
 AllPackagesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-all-packages',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-card *ngFor="let item of responseData, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n      <img src="assets/imgs/advance-card-map-madison.png">\n\n  \n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2>To:</h2>\n      <p>{{item.PickAddress}}</p>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2>From:</h2>\n      <p>{{item.DestAddress}}</p>\n    </ion-item>\n\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n          <h2></h2>\n          <p>RS:2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <label>Package Size:</label>\n          <h2 ion-text>{{item.PackageSize}}</h2>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n          <p>{{item.TransportType}}</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      Accept\n    </button>\n\n\n  </ion-card> -->\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n      <ion-refresher-content\n      pullingIcon="arrow-dropdown"\n      pullingText="Pull to refresh"\n      refreshingText="Refreshing...">\n    </ion-refresher-content>\n</ion-refresher>\n  <ion-card *ngFor="let item of responseData, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>\n  \n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/,
+        selector: 'page-all-packages',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-card *ngFor="let item of responseData, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n      <img src="assets/imgs/advance-card-map-madison.png">\n\n  \n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2>To:</h2>\n      <p>{{item.PickAddress}}</p>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2>From:</h2>\n      <p>{{item.DestAddress}}</p>\n    </ion-item>\n\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n          <h2></h2>\n          <p>RS:2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <label>Package Size:</label>\n          <h2 ion-text>{{item.PackageSize}}</h2>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n          <p>{{item.TransportType}}</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      Accept\n    </button>\n\n\n  </ion-card> -->\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n      <ion-refresher-content\n      pullingIcon="arrow-dropdown"\n      pullingText="Pull to refresh"\n      refreshingText="Refreshing...">\n    </ion-refresher-content>\n</ion-refresher>\n  <ion-card *ngFor="let item of responseData, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <ion-thumbnail>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    </ion-thumbnail>\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>\n  \n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
@@ -174,7 +174,7 @@ var DeliveredPage = (function () {
         this.storage = storage;
         this.alertCtrl = alertCtrl;
         this.http = http;
-        this.responseData = [];
+        this.responseDataDelivered = [];
         this.skips = 0;
         this.storage.get('ID').then(function (val) {
             _this.ID = val;
@@ -183,7 +183,7 @@ var DeliveredPage = (function () {
             _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
                 .map(function (res) { return res.json(); }).subscribe(function (response) {
                 response.content.map(function (item) {
-                    _this.responseData.push(item);
+                    _this.responseDataDelivered.push(item);
                 });
                 console.log(response.content);
             });
@@ -192,7 +192,7 @@ var DeliveredPage = (function () {
         });
     }
     DeliveredPage.prototype.openPackageDetailsPage = function (i) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseData[i]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataDelivered[i]);
     };
     DeliveredPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad DeliveredPage');
@@ -201,11 +201,11 @@ var DeliveredPage = (function () {
         var _this = this;
         this.infiniteScroll = infiniteScroll;
         this.skips = 10;
-        var length = this.responseData.length;
+        var length = this.responseDataDelivered.length;
         setTimeout(function () {
             _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
                 response.content.map(function (item) {
-                    _this.responseData.push(item);
+                    _this.responseDataDelivered.push(item);
                 });
                 if (response.content == '') {
                     console.log("End reached");
@@ -216,7 +216,7 @@ var DeliveredPage = (function () {
             // for (let i = 0; i < 30; i++) {
             //   this.items.push( this.items.length );
             // }
-            if (length == _this.responseData.length) {
+            if (length == _this.responseDataDelivered.length) {
                 _this.presentErrorAlert("There are no more packages left to show");
                 infiniteScroll.enable(false);
             }
@@ -235,7 +235,7 @@ var DeliveredPage = (function () {
     DeliveredPage.prototype.doRefresh = function (refresher) {
         var _this = this;
         console.log('Begin async operation', refresher);
-        this.responseData = [];
+        this.responseDataDelivered = [];
         this.skips = 0;
         setTimeout(function () {
             console.log('Async operation has ended');
@@ -246,7 +246,7 @@ var DeliveredPage = (function () {
                 _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
                     .map(function (res) { return res.json(); }).subscribe(function (response) {
                     response.content.map(function (item) {
-                        _this.responseData.push(item);
+                        _this.responseDataDelivered.push(item);
                     });
                     console.log(response.content);
                 });
@@ -263,7 +263,7 @@ var DeliveredPage = (function () {
 }());
 DeliveredPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-delivered',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/'<!--\n  Generated template for the DeliveredPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Delivered Packages</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content>\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingText="Refreshing...">\n    </ion-refresher-content>\n  </ion-refresher>\n  <ion-card *ngFor="let item of responseData, let i= index">\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Transport Type:</h2>\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.PackageName}}\n      </h2>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PackageDesc}}\n      </h2>\n    </ion-item>\n\n  </ion-card>\n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/,
+        selector: 'page-delivered',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/'<!--\n  Generated template for the DeliveredPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Delivered Packages</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content>\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingText="Refreshing...">\n    </ion-refresher-content>\n  </ion-refresher>\n  <ion-card *ngFor="let item of responseDataDelivered, let i= index">\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Transport Type:</h2>\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.PackageName}}\n      </h2>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PackageDesc}}\n      </h2>\n    </ion-item>\n\n  </ion-card>\n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
         __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]])
@@ -1062,7 +1062,7 @@ __decorate([
 ], EnroutePage.prototype, "searchbar1", void 0);
 EnroutePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
-        selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n    <ion-refresher-content\n    pullingIcon="arrow-dropdown"\n    pullingText="Pull to refresh"\n    refreshingText="Refreshing...">\n  </ion-refresher-content>\n  </ion-refresher> -->\n  <ion-card class="map">\n\n    <ion-searchbar  class="searchbars"  #searchbar1 placeholder="Enter Location:(Default Current Location)"></ion-searchbar>\n    <ion-item></ion-item>\n    <ion-searchbar class="searchbars" #searchbar placeholder="Enter Destination:"></ion-searchbar>\n    <ion-card id="mapEnroute" #mapEnroute></ion-card>\n    <button id="buttonSearch" ion-button (click)=findPath()>Find Path</button>\n    \n  </ion-card>\n\n  <ion-card id="divider"></ion-card>\n  <ion-item>\n    <ion-textarea id="textDisplay"></ion-textarea>\n  </ion-item>\n\n  <ion-card *ngFor="let item of responseDataEnroute, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Transport Type:</h2>\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
+        selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n    <ion-refresher-content\n    pullingIcon="arrow-dropdown"\n    pullingText="Pull to refresh"\n    refreshingText="Refreshing...">\n  </ion-refresher-content>\n  </ion-refresher> -->\n  <ion-card class="map">\n\n    <ion-searchbar  class="searchbars"  #searchbar1 placeholder="Source:(Default Current Location)"></ion-searchbar>\n    <ion-item></ion-item>\n    <ion-searchbar class="searchbars" #searchbar placeholder="Destination:"></ion-searchbar>\n    <ion-card id="mapEnroute" #mapEnroute></ion-card>\n    <button id="buttonSearch" ion-button (click)=findPath()>Find Path</button>\n    \n  </ion-card>\n\n  <ion-card id="divider"></ion-card>\n  <ion-item>\n    <ion-textarea id="textDisplay"></ion-textarea>\n  </ion-item>\n\n  <ion-card *ngFor="let item of responseDataEnroute, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Transport Type:</h2>\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */],
         __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */],
@@ -1311,7 +1311,7 @@ var NearbyPage = (function () {
     };
     NearbyPage.prototype.reload = function () {
         var _this = this;
-        if (Number.isInteger(parseInt(this.rad)) && (this.rad < 5)) {
+        if (Number.isInteger(parseInt(this.rad)) && (this.rad < 8)) {
             this.loading = this.loadingCtrl.create({
                 spinner: 'bubbles',
                 content: 'Reloading...',
@@ -1497,8 +1497,121 @@ NearbyPage = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+/**
+ * Generated class for the NotificationsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var NotificationsPage = (function () {
+    function NotificationsPage(navCtrl, navParams, fcm, alertCtrl, http, storage) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.fcm = fcm;
+        this.alertCtrl = alertCtrl;
+        this.http = http;
+        this.storage = storage;
+        this.NotificationData = [];
+        //  this.onNotification();
+        console.log(this.navParams.data);
+        this.storage.get('NotificationData').then(function (val) {
+            _this.NotificationData = val;
+            _this.NotificationData.push(_this.navParams.data);
+        });
+    }
+    NotificationsPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad NotificationsPage');
+    };
+    // onNotification() {
+    //   this.fcm.getToken().then(token=>{
+    //     console.log(token);
+    //     this.Token=token;
+    //   });
+    //   this.fcm.onNotification().subscribe(data => {
+    //     if (data.wasTapped) {
+    //       this.NotificationData.push(data);
+    //       this.openPage(NotificationsPage);
+    //     } else {
+    //       this.NotificationData.push(data);
+    //     };
+    //   })
+    // }
+    NotificationsPage.prototype.openPage = function (page) {
+        // Reset the content nav to have just this page
+        // we wouldn't want the back button to show in this scenario
+        this.navCtrl.setRoot(page);
+    };
+    NotificationsPage.prototype.showNotification = function (noti) {
+        var alert = this.alertCtrl.create({
+            title: 'Notification',
+            subTitle: noti,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
+    NotificationsPage.prototype.sendNotify = function () {
+        var _this = this;
+        this.storage.get('FCMToken').then(function (val) {
+            _this.Token = val;
+            var data = {
+                'TransporterID': _this.ID,
+                'FCMToken': _this.Token,
+            };
+            _this.http.post('http://localhost:5000/notify', JSON.stringify(data)).map(function (res) { return res.json(); }).subscribe(function (data) {
+                _this.showNotification(data);
+                console.log(data);
+            }, function (err) {
+                console.log('error');
+            });
+        });
+        // this.http.get('http://localhost:5000/notify').map(res => res.json()).subscribe(response => {
+        //   },
+        //     err => {
+        //       console.log('error');
+        //     });
+    };
+    return NotificationsPage;
+}());
+NotificationsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-notifications',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/'<!--\n  Generated template for the NotificationsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Notifications</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<!--ADD FOR LOOP Over data here-->\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of NotificationData, let i= index">\n    <ion-card>\n      <ion-row>\n        <ion-col col-2>\n          <ion-icon class="icon" name="paper-plane"></ion-icon>\n        </ion-col>\n        <ion-col col-10>\n          <h3>This is a comment orem ipsum dolor sit amet</h3>\n        </ion-col>\n      </ion-row>\n    </ion-card>\n  </ion-card>\n\n\n  <ion-card>\n    <p class="token">{{Token}}</p>\n  </ion-card>\n  <button ion-button (click)="sendNotify()"></button>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
+], NotificationsPage);
+
+//# sourceMappingURL=notifications.js.map
+
+/***/ }),
+
+/***/ 155:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(7);
@@ -1641,7 +1754,7 @@ LoginPage = __decorate([
 
 /***/ }),
 
-/***/ 155:
+/***/ 156:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2024,16 +2137,15 @@ SignUpPage = __decorate([
 
 /***/ }),
 
-/***/ 156:
+/***/ 157:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationsPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2048,96 +2160,109 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 /**
- * Generated class for the NotificationsPage page.
+ * Generated class for the ProfilePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var NotificationsPage = (function () {
-    function NotificationsPage(navCtrl, navParams, fcm, alertCtrl, http, storage) {
+var ProfilePage = (function () {
+    function ProfilePage(navCtrl, navParams, storage, http, alertCtrl) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.fcm = fcm;
-        this.alertCtrl = alertCtrl;
-        this.http = http;
         this.storage = storage;
-        this.NotificationData = [];
-        //  this.onNotification();
-        console.log(this.navParams.data);
-        this.storage.get('NotificationData').then(function (val) {
-            _this.NotificationData = val;
-            _this.NotificationData.push(_this.navParams.data);
-        });
-    }
-    NotificationsPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad NotificationsPage');
-    };
-    // onNotification() {
-    //   this.fcm.getToken().then(token=>{
-    //     console.log(token);
-    //     this.Token=token;
-    //   });
-    //   this.fcm.onNotification().subscribe(data => {
-    //     if (data.wasTapped) {
-    //       this.NotificationData.push(data);
-    //       this.openPage(NotificationsPage);
-    //     } else {
-    //       this.NotificationData.push(data);
-    //     };
-    //   })
-    // }
-    NotificationsPage.prototype.openPage = function (page) {
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
-        this.navCtrl.setRoot(page);
-    };
-    NotificationsPage.prototype.showNotification = function (noti) {
-        var alert = this.alertCtrl.create({
-            title: 'Notification',
-            subTitle: noti,
-            buttons: ['Dismiss']
-        });
-        alert.present();
-    };
-    NotificationsPage.prototype.sendNotify = function () {
-        var _this = this;
-        this.storage.get('FCMToken').then(function (val) {
-            _this.Token = val;
-            var data = {
-                'TransporterID': _this.ID,
-                'FCMToken': _this.Token,
-            };
-            _this.http.post('http://localhost:5000/notify', JSON.stringify(data)).map(function (res) { return res.json(); }).subscribe(function (data) {
-                _this.showNotification(data);
-                console.log(data);
+        this.http = http;
+        this.alertCtrl = alertCtrl;
+        this.userReviews = [];
+        this.skips = 0;
+        /*get Transporter ID from localstorage and  request data and put it into variables to show in view________________*/
+        this.storage.get('ID').then(function (val) {
+            _this.ID = val;
+            _this.http.get('http://localhost:5000/getransporterdata', { params: { 'TransporterID': _this.ID } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                console.log(response.content);
+                _this.name = response.content[0].Name;
+                console.log(_this.name);
+                _this.contantInfo = response.content[0].Phone;
+                console.log(_this.contantInfo);
+                _this.rating = Array(response.content[0].Rating).fill(response.content[0].Rating);
+                console.log(_this.rating);
+                _this.clearenceDue = response.content[0].ClearenceDue;
+                console.log(_this.clearenceDue);
+                _this.cancelledPackages = response.content[0].CancelledPackages;
+                _this.activePackages = response.content[0].ActivePackages;
+                console.log(_this.cancelledPackages);
+                _this.profileImage = response.content[0].ProfileImage;
+            }, function (err) {
+                console.log('error');
+            });
+            /*_______________________________________________________________________________________________________________*/
+            _this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                response.content.map(function (item) {
+                    //console.log(item['rating'])
+                    item['ratings'] = Array(item['rating']).fill(item['rating']);
+                    //console.log("After"+item['ratings'])
+                    //console.log(item)
+                    _this.userReviews.push(item);
+                    console.log("yohoo");
+                });
             }, function (err) {
                 console.log('error');
             });
         });
-        // this.http.get('http://localhost:5000/notify').map(res => res.json()).subscribe(response => {
-        //   },
-        //     err => {
-        //       console.log('error');
-        //     });
+    }
+    ProfilePage.prototype.doInfinite = function (infiniteScroll) {
+        var _this = this;
+        this.infiniteScroll = infiniteScroll;
+        this.skips = this.skips + 3;
+        console.log("skips", this.skips);
+        var length = this.userReviews.length;
+        setTimeout(function () {
+            _this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                response.content.map(function (item) {
+                    item['ratings'] = Array(item['rating']).fill(item['rating']);
+                    _this.userReviews.push(item);
+                });
+                if (response.content == '') {
+                    console.log("End reached");
+                }
+            }, function (err) {
+                console.log('error');
+            });
+            if (length == _this.userReviews.length) {
+                _this.presentErrorAlert("There are no more packages left to show");
+                infiniteScroll.enable(false);
+            }
+            console.log('Async operation has ended');
+            infiniteScroll.complete();
+        }, 300);
     };
-    return NotificationsPage;
+    ProfilePage.prototype.presentErrorAlert = function (text) {
+        var alert = this.alertCtrl.create({
+            title: 'Alert',
+            subTitle: text,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
+    ProfilePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ProfilePage');
+    };
+    return ProfilePage;
 }());
-NotificationsPage = __decorate([
+ProfilePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-notifications',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/'<!--\n  Generated template for the NotificationsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Notifications</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<!--ADD FOR LOOP Over data here-->\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of NotificationData, let i= index">\n    <ion-card>\n      <ion-row>\n        <ion-col col-2>\n          <ion-icon class="icon" name="paper-plane"></ion-icon>\n        </ion-col>\n        <ion-col col-10>\n          <h3>This is a comment orem ipsum dolor sit amet</h3>\n        </ion-col>\n      </ion-row>\n    </ion-card>\n  </ion-card>\n\n\n  <ion-card>\n    <p class="token">{{Token}}</p>\n  </ion-card>\n  <button ion-button (click)="sendNotify()"></button>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/,
+        selector: 'page-profile',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\profile\profile.html"*/'<!--\n  Generated template for the ProfilePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Profile</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content class="background1">\n  <ion-card class="cards">\n    <ion-item>\n      <ion-avatar item-start>\n        <img class="round" src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />\n      </ion-avatar>\n      <label class="headerlabel">Name</label>\n      <p class="contents">{{name}}</p>\n      <label class="headerlabel">Contact Info</label>\n      <p class="contents">{{contantInfo}}</p>\n      <label class="headerlabel">Rating</label>\n      <p><ion-icon name=\'star\' clear small class="rating" *ngFor="let rating of rating" ></ion-icon></p>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-12 class="card2">\n        <label class="headerlabel">Deliveries Done</label>\n        <ion-row class="badge">\n          <ion-badge class="badgevalues">0</ion-badge>\n          <!-- {{DeliveriesDone}} -->\n        </ion-row>\n      </ion-col>\n      <!-- <ion-col col-6 class="card2">\n        <label class="headerlabel">Clearence Due</label>\n        <ion-row class="badge">\n          <ion-badge class="badgevalues">{{clearenceDue}}</ion-badge>\n        </ion-row>\n      </ion-col> -->\n    </ion-row>\n    <ion-row>\n      <ion-col col-6 class="card2">\n        <label class="headerlabel">Active Pakages</label>\n        <ion-row class="badge">\n          <ion-badge class="badgevalues">{{activePackages}}</ion-badge>\n        </ion-row>\n      </ion-col>\n      <ion-col col-6 class="card2">\n        <label class="headerlabel">Cancelled Packages</label>\n        <ion-row class="badge">\n          <ion-badge class="badgevalues">{{cancelledPackages}}</ion-badge>\n        </ion-row>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n\n  <ion-card>\n      <ion-badge class="headings">Reviews</ion-badge>\n  </ion-card>\n  <ion-card *ngFor="let review of userReviews">\n    <ion-card-header>\n      <ion-icon name=\'star\' clear small class="rating" *ngFor="let rating of review.ratings"></ion-icon>\n    </ion-card-header>\n    <ion-card-content>\n      <p class="contents">"{{review.content}}"</p>\n    </ion-card-content>\n\n  </ion-card>\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\profile\profile.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
-], NotificationsPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
+], ProfilePage);
 
-//# sourceMappingURL=notifications.js.map
+//# sourceMappingURL=profile.js.map
 
 /***/ }),
 
-/***/ 157:
+/***/ 158:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2227,128 +2352,6 @@ PendingRequestsPage = __decorate([
 
 /***/ }),
 
-/***/ 158:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var ProfilePage = (function () {
-    function ProfilePage(navCtrl, navParams, storage, http, alertCtrl) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.storage = storage;
-        this.http = http;
-        this.alertCtrl = alertCtrl;
-        this.userReviews = [];
-        this.skips = 0;
-        /*get Transporter ID from localstorage and  request data and put it into variables to show in view________________*/
-        this.storage.get('ID').then(function (val) {
-            _this.ID = val;
-            _this.http.get('http://localhost:5000/getransporterdata', { params: { 'TransporterID': _this.ID } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                console.log(response.content);
-                _this.name = response.content[0].Name;
-                console.log(_this.name);
-                _this.contantInfo = response.content[0].Phone;
-                console.log(_this.contantInfo);
-                _this.rating = response.content[0].Rating;
-                console.log(_this.rating);
-                _this.clearenceDue = response.content[0].ClearenceDue;
-                console.log(_this.clearenceDue);
-                _this.cancelledPackages = response.content[0].CancelledPackages;
-                _this.activePackages = response.content[0].ActivePackages;
-                console.log(_this.cancelledPackages);
-                _this.profileImage = response.content[0].ProfileImage;
-            }, function (err) {
-                console.log('error');
-            });
-            /*_______________________________________________________________________________________________________________*/
-            _this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                console.log("yohoo");
-                console.log(response.content);
-                response.content.map(function (item) {
-                    _this.userReviews.push(item);
-                    console.log("yohoo");
-                });
-            }, function (err) {
-                console.log('error');
-            });
-        });
-    }
-    ProfilePage.prototype.doInfinite = function (infiniteScroll) {
-        var _this = this;
-        this.infiniteScroll = infiniteScroll;
-        this.skips = this.skips + 3;
-        console.log("skips", this.skips);
-        var length = this.userReviews.length;
-        setTimeout(function () {
-            _this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                response.content.map(function (item) {
-                    _this.userReviews.push(item);
-                });
-                if (response.content == '') {
-                    console.log("End reached");
-                }
-            }, function (err) {
-                console.log('error');
-            });
-            if (length == _this.userReviews.length) {
-                _this.presentErrorAlert("There are no more packages left to show");
-                infiniteScroll.enable(false);
-            }
-            console.log('Async operation has ended');
-            infiniteScroll.complete();
-        }, 300);
-    };
-    ProfilePage.prototype.presentErrorAlert = function (text) {
-        var alert = this.alertCtrl.create({
-            title: 'Alert',
-            subTitle: text,
-            buttons: ['Dismiss']
-        });
-        alert.present();
-    };
-    ProfilePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ProfilePage');
-    };
-    return ProfilePage;
-}());
-ProfilePage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-profile',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\profile\profile.html"*/'<!--\n  Generated template for the ProfilePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Profile</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content class="background1">\n  <ion-card class="cards">\n    <ion-item>\n      <ion-avatar item-start>\n        <img class="imagePackage" src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />\n      </ion-avatar>\n      <label class="headerlabel">Name</label>\n      <p>{{name}}</p>\n      <label class="headerlabel">Contact Info</label>\n      <p>{{contantInfo}}</p>\n      <label class="headerlabel">Rating</label>\n      <p>★ {{rating}}</p>\n    </ion-item>\n  </ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-6 class="card2">\n        <label class="headerlabel">Deliveries Done</label>\n        <ion-row class="badge">\n          <ion-badge class="badgevalues">0</ion-badge>\n          <!-- {{DeliveriesDone}} -->\n        </ion-row>\n      </ion-col>\n      <ion-col col-6 class="card2">\n        <label class="headerlabel">Clearence Due</label>\n        <ion-row class="badge">\n          <ion-badge class="badgevalues">{{clearenceDue}}</ion-badge>\n        </ion-row>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6 class="card2">\n        <label class="headerlabel">Active Pakages</label>\n        <ion-row class="badge">\n          <ion-badge class="badgevalues">{{activePackages}}</ion-badge>\n        </ion-row>\n      </ion-col>\n      <ion-col col-6 class="card2">\n        <label class="headerlabel">Cancelled Packages</label>\n        <ion-row class="badge">\n          <ion-badge class="badgevalues">{{cancelledPackages}}</ion-badge>\n        </ion-row>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n\n\n  <ion-card *ngFor="let review of userReviews">\n    <ion-card-header>\n      {{review.rating}}\n    </ion-card-header>\n    <ion-card-content>\n      <p>{{review.content}}</p>\n    </ion-card-content>\n\n  </ion-card>\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\profile\profile.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
-], ProfilePage);
-
-//# sourceMappingURL=profile.js.map
-
-/***/ }),
-
 /***/ 165:
 /***/ (function(module, exports) {
 
@@ -2399,27 +2402,27 @@ var map = {
 		7
 	],
 	"../pages/login/login.module": [
-		468,
+		471,
 		6
 	],
 	"../pages/nearby/nearby.module": [
-		469,
+		468,
 		5
 	],
 	"../pages/notifications/notifications.module": [
-		470,
+		469,
 		4
 	],
 	"../pages/packagedetail/packagedetail.module": [
-		471,
+		470,
 		3
 	],
 	"../pages/pending-requests/pending-requests.module": [
-		472,
+		473,
 		2
 	],
 	"../pages/profile/profile.module": [
-		473,
+		472,
 		1
 	],
 	"../pages/sign-up/sign-up.module": [
@@ -2471,7 +2474,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(455);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(151);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_list_list__ = __webpack_require__(460);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(153);
@@ -2481,14 +2484,14 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_camera__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_packagedetail_packagedetail__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_pending_requests_pending_requests__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_profile_profile__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_pending_requests_pending_requests__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_profile_profile__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_all_packages_all_packages__ = __webpack_require__(148);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_enqueue_enqueue__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_notifications_notifications__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_notifications_notifications__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_delivered_delivered__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_help_help__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_login_login__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_login_login__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_geolocation__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_fcm__ = __webpack_require__(81);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2565,12 +2568,12 @@ AppModule = __decorate([
                     { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/help/help.module#HelpPageModule', name: 'HelpPage', segment: 'help', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/nearby/nearby.module#NearbyPageModule', name: 'NearbyPage', segment: 'nearby', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule', name: 'NotificationsPage', segment: 'notifications', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/packagedetail/packagedetail.module#PackagedetailPageModule', name: 'PackagedetailPage', segment: 'packagedetail', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/pending-requests/pending-requests.module#PendingRequestsPageModule', name: 'PendingRequestsPage', segment: 'pending-requests', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/pending-requests/pending-requests.module#PendingRequestsPageModule', name: 'PendingRequestsPage', segment: 'pending-requests', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] }
                 ]
             }),
@@ -2626,12 +2629,12 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_delivered_delivered__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_pending_requests_pending_requests__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_profile_profile__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_pending_requests_pending_requests__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_profile_profile__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_enqueue_enqueue__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_help_help__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_storage__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_geolocation__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_Firebase__ = __webpack_require__(209);
@@ -2685,17 +2688,24 @@ var MyApp = (function () {
         this.alertCtrl = alertCtrl;
         this.http = http;
         this.geolocation = geolocation;
-        this.rootPage = __WEBPACK_IMPORTED_MODULE_12__pages_login_login__["a" /* LoginPage */];
         this.NotificationData = [];
         platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             statusBar.styleDefault();
             splashScreen.hide();
+            _this.storage.get('Name').then(function (val) {
+                if (val == null) {
+                    _this.rootPage = __WEBPACK_IMPORTED_MODULE_12__pages_login_login__["a" /* LoginPage */];
+                }
+                else {
+                    _this.rootPage = __WEBPACK_IMPORTED_MODULE_0__pages_home_home__["a" /* HomePage */];
+                }
+            });
         });
+        this.loggedIn = false; //user is not initailly logged in
         __WEBPACK_IMPORTED_MODULE_15_Firebase__["initializeApp"](config); //intialise firebase
         this.ref = __WEBPACK_IMPORTED_MODULE_15_Firebase__["database"]().ref('geolocations/'); //assign data base to store gelocation
-        this.loggedIn = false; //user is not initailly logged in
         this.Name = ""; //name value is not set
         this.pages = [
             { title: 'All Packages', component: __WEBPACK_IMPORTED_MODULE_0__pages_home_home__["a" /* HomePage */] },
@@ -2706,7 +2716,8 @@ var MyApp = (function () {
             { title: 'Help', component: __WEBPACK_IMPORTED_MODULE_11__pages_help_help__["a" /* HelpPage */] },
         ];
         this.loadData().then(function () {
-            _this.subscribeWatch();
+            //onNotification();
+            // this.subscribeWatch();
         });
         //this.onNotification();
         //this.subscribeWatch();//function that starts sending gelocation to database
@@ -2730,27 +2741,27 @@ var MyApp = (function () {
             });
         });
     };
-    MyApp.prototype.subscribeWatch = function () {
-        //this.watch = this.geolocation.watchPosition();
-        //this.watch.subscribe((data) => {
-        // you can set your id here
-        //this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
-        //});
-        //this.watch.unsubscribe();
-        //   this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
-        //     this.geolocation.getCurrentPosition().then(
-        //       (position) => {
-        //         console.log("ALoha" + position.coords.latitude, position.coords.longitude);
-        //         let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        //         if (JSON.stringify(this.myPosition) !=JSON.stringify(newPosition)) {
-        //           this.updateGeolocation(position.coords.latitude,position.coords.longitude);
-        //           this.myPosition=newPosition;
-        //           console.log("my:"+this.myPosition)
-        //           console.log("new:"+newPosition)
-        //         }
-        //   });
-        // });
-    };
+    // subscribeWatch() {
+    //   //this.watch = this.geolocation.watchPosition();
+    //   //this.watch.subscribe((data) => {
+    //     // you can set your id here
+    //     //this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
+    //   //});
+    //   //this.watch.unsubscribe();
+    // //   this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+    // //     this.geolocation.getCurrentPosition().then(
+    // //       (position) => {
+    // //         console.log("ALoha" + position.coords.latitude, position.coords.longitude);
+    // //         let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    // //         if (JSON.stringify(this.myPosition) !=JSON.stringify(newPosition)) {
+    // //           this.updateGeolocation(position.coords.latitude,position.coords.longitude);
+    // //           this.myPosition=newPosition;
+    // //           console.log("my:"+this.myPosition)
+    // //           console.log("new:"+newPosition)
+    // //         }
+    // //   });
+    // // });
+    // }
     MyApp.prototype.updateGeolocation = function (lat, lng) {
         var _this = this;
         this.storage.get('ID').then(function (val) {
@@ -2837,7 +2848,7 @@ __decorate([
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Nav */])
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"Y:\Angular\Transporter\src\app\app.html"*/'<ion-menu *ngIf="loggedIn"  swipeEnable="true" [content]="content">\n    <ion-header class="themeblue">\n        <ion-item class="themeblue" no-lines>\n            <ion-row>\n                <ion-col col-6>\n                    <ion-avatar item-start>\n                        <img class="imagePackage" *ngIf="loggedIn" src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />\n                    </ion-avatar>\n                </ion-col>\n                <ion-col align-self-center col-6>\n                    <h2 class="textcol">{{Name}}</h2>\n                    <button class="buttontheme" ion-button icon-left menuClose (click)="openProfile()">\n                        <ion-icon name="person"></ion-icon>Profile\n                    </button>\n                </ion-col>\n            </ion-row>\n        </ion-item>\n\n    </ion-header>\n    <ion-content class="buttontheme">\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="ios-home"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[0])">\n                    All Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="bookmarks"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[1])">\n                    Pending Requests\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="calendar"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[2])">\n                    Enqueue Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n                <ion-col col-2 align-self-center>\n                    <ion-icon class="textcol iconsize" name="chatbubbles"></ion-icon>\n                </ion-col>\n                <ion-col col-10>\n                    <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">\n                        Delivered Packages\n                    </button>\n                </ion-col>\n            </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="chatbubbles"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">\n                    Notifications\n                </button>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="help-circle"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[5])">\n                    Help\n                </button>\n            </ion-col>\n        </ion-row>\n\n\n        <ion-footer class="themeblue">\n            <button ion-button full ion-button class="buttontheme" menuToggle (click)="logout()">\n                Log Out\n            </button>\n        </ion-footer>\n    </ion-content>\n</ion-menu>\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"Y:\Angular\Transporter\src\app\app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"Y:\Angular\Transporter\src\app\app.html"*/'<ion-menu *ngIf="loggedIn"  swipeEnable="true" [content]="content">\n    <ion-header class="themeblue">\n        <ion-item class="themeblue" no-lines>\n            <ion-row>\n                <ion-col col-6>\n                    <ion-avatar item-start>\n                        <img class="profileImage"  src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />\n                    </ion-avatar>\n                </ion-col>\n                <ion-col align-self-center col-6>\n                    <h2 class="textcol">{{Name}}</h2>\n                    <button class="buttontheme" ion-button icon-left menuClose (click)="openProfile()">\n                        <ion-icon name="person"></ion-icon>Profile\n                    </button>\n                </ion-col>\n            </ion-row>\n        </ion-item>\n\n    </ion-header>\n    <ion-content class="buttontheme">\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="ios-home"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[0])">\n                    All Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="bookmarks"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[1])">\n                    Pending Requests\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="calendar"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[2])">\n                    Enqueue Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n                <ion-col col-2 align-self-center>\n                    <ion-icon class="textcol iconsize" name="checkmark-circle"></ion-icon>\n                </ion-col>\n                <ion-col col-10>\n                    <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">\n                        Delivered Packages\n                    </button>\n                </ion-col>\n            </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="chatbubbles"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">\n                    Notifications\n                </button>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="help-circle"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[5])">\n                    Help\n                </button>\n            </ion-col>\n        </ion-row>\n\n\n        <ion-footer class="themeblue">\n            <button ion-button full ion-button class="buttontheme" menuToggle (click)="logout()">\n                Log Out\n            </button>\n        </ion-footer>\n    </ion-content>\n</ion-menu>\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"Y:\Angular\Transporter\src\app\app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */],
         __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */],

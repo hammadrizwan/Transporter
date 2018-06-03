@@ -18,31 +18,31 @@
   <ion-card class="cards">
     <ion-item>
       <ion-avatar item-start>
-        <img class="imagePackage" src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />
+        <img class="round" src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />
       </ion-avatar>
       <label class="headerlabel">Name</label>
-      <p>{{name}}</p>
+      <p class="contents">{{name}}</p>
       <label class="headerlabel">Contact Info</label>
-      <p>{{contantInfo}}</p>
+      <p class="contents">{{contantInfo}}</p>
       <label class="headerlabel">Rating</label>
-      <p>★ {{rating}}</p>
+      <p><ion-icon name='star' clear small class="rating" *ngFor="let rating of rating" ></ion-icon></p>
     </ion-item>
   </ion-card>
   <ion-card>
     <ion-row>
-      <ion-col col-6 class="card2">
+      <ion-col col-12 class="card2">
         <label class="headerlabel">Deliveries Done</label>
         <ion-row class="badge">
           <ion-badge class="badgevalues">0</ion-badge>
           <!-- {{DeliveriesDone}} -->
         </ion-row>
       </ion-col>
-      <ion-col col-6 class="card2">
+      <!-- <ion-col col-6 class="card2">
         <label class="headerlabel">Clearence Due</label>
         <ion-row class="badge">
           <ion-badge class="badgevalues">{{clearenceDue}}</ion-badge>
         </ion-row>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
     <ion-row>
       <ion-col col-6 class="card2">
@@ -60,13 +60,15 @@
     </ion-row>
   </ion-card>
 
-
+  <ion-card>
+      <ion-badge class="headings">Reviews</ion-badge>
+  </ion-card>
   <ion-card *ngFor="let review of userReviews">
     <ion-card-header>
-      {{review.rating}}
+      <ion-icon name='star' clear small class="rating" *ngFor="let rating of review.ratings"></ion-icon>
     </ion-card-header>
     <ion-card-content>
-      <p>{{review.content}}</p>
+      <p class="contents">"{{review.content}}"</p>
     </ion-card-content>
 
   </ion-card>
