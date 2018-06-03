@@ -17,18 +17,17 @@
 
 <ion-content class="background1">
   <ion-card *ngFor="let item of NotificationData, let i= index">
-    <ion-card>
+   
       <ion-row>
         <ion-col col-2>
           <ion-icon class="icon" name="paper-plane"></ion-icon>
         </ion-col>
         <ion-col col-10>
-          <h3>This is a comment orem ipsum dolor sit amet</h3>
+          <h3>{{item}}</h3>
         </ion-col>
       </ion-row>
     </ion-card>
-  </ion-card>
-
+  
 
   <ion-card>
     <p class="token">{{Token}}</p>

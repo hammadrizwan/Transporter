@@ -17,21 +17,19 @@ import { PackagedetailPage } from '../packagedetail/packagedetail';
   templateUrl: 'delivered.html',
 })
 export class DeliveredPage {
-  responseDataDelivered = [];
-  skips: number;
-  ID:any
+  responseDataDelivered = [];//to hold packages data
+  skips: number;//skip the packages that have already been served
+  ID:any//to store user ID
   infiniteScroll:any;
   constructor(public navCtrl: NavController, public navParams: NavParams
     ,public storage: Storage,private alertCtrl: AlertController,private http:Http) {
-    this.skips = 0;
-    this.storage.get('ID').then((val) => {
+    this.skips = 0;//initialise the skips to 0
+    this.storage.get('ID').then((val) => {//get user ID
       this.ID = val;
-      console.log("va"+val);
-      console.log(this.ID)
       this.http.get('http://localhost:5000/deliveredPackges', { params: {'TransporterID':this.ID, 'skips': this.skips } })
-      .map(res => res.json()).subscribe(response => {
-        response.content.map(item => {
-          this.responseDataDelivered.push(item);
+      .map(res => res.json()).subscribe(response => {//get packages request
+        response.content.map(item => {//traverse packges 
+          this.responseDataDelivered.push(item);//insert packages into array
         })
         console.log(response.content);
       });
@@ -41,27 +39,24 @@ export class DeliveredPage {
       });
   }
   openPackageDetailsPage(i: any) {
-    this.navCtrl.push(PackagedetailPage, this.responseDataDelivered[i]);
+    this.navCtrl.push(PackagedetailPage, this.responseDataDelivered[i]);//open package details page
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DeliveredPage');
   }
   doInfinite(infiniteScroll) {
-    this.infiniteScroll=infiniteScroll;
-    this.skips = 10;
-    var length = this.responseDataDelivered.length;
+    this.infiniteScroll=infiniteScroll;//create infinitescroll object
+    this.skips += 10;//skip the skip+10 messages
+    var length = this.responseDataDelivered.length;//to check if no more packages are available
     setTimeout(() => {
       this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID':this.ID,'skips': this.skips } }).map(res => res.json()).subscribe(response => {
-        response.content.map(item => {
-          this.responseDataDelivered.push(item);
+        response.content.map(item => {//traverse packages 
+          this.responseDataDelivered.push(item);//insert packages into list to be displayed
         })
-        if (response.content == '') {
-          console.log("End reached");
-        }
       },
         err => {
-          console.log('error');
+          console.log(err);//if http returns an error show it
         });
       // for (let i = 0; i < 30; i++) {
       //   this.items.push( this.items.length );
@@ -75,40 +70,37 @@ export class DeliveredPage {
     }, 300);
 
   }
-  presentErrorAlert(text) {
-    let alert = this.alertCtrl.create({
-      title: 'Alert',
-      subTitle: text,
-      buttons: ['Dismiss']
+  presentErrorAlert(text) {//create alert method
+    let alert = this.alertCtrl.create({//create new alert
+      title: text,//alert message
+      buttons: ['Dismiss']//dismiss alert shown
     });
-    alert.present();
+    alert.present();//present alert to user
   }
-  doRefresh(refresher) {
+  doRefresh(refresher) {//pull to refresh
     console.log('Begin async operation', refresher);
-    this.responseDataDelivered=[]
-    this.skips = 0;
-    setTimeout(() => {
+    this.responseDataDelivered=[]//reset the array data to empty
+    this.skips = 0;//reset the number of packages already served
       console.log('Async operation has ended');
      
-    this.storage.get('ID').then((val) => {
+    this.storage.get('ID').then((val) => {//get ID from storage
       this.ID = val;
       console.log("va"+val);
       console.log(this.ID)
       this.http.get('http://localhost:5000/deliveredPackges', { params: {'TransporterID':this.ID, 'skips': this.skips } })
-      .map(res => res.json()).subscribe(response => {
-        response.content.map(item => {
+      .map(res => res.json()).subscribe(response => {//send request to server to get latest data
+        response.content.map(item => {//insert data into responseDataDelivered
           this.responseDataDelivered.push(item);
         })
         console.log(response.content);
       });
     },
       err => {
-        console.log('error');
+        console.log(err);//if error with http request log
       }); 
-      refresher.complete();
-      if(this.infiniteScroll!=null){
-        this.infiniteScroll.enable(true)
-      }
-    }, 2000);     
+      refresher.complete();//complete refreshing process and dismiss loading 
+      if(this.infiniteScroll!=null){//check if infinite scroll if off
+        this.infiniteScroll.enable(true)//reset infinite scroll if turned off
+      }    
   }
 }

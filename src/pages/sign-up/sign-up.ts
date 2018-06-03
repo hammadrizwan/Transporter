@@ -207,27 +207,24 @@ export class SignUpPage {
   private dataloaded(responseData): Promise<any> {//promise used to ensure data has been loaded before it is acessed
     return new Promise((resolve, reject) => {
       //put the values in local storage
-      this.storage.set('Name', this.Name.value);
-      this.storage.set('Email', this.Email.value);
-      this.storage.set('Password', this.Password.value)
-      this.storage.set('ID', this.id);
-      this.storage.set('Rating', 0);
-      this.storage.set('FCMToken', this.Token);
-      this.storage.set('ProfileImage', this.lastImage1);
-      let Notifications = [];
-      this.storage.set('NotificationData', Notifications);
-      setTimeout(() => {
+      this.storage.set('Name', this.Name.value);//user Name
+      this.storage.set('Email', this.Email.value);//user email
+      this.storage.set('ID', this.id);//User ID important
+      this.storage.set('FCMToken', this.Token);//FCM token
+      this.storage.set('ProfileImage', this.lastImage1);//profile image location
+      let Notifications = [];//to hold notification data
+      this.storage.set('NotificationData', Notifications);//notification data
+      setTimeout(() => {//wait to storage is set
         resolve();
       }, 2000);//wait just in case
     })
   }
   private uploadImages() {
     let fileTransfer: FileTransferObject = this.transfer.create();
-    let options1: FileUploadOptions = {
+    let options1: FileUploadOptions = {//file options for profile image
       fileKey: 'file',
       fileName: this.lastImage1,
       headers: {}
-
     }
     fileTransfer.upload(this.pathForImage(this.lastImage1), 'http://localhost:5000/imageupload?type=' + 'Profile', options1, true)
       .then((data) => {
@@ -235,7 +232,7 @@ export class SignUpPage {
       }, (err) => {
         console.log(err)
       })
-    let options2: FileUploadOptions = {
+    let options2: FileUploadOptions = {//file options for liscence image
       fileKey: 'file',
       fileName: this.lastImage2,
       headers: {}
@@ -246,7 +243,7 @@ export class SignUpPage {
       }, (err) => {
         console.log(err)
       })
-    let options3: FileUploadOptions = {
+    let options3: FileUploadOptions = {//profile options for vehicle registration image
       fileKey: 'file',
       fileName: this.lastImage3,
       headers: {}
@@ -308,7 +305,7 @@ export class SignUpPage {
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
             this.copyFileToLocalDir(correctPath, currentName, this.createFileName(), id);
           });
-      } else {
+      } else {//IOS handling
         var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName(), id);
@@ -318,7 +315,7 @@ export class SignUpPage {
     });
   }
 
-  private createFileName() {
+  private createFileName() {//create new file name by using time 
     var d = new Date(),
       n = d.getTime(),
       newFileName = n + ".jpg";
@@ -329,13 +326,13 @@ export class SignUpPage {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       switch (id) {
         case 1:
-          this.lastImage1 = newFileName;
+          this.lastImage1 = newFileName;//profile image
           break;
         case 2:
-          this.lastImage2 = newFileName;
+          this.lastImage2 = newFileName;//liscence image
           break;
         case 3:
-          this.lastImage3 = newFileName;
+          this.lastImage3 = newFileName;//vehicle registration
           break;
       }
     }, error => {

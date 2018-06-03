@@ -19,16 +19,16 @@ import { Storage } from '@ionic/storage';
 })
 export class NotificationsPage {
   NotificationData = [];
-  Token:any;
-  ID:any;
+  Token: any;
+  ID: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private fcm: FCM,private alertCtrl: AlertController, private http:Http, public storage:Storage) {
-  //  this.onNotification();
-      console.log(this.navParams.data);
-      this.storage.get('NotificationData').then((val) => {
-        this.NotificationData = val;
-        this.NotificationData.push(this.navParams.data);
-      });
+    private fcm: FCM, private alertCtrl: AlertController, private http: Http, public storage: Storage) {
+    //  this.onNotification();
+    console.log(this.navParams.data);
+    this.storage.get('NotificationData').then((val) => {
+      this.NotificationData = val;
+      console.log(val);
+    });
   }
 
   ionViewDidLoad() {
@@ -54,38 +54,34 @@ export class NotificationsPage {
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.setRoot(page);
   }
-  showNotification(noti){
+  showNotification(noti) {
     let alert = this.alertCtrl.create({
-    title: 'Notification',
-    subTitle: noti,
-    buttons: ['Dismiss']
-  });
-  alert.present();
+      title: 'Notification',
+      subTitle: noti,
+      buttons: ['Dismiss']
+    });
+    alert.present();
   }
-  sendNotify(){
-    
-    
-    this.storage.get('FCMToken').then((val)=>{
-      this.Token=val;
-      let data ={
-        'TransporterID':this.ID,
+  sendNotify() {
+    this.storage.get('FCMToken').then((val) => {
+      this.Token = val;
+      let data = {
+        'TransporterID': this.ID,
         'FCMToken': this.Token,
       }
-      this.http.post('http://localhost:5000/notify', JSON.stringify(data)).map(res => res.json()).subscribe(data => { 
-        this.showNotification(data); 
-        console.log(data)        
+      this.http.post('http://localhost:5000/notify', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
       },
         err => {
           console.log('error');
         });
-      });
-    
+    });
+
     // this.http.get('http://localhost:5000/notify').map(res => res.json()).subscribe(response => {
-        
+
     //   },
     //     err => {
     //       console.log('error');
     //     });
-        
+
   }
 }

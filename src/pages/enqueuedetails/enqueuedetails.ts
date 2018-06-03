@@ -36,80 +36,77 @@ export class EnqueuedetailsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation,
     public zone: NgZone, public loadingCtrl: LoadingController, public platform: Platform, public http: Http,
     private alertCtrl: AlertController, public storage: Storage) {
-
-    this.cancelledPackage = false;
-
-    this.item = this.navParams.data;
+    this.cancelledPackage = false;//the packages has been not cancelled hence set to false
+    this.item = this.navParams.data;//get the package data from navParameters
     console.log(this.item.Status);
-    if (this.item.Status == "Awaiting") {
-      this.inProgress = false;
-      this.cancellationOption = true;
+    if (this.item.Status == "Awaiting") {//check the package status if awaiting means the packages is to be picked up from source point
+      this.inProgress = false;//pacakges is yet to be picked up from source point
+      this.cancellationOption = true;//cancellation option is available
     }
     else {
-      this.inProgress = true;
-      this.cancellationOption = false;
+      this.inProgress = true;//the status in enroute and the delivery is in progress
+      this.cancellationOption = false;//the package cannot be cancelled
     }
     this.setData().then(() => {
-          
-      this.createMap();
-      this.findPath();
+      this.createMap();//initialise map
+      this.findPath();// find the path from user to current destination(source or destination)
+      /* An observable is created below which runs after ever 3 seconds and checks if the current postion of the user
+      has changes of not based on that it refreshes the map*/
       this.observer = Observable.interval(3000).subscribe(() => {//update timer to 20 seconds
         this.geolocation.getCurrentPosition().then(
           (position) => {
-            console.log("ALoha" + position.coords.latitude, position.coords.longitude);
-            let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            if (this.myPosition != newPosition) {
-              if (this.marker1 != null) {
-                this.marker1.setMap(null)
+            //console.log("ALoha" + position.coords.latitude, position.coords.longitude);
+            let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);//get current position
+            if (this.myPosition != newPosition) {//positon has changed
+              if (this.marker1 != null) {//if marker has been set once before
+                this.marker1.setMap(null)//remove marker for current location
               }
-              this.marker1 = new google.maps.Marker({
+              this.marker1 = new google.maps.Marker({//drop new marker at current location
                 map: this.map,
                 position: this.myPosition,
                 draggable: false,
               });
-              console.log("ASDSA")
             }
           }),
           (error) => {
-            console.log(error);
+            console.log(error);//show error if any with geolocation
           }
       });
     })
-    console.log("This is id" + this.ID);
   }
-  setData(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.Source = new google.maps.LatLng(this.item.SourceLatitude, this.item.SourceLongitude);
+  setData(): Promise<any> {//data is to be set in local variables before they are referenced
+    return new Promise((resolve, reject) => {//return a new promise
+      this.Source = new google.maps.LatLng(this.item.SourceLatitude, this.item.SourceLongitude);//set local source variable
       console.log(this.Source)
-      this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);
+      this.Destination = new google.maps.LatLng(this.item.DestinationLatitude, this.item.DestinationLongitude);//set locatl destionation variable
       console.log(this.Destination);
-      setTimeout(() => {
+      setTimeout(() => {//wait 1 seconds for google to return the response and set local varaibles
         console.log("yolo");
-        resolve();
+        resolve();//resolve the promise
       }, 1000);//wait just in case
     })
   }
-  createMap(){
+  createMap(){//create a new map
     this.map = new google.maps.Map(document.getElementById('mapdetail'), {
       zoom: 12,
       center: this.Source
     });
   }
 
-  findPath() {
+  findPath() {//method to show user path to current destination(can be source or destination of packge)
     let directionsService = new google.maps.DirectionsService;
     var rendererOptions = {
-      preserveViewport: true
+      preserveViewport: true//stop from zoom adjustment when the path is drawn
     };
-    let directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-    directionsDisplay.setMap(this.map);
+    let directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);//direction display object
+    directionsDisplay.setMap(this.map);//remove current directions shown
     console.log("outprogresso");
     this.geolocation.getCurrentPosition().then(
       (position) => {
         console.log("ALoha" + position.coords.latitude, position.coords.longitude);
         this.myPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-        if (this.inProgress) {
+        if (this.inProgress) {//if the package is enroute and the destination is package destination
           console.log("inprogresso");
           directionsService.route({
             origin: this.myPosition,
@@ -125,13 +122,13 @@ export class EnqueuedetailsPage {
               //   console.log(response.routes[i].legs[0].distance.value / 1000);
               //}
               console.log(response.routes[0].legs[0].distance.value / 1000);
-              directionsDisplay.setDirections(response);
+              directionsDisplay.setDirections(response);//draw directions
             } else {
-              window.alert('Directions request failed due to ' + status);
+              window.alert('Directions request failed due to ' + status);//error show
             }
           });
         }
-        else {
+        else {//if package is yet to picked up destination is package source
           console.log("noint progresso");
           directionsService.route({
             origin: this.myPosition,
@@ -148,18 +145,16 @@ export class EnqueuedetailsPage {
               //   //directionsDisplay.setMap(this.map);
               //   console.log(response.routes[i].legs[0].distance.value / 1000);
               //  }
-              let options = { preserveViewport: true };
               console.log(response.routes[0].legs[0].distance.value / 1000);
-              directionsDisplay.setOptions(options);
-              directionsDisplay.setDirections(response);
+              directionsDisplay.setDirections(response);//draw directions
             } else {
-              window.alert('Directions request failed due to ' + status);
+              window.alert('Directions request failed due to ' + status);//show error
             }
           });
         }
       }),
       (error) => {
-        console.log(error);
+        console.log(error);//show any error with geolocation
       }
 
 
@@ -206,7 +201,7 @@ export class EnqueuedetailsPage {
               },
                 err => {
                   console.log('error');
-                  console.log(err);
+                  console.log(err);//show any error with http request
                 });
             });
           }

@@ -40,18 +40,17 @@ var config = {
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any;
+  rootPage: any;//the start page of the application
   pages: Array<{ title: string, component: any }>;
-  Name: string;
-  NotificationData = [];
-  Token: any;
-  ID: any;
-  profileImage: any;
-  loggedIn: Boolean;
-  watch: any;
-  ref: any;
-  observer:any;
-  myPosition:any;
+  Name: string;//User name to be showin in the side bar
+  NotificationData = [];//to store notification data temporarily
+  Token: any;//FCM token
+  ID: any;//User ID
+  profileImage: any;//Profile image to be shown in side bar
+  loggedIn: Boolean;//used to enable side bar after user has entered the application
+  ref: any;//firebase reference
+  observer: any;//observer to sending tracking information
+  myPosition: any;//current postion of user
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
@@ -66,12 +65,12 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.storage.get('Name').then((val) => {
-        if(val==null){
-          this.rootPage=LoginPage
+      this.storage.get('Name').then((val) => {//check if user initals are set or not
+        if (val == null) {
+          this.rootPage = LoginPage; //set landing page as login page
         }
-        else{
-          this.rootPage=HomePage;
+        else {
+          this.rootPage = HomePage;//set landing page as home page
         }
       })
     });
@@ -89,8 +88,10 @@ export class MyApp {
       { title: 'Help', component: HelpPage },
     ];
     this.loadData().then(() => {
-      //onNotification();
-     // this.subscribeWatch();
+      
+      // this.subscribeWatch();
+      this.updateToken();
+      this.onNotification();
     })
 
     //this.onNotification();
@@ -101,6 +102,7 @@ export class MyApp {
     return new Promise((resolve, reject) => {
       //put the values in local storage
       this.loggedIn = true;
+      
       this.events.subscribe('user:loggedin', (text) => {
         this.storage.get('Name').then((val) => {
           this.Name = val;
@@ -111,7 +113,8 @@ export class MyApp {
           this.profileImage = val;
 
         });
-          resolve();
+        
+        resolve();
         //wait just in case
       });
     });
@@ -140,17 +143,14 @@ export class MyApp {
   // // });
   // }
   updateGeolocation(lat, lng) {
-    this.storage.get('ID').then((val) => {
+    this.storage.get('ID').then((val) => {//get User ID
       this.ID = val;
-
-
       if (this.ID != null) {
-        firebase.database().ref('geolocations/' + this.ID).set({
-          ID: this.ID,
-          latitude: lat,
-          longitude: lng
+        firebase.database().ref('geolocations/' + this.ID).set({//Update user data in database or create new if does not exist
+          ID: this.ID,//user ID
+          latitude: lat,//new longitude
+          longitude: lng//new latitude
         });
-        console.log("hello general kneobi");
       } else {
         console.log("op errors");
       }
@@ -181,24 +181,30 @@ export class MyApp {
     this.nav.setRoot(LoginPage);//reroute to to login page
   }
   onNotification() {
-    this.fcm.getToken().then(token => {
-      console.log(token);
-      this.Token = token;
-    });
+    
 
-    this.fcm.onNotification().subscribe(data => {
-      if (data.wasTapped) {
-        this.NotificationData.push(data);
+    this.fcm.onNotification().subscribe(data => {//notification subscribe
+      if (data.wasTapped) {//notification in background was tapped
+        this.NotificationData.push(JSON.stringify(data));//open app and show notification page
         console.log(data);
-        this.nav.setRoot(NotificationsPage, this.NotificationData);
+        this.storage.get('NotificationData').then((val) => {
+          this.NotificationData.push(val);
+          this.storage.set('NotificationData', this.NotificationData);//notification data
+          this.nav.setRoot(NotificationsPage, this.NotificationData);
+        });
+
       } else {
-        this.showNotification(data);
+        this.showNotification(JSON.stringify(data));
         console.log(data);
-        this.NotificationData.push(data);
-        this.nav.setRoot(NotificationsPage, this.NotificationData);
+        this.NotificationData.push(JSON.stringify(data));
+        this.storage.get('NotificationData').then((val) => {
+          this.NotificationData.push(val);
+          this.storage.set('NotificationData', this.NotificationData);//notification data
+          this.nav.setRoot(NotificationsPage, this.NotificationData);
+        });
       }
     });
-    this.fcm.onTokenRefresh().subscribe(token => {
+    this.fcm.onTokenRefresh().subscribe(token => {//if token is updated then store renewed token
       this.storage.get('ID').then((val) => {
         this.ID = val;
         let data = {
@@ -206,6 +212,27 @@ export class MyApp {
           'appType': "Transporter",
           'FCMToken': token,
         };
+        this.http.post('http://localhost:5000/updateToken', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
+        },
+          err => {
+            console.log('error');
+          });
+      });
+    });
+  }
+  updateToken() {
+    this.fcm.getToken().then(token => {
+      console.log(token);
+      this.Token = token;
+      console.log("heres inside sdasd")
+      this.storage.get('ID').then((val) => {
+        this.ID = val;
+        let data = {
+          'ID': this.ID,
+          'appType': "Transporter",
+          'FCMToken': this.Token,
+        };
+        this.storage.set('FCMToken', this.Token);//FCM token
         this.http.post('http://localhost:5000/updateToken', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
         },
           err => {

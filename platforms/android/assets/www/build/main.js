@@ -174,16 +174,14 @@ var DeliveredPage = (function () {
         this.storage = storage;
         this.alertCtrl = alertCtrl;
         this.http = http;
-        this.responseDataDelivered = [];
-        this.skips = 0;
+        this.responseDataDelivered = []; //to hold packages data
+        this.skips = 0; //initialise the skips to 0
         this.storage.get('ID').then(function (val) {
             _this.ID = val;
-            console.log("va" + val);
-            console.log(_this.ID);
             _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
                 .map(function (res) { return res.json(); }).subscribe(function (response) {
                 response.content.map(function (item) {
-                    _this.responseDataDelivered.push(item);
+                    _this.responseDataDelivered.push(item); //insert packages into array
                 });
                 console.log(response.content);
             });
@@ -192,26 +190,23 @@ var DeliveredPage = (function () {
         });
     }
     DeliveredPage.prototype.openPackageDetailsPage = function (i) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataDelivered[i]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataDelivered[i]); //open package details page
     };
     DeliveredPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad DeliveredPage');
     };
     DeliveredPage.prototype.doInfinite = function (infiniteScroll) {
         var _this = this;
-        this.infiniteScroll = infiniteScroll;
-        this.skips = 10;
-        var length = this.responseDataDelivered.length;
+        this.infiniteScroll = infiniteScroll; //create infinitescroll object
+        this.skips += 10; //skip the skip+10 messages
+        var length = this.responseDataDelivered.length; //to check if no more packages are available
         setTimeout(function () {
             _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
                 response.content.map(function (item) {
-                    _this.responseDataDelivered.push(item);
+                    _this.responseDataDelivered.push(item); //insert packages into list to be displayed
                 });
-                if (response.content == '') {
-                    console.log("End reached");
-                }
             }, function (err) {
-                console.log('error');
+                console.log(err); //if http returns an error show it
             });
             // for (let i = 0; i < 30; i++) {
             //   this.items.push( this.items.length );
@@ -226,38 +221,35 @@ var DeliveredPage = (function () {
     };
     DeliveredPage.prototype.presentErrorAlert = function (text) {
         var alert = this.alertCtrl.create({
-            title: 'Alert',
-            subTitle: text,
-            buttons: ['Dismiss']
+            title: text,
+            buttons: ['Dismiss'] //dismiss alert shown
         });
-        alert.present();
+        alert.present(); //present alert to user
     };
     DeliveredPage.prototype.doRefresh = function (refresher) {
         var _this = this;
         console.log('Begin async operation', refresher);
-        this.responseDataDelivered = [];
-        this.skips = 0;
-        setTimeout(function () {
-            console.log('Async operation has ended');
-            _this.storage.get('ID').then(function (val) {
-                _this.ID = val;
-                console.log("va" + val);
-                console.log(_this.ID);
-                _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
-                    .map(function (res) { return res.json(); }).subscribe(function (response) {
-                    response.content.map(function (item) {
-                        _this.responseDataDelivered.push(item);
-                    });
-                    console.log(response.content);
+        this.responseDataDelivered = []; //reset the array data to empty
+        this.skips = 0; //reset the number of packages already served
+        console.log('Async operation has ended');
+        this.storage.get('ID').then(function (val) {
+            _this.ID = val;
+            console.log("va" + val);
+            console.log(_this.ID);
+            _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
+                .map(function (res) { return res.json(); }).subscribe(function (response) {
+                response.content.map(function (item) {
+                    _this.responseDataDelivered.push(item);
                 });
-            }, function (err) {
-                console.log('error');
+                console.log(response.content);
             });
-            refresher.complete();
-            if (_this.infiniteScroll != null) {
-                _this.infiniteScroll.enable(true);
-            }
-        }, 2000);
+        }, function (err) {
+            console.log(err); //if error with http request log
+        });
+        refresher.complete(); //complete refreshing process and dismiss loading 
+        if (this.infiniteScroll != null) {
+            this.infiniteScroll.enable(true); //reset infinite scroll if turned off
+        }
     };
     return DeliveredPage;
 }());
@@ -320,53 +312,53 @@ var EnqueuedetailsPage = (function () {
         this.http = http;
         this.alertCtrl = alertCtrl;
         this.storage = storage;
-        this.cancelledPackage = false;
-        this.item = this.navParams.data;
+        this.cancelledPackage = false; //the packages has been not cancelled hence set to false
+        this.item = this.navParams.data; //get the package data from navParameters
         console.log(this.item.Status);
         if (this.item.Status == "Awaiting") {
-            this.inProgress = false;
-            this.cancellationOption = true;
+            this.inProgress = false; //pacakges is yet to be picked up from source point
+            this.cancellationOption = true; //cancellation option is available
         }
         else {
-            this.inProgress = true;
-            this.cancellationOption = false;
+            this.inProgress = true; //the status in enroute and the delivery is in progress
+            this.cancellationOption = false; //the package cannot be cancelled
         }
         this.setData().then(function () {
-            _this.createMap();
-            _this.findPath();
+            _this.createMap(); //initialise map
+            _this.findPath(); // find the path from user to current destination(source or destination)
+            /* An observable is created below which runs after ever 3 seconds and checks if the current postion of the user
+            has changes of not based on that it refreshes the map*/
             _this.observer = __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__["Observable"].interval(3000).subscribe(function () {
                 _this.geolocation.getCurrentPosition().then(function (position) {
-                    console.log("ALoha" + position.coords.latitude, position.coords.longitude);
-                    var newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    //console.log("ALoha" + position.coords.latitude, position.coords.longitude);
+                    var newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude); //get current position
                     if (_this.myPosition != newPosition) {
                         if (_this.marker1 != null) {
-                            _this.marker1.setMap(null);
+                            _this.marker1.setMap(null); //remove marker for current location
                         }
                         _this.marker1 = new google.maps.Marker({
                             map: _this.map,
                             position: _this.myPosition,
                             draggable: false,
                         });
-                        console.log("ASDSA");
                     }
                 }),
                     function (error) {
-                        console.log(error);
+                        console.log(error); //show error if any with geolocation
                     };
             });
         });
-        console.log("This is id" + this.ID);
     }
     EnqueuedetailsPage.prototype.setData = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.Source = new google.maps.LatLng(_this.item.SourceLatitude, _this.item.SourceLongitude);
+            _this.Source = new google.maps.LatLng(_this.item.SourceLatitude, _this.item.SourceLongitude); //set local source variable
             console.log(_this.Source);
-            _this.Destination = new google.maps.LatLng(_this.item.DestinationLatitude, _this.item.DestinationLongitude);
+            _this.Destination = new google.maps.LatLng(_this.item.DestinationLatitude, _this.item.DestinationLongitude); //set locatl destionation variable
             console.log(_this.Destination);
             setTimeout(function () {
                 console.log("yolo");
-                resolve();
+                resolve(); //resolve the promise
             }, 1000); //wait just in case
         });
     };
@@ -380,10 +372,10 @@ var EnqueuedetailsPage = (function () {
         var _this = this;
         var directionsService = new google.maps.DirectionsService;
         var rendererOptions = {
-            preserveViewport: true
+            preserveViewport: true //stop from zoom adjustment when the path is drawn
         };
-        var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-        directionsDisplay.setMap(this.map);
+        var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions); //direction display object
+        directionsDisplay.setMap(this.map); //remove current directions shown
         console.log("outprogresso");
         this.geolocation.getCurrentPosition().then(function (position) {
             console.log("ALoha" + position.coords.latitude, position.coords.longitude);
@@ -404,10 +396,10 @@ var EnqueuedetailsPage = (function () {
                         //   console.log(response.routes[i].legs[0].distance.value / 1000);
                         //}
                         console.log(response.routes[0].legs[0].distance.value / 1000);
-                        directionsDisplay.setDirections(response);
+                        directionsDisplay.setDirections(response); //draw directions
                     }
                     else {
-                        window.alert('Directions request failed due to ' + status);
+                        window.alert('Directions request failed due to ' + status); //error show
                     }
                 });
             }
@@ -428,19 +420,17 @@ var EnqueuedetailsPage = (function () {
                         //   //directionsDisplay.setMap(this.map);
                         //   console.log(response.routes[i].legs[0].distance.value / 1000);
                         //  }
-                        var options = { preserveViewport: true };
                         console.log(response.routes[0].legs[0].distance.value / 1000);
-                        directionsDisplay.setOptions(options);
-                        directionsDisplay.setDirections(response);
+                        directionsDisplay.setDirections(response); //draw directions
                     }
                     else {
-                        window.alert('Directions request failed due to ' + status);
+                        window.alert('Directions request failed due to ' + status); //show error
                     }
                 });
             }
         }),
             function (error) {
-                console.log(error);
+                console.log(error); //show any error with geolocation
             };
     };
     EnqueuedetailsPage.prototype.confirmPickUp = function (PackageID) {
@@ -484,7 +474,7 @@ var EnqueuedetailsPage = (function () {
                                 }
                             }, function (err) {
                                 console.log('error');
-                                console.log(err);
+                                console.log(err); //show any error with http request
                             });
                         });
                     }
@@ -632,6 +622,156 @@ EnqueuedetailsPage = __decorate([
 /***/ }),
 
 /***/ 151:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HelpPage; });
+/* unused harmony export snapshotToArray */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var HelpPage = (function () {
+    function HelpPage(navCtrl, navParams, platform, storage, geolocation) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.platform = platform;
+        this.storage = storage;
+        this.geolocation = geolocation;
+        this.markers = [];
+        this.ref = __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/');
+        platform.ready().then(function () {
+            _this.initMap();
+        }); //add this
+        this.ref.on('value', function (resp) {
+            _this.deleteMarkers();
+            snapshotToArray(resp).forEach(function (data) {
+                // let image = 'assets/imgs/green-bike.png';
+                var updatelocation = new google.maps.LatLng(data.latitude, data.longitude);
+                _this.addMarker(updatelocation);
+                //his.setMapOnAll(this.map);
+                console.log("inside the top if");
+                //  let image = 'assets/imgs/blue-bike.png';
+                // updatelocation = new google.maps.LatLng(data.latitude,data.longitude);
+                // this.addMarker(updatelocation);
+                // this.setMapOnAll(this.map);
+                // console.log("inside the top else");
+            });
+        });
+    }
+    HelpPage.prototype.initMap = function () {
+        var _this = this;
+        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then(function (resp) {
+            var mylocation = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+            _this.map = new google.maps.Map(_this.mapElement.nativeElement, {
+                zoom: 15,
+                center: mylocation
+            });
+        });
+        this.watch = this.geolocation.watchPosition();
+        this.watch.subscribe(function (data) {
+            _this.deleteMarkers();
+            // you can set your id here
+            _this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
+            var updatelocation = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
+            // let image = 'assets/imgs/blue-bike.png';
+            _this.addMarker(updatelocation);
+            //this.setMapOnAll(this.map);
+            console.log("workisdas");
+        });
+        //this.watch.unsubscribe();
+    };
+    HelpPage.prototype.addMarker = function (location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: this.map,
+        });
+        this.markers.push(marker);
+    };
+    HelpPage.prototype.setMapOnAll = function (map) {
+        for (var i = 0; i < this.markers.length; i++) {
+            this.markers[i].setMap(map);
+        }
+    };
+    HelpPage.prototype.clearMarkers = function () {
+        this.setMapOnAll(null);
+    };
+    HelpPage.prototype.deleteMarkers = function () {
+        this.clearMarkers();
+        this.markers = [];
+    };
+    HelpPage.prototype.updateGeolocation = function (uuid, lat, lng) {
+        // if(localStorage.getItem('sdas')) {
+        __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/' + "MY ID").set({
+            ID: "Ad",
+            latitude: lat,
+            longitude: lng
+        });
+        console.log("inside if" + localStorage.getItem('mykey'));
+        // } else {
+        //   let newData = this.ref.push();
+        //   newData.set({
+        //     ID: "Ad",
+        //     latitude: lat,
+        //     longitude: lng
+        //   });
+        //   console.log("inside else");
+        //   localStorage.setItem('mykey', newData.key);
+        // }
+    };
+    return HelpPage;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])('map'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+], HelpPage.prototype, "mapElement", void 0);
+HelpPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-help',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\help\help.html"*/'<!--\n  Generated template for the HelpPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Help</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div #map id="map"></div>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\help\help.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
+], HelpPage);
+
+var snapshotToArray = function (snapshot) {
+    var returnArr = [];
+    snapshot.forEach(function (childSnapshot) {
+        var item = childSnapshot.val();
+        //console.log("value of item"+childSnapshot.toJSON());
+        item.key = childSnapshot.key;
+        //  console.log("value of item.key"+item.key);
+        if (item.ID == "Ad") {
+            console.log(item.longitude);
+            returnArr.push(item);
+            console.log("hello hey whtsupp");
+        }
+    });
+    return returnArr;
+};
+//# sourceMappingURL=help.js.map
+
+/***/ }),
+
+/***/ 152:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1081,156 +1221,6 @@ EnroutePage = __decorate([
 
 /***/ }),
 
-/***/ 152:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HelpPage; });
-/* unused harmony export snapshotToArray */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var HelpPage = (function () {
-    function HelpPage(navCtrl, navParams, platform, storage, geolocation) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.platform = platform;
-        this.storage = storage;
-        this.geolocation = geolocation;
-        this.markers = [];
-        this.ref = __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/');
-        platform.ready().then(function () {
-            _this.initMap();
-        }); //add this
-        this.ref.on('value', function (resp) {
-            _this.deleteMarkers();
-            snapshotToArray(resp).forEach(function (data) {
-                // let image = 'assets/imgs/green-bike.png';
-                var updatelocation = new google.maps.LatLng(data.latitude, data.longitude);
-                _this.addMarker(updatelocation);
-                //his.setMapOnAll(this.map);
-                console.log("inside the top if");
-                //  let image = 'assets/imgs/blue-bike.png';
-                // updatelocation = new google.maps.LatLng(data.latitude,data.longitude);
-                // this.addMarker(updatelocation);
-                // this.setMapOnAll(this.map);
-                // console.log("inside the top else");
-            });
-        });
-    }
-    HelpPage.prototype.initMap = function () {
-        var _this = this;
-        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then(function (resp) {
-            var mylocation = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-            _this.map = new google.maps.Map(_this.mapElement.nativeElement, {
-                zoom: 15,
-                center: mylocation
-            });
-        });
-        this.watch = this.geolocation.watchPosition();
-        this.watch.subscribe(function (data) {
-            _this.deleteMarkers();
-            // you can set your id here
-            _this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
-            var updatelocation = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
-            // let image = 'assets/imgs/blue-bike.png';
-            _this.addMarker(updatelocation);
-            //this.setMapOnAll(this.map);
-            console.log("workisdas");
-        });
-        //this.watch.unsubscribe();
-    };
-    HelpPage.prototype.addMarker = function (location) {
-        var marker = new google.maps.Marker({
-            position: location,
-            map: this.map,
-        });
-        this.markers.push(marker);
-    };
-    HelpPage.prototype.setMapOnAll = function (map) {
-        for (var i = 0; i < this.markers.length; i++) {
-            this.markers[i].setMap(map);
-        }
-    };
-    HelpPage.prototype.clearMarkers = function () {
-        this.setMapOnAll(null);
-    };
-    HelpPage.prototype.deleteMarkers = function () {
-        this.clearMarkers();
-        this.markers = [];
-    };
-    HelpPage.prototype.updateGeolocation = function (uuid, lat, lng) {
-        // if(localStorage.getItem('sdas')) {
-        __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/' + "MY ID").set({
-            ID: "Ad",
-            latitude: lat,
-            longitude: lng
-        });
-        console.log("inside if" + localStorage.getItem('mykey'));
-        // } else {
-        //   let newData = this.ref.push();
-        //   newData.set({
-        //     ID: "Ad",
-        //     latitude: lat,
-        //     longitude: lng
-        //   });
-        //   console.log("inside else");
-        //   localStorage.setItem('mykey', newData.key);
-        // }
-    };
-    return HelpPage;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])('map'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
-], HelpPage.prototype, "mapElement", void 0);
-HelpPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-help',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\help\help.html"*/'<!--\n  Generated template for the HelpPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Help</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div #map id="map"></div>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\help\help.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
-], HelpPage);
-
-var snapshotToArray = function (snapshot) {
-    var returnArr = [];
-    snapshot.forEach(function (childSnapshot) {
-        var item = childSnapshot.val();
-        //console.log("value of item"+childSnapshot.toJSON());
-        item.key = childSnapshot.key;
-        //  console.log("value of item.key"+item.key);
-        if (item.ID == "Ad") {
-            console.log(item.longitude);
-            returnArr.push(item);
-            console.log("hello hey whtsupp");
-        }
-    });
-    return returnArr;
-};
-//# sourceMappingURL=help.js.map
-
-/***/ }),
-
 /***/ 153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1497,121 +1487,8 @@ NearbyPage = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-/**
- * Generated class for the NotificationsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var NotificationsPage = (function () {
-    function NotificationsPage(navCtrl, navParams, fcm, alertCtrl, http, storage) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.fcm = fcm;
-        this.alertCtrl = alertCtrl;
-        this.http = http;
-        this.storage = storage;
-        this.NotificationData = [];
-        //  this.onNotification();
-        console.log(this.navParams.data);
-        this.storage.get('NotificationData').then(function (val) {
-            _this.NotificationData = val;
-            _this.NotificationData.push(_this.navParams.data);
-        });
-    }
-    NotificationsPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad NotificationsPage');
-    };
-    // onNotification() {
-    //   this.fcm.getToken().then(token=>{
-    //     console.log(token);
-    //     this.Token=token;
-    //   });
-    //   this.fcm.onNotification().subscribe(data => {
-    //     if (data.wasTapped) {
-    //       this.NotificationData.push(data);
-    //       this.openPage(NotificationsPage);
-    //     } else {
-    //       this.NotificationData.push(data);
-    //     };
-    //   })
-    // }
-    NotificationsPage.prototype.openPage = function (page) {
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
-        this.navCtrl.setRoot(page);
-    };
-    NotificationsPage.prototype.showNotification = function (noti) {
-        var alert = this.alertCtrl.create({
-            title: 'Notification',
-            subTitle: noti,
-            buttons: ['Dismiss']
-        });
-        alert.present();
-    };
-    NotificationsPage.prototype.sendNotify = function () {
-        var _this = this;
-        this.storage.get('FCMToken').then(function (val) {
-            _this.Token = val;
-            var data = {
-                'TransporterID': _this.ID,
-                'FCMToken': _this.Token,
-            };
-            _this.http.post('http://localhost:5000/notify', JSON.stringify(data)).map(function (res) { return res.json(); }).subscribe(function (data) {
-                _this.showNotification(data);
-                console.log(data);
-            }, function (err) {
-                console.log('error');
-            });
-        });
-        // this.http.get('http://localhost:5000/notify').map(res => res.json()).subscribe(response => {
-        //   },
-        //     err => {
-        //       console.log('error');
-        //     });
-    };
-    return NotificationsPage;
-}());
-NotificationsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-notifications',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/'<!--\n  Generated template for the NotificationsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Notifications</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<!--ADD FOR LOOP Over data here-->\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of NotificationData, let i= index">\n    <ion-card>\n      <ion-row>\n        <ion-col col-2>\n          <ion-icon class="icon" name="paper-plane"></ion-icon>\n        </ion-col>\n        <ion-col col-10>\n          <h3>This is a comment orem ipsum dolor sit amet</h3>\n        </ion-col>\n      </ion-row>\n    </ion-card>\n  </ion-card>\n\n\n  <ion-card>\n    <p class="token">{{Token}}</p>\n  </ion-card>\n  <button ion-button (click)="sendNotify()"></button>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
-], NotificationsPage);
-
-//# sourceMappingURL=notifications.js.map
-
-/***/ }),
-
-/***/ 155:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(7);
@@ -1754,7 +1631,7 @@ LoginPage = __decorate([
 
 /***/ }),
 
-/***/ 156:
+/***/ 155:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1969,15 +1846,13 @@ var SignUpPage = (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             //put the values in local storage
-            _this.storage.set('Name', _this.Name.value);
-            _this.storage.set('Email', _this.Email.value);
-            _this.storage.set('Password', _this.Password.value);
-            _this.storage.set('ID', _this.id);
-            _this.storage.set('Rating', 0);
-            _this.storage.set('FCMToken', _this.Token);
-            _this.storage.set('ProfileImage', _this.lastImage1);
-            var Notifications = [];
-            _this.storage.set('NotificationData', Notifications);
+            _this.storage.set('Name', _this.Name.value); //user Name
+            _this.storage.set('Email', _this.Email.value); //user email
+            _this.storage.set('ID', _this.id); //User ID important
+            _this.storage.set('FCMToken', _this.Token); //FCM token
+            _this.storage.set('ProfileImage', _this.lastImage1); //profile image location
+            var Notifications = []; //to hold notification data
+            _this.storage.set('NotificationData', Notifications); //notification data
             setTimeout(function () {
                 resolve();
             }, 2000); //wait just in case
@@ -2087,13 +1962,13 @@ var SignUpPage = (function () {
         this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(function (success) {
             switch (id) {
                 case 1:
-                    _this.lastImage1 = newFileName;
+                    _this.lastImage1 = newFileName; //profile image
                     break;
                 case 2:
-                    _this.lastImage2 = newFileName;
+                    _this.lastImage2 = newFileName; //liscence image
                     break;
                 case 3:
-                    _this.lastImage3 = newFileName;
+                    _this.lastImage3 = newFileName; //vehicle registration
                     break;
             }
         }, function (error) {
@@ -2137,7 +2012,208 @@ SignUpPage = __decorate([
 
 /***/ }),
 
+/***/ 156:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotificationsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+/**
+ * Generated class for the NotificationsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var NotificationsPage = (function () {
+    function NotificationsPage(navCtrl, navParams, fcm, alertCtrl, http, storage) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.fcm = fcm;
+        this.alertCtrl = alertCtrl;
+        this.http = http;
+        this.storage = storage;
+        this.NotificationData = [];
+        //  this.onNotification();
+        console.log(this.navParams.data);
+        this.storage.get('NotificationData').then(function (val) {
+            _this.NotificationData = val;
+            console.log(val);
+        });
+    }
+    NotificationsPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad NotificationsPage');
+    };
+    // onNotification() {
+    //   this.fcm.getToken().then(token=>{
+    //     console.log(token);
+    //     this.Token=token;
+    //   });
+    //   this.fcm.onNotification().subscribe(data => {
+    //     if (data.wasTapped) {
+    //       this.NotificationData.push(data);
+    //       this.openPage(NotificationsPage);
+    //     } else {
+    //       this.NotificationData.push(data);
+    //     };
+    //   })
+    // }
+    NotificationsPage.prototype.openPage = function (page) {
+        // Reset the content nav to have just this page
+        // we wouldn't want the back button to show in this scenario
+        this.navCtrl.setRoot(page);
+    };
+    NotificationsPage.prototype.showNotification = function (noti) {
+        var alert = this.alertCtrl.create({
+            title: 'Notification',
+            subTitle: noti,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
+    NotificationsPage.prototype.sendNotify = function () {
+        var _this = this;
+        this.storage.get('FCMToken').then(function (val) {
+            _this.Token = val;
+            var data = {
+                'TransporterID': _this.ID,
+                'FCMToken': _this.Token,
+            };
+            _this.http.post('http://localhost:5000/notify', JSON.stringify(data)).map(function (res) { return res.json(); }).subscribe(function (data) {
+            }, function (err) {
+                console.log('error');
+            });
+        });
+        // this.http.get('http://localhost:5000/notify').map(res => res.json()).subscribe(response => {
+        //   },
+        //     err => {
+        //       console.log('error');
+        //     });
+    };
+    return NotificationsPage;
+}());
+NotificationsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-notifications',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/'<!--\n  Generated template for the NotificationsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Notifications</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<!--ADD FOR LOOP Over data here-->\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of NotificationData, let i= index">\n   \n      <ion-row>\n        <ion-col col-2>\n          <ion-icon class="icon" name="paper-plane"></ion-icon>\n        </ion-col>\n        <ion-col col-10>\n          <h3>{{item}}</h3>\n        </ion-col>\n      </ion-row>\n    </ion-card>\n  \n\n  <ion-card>\n    <p class="token">{{Token}}</p>\n  </ion-card>\n  <button ion-button (click)="sendNotify()"></button>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
+], NotificationsPage);
+
+//# sourceMappingURL=notifications.js.map
+
+/***/ }),
+
 /***/ 157:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PendingRequestsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+/**
+ * Generated class for the PendingRequestsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var PendingRequestsPage = (function () {
+    function PendingRequestsPage(navCtrl, navParams, http, alertCtrl, storage) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.http = http;
+        this.alertCtrl = alertCtrl;
+        this.storage = storage;
+        this.responseDataPending = [];
+        this.getPackages();
+    }
+    PendingRequestsPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad PendingRequestsPage');
+    };
+    PendingRequestsPage.prototype.openPackageDetailsPage = function (i) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataPending[i]);
+    };
+    PendingRequestsPage.prototype.getPackages = function () {
+        var _this = this;
+        this.storage.get('ID').then(function (val) {
+            _this.ID = val;
+            console.log(_this.ID);
+            _this.http.get('http://localhost:5000/pendingpackages', { params: { 'TransporterID': _this.ID } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                if (response.content == "failed") {
+                    _this.responseDataPending = [];
+                    _this.presentAlert("No Pending Packages Found");
+                }
+                else {
+                    response.content.map(function (item) {
+                        _this.responseDataPending.push(item);
+                    });
+                    console.log(response.content[0]);
+                }
+            }, function (err) {
+                console.log(err);
+            });
+        });
+    };
+    PendingRequestsPage.prototype.presentAlert = function (text) {
+        var alert = this.alertCtrl.create({
+            title: 'Alert',
+            subTitle: text,
+            buttons: ['Dismiss'],
+        });
+        alert.present();
+    };
+    return PendingRequestsPage;
+}());
+PendingRequestsPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-pending-requests',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/'<!--\n  Generated template for the PendingRequestsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>PendingRequests</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of responseDataPending, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    <ion-item >\n      <h2 >Name</h2>\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.PackageName}}/-</ion-note>\n    </ion-item>\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item >\n\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
+], PendingRequestsPage);
+
+//# sourceMappingURL=pending-requests.js.map
+
+/***/ }),
+
+/***/ 158:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2262,96 +2338,6 @@ ProfilePage = __decorate([
 
 /***/ }),
 
-/***/ 158:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PendingRequestsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-/**
- * Generated class for the PendingRequestsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var PendingRequestsPage = (function () {
-    function PendingRequestsPage(navCtrl, navParams, http, alertCtrl, storage) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.http = http;
-        this.alertCtrl = alertCtrl;
-        this.storage = storage;
-        this.responseDataPending = [];
-        this.getPackages();
-    }
-    PendingRequestsPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad PendingRequestsPage');
-    };
-    PendingRequestsPage.prototype.openPackageDetailsPage = function (i) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataPending[i]);
-    };
-    PendingRequestsPage.prototype.getPackages = function () {
-        var _this = this;
-        this.storage.get('ID').then(function (val) {
-            _this.ID = val;
-            console.log(_this.ID);
-            _this.http.get('http://localhost:5000/pendingpackages', { params: { 'TransporterID': _this.ID } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                if (response.content == "failed") {
-                    _this.responseDataPending = [];
-                    _this.presentAlert("No Pending Packages Found");
-                }
-                else {
-                    response.content.map(function (item) {
-                        _this.responseDataPending.push(item);
-                    });
-                    console.log(response.content[0]);
-                }
-            }, function (err) {
-                console.log(err);
-            });
-        });
-    };
-    PendingRequestsPage.prototype.presentAlert = function (text) {
-        var alert = this.alertCtrl.create({
-            title: 'Alert',
-            subTitle: text,
-            buttons: ['Dismiss'],
-        });
-        alert.present();
-    };
-    return PendingRequestsPage;
-}());
-PendingRequestsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-pending-requests',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/'<!--\n  Generated template for the PendingRequestsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>PendingRequests</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of responseDataPending, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    <ion-item >\n      <h2 >Name</h2>\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.PackageName}}/-</ion-note>\n    </ion-item>\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item >\n\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
-], PendingRequestsPage);
-
-//# sourceMappingURL=pending-requests.js.map
-
-/***/ }),
-
 /***/ 165:
 /***/ (function(module, exports) {
 
@@ -2382,47 +2368,47 @@ var map = {
 		12
 	],
 	"../pages/enqueue/enqueue.module": [
-		463,
+		464,
 		11
 	],
 	"../pages/enqueuedetails/enqueuedetails.module": [
-		464,
+		463,
 		10
 	],
 	"../pages/enroute/enroute.module": [
-		465,
+		467,
 		9
 	],
 	"../pages/help/help.module": [
-		466,
+		465,
 		8
 	],
 	"../pages/home/home.module": [
-		467,
+		466,
 		7
 	],
 	"../pages/login/login.module": [
-		471,
+		468,
 		6
 	],
 	"../pages/nearby/nearby.module": [
-		468,
+		469,
 		5
 	],
 	"../pages/notifications/notifications.module": [
-		469,
+		470,
 		4
 	],
 	"../pages/packagedetail/packagedetail.module": [
-		470,
+		471,
 		3
 	],
 	"../pages/pending-requests/pending-requests.module": [
-		473,
+		472,
 		2
 	],
 	"../pages/profile/profile.module": [
-		472,
+		473,
 		1
 	],
 	"../pages/sign-up/sign-up.module": [
@@ -2474,8 +2460,8 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(455);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_list_list__ = __webpack_require__(460);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file__ = __webpack_require__(249);
@@ -2484,14 +2470,14 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_camera__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_packagedetail_packagedetail__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_pending_requests_pending_requests__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_profile_profile__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_pending_requests_pending_requests__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_profile_profile__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_all_packages_all_packages__ = __webpack_require__(148);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_enqueue_enqueue__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_notifications_notifications__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_notifications_notifications__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_delivered_delivered__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_help_help__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_login_login__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_help_help__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_login_login__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_geolocation__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_fcm__ = __webpack_require__(81);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2563,17 +2549,17 @@ AppModule = __decorate([
                 links: [
                     { loadChildren: '../pages/all-packages/all-packages.module#AllPackagesPageModule', name: 'AllPackagesPage', segment: 'all-packages', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/delivered/delivered.module#DeliveredPageModule', name: 'DeliveredPage', segment: 'delivered', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/enqueue/enqueue.module#EnqueuePageModule', name: 'EnqueuePage', segment: 'enqueue', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/enqueuedetails/enqueuedetails.module#EnqueuedetailsPageModule', name: 'EnqueuedetailsPage', segment: 'enqueuedetails', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/enqueue/enqueue.module#EnqueuePageModule', name: 'EnqueuePage', segment: 'enqueue', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/help/help.module#HelpPageModule', name: 'HelpPage', segment: 'help', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/nearby/nearby.module#NearbyPageModule', name: 'NearbyPage', segment: 'nearby', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule', name: 'NotificationsPage', segment: 'notifications', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/packagedetail/packagedetail.module#PackagedetailPageModule', name: 'PackagedetailPage', segment: 'packagedetail', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/pending-requests/pending-requests.module#PendingRequestsPageModule', name: 'PendingRequestsPage', segment: 'pending-requests', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] }
                 ]
             }),
@@ -2629,12 +2615,12 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_delivered_delivered__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_pending_requests_pending_requests__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_profile_profile__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_pending_requests_pending_requests__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_profile_profile__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_enqueue_enqueue__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_help_help__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_help_help__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_storage__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_geolocation__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_Firebase__ = __webpack_require__(209);
@@ -2688,7 +2674,7 @@ var MyApp = (function () {
         this.alertCtrl = alertCtrl;
         this.http = http;
         this.geolocation = geolocation;
-        this.NotificationData = [];
+        this.NotificationData = []; //to store notification data temporarily
         platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
@@ -2696,10 +2682,10 @@ var MyApp = (function () {
             splashScreen.hide();
             _this.storage.get('Name').then(function (val) {
                 if (val == null) {
-                    _this.rootPage = __WEBPACK_IMPORTED_MODULE_12__pages_login_login__["a" /* LoginPage */];
+                    _this.rootPage = __WEBPACK_IMPORTED_MODULE_12__pages_login_login__["a" /* LoginPage */]; //set landing page as login page
                 }
                 else {
-                    _this.rootPage = __WEBPACK_IMPORTED_MODULE_0__pages_home_home__["a" /* HomePage */];
+                    _this.rootPage = __WEBPACK_IMPORTED_MODULE_0__pages_home_home__["a" /* HomePage */]; //set landing page as home page
                 }
             });
         });
@@ -2716,8 +2702,9 @@ var MyApp = (function () {
             { title: 'Help', component: __WEBPACK_IMPORTED_MODULE_11__pages_help_help__["a" /* HelpPage */] },
         ];
         this.loadData().then(function () {
-            //onNotification();
             // this.subscribeWatch();
+            _this.updateToken();
+            _this.onNotification();
         });
         //this.onNotification();
         //this.subscribeWatch();//function that starts sending gelocation to database
@@ -2770,9 +2757,8 @@ var MyApp = (function () {
                 __WEBPACK_IMPORTED_MODULE_15_Firebase__["database"]().ref('geolocations/' + _this.ID).set({
                     ID: _this.ID,
                     latitude: lat,
-                    longitude: lng
+                    longitude: lng //new latitude
                 });
-                console.log("hello general kneobi");
             }
             else {
                 console.log("op errors");
@@ -2801,21 +2787,25 @@ var MyApp = (function () {
     };
     MyApp.prototype.onNotification = function () {
         var _this = this;
-        this.fcm.getToken().then(function (token) {
-            console.log(token);
-            _this.Token = token;
-        });
         this.fcm.onNotification().subscribe(function (data) {
             if (data.wasTapped) {
-                _this.NotificationData.push(data);
+                _this.NotificationData.push(JSON.stringify(data)); //open app and show notification page
                 console.log(data);
-                _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__["a" /* NotificationsPage */], _this.NotificationData);
+                _this.storage.get('NotificationData').then(function (val) {
+                    _this.NotificationData.push(val);
+                    _this.storage.set('NotificationData', _this.NotificationData); //notification data
+                    _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__["a" /* NotificationsPage */], _this.NotificationData);
+                });
             }
             else {
-                _this.showNotification(data);
+                _this.showNotification(JSON.stringify(data));
                 console.log(data);
-                _this.NotificationData.push(data);
-                _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__["a" /* NotificationsPage */], _this.NotificationData);
+                _this.NotificationData.push(JSON.stringify(data));
+                _this.storage.get('NotificationData').then(function (val) {
+                    _this.NotificationData.push(val);
+                    _this.storage.set('NotificationData', _this.NotificationData); //notification data
+                    _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__["a" /* NotificationsPage */], _this.NotificationData);
+                });
             }
         });
         this.fcm.onTokenRefresh().subscribe(function (token) {
@@ -2826,6 +2816,27 @@ var MyApp = (function () {
                     'appType': "Transporter",
                     'FCMToken': token,
                 };
+                _this.http.post('http://localhost:5000/updateToken', JSON.stringify(data)).map(function (res) { return res.json(); }).subscribe(function (data) {
+                }, function (err) {
+                    console.log('error');
+                });
+            });
+        });
+    };
+    MyApp.prototype.updateToken = function () {
+        var _this = this;
+        this.fcm.getToken().then(function (token) {
+            console.log(token);
+            _this.Token = token;
+            console.log("heres inside sdasd");
+            _this.storage.get('ID').then(function (val) {
+                _this.ID = val;
+                var data = {
+                    'ID': _this.ID,
+                    'appType': "Transporter",
+                    'FCMToken': _this.Token,
+                };
+                _this.storage.set('FCMToken', _this.Token); //FCM token
                 _this.http.post('http://localhost:5000/updateToken', JSON.stringify(data)).map(function (res) { return res.json(); }).subscribe(function (data) {
                 }, function (err) {
                     console.log('error');
@@ -3084,7 +3095,7 @@ PackagedetailPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__all_packages_all_packages__ = __webpack_require__(148);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3169,14 +3180,14 @@ var EnqueuePage = (function () {
         this.http = http;
         this.alertCtrl = alertCtrl;
         this.storage = storage;
-        this.responseDataEnqueue = [];
-        this.getPackages();
+        this.responseDataEnqueue = []; //to store packages data to be displayed
+        this.getPackages(); //call the method to get packages from server
     }
     EnqueuePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad EnqueuePage');
+        console.log('ionViewDidLoad EnqueuePage'); //page loaded
     };
     EnqueuePage.prototype.openEnqueuedetailsPage = function (i) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__enqueuedetails_enqueuedetails__["a" /* EnqueuedetailsPage */], this.responseDataEnqueue[i]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__enqueuedetails_enqueuedetails__["a" /* EnqueuedetailsPage */], this.responseDataEnqueue[i]); //push enque details page for package id =i
     };
     EnqueuePage.prototype.getPackages = function () {
         var _this = this;
@@ -3184,23 +3195,22 @@ var EnqueuePage = (function () {
             _this.ID = val;
             _this.http.get('http://localhost:5000/enquedpackages', { params: { 'TransporterID': _this.ID } }).map(function (res) { return res.json(); }).subscribe(function (response) {
                 if (response.content == "failed") {
-                    _this.responseDataEnqueue = [];
-                    _this.presentAlert("No Enqueued Packages Found");
+                    _this.responseDataEnqueue = []; //set to empty
+                    _this.presentAlert("No Enqueued Packages Found"); //prompt error to user
                 }
                 else {
                     response.content.map(function (item) {
-                        _this.responseDataEnqueue.push(item);
+                        _this.responseDataEnqueue.push(item); //insert into array
                     });
                 }
             }, function (err) {
-                console.log(err);
+                console.log(err); //if http request gets an error
             });
         });
     };
     EnqueuePage.prototype.presentAlert = function (text) {
         var alert = this.alertCtrl.create({
-            title: 'Alert',
-            subTitle: text,
+            title: text,
             buttons: ['Dismiss'],
         });
         alert.present();
