@@ -183,7 +183,7 @@ export class SignUpPage {
         'ProfileImage': this.lastImage1,
       };
 
-      this.http.post('http://localhost:5000/signup', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
+      this.http.post('http://localhost:5000/signuptransporter', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
         let responseData = data;
         console.log(responseData.Error);
 

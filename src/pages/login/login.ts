@@ -69,7 +69,7 @@ export class LoginPage {
     // this.storage.set('Password',this.Password.value);
 
     console.log(Userdata);
-    this.http.post('http://localhost:5000/login', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
+    this.http.post('http://localhost:5000/logintransporter', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
       let responseData = data;
       if (responseData.Error != "none") {
         this.presentErrorAlert(responseData.Error);

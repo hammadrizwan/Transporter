@@ -101,7 +101,7 @@ export class MyApp {
   private loadData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
     return new Promise((resolve, reject) => {
       //put the values in local storage
-      this.loggedIn = true;
+      
       
       this.events.subscribe('user:loggedin', (text) => {
         this.storage.get('Name').then((val) => {
@@ -113,7 +113,7 @@ export class MyApp {
           this.profileImage = val;
 
         });
-        
+        this.loggedIn = true;
         resolve();
         //wait just in case
       });

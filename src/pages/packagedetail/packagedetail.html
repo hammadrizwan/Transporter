@@ -16,8 +16,8 @@
 
 </ion-header>
 
-<ion-content class="background1">  
-      <ion-card id="mapdetail" #mapdetail></ion-card>
+<ion-content class="background1">
+  <ion-card id="mapdetail" #mapdetail></ion-card>
   <ion-card>
     <ion-item>
       <h2>Package Name:</h2>
@@ -62,8 +62,8 @@
   <ion-card>
     <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />
   </ion-card>
-  <button *ngIf="notRequested" ion-button full class="buttonitem" (click)="sendRequest(item.PackageID,item.PackageName)">
-      Send Request
+  <button *ngIf="notRequested" ion-button full class="buttonitem" (click)="sendRequest(item.PackageID,item.PackageName,item.SenderID)">
+    Send Request
   </button>
 
 
