@@ -18,17 +18,19 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'notifications.html',
 })
 export class NotificationsPage {
-  NotificationData = [];
+  NotificationData = ["testing testing testing testing testing"];
   Token: any;
   ID: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private fcm: FCM, private alertCtrl: AlertController, private http: Http, public storage: Storage) {
     //  this.onNotification();
     console.log(this.navParams.data);
-    this.storage.get('NotificationData').then((val) => {
-      this.NotificationData = val;
-      console.log(val);
-    });
+   
+    // this.storage.get('NotificationData').then((val) => {
+    //   this.NotificationData = val;
+    //   console.log(val);
+    // });
+    this.NotificationData.push("testing testing testing testing testing")
   }
 
   ionViewDidLoad() {
@@ -54,6 +56,10 @@ export class NotificationsPage {
     // we wouldn't want the back button to show in this scenario
     this.navCtrl.setRoot(page);
   }
+  removeNotification(index){
+    console.log(index);
+    this.NotificationData.splice(index,1)
+  }
   showNotification(noti) {
     let alert = this.alertCtrl.create({
       title: 'Notification',
@@ -66,22 +72,48 @@ export class NotificationsPage {
     this.storage.get('FCMToken').then((val) => {
       this.Token = val;
       let data = {
-        'TransporterID': this.ID,
+        'TransporterID':3,
+        'PackageID': 1,
+        'PackageAcceptance': "false",
         'FCMToken': this.Token,
       }
-      this.http.post('http://localhost:5000/notify', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
+      this.http.put('http://localhost:5000/senderresponse', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
       },
         err => {
           console.log('error');
         });
     });
-
-    // this.http.get('http://localhost:5000/notify').map(res => res.json()).subscribe(response => {
-
-    //   },
-    //     err => {
-    //       console.log('error');
-    //     });
-
   }
+    sendNotify1() {
+      this.storage.get('FCMToken').then((val) => {
+        this.Token = val;
+        let data = {
+          'TransporterID':3,
+          'PackageID': 1,
+          'PackageAcceptance': "true",
+          'FCMToken': this.Token,
+        }
+        this.http.put('http://localhost:5000/senderresponse', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
+        },
+          err => {
+            console.log('error');
+          });
+      });
+    }
+    sendNotify2() {
+      this.storage.get('FCMToken').then((val) => {
+        this.Token = val;
+        let data = {
+          'PackageID': 1,
+          'PackageAcceptance': "false",
+          'FCMToken': this.Token,
+        }
+        this.http.put('http://localhost:5000/notify', JSON.stringify(data)).map(res => res.json()).subscribe(data => {
+        },
+          err => {
+            console.log('error');
+          });
+      });
+    }
+  
 }

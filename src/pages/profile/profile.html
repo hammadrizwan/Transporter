@@ -14,11 +14,11 @@
 </ion-header>
 
 
-<ion-content class="background1">
+<ion-content  class="background1">
   <ion-card class="cards">
     <ion-item>
-      <ion-avatar item-start>
-        <img class="round" src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />
+      <ion-avatar  *ngIf="setValues" item-start>
+        <img class="round"  src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />
       </ion-avatar>
       <label class="headerlabel">Name</label>
       <p class="contents">{{name}}</p>

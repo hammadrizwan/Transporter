@@ -47,7 +47,7 @@ export class MyApp {
   Token: any;//FCM token
   ID: any;//User ID
   profileImage: any;//Profile image to be shown in side bar
-  loggedIn: Boolean;//used to enable side bar after user has entered the application
+  loggedIn: Boolean = false;//used to enable side bar after user has entered the application
   ref: any;//firebase reference
   observer: any;//observer to sending tracking information
   myPosition: any;//current postion of user
@@ -68,17 +68,25 @@ export class MyApp {
       this.storage.get('Name').then((val) => {//check if user initals are set or not
         if (val == null) {
           this.rootPage = LoginPage; //set landing page as login page
+          this.loadData().then(() => {
+            //this.updateToken();
+            // this.onNotification();
+          })
         }
         else {
           this.rootPage = HomePage;//set landing page as home page
-          this.loggedIn = true;
+          this.getData().then(() => {
+            this.loggedIn = true;
+            //this.updateToken();
+            //this.onNotification();
+          })
         }
       })
     });
     this.loggedIn = false;//user is not initailly logged in
     firebase.initializeApp(config);//intialise firebase
     this.ref = firebase.database().ref('geolocations/');//assign data base to store gelocation
-    
+
     this.Name = "";//name value is not set
     this.pages = [
       { title: 'All Packages', component: HomePage },
@@ -88,12 +96,7 @@ export class MyApp {
       { title: 'Notifications', component: NotificationsPage },
       { title: 'Help', component: HelpPage },
     ];
-    this.loadData().then(() => {
-      
-      // this.subscribeWatch();
-      this.updateToken();
-      this.onNotification();
-    })
+    
 
     //this.onNotification();
     //this.subscribeWatch();//function that starts sending gelocation to database
@@ -102,24 +105,33 @@ export class MyApp {
   private loadData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
     return new Promise((resolve, reject) => {
       //put the values in local storage
-      
-      
-      this.events.subscribe('user:loggedin', (text) => {
+    this.events.subscribe('user:loggedin', (text) => {//event fires when user logs in or signups
         this.storage.get('Name').then((val) => {
           this.Name = val;
-          //this.showNotification("thy name" + val);
-
         });
         this.storage.get('ProfileImage').then((val) => {
           this.profileImage = val;
-
         });
         this.loggedIn = true;
         resolve();
         //wait just in case
-      });
-      resolve();
+      })
     });
+  }
+  private getData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
+    return new Promise((resolve, reject) => {
+      //put the values in local storage
+      this.storage.get('Name').then((val) => {
+        this.Name = val;
+      });
+      this.storage.get('ProfileImage').then((val) => {
+        this.profileImage = val;
+      });
+      this.loggedIn = true;
+      resolve();
+      //wait just in case
+    })
+
   }
 
   // subscribeWatch() {
@@ -183,13 +195,14 @@ export class MyApp {
     this.nav.setRoot(LoginPage);//reroute to to login page
   }
   onNotification() {
-    
+
 
     this.fcm.onNotification().subscribe(data => {//notification subscribe
       if (data.wasTapped) {//notification in background was tapped
         this.NotificationData.push(JSON.stringify(data));//open app and show notification page
         console.log(data);
         this.storage.get('NotificationData').then((val) => {
+          
           this.NotificationData.push(val);
           this.storage.set('NotificationData', this.NotificationData);//notification data
           this.nav.setRoot(NotificationsPage, this.NotificationData);
@@ -198,12 +211,32 @@ export class MyApp {
       } else {
         this.showNotification(JSON.stringify(data));
         console.log(data);
-        this.NotificationData.push(JSON.stringify(data));
-        this.storage.get('NotificationData').then((val) => {
-          this.NotificationData.push(val);
-          this.storage.set('NotificationData', this.NotificationData);//notification data
-          this.nav.setRoot(NotificationsPage, this.NotificationData);
-        });
+        if(data.PackageAcceptance=="true"){
+          this.storage.get('NotificationData').then((val) => {
+            let string="Your Bid for"+data.PackageName+"has been denied";
+            console.log(string)
+            this.NotificationData.push(string);
+            this.NotificationData.push(val);
+            this.storage.set('NotificationData', this.NotificationData);//notification data
+            this.nav.setRoot(EnqueuePage);
+          });
+        }
+        else if(data.PackageAcceptance=="false"){
+            let string="Your Bid for"+data.PackageName+"has been denied";
+            console.log(string)
+            this.showNotification(string)
+        }
+        else{
+          this.storage.get('NotificationData').then((val) => {
+            console.log(data)
+            this.NotificationData.push(data.Notification);
+            this.NotificationData.push(val);
+            this.storage.set('NotificationData', this.NotificationData);//notification data
+            this.nav.setRoot(NotificationsPage, this.NotificationData);
+          });
+        }
+        
+        
       }
     });
     this.fcm.onTokenRefresh().subscribe(token => {//if token is updated then store renewed token
@@ -244,10 +277,10 @@ export class MyApp {
     });
   }
 
-  showNotification(noti) {
+  showNotification(text) {
     let alert = this.alertCtrl.create({
       title: 'Notification',
-      subTitle: noti,
+      subTitle: text,
       buttons: ['Dismiss']
     });
     alert.present();
@@ -277,3 +310,4 @@ export class MyApp {
   //       console.log(error);
   //     }
   // });
+

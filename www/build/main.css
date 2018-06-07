@@ -33687,6 +33687,10 @@ page-nearby ion-searchbar {
   user-select: text;
 }
 
+.removeButton {
+  font-size: 10px;
+}
+
 .head {
   font-size: 100px;
 }

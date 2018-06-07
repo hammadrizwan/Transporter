@@ -29,48 +29,57 @@ export class ProfilePage {
   userReviews = [];
   skips: number;
   infiniteScroll: any;
+  setValues:Boolean=false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage
     , public http: Http, private alertCtrl: AlertController) {
     this.skips = 0;
+    this.getData().then(() => {
+      this.setValues = true;
+    })
     /*get Transporter ID from localstorage and  request data and put it into variables to show in view________________*/
-    this.storage.get('ID').then((val) => {
-      this.ID = val;
-
-      this.http.get('http://localhost:5000/getransporterdata', { params: { 'TransporterID': this.ID } }).map(res => res.json()).subscribe(response => {
-        console.log(response.content);
-        this.name = response.content[0].Name;
-        console.log(this.name);
-        this.contantInfo = response.content[0].Phone;
-        console.log(this.contantInfo);
-        this.rating = Array(response.content[0].Rating).fill(response.content[0].Rating);
-        console.log(this.rating);
-        this.clearenceDue = response.content[0].ClearenceDue;
-        console.log(this.clearenceDue);
-        this.cancelledPackages = response.content[0].CancelledPackages;
-        this.activePackages = response.content[0].ActivePackages;
-        console.log(this.cancelledPackages);
-        this.profileImage = response.content[0].ProfileImage;
-
-      },
-        err => {
-          console.log('error');
-        });
-
-      /*_______________________________________________________________________________________________________________*/
-      this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': this.ID, 'skips': this.skips } }).map(res => res.json()).subscribe(response => {
-
-        response.content.map(item => {
-          //console.log(item['rating'])
-          item['ratings'] = Array(item['rating']).fill(item['rating']);  
-          //console.log("After"+item['ratings'])
-          //console.log(item)
-          this.userReviews.push(item);
-          console.log("yohoo");
-        });
-      },
-        err => {
-          console.log('error');
-        });
+    
+  }
+  private getData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
+    return new Promise((resolve, reject) => {
+      //put the values in local storage
+      this.storage.get('ID').then((val) => {
+        this.ID = val;
+  
+        this.http.get('http://localhost:5000/getransporterdata', { params: { 'TransporterID': this.ID } }).map(res => res.json()).subscribe(response => {
+          console.log(response.content);
+          this.name = response.content[0].Name;
+          console.log(this.name);
+          this.contantInfo = response.content[0].Phone;
+          console.log(this.contantInfo);
+          this.rating = Array(response.content[0].Rating).fill(response.content[0].Rating);
+          console.log(this.rating);
+          this.clearenceDue = response.content[0].ClearenceDue;
+          console.log(this.clearenceDue);
+          this.cancelledPackages = response.content[0].CancelledPackages;
+          this.activePackages = response.content[0].ActivePackages;
+          console.log(this.cancelledPackages);
+          this.profileImage = response.content[0].ProfileImage;
+  
+        },
+          err => {
+            console.log('error');
+          }); 
+        /*_______________________________________________________________________________________________________________*/
+        this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': this.ID, 'skips': this.skips } }).map(res => res.json()).subscribe(response => {
+          response.content.map(item => {
+            //console.log(item['rating'])
+            item['ratings'] = Array(item['rating']).fill(item['rating']);  
+            //console.log("After"+item['ratings'])
+            //console.log(item)
+            this.userReviews.push(item);
+            resolve();
+          });
+        },
+          err => {
+            console.log('error');
+          });
+      });
+      
     });
   }
   doInfinite(infiniteScroll) {
