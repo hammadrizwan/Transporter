@@ -71,6 +71,7 @@ export class MyApp {
         }
         else {
           this.rootPage = HomePage;//set landing page as home page
+          this.loggedIn = true;
         }
       })
     });
@@ -117,6 +118,7 @@ export class MyApp {
         resolve();
         //wait just in case
       });
+      resolve();
     });
   }
 

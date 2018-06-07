@@ -79,7 +79,7 @@ export class PackagedetailPage {
         this.ID=val;
        
       this.http.get('http://localhost:5000/requestDelivery',{params:{'PackageID': PackageID,'PackageName': PackageName,'TransporterID':this.ID,'SenderID': SenderID}}).map(res => res.json()).subscribe(response => {
-        if (response.content == 'requested') {
+        if (response.content == 'success') {
           this.notRequested=false;
           this.presentNotification("Request has been sent, awaiting response from Package sender","Success");
         }
