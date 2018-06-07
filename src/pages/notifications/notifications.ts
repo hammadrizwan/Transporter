@@ -18,7 +18,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'notifications.html',
 })
 export class NotificationsPage {
-  NotificationData = ["testing testing testing testing testing"];
+  NotificationData:any;
   Token: any;
   ID: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -26,11 +26,11 @@ export class NotificationsPage {
     //  this.onNotification();
     console.log(this.navParams.data);
    
-    // this.storage.get('NotificationData').then((val) => {
-    //   this.NotificationData = val;
-    //   console.log(val);
-    // });
-    this.NotificationData.push("testing testing testing testing testing")
+    this.storage.get('NotificationData').then((val) => {
+      this.NotificationData = val;
+      console.log(val);
+    });
+    
   }
 
   ionViewDidLoad() {
@@ -59,6 +59,9 @@ export class NotificationsPage {
   removeNotification(index){
     console.log(index);
     this.NotificationData.splice(index,1)
+    this.storage.get('NotificationData').then((val) => {
+      this.storage.set('NotificationData', this.NotificationData);//notification data
+    });
   }
   showNotification(noti) {
     let alert = this.alertCtrl.create({

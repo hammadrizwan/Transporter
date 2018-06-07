@@ -51,6 +51,7 @@ export class MyApp {
   ref: any;//firebase reference
   observer: any;//observer to sending tracking information
   myPosition: any;//current postion of user
+  string:any="";
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
@@ -69,16 +70,18 @@ export class MyApp {
         if (val == null) {
           this.rootPage = LoginPage; //set landing page as login page
           this.loadData().then(() => {
-            //this.updateToken();
-            // this.onNotification();
+            console.log("inhere")
+            this.updateToken();
+            this.onNotification();
           })
         }
         else {
           this.rootPage = HomePage;//set landing page as home page
           this.getData().then(() => {
+            console.log("inhere")
             this.loggedIn = true;
-            //this.updateToken();
-            //this.onNotification();
+            this.updateToken();
+            this.onNotification();
           })
         }
       })
@@ -195,8 +198,6 @@ export class MyApp {
     this.nav.setRoot(LoginPage);//reroute to to login page
   }
   onNotification() {
-
-
     this.fcm.onNotification().subscribe(data => {//notification subscribe
       if (data.wasTapped) {//notification in background was tapped
         this.NotificationData.push(JSON.stringify(data));//open app and show notification page
@@ -213,18 +214,20 @@ export class MyApp {
         console.log(data);
         if(data.PackageAcceptance=="true"){
           this.storage.get('NotificationData').then((val) => {
-            let string="Your Bid for"+data.PackageName+"has been denied";
-            console.log(string)
-            this.NotificationData.push(string);
+            this.string="Your Bid for"+data.PackageName+"has been accepted";
+            console.log(this.string)
+            this.NotificationData.push(this.string);
             this.NotificationData.push(val);
             this.storage.set('NotificationData', this.NotificationData);//notification data
             this.nav.setRoot(EnqueuePage);
+            this.string=""
           });
         }
         else if(data.PackageAcceptance=="false"){
-            let string="Your Bid for"+data.PackageName+"has been denied";
-            console.log(string)
-            this.showNotification(string)
+            this.string="Your Bid for"+data.PackageName+"has been denied";
+            console.log(this.string)
+            this.showNotification(this.string)
+            this.string=""
         }
         else{
           this.storage.get('NotificationData').then((val) => {

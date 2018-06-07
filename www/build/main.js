@@ -2045,20 +2045,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var NotificationsPage = (function () {
     function NotificationsPage(navCtrl, navParams, fcm, alertCtrl, http, storage) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.fcm = fcm;
         this.alertCtrl = alertCtrl;
         this.http = http;
         this.storage = storage;
-        this.NotificationData = ["testing testing testing testing testing"];
         //  this.onNotification();
         console.log(this.navParams.data);
-        // this.storage.get('NotificationData').then((val) => {
-        //   this.NotificationData = val;
-        //   console.log(val);
-        // });
-        this.NotificationData.push("testing testing testing testing testing");
+        this.storage.get('NotificationData').then(function (val) {
+            _this.NotificationData = val;
+            console.log(val);
+        });
     }
     NotificationsPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad NotificationsPage');
@@ -2099,6 +2098,7 @@ var NotificationsPage = (function () {
         this.storage.get('FCMToken').then(function (val) {
             _this.Token = val;
             var data = {
+                'TransporterID': 3,
                 'PackageID': 1,
                 'PackageAcceptance': "false",
                 'FCMToken': _this.Token,
@@ -2114,6 +2114,7 @@ var NotificationsPage = (function () {
         this.storage.get('FCMToken').then(function (val) {
             _this.Token = val;
             var data = {
+                'TransporterID': 3,
                 'PackageID': 1,
                 'PackageAcceptance': "true",
                 'FCMToken': _this.Token,
@@ -2725,16 +2726,18 @@ var MyApp = (function () {
                 if (val == null) {
                     _this.rootPage = __WEBPACK_IMPORTED_MODULE_12__pages_login_login__["a" /* LoginPage */]; //set landing page as login page
                     _this.loadData().then(function () {
-                        //this.updateToken();
-                        // this.onNotification();
+                        console.log("inhere");
+                        _this.updateToken();
+                        _this.onNotification();
                     });
                 }
                 else {
                     _this.rootPage = __WEBPACK_IMPORTED_MODULE_0__pages_home_home__["a" /* HomePage */]; //set landing page as home page
                     _this.getData().then(function () {
+                        console.log("inhere");
                         _this.loggedIn = true;
-                        //this.updateToken();
-                        //this.onNotification();
+                        _this.updateToken();
+                        _this.onNotification();
                     });
                 }
             });
