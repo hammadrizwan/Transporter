@@ -81,7 +81,6 @@ export class LoginPage {
           this.loading.dismissAll();//dismiss loading
           this.navCtrl.setRoot(HomePage);//go to home page
         })
-
       }
     },
       err => {

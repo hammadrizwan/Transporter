@@ -18,7 +18,7 @@
 </ion-item>
 
 
-<ion-content class="background" class="background" padding>
+<ion-content class="background"  padding>
 
   <ion-item class="background">
     <ion-avatar item-start>
@@ -300,7 +300,7 @@
     <ion-item class="background" *ngIf="(Password.hasError('pattern') && Password.touched) ||(submitAttempted && Password.hasError('required')) ">
       <p ion-text color="danger"> *Password minimum length 6</p>
     </ion-item>
-    <button ion-button type="submit" block>Create Profile</button>
+    <button ion-button color="secondary" type="submit" block>Create Profile</button>
   </form>
   <!-- <button ion-button (click)="imageupload()" block>Create Profile</button> -->
 </ion-content>
