@@ -43,7 +43,7 @@ export class MyApp {
   rootPage: any;//the start page of the application
   pages: Array<{ title: string, component: any }>;
   Name: string;//User name to be showin in the side bar
-  NotificationData = [];//to store notification data temporarily
+  NotificationData = [];//to store notification data temporar ily
   Token: any;//FCM token
   ID: any;//User ID
   profileImage: any;//Profile image to be shown in side bar
@@ -66,6 +66,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.loggedIn = false;
       this.storage.get('Name').then((val) => {//check if user initals are set or not
         if (val == null) {
           this.rootPage = LoginPage; //set landing page as login page
@@ -86,7 +87,7 @@ export class MyApp {
         }
       })
     });
-    this.loggedIn = false;//user is not initailly logged in
+    //user is not initailly logged in
     //firebase.initializeApp(config);//intialise firebase
     //this.ref = firebase.database().ref('geolocations/');//assign data base to store gelocation
 
@@ -99,8 +100,6 @@ export class MyApp {
       { title: 'Notifications', component: NotificationsPage },
       { title: 'Help', component: HelpPage },
     ];
-    
-
     //this.onNotification();
     //this.subscribeWatch();//function that starts sending gelocation to database
     //console.log(this.loggedIn)  
@@ -194,6 +193,7 @@ export class MyApp {
     this.storage.set('Rating', null);
     this.storage.set('ProfileImage', null);
     this.storage.set('FCMToken', null);
+    this.loggedIn=false;
     /*________________________________*/
     this.nav.setRoot(LoginPage);//reroute to to login page
   }
