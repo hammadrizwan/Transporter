@@ -71,8 +71,8 @@ export class MyApp {
           this.rootPage = LoginPage; //set landing page as login page
           this.loadData().then(() => {
             console.log("inhere")
-            //this.updateToken();
-            //this.onNotification();
+            this.updateToken();
+            this.onNotification();
           })
         }
         else {
@@ -80,8 +80,8 @@ export class MyApp {
           this.getData().then(() => {
             console.log("inhere")
             this.loggedIn = true;
-            //this.updateToken();
-            ///this.onNotification();
+            this.updateToken();
+            this.onNotification();
           })
         }
       })
@@ -137,28 +137,28 @@ export class MyApp {
 
   }
 
-  // subscribeWatch() {
-  //   //this.watch = this.geolocation.watchPosition();
-  //   //this.watch.subscribe((data) => {
-  //     // you can set your id here
-  //     //this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
+  subscribeWatch() {
+    //this.watch = this.geolocation.watchPosition();
+    //this.watch.subscribe((data) => {
+      // you can set your id here
+      //this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
 
-  //   //});
-  //   //this.watch.unsubscribe();
-  // //   this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
-  // //     this.geolocation.getCurrentPosition().then(
-  // //       (position) => {
-  // //         console.log("ALoha" + position.coords.latitude, position.coords.longitude);
-  // //         let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-  // //         if (JSON.stringify(this.myPosition) !=JSON.stringify(newPosition)) {
-  // //           this.updateGeolocation(position.coords.latitude,position.coords.longitude);
-  // //           this.myPosition=newPosition;
-  // //           console.log("my:"+this.myPosition)
-  // //           console.log("new:"+newPosition)
-  // //         }
-  // //   });
-  // // });
-  // }
+    // });
+    // this.watch.unsubscribe();
+    this.observer = Observable.interval(5000).subscribe(() => {//update timer to 20 seconds
+      this.geolocation.getCurrentPosition().then(
+        (position) => {
+          console.log("ALoha" + position.coords.latitude, position.coords.longitude);
+          let newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          if (JSON.stringify(this.myPosition) !=JSON.stringify(newPosition)) {
+            this.updateGeolocation(position.coords.latitude,position.coords.longitude);
+            this.myPosition=newPosition;
+            console.log("my:"+this.myPosition)
+            console.log("new:"+newPosition)
+          }
+    });
+  });
+  }
   updateGeolocation(lat, lng) {
     this.storage.get('ID').then((val) => {//get User ID
       this.ID = val;

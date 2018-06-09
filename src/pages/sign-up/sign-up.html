@@ -22,8 +22,8 @@
 
   <ion-item class="background">
     <ion-avatar item-start>
-      <button ion-button round large icon-only color="primary" (click)="presentActionSheet(1)">
-        <ion-icon class="photo1" *ngIf="lastImage1==null" name="add-circle" large></ion-icon>
+      <button  *ngIf="lastImage1==null" ion-button round large icon-only color="primary" (click)="presentActionSheet(1)">
+        <ion-icon class="photo1"  name="add-circle" large></ion-icon>
       </button>
       <img src="{{pathForImage(lastImage1)}}" class="avatar1" *ngIf="lastImage1!=null">
     </ion-avatar>
@@ -37,8 +37,8 @@
   <ion-item class="background">
     <h2 class="inputs">Liscence</h2>
     <ion-avatar item-start>
-        <button ion-button round large icon-only color="primary" (click)="presentActionSheet(2)">
-            <ion-icon class="photo1" *ngIf="lastImage1==null" name="add-circle" large></ion-icon>
+        <button *ngIf="lastImage2==null" ion-button round large icon-only color="primary" (click)="presentActionSheet(2)">
+            <ion-icon class="photo1"  name="add-circle" large></ion-icon>
           </button>
       <img src="{{pathForImage(lastImage2)}}" class="avatar1" *ngIf="lastImage2 !=null">
     </ion-avatar>
@@ -51,8 +51,8 @@
   <ion-item class="background">
     <h2 class="inputs">Vehicle Registration</h2>
     <ion-avatar item-start>
-        <button ion-button round large icon-only color="primary" (click)="presentActionSheet(3)">
-            <ion-icon class="photo1" *ngIf="lastImage1==null" name="add-circle" large></ion-icon>
+        <button *ngIf="lastImage3==null" ion-button round large icon-only color="primary" (click)="presentActionSheet(3)">
+            <ion-icon class="photo1"  name="add-circle" large></ion-icon>
           </button>
       <img src="{{pathForImage(lastImage3)}}" class="avatar1" *ngIf="lastImage3!=null">
     </ion-avatar>

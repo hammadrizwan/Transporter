@@ -61,7 +61,7 @@ export class LoginPage {
       'Password': this.Password.value,//password
     };
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading...',
+      content: 'Logging In...',
     });
     this.loading.present();
     setTimeout(100);
@@ -108,8 +108,7 @@ export class LoginPage {
   }
   presentErrorAlert(text) {//error alert creator method
     let alert = this.alertCtrl.create({
-      title: 'Error',
-      subTitle: text,
+      title: text,
       buttons: ['Dismiss']
     });
     alert.present();

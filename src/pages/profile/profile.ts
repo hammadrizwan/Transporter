@@ -43,6 +43,9 @@ export class ProfilePage {
   private getData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
     return new Promise((resolve, reject) => {
       //put the values in local storage
+      this.storage.get('ProfileImage').then((val) => {
+        this.profileImage = val;
+      });
       this.storage.get('ID').then((val) => {
         this.ID = val;
   
@@ -52,14 +55,15 @@ export class ProfilePage {
           console.log(this.name);
           this.contantInfo = response.content[0].Phone;
           console.log(this.contantInfo);
-          this.rating = Array(response.content[0].Rating).fill(response.content[0].Rating);
+          this.rating = Array(Math.round(response.content[0].Rating)).fill(Math.round(response.content[0].Rating));
           console.log(this.rating);
           this.clearenceDue = response.content[0].ClearenceDue;
           console.log(this.clearenceDue);
           this.cancelledPackages = response.content[0].CancelledPackages;
           this.activePackages = response.content[0].ActivePackages;
           console.log(this.cancelledPackages);
-          this.profileImage = response.content[0].ProfileImage;
+          
+          //this.profileImage = response.content[0].ProfileImage;
           this.DeliveredPackages = response.content[0].DeliveredPackages;
         },
           err => {
@@ -113,8 +117,7 @@ export class ProfilePage {
 
   presentErrorAlert(text) {
     let alert = this.alertCtrl.create({
-      title: 'Alert',
-      subTitle: text,
+      title: text,
       buttons: ['Dismiss']
     });
     alert.present();

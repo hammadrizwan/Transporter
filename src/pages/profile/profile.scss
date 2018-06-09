@@ -2,12 +2,12 @@ page-profile {
 
 
 .background1{
+    
     background:color($colors, light);
 }
-.round{
+.profileImage2{
     width: 140px !important;
     height: 140px !important;
-    
 }
 .card2{
     padding:-15px;
@@ -43,5 +43,8 @@ page-profile {
     color: color($colors, lightthemeblue);
     font-style: italic;
     font-family: Arial, Helvetica, sans-serif;
+}
+.cards{
+    padding-top:15%;
 }
 }
