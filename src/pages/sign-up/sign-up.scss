@@ -16,3 +16,12 @@ page-sign-up {
 .errorline{
     color: red;
 }
+.background {
+    background-color: color($colors, themeblue);
+}
+.inputs{
+    color:white;
+}
+.errors{
+    background-color: color($colors, themeblue);
+}

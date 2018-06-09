@@ -16605,7 +16605,7 @@ ion-label[floating] {
 .input-has-focus .label-md[stacked],
 .item-input-has-focus .label-md[floating],
 .input-has-focus .label-md[floating] {
-  color: #488aff;
+  color: #f4f4f4;
 }
 
 .item-input-has-focus .label-md[floating],
@@ -33524,6 +33524,11 @@ page-delivered .imagePackage {
   background: #e52d27;
 }
 
+.ioniconcolor1 {
+  color: #033860;
+  font-size: 20px;
+}
+
 page-enroute #buttonSearch {
   margin-top: 50px;
   padding: none;
@@ -33603,7 +33608,19 @@ page-help #map {
 }
 
 .forms {
-  padding-top: 35%;
+  padding-top: 0%;
+}
+
+.background {
+  background-color: #033860;
+}
+
+.inputs {
+  color: white;
+}
+
+.errors {
+  background-color: #033860;
 }
 
 page-nearby .buttonitem {
@@ -33742,6 +33759,11 @@ page-nearby ion-searchbar {
   height: 30%;
 }
 
+.ioniconcolor1 {
+  color: #033860;
+  font-size: 20px;
+}
+
 page-profile .background1 {
   background: #f4f4f4;
 }
@@ -33808,4 +33830,16 @@ page-profile .contents {
 
 .errorline {
   color: red;
+}
+
+.background {
+  background-color: #033860;
+}
+
+.inputs {
+  color: white;
+}
+
+.errors {
+  background-color: #033860;
 }

@@ -4,6 +4,271 @@ webpackJsonp([14],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AllPackagesPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var AllPackagesPage = (function () {
+    function AllPackagesPage(navCtrl, navParams, http, storage, alertCtrl) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.http = http;
+        this.storage = storage;
+        this.alertCtrl = alertCtrl;
+        this.responseData = [];
+        this.skips = 0;
+        this.storage.get('ID').then(function (val) {
+            _this.ID = val;
+            console.log("va" + val);
+            console.log(_this.ID);
+            _this.http.get('http://localhost:5000/allpackages', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
+                .map(function (res) { return res.json(); }).subscribe(function (response) {
+                response.content.map(function (item) {
+                    _this.responseData.push(item);
+                });
+                console.log(response.content);
+            });
+        }, function (err) {
+            console.log('error');
+        });
+    }
+    AllPackagesPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad AllPackagesPage');
+    };
+    AllPackagesPage.prototype.openPackageDetailsPage = function (i) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseData[i]);
+    };
+    AllPackagesPage.prototype.doInfinite = function (infiniteScroll) {
+        var _this = this;
+        this.infiniteScroll = infiniteScroll;
+        this.skips = this.skips + 10;
+        var length = this.responseData.length;
+        setTimeout(function () {
+            _this.http.get('http://localhost:5000/allpackages', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                response.content.map(function (item) {
+                    _this.responseData.push(item);
+                });
+                if (response.content == '') {
+                    console.log("End reached");
+                }
+            }, function (err) {
+                console.log('error');
+            });
+            // for (let i = 0; i < 30; i++) {
+            //   this.items.push( this.items.length );
+            // }
+            if (length == _this.responseData.length) {
+                _this.presentErrorAlert("There are no more packages left to show");
+                infiniteScroll.enable(false);
+            }
+            console.log('Async operation has ended');
+            infiniteScroll.complete();
+        }, 300);
+    };
+    AllPackagesPage.prototype.presentErrorAlert = function (text) {
+        var alert = this.alertCtrl.create({
+            title: 'Alert',
+            subTitle: text,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
+    AllPackagesPage.prototype.doRefresh = function (refresher) {
+        var _this = this;
+        console.log('Begin async operation', refresher);
+        this.responseData = [];
+        this.skips = 0;
+        setTimeout(function () {
+            console.log('Async operation has ended');
+            _this.storage.get('ID').then(function (val) {
+                _this.ID = val;
+                console.log("va" + val);
+                console.log(_this.ID);
+                _this.http.get('http://localhost:5000/allpackages', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
+                    .map(function (res) { return res.json(); }).subscribe(function (response) {
+                    response.content.map(function (item) {
+                        _this.responseData.push(item);
+                    });
+                    console.log(response.content);
+                });
+            }, function (err) {
+                console.log('error');
+            });
+            refresher.complete();
+            if (_this.infiniteScroll != null) {
+                _this.infiniteScroll.enable(true);
+            }
+        }, 2000);
+    };
+    return AllPackagesPage;
+}());
+AllPackagesPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-all-packages',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-card *ngFor="let item of responseData, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n      <img src="assets/imgs/advance-card-map-madison.png">\n\n  \n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2>To:</h2>\n      <p>{{item.PickAddress}}</p>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2>From:</h2>\n      <p>{{item.DestAddress}}</p>\n    </ion-item>\n\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n          <h2></h2>\n          <p>RS:2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <label>Package Size:</label>\n          <h2 ion-text>{{item.PackageSize}}</h2>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n          <p>{{item.TransportType}}</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      Accept\n    </button>\n\n\n  </ion-card> -->\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n      <ion-refresher-content\n      pullingIcon="arrow-dropdown"\n      pullingText="Pull to refresh"\n      refreshingText="Refreshing...">\n    </ion-refresher-content>\n</ion-refresher>\n  <ion-card *ngFor="let item of responseData, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <ion-thumbnail>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    </ion-thumbnail>\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>\n  \n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
+], AllPackagesPage);
+
+//# sourceMappingURL=all-packages.js.map
+
+/***/ }),
+
+/***/ 149:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DeliveredPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__packagedetail_packagedetail__ = __webpack_require__(47);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+/**
+ * Generated class for the DeliveredPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var DeliveredPage = (function () {
+    function DeliveredPage(navCtrl, navParams, storage, alertCtrl, http) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.storage = storage;
+        this.alertCtrl = alertCtrl;
+        this.http = http;
+        this.responseDataDelivered = []; //to hold packages data
+        this.skips = 0; //initialise the skips to 0
+        this.storage.get('ID').then(function (val) {
+            _this.ID = val;
+            _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
+                .map(function (res) { return res.json(); }).subscribe(function (response) {
+                response.content.map(function (item) {
+                    _this.responseDataDelivered.push(item); //insert packages into array
+                });
+                console.log(response.content);
+            });
+        }, function (err) {
+            console.log('error');
+        });
+    }
+    DeliveredPage.prototype.openPackageDetailsPage = function (i) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataDelivered[i]); //open package details page
+    };
+    DeliveredPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad DeliveredPage');
+    };
+    DeliveredPage.prototype.doInfinite = function (infiniteScroll) {
+        var _this = this;
+        this.infiniteScroll = infiniteScroll; //create infinitescroll object
+        this.skips += 10; //skip the skip+10 messages
+        var length = this.responseDataDelivered.length; //to check if no more packages are available
+        setTimeout(function () {
+            _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                response.content.map(function (item) {
+                    _this.responseDataDelivered.push(item); //insert packages into list to be displayed
+                });
+            }, function (err) {
+                console.log(err); //if http returns an error show it
+            });
+            // for (let i = 0; i < 30; i++) {
+            //   this.items.push( this.items.length );
+            // }
+            if (length == _this.responseDataDelivered.length) {
+                _this.presentErrorAlert("There are no more packages left to show");
+                infiniteScroll.enable(false);
+            }
+            console.log('Async operation has ended');
+            infiniteScroll.complete();
+        }, 300);
+    };
+    DeliveredPage.prototype.presentErrorAlert = function (text) {
+        var alert = this.alertCtrl.create({
+            title: text,
+            buttons: ['Dismiss'] //dismiss alert shown
+        });
+        alert.present(); //present alert to user
+    };
+    DeliveredPage.prototype.doRefresh = function (refresher) {
+        var _this = this;
+        console.log('Begin async operation', refresher);
+        this.responseDataDelivered = []; //reset the array data to empty
+        this.skips = 0; //reset the number of packages already served
+        console.log('Async operation has ended');
+        this.storage.get('ID').then(function (val) {
+            _this.ID = val;
+            console.log("va" + val);
+            console.log(_this.ID);
+            _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
+                .map(function (res) { return res.json(); }).subscribe(function (response) {
+                response.content.map(function (item) {
+                    _this.responseDataDelivered.push(item);
+                });
+                console.log(response.content);
+            });
+        }, function (err) {
+            console.log(err); //if error with http request log
+        });
+        refresher.complete(); //complete refreshing process and dismiss loading 
+        if (this.infiniteScroll != null) {
+            this.infiniteScroll.enable(true); //reset infinite scroll if turned off
+        }
+    };
+    return DeliveredPage;
+}());
+DeliveredPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-delivered',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/'<!--\n\n  Generated template for the DeliveredPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar class="colornavbar">\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Delivered Packages</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n\n\n\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingText="Refreshing...">\n\n    </ion-refresher-content>\n\n  </ion-refresher>\n\n  <ion-card *ngFor="let item of responseDataDelivered, let i= index">\n\n    <ion-item>\n\n      <h2>Fare</h2>\n\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2>Transport Type:</h2>\n\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <h2 class="ioniconcolor1">To: {{item.PackageName}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <h2 class="ioniconcolor1">From: {{item.PackageDesc}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n  </ion-card>\n\n\n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]])
+], DeliveredPage);
+
+//# sourceMappingURL=delivered.js.map
+
+/***/ }),
+
+/***/ 150:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnqueuedetailsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enqueue_enqueue__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
@@ -353,286 +618,6 @@ EnqueuedetailsPage = __decorate([
 //   });
 // } 
 //# sourceMappingURL=enqueuedetails.js.map
-
-/***/ }),
-
-/***/ 149:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DeliveredPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__packagedetail_packagedetail__ = __webpack_require__(47);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-/**
- * Generated class for the DeliveredPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var DeliveredPage = (function () {
-    function DeliveredPage(navCtrl, navParams, storage, alertCtrl, http) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.storage = storage;
-        this.alertCtrl = alertCtrl;
-        this.http = http;
-        this.responseDataDelivered = []; //to hold packages data
-        this.skips = 0; //initialise the skips to 0
-        this.storage.get('ID').then(function (val) {
-            _this.ID = val;
-            _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
-                .map(function (res) { return res.json(); }).subscribe(function (response) {
-                response.content.map(function (item) {
-                    _this.responseDataDelivered.push(item); //insert packages into array
-                });
-                console.log(response.content);
-            });
-        }, function (err) {
-            console.log('error');
-        });
-    }
-    DeliveredPage.prototype.openPackageDetailsPage = function (i) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseDataDelivered[i]); //open package details page
-    };
-    DeliveredPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad DeliveredPage');
-    };
-    DeliveredPage.prototype.doInfinite = function (infiniteScroll) {
-        var _this = this;
-        this.infiniteScroll = infiniteScroll; //create infinitescroll object
-        this.skips += 10; //skip the skip+10 messages
-        var length = this.responseDataDelivered.length; //to check if no more packages are available
-        setTimeout(function () {
-            _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                response.content.map(function (item) {
-                    _this.responseDataDelivered.push(item); //insert packages into list to be displayed
-                });
-            }, function (err) {
-                console.log(err); //if http returns an error show it
-            });
-            // for (let i = 0; i < 30; i++) {
-            //   this.items.push( this.items.length );
-            // }
-            if (length == _this.responseDataDelivered.length) {
-                _this.presentErrorAlert("There are no more packages left to show");
-                infiniteScroll.enable(false);
-            }
-            console.log('Async operation has ended');
-            infiniteScroll.complete();
-        }, 300);
-    };
-    DeliveredPage.prototype.presentErrorAlert = function (text) {
-        var alert = this.alertCtrl.create({
-            title: text,
-            buttons: ['Dismiss'] //dismiss alert shown
-        });
-        alert.present(); //present alert to user
-    };
-    DeliveredPage.prototype.doRefresh = function (refresher) {
-        var _this = this;
-        console.log('Begin async operation', refresher);
-        this.responseDataDelivered = []; //reset the array data to empty
-        this.skips = 0; //reset the number of packages already served
-        console.log('Async operation has ended');
-        this.storage.get('ID').then(function (val) {
-            _this.ID = val;
-            console.log("va" + val);
-            console.log(_this.ID);
-            _this.http.get('http://localhost:5000/deliveredPackges', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
-                .map(function (res) { return res.json(); }).subscribe(function (response) {
-                response.content.map(function (item) {
-                    _this.responseDataDelivered.push(item);
-                });
-                console.log(response.content);
-            });
-        }, function (err) {
-            console.log(err); //if error with http request log
-        });
-        refresher.complete(); //complete refreshing process and dismiss loading 
-        if (this.infiniteScroll != null) {
-            this.infiniteScroll.enable(true); //reset infinite scroll if turned off
-        }
-    };
-    return DeliveredPage;
-}());
-DeliveredPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-delivered',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/'<!--\n\n  Generated template for the DeliveredPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar class="colornavbar">\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Delivered Packages</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n\n\n\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingText="Refreshing...">\n\n    </ion-refresher-content>\n\n  </ion-refresher>\n\n  <ion-card *ngFor="let item of responseDataDelivered, let i= index">\n\n    <ion-item>\n\n      <h2>Fare</h2>\n\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2>Transport Type:</h2>\n\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <h2 class="ioniconcolor1">To: {{item.PackageName}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <h2 class="ioniconcolor1">From: {{item.PackageDesc}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n  </ion-card>\n\n\n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]])
-], DeliveredPage);
-
-//# sourceMappingURL=delivered.js.map
-
-/***/ }),
-
-/***/ 150:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HelpPage; });
-/* unused harmony export snapshotToArray */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var HelpPage = (function () {
-    function HelpPage(navCtrl, navParams, platform, storage, geolocation) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.platform = platform;
-        this.storage = storage;
-        this.geolocation = geolocation;
-        this.markers = [];
-        this.ref = __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/');
-        platform.ready().then(function () {
-            _this.initMap();
-        }); //add this
-        this.ref.on('value', function (resp) {
-            _this.deleteMarkers();
-            snapshotToArray(resp).forEach(function (data) {
-                // let image = 'assets/imgs/green-bike.png';
-                var updatelocation = new google.maps.LatLng(data.latitude, data.longitude);
-                _this.addMarker(updatelocation);
-                //his.setMapOnAll(this.map);
-                console.log("inside the top if");
-                //  let image = 'assets/imgs/blue-bike.png';
-                // updatelocation = new google.maps.LatLng(data.latitude,data.longitude);
-                // this.addMarker(updatelocation);
-                // this.setMapOnAll(this.map);
-                // console.log("inside the top else");
-            });
-        });
-    }
-    HelpPage.prototype.initMap = function () {
-        var _this = this;
-        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then(function (resp) {
-            var mylocation = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-            _this.map = new google.maps.Map(_this.mapElement.nativeElement, {
-                zoom: 15,
-                center: mylocation
-            });
-        });
-        this.watch = this.geolocation.watchPosition();
-        this.watch.subscribe(function (data) {
-            _this.deleteMarkers();
-            // you can set your id here
-            _this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
-            var updatelocation = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
-            // let image = 'assets/imgs/blue-bike.png';
-            _this.addMarker(updatelocation);
-            //this.setMapOnAll(this.map);
-            console.log("workisdas");
-        });
-        //this.watch.unsubscribe();
-    };
-    HelpPage.prototype.addMarker = function (location) {
-        var marker = new google.maps.Marker({
-            position: location,
-            map: this.map,
-        });
-        this.markers.push(marker);
-    };
-    HelpPage.prototype.setMapOnAll = function (map) {
-        for (var i = 0; i < this.markers.length; i++) {
-            this.markers[i].setMap(map);
-        }
-    };
-    HelpPage.prototype.clearMarkers = function () {
-        this.setMapOnAll(null);
-    };
-    HelpPage.prototype.deleteMarkers = function () {
-        this.clearMarkers();
-        this.markers = [];
-    };
-    HelpPage.prototype.updateGeolocation = function (uuid, lat, lng) {
-        // if(localStorage.getItem('sdas')) {
-        __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/' + "MY ID").set({
-            ID: "Ad",
-            latitude: lat,
-            longitude: lng
-        });
-        console.log("inside if" + localStorage.getItem('mykey'));
-        // } else {
-        //   let newData = this.ref.push();
-        //   newData.set({
-        //     ID: "Ad",
-        //     latitude: lat,
-        //     longitude: lng
-        //   });
-        //   console.log("inside else");
-        //   localStorage.setItem('mykey', newData.key);
-        // }
-    };
-    return HelpPage;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])('map'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
-], HelpPage.prototype, "mapElement", void 0);
-HelpPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-help',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\help\help.html"*/'<!--\n  Generated template for the HelpPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Help</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div #map id="map"></div>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\help\help.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
-], HelpPage);
-
-var snapshotToArray = function (snapshot) {
-    var returnArr = [];
-    snapshot.forEach(function (childSnapshot) {
-        var item = childSnapshot.val();
-        //console.log("value of item"+childSnapshot.toJSON());
-        item.key = childSnapshot.key;
-        //  console.log("value of item.key"+item.key);
-        if (item.ID == "Ad") {
-            console.log(item.longitude);
-            returnArr.push(item);
-            console.log("hello hey whtsupp");
-        }
-    });
-    return returnArr;
-};
-//# sourceMappingURL=help.js.map
 
 /***/ }),
 
@@ -1090,6 +1075,156 @@ EnroutePage = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HelpPage; });
+/* unused harmony export snapshotToArray */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var HelpPage = (function () {
+    function HelpPage(navCtrl, navParams, platform, storage, geolocation) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.platform = platform;
+        this.storage = storage;
+        this.geolocation = geolocation;
+        this.markers = [];
+        this.ref = __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/');
+        platform.ready().then(function () {
+            _this.initMap();
+        }); //add this
+        this.ref.on('value', function (resp) {
+            _this.deleteMarkers();
+            snapshotToArray(resp).forEach(function (data) {
+                // let image = 'assets/imgs/green-bike.png';
+                var updatelocation = new google.maps.LatLng(data.latitude, data.longitude);
+                _this.addMarker(updatelocation);
+                //his.setMapOnAll(this.map);
+                console.log("inside the top if");
+                //  let image = 'assets/imgs/blue-bike.png';
+                // updatelocation = new google.maps.LatLng(data.latitude,data.longitude);
+                // this.addMarker(updatelocation);
+                // this.setMapOnAll(this.map);
+                // console.log("inside the top else");
+            });
+        });
+    }
+    HelpPage.prototype.initMap = function () {
+        var _this = this;
+        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then(function (resp) {
+            var mylocation = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+            _this.map = new google.maps.Map(_this.mapElement.nativeElement, {
+                zoom: 15,
+                center: mylocation
+            });
+        });
+        this.watch = this.geolocation.watchPosition();
+        this.watch.subscribe(function (data) {
+            _this.deleteMarkers();
+            // you can set your id here
+            _this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
+            var updatelocation = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
+            // let image = 'assets/imgs/blue-bike.png';
+            _this.addMarker(updatelocation);
+            //this.setMapOnAll(this.map);
+            console.log("workisdas");
+        });
+        //this.watch.unsubscribe();
+    };
+    HelpPage.prototype.addMarker = function (location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: this.map,
+        });
+        this.markers.push(marker);
+    };
+    HelpPage.prototype.setMapOnAll = function (map) {
+        for (var i = 0; i < this.markers.length; i++) {
+            this.markers[i].setMap(map);
+        }
+    };
+    HelpPage.prototype.clearMarkers = function () {
+        this.setMapOnAll(null);
+    };
+    HelpPage.prototype.deleteMarkers = function () {
+        this.clearMarkers();
+        this.markers = [];
+    };
+    HelpPage.prototype.updateGeolocation = function (uuid, lat, lng) {
+        // if(localStorage.getItem('sdas')) {
+        __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/' + "MY ID").set({
+            ID: "Ad",
+            latitude: lat,
+            longitude: lng
+        });
+        console.log("inside if" + localStorage.getItem('mykey'));
+        // } else {
+        //   let newData = this.ref.push();
+        //   newData.set({
+        //     ID: "Ad",
+        //     latitude: lat,
+        //     longitude: lng
+        //   });
+        //   console.log("inside else");
+        //   localStorage.setItem('mykey', newData.key);
+        // }
+    };
+    return HelpPage;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])('map'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+], HelpPage.prototype, "mapElement", void 0);
+HelpPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-help',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\help\help.html"*/'<!--\n  Generated template for the HelpPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Help</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div #map id="map"></div>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\help\help.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
+], HelpPage);
+
+var snapshotToArray = function (snapshot) {
+    var returnArr = [];
+    snapshot.forEach(function (childSnapshot) {
+        var item = childSnapshot.val();
+        //console.log("value of item"+childSnapshot.toJSON());
+        item.key = childSnapshot.key;
+        //  console.log("value of item.key"+item.key);
+        if (item.ID == "Ad") {
+            console.log(item.longitude);
+            returnArr.push(item);
+            console.log("hello hey whtsupp");
+        }
+    });
+    return returnArr;
+};
+//# sourceMappingURL=help.js.map
+
+/***/ }),
+
+/***/ 153:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NearbyPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
@@ -1345,141 +1480,6 @@ NearbyPage = __decorate([
 ], NearbyPage);
 
 //# sourceMappingURL=nearby.js.map
-
-/***/ }),
-
-/***/ 153:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AllPackagesPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var AllPackagesPage = (function () {
-    function AllPackagesPage(navCtrl, navParams, http, storage, alertCtrl) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.http = http;
-        this.storage = storage;
-        this.alertCtrl = alertCtrl;
-        this.responseData = [];
-        this.skips = 0;
-        this.storage.get('ID').then(function (val) {
-            _this.ID = val;
-            console.log("va" + val);
-            console.log(_this.ID);
-            _this.http.get('http://localhost:5000/allpackages', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
-                .map(function (res) { return res.json(); }).subscribe(function (response) {
-                response.content.map(function (item) {
-                    _this.responseData.push(item);
-                });
-                console.log(response.content);
-            });
-        }, function (err) {
-            console.log('error');
-        });
-    }
-    AllPackagesPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad AllPackagesPage');
-    };
-    AllPackagesPage.prototype.openPackageDetailsPage = function (i) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__packagedetail_packagedetail__["a" /* PackagedetailPage */], this.responseData[i]);
-    };
-    AllPackagesPage.prototype.doInfinite = function (infiniteScroll) {
-        var _this = this;
-        this.infiniteScroll = infiniteScroll;
-        this.skips = this.skips + 10;
-        var length = this.responseData.length;
-        setTimeout(function () {
-            _this.http.get('http://localhost:5000/allpackages', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                response.content.map(function (item) {
-                    _this.responseData.push(item);
-                });
-                if (response.content == '') {
-                    console.log("End reached");
-                }
-            }, function (err) {
-                console.log('error');
-            });
-            // for (let i = 0; i < 30; i++) {
-            //   this.items.push( this.items.length );
-            // }
-            if (length == _this.responseData.length) {
-                _this.presentErrorAlert("There are no more packages left to show");
-                infiniteScroll.enable(false);
-            }
-            console.log('Async operation has ended');
-            infiniteScroll.complete();
-        }, 300);
-    };
-    AllPackagesPage.prototype.presentErrorAlert = function (text) {
-        var alert = this.alertCtrl.create({
-            title: 'Alert',
-            subTitle: text,
-            buttons: ['Dismiss']
-        });
-        alert.present();
-    };
-    AllPackagesPage.prototype.doRefresh = function (refresher) {
-        var _this = this;
-        console.log('Begin async operation', refresher);
-        this.responseData = [];
-        this.skips = 0;
-        setTimeout(function () {
-            console.log('Async operation has ended');
-            _this.storage.get('ID').then(function (val) {
-                _this.ID = val;
-                console.log("va" + val);
-                console.log(_this.ID);
-                _this.http.get('http://localhost:5000/allpackages', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } })
-                    .map(function (res) { return res.json(); }).subscribe(function (response) {
-                    response.content.map(function (item) {
-                        _this.responseData.push(item);
-                    });
-                    console.log(response.content);
-                });
-            }, function (err) {
-                console.log('error');
-            });
-            refresher.complete();
-            if (_this.infiniteScroll != null) {
-                _this.infiniteScroll.enable(true);
-            }
-        }, 2000);
-    };
-    return AllPackagesPage;
-}());
-AllPackagesPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-all-packages',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-card *ngFor="let item of responseData, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n      <img src="assets/imgs/advance-card-map-madison.png">\n\n  \n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2>To:</h2>\n      <p>{{item.PickAddress}}</p>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2>From:</h2>\n      <p>{{item.DestAddress}}</p>\n    </ion-item>\n\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n          <h2></h2>\n          <p>RS:2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <label>Package Size:</label>\n          <h2 ion-text>{{item.PackageSize}}</h2>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n          <p>{{item.TransportType}}</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      Accept\n    </button>\n\n\n  </ion-card> -->\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n      <ion-refresher-content\n      pullingIcon="arrow-dropdown"\n      pullingText="Pull to refresh"\n      refreshingText="Refreshing...">\n    </ion-refresher-content>\n</ion-refresher>\n  <ion-card *ngFor="let item of responseData, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <ion-thumbnail>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    </ion-thumbnail>\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>\n  \n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
-], AllPackagesPage);
-
-//# sourceMappingURL=all-packages.js.map
 
 /***/ }),
 
@@ -2402,7 +2402,7 @@ webpackEmptyAsyncContext.id = 165;
 
 var map = {
 	"../pages/all-packages/all-packages.module": [
-		474,
+		461,
 		13
 	],
 	"../pages/delivered/delivered.module": [
@@ -2410,31 +2410,31 @@ var map = {
 		12
 	],
 	"../pages/enqueue/enqueue.module": [
-		461,
+		463,
 		11
 	],
 	"../pages/enqueuedetails/enqueuedetails.module": [
-		463,
+		464,
 		10
 	],
 	"../pages/enroute/enroute.module": [
-		469,
+		465,
 		9
 	],
 	"../pages/help/help.module": [
-		464,
+		466,
 		8
 	],
 	"../pages/home/home.module": [
-		465,
+		467,
 		7
 	],
 	"../pages/login/login.module": [
-		467,
+		468,
 		6
 	],
 	"../pages/nearby/nearby.module": [
-		466,
+		469,
 		5
 	],
 	"../pages/notifications/notifications.module": [
@@ -2442,19 +2442,19 @@ var map = {
 		4
 	],
 	"../pages/packagedetail/packagedetail.module": [
-		468,
+		471,
 		3
 	],
 	"../pages/pending-requests/pending-requests.module": [
-		471,
+		472,
 		2
 	],
 	"../pages/profile/profile.module": [
-		472,
+		473,
 		1
 	],
 	"../pages/sign-up/sign-up.module": [
-		473,
+		474,
 		0
 	]
 };
@@ -2505,20 +2505,20 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(151);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_list_list__ = __webpack_require__(460);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file__ = __webpack_require__(249);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_file_transfer__ = __webpack_require__(250);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_file_path__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_camera__ = __webpack_require__(252);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_enqueuedetails_enqueuedetails__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_packagedetail_packagedetail__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_pending_requests_pending_requests__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_profile_profile__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_all_packages_all_packages__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_all_packages_all_packages__ = __webpack_require__(148);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_enqueue_enqueue__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_notifications_notifications__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_delivered_delivered__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_help_help__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_help_help__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_login_login__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_geolocation__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_fcm__ = __webpack_require__(81);
@@ -2589,20 +2589,20 @@ AppModule = __decorate([
                 tabsPlacement: 'top',
             }, {
                 links: [
-                    { loadChildren: '../pages/enqueue/enqueue.module#EnqueuePageModule', name: 'EnqueuePage', segment: 'enqueue', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/all-packages/all-packages.module#AllPackagesPageModule', name: 'AllPackagesPage', segment: 'all-packages', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/delivered/delivered.module#DeliveredPageModule', name: 'DeliveredPage', segment: 'delivered', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/enqueue/enqueue.module#EnqueuePageModule', name: 'EnqueuePage', segment: 'enqueue', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/enqueuedetails/enqueuedetails.module#EnqueuedetailsPageModule', name: 'EnqueuedetailsPage', segment: 'enqueuedetails', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/help/help.module#HelpPageModule', name: 'HelpPage', segment: 'help', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/nearby/nearby.module#NearbyPageModule', name: 'NearbyPage', segment: 'nearby', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/packagedetail/packagedetail.module#PackagedetailPageModule', name: 'PackagedetailPage', segment: 'packagedetail', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/nearby/nearby.module#NearbyPageModule', name: 'NearbyPage', segment: 'nearby', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule', name: 'NotificationsPage', segment: 'notifications', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/packagedetail/packagedetail.module#PackagedetailPageModule', name: 'PackagedetailPage', segment: 'packagedetail', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/pending-requests/pending-requests.module#PendingRequestsPageModule', name: 'PendingRequestsPage', segment: 'pending-requests', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/all-packages/all-packages.module#AllPackagesPageModule', name: 'AllPackagesPage', segment: 'all-packages', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/sign-up/sign-up.module#SignUpPageModule', name: 'SignUpPage', segment: 'sign-up', priority: 'low', defaultHistory: [] }
                 ]
             }),
             __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -2661,7 +2661,7 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_profile_profile__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_enqueue_enqueue__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_help_help__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_help_help__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_storage__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_geolocation__ = __webpack_require__(43);
@@ -3207,8 +3207,8 @@ PackagedetailPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__all_packages_all_packages__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__all_packages_all_packages__ = __webpack_require__(148);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3260,7 +3260,7 @@ HomePage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnqueuePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enqueuedetails_enqueuedetails__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enqueuedetails_enqueuedetails__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

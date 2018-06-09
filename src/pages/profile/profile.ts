@@ -29,6 +29,7 @@ export class ProfilePage {
   userReviews = [];
   skips: number;
   infiniteScroll: any;
+  DeliveredPackages:any
   setValues:Boolean=false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage
     , public http: Http, private alertCtrl: AlertController) {
@@ -59,7 +60,7 @@ export class ProfilePage {
           this.activePackages = response.content[0].ActivePackages;
           console.log(this.cancelledPackages);
           this.profileImage = response.content[0].ProfileImage;
-  
+          this.DeliveredPackages = response.content[0].DeliveredPackages;
         },
           err => {
             console.log('error');

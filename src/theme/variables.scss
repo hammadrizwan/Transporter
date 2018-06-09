@@ -43,7 +43,7 @@ $colors: (
   lightthemeblue: #2a4255,
   navbarcolor:#e52d27,  
 );
- 
+$label-md-text-color-focused:color($colors, light);
 $toolbar-background: color($colors, themeblue);
 $tabs-md-tab-text-color-active	: color($colors, navbarcolor);
 $tabs-md-tab-icon-color-active : color($colors, navbarcolor);

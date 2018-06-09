@@ -192,6 +192,7 @@ export class EnqueuedetailsPage {
                   this.presentNotification("Pick Up confirmed", "picked up");
                   this.inProgress = true;//in progress set to true shows the input field to enter key and verify the PIN
                   this.cancellationOption = false;//cancell package button is now hidden from view
+                  this.createMap();
                   this.findPath();//new route from the user to the destination instead of the source of the package
                 }
                 else {

@@ -2,5 +2,14 @@ page-login {
 
 }
 .forms{
-    padding-top: 35%;
+    padding-top: 0%;
+}
+.background {
+    background-color: color($colors, themeblue);
+}
+.inputs{
+    color:white;
+}
+.errors{
+    background-color: color($colors, themeblue);
 }

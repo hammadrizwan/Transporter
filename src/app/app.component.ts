@@ -71,8 +71,8 @@ export class MyApp {
           this.rootPage = LoginPage; //set landing page as login page
           this.loadData().then(() => {
             console.log("inhere")
-            this.updateToken();
-            this.onNotification();
+            //this.updateToken();
+            //this.onNotification();
           })
         }
         else {
@@ -80,15 +80,15 @@ export class MyApp {
           this.getData().then(() => {
             console.log("inhere")
             this.loggedIn = true;
-            this.updateToken();
-            this.onNotification();
+            //this.updateToken();
+            ///this.onNotification();
           })
         }
       })
     });
     this.loggedIn = false;//user is not initailly logged in
-    firebase.initializeApp(config);//intialise firebase
-    this.ref = firebase.database().ref('geolocations/');//assign data base to store gelocation
+    //firebase.initializeApp(config);//intialise firebase
+    //this.ref = firebase.database().ref('geolocations/');//assign data base to store gelocation
 
     this.Name = "";//name value is not set
     this.pages = [
@@ -217,6 +217,8 @@ export class MyApp {
             this.string="Your Bid for"+data.PackageName+"has been denied";
             console.log(this.string)
             this.showNotification(this.string)
+            this.NotificationData.push(this.string);
+            this.storage.set('NotificationData', this.NotificationData);//notification data
             this.string=""
         }
         else{
@@ -232,7 +234,7 @@ export class MyApp {
         }
 
       } else {
-        this.showNotification(JSON.stringify(data));
+        //this.showNotification(JSON.stringify(data));
         console.log(data);
         if(data.PackageAcceptance=="true"){
           this.storage.get('NotificationData').then((val) => {
@@ -248,10 +250,12 @@ export class MyApp {
           });
         }
         else if(data.PackageAcceptance=="false"){
-            this.string="Your Bid for"+data.PackageName+"has been denied";
-            console.log(this.string)
-            this.showNotification(this.string)
-            this.string=""
+          this.string="Your Bid for"+data.PackageName+"has been denied";
+          console.log(this.string)
+          this.showNotification(this.string)
+          this.NotificationData.push(this.string);
+          this.storage.set('NotificationData', this.NotificationData);//notification data
+          this.string=""
         }
         else{
           this.storage.get('NotificationData').then((val) => {
