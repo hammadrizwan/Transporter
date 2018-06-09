@@ -228,8 +228,7 @@ var AllPackagesPage = (function () {
     };
     AllPackagesPage.prototype.presentErrorAlert = function (text) {
         var alert = this.alertCtrl.create({
-            title: 'Alert',
-            subTitle: text,
+            title: text,
             buttons: ['Dismiss']
         });
         alert.present();
@@ -267,13 +266,10 @@ AllPackagesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-all-packages',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-card *ngFor="let item of responseData, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n      <img src="assets/imgs/advance-card-map-madison.png">\n\n  \n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2>To:</h2>\n      <p>{{item.PickAddress}}</p>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2>From:</h2>\n      <p>{{item.DestAddress}}</p>\n    </ion-item>\n\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n          <h2></h2>\n          <p>RS:2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <label>Package Size:</label>\n          <h2 ion-text>{{item.PackageSize}}</h2>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n          <p>{{item.TransportType}}</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      Accept\n    </button>\n\n\n  </ion-card> -->\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n      <ion-refresher-content\n      pullingIcon="arrow-dropdown"\n      pullingText="Pull to refresh"\n      refreshingText="Refreshing...">\n    </ion-refresher-content>\n</ion-refresher>\n  <ion-card *ngFor="let item of responseData, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <ion-thumbnail>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    </ion-thumbnail>\n      <ion-item >\n        <h2 class="ioniconcolor1" >Fare</h2>\n        <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2  class="ioniconcolor1">Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>\n  \n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _e || Object])
 ], AllPackagesPage);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=all-packages.js.map
 
 /***/ }),
@@ -983,18 +979,19 @@ var NearbyPage = (function () {
         });
     };
     NearbyPage.prototype.addPackageMarker = function (packageSource, packageDestination, index, content) {
-        var image = "assets/icon/package.png";
+        var image1 = "assets/icon/package.png";
+        var image2 = "assets/icon/flag.png";
         var marker1 = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
             position: packageSource,
-            icon: image,
+            icon: image1,
         });
         var marker2 = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
             position: packageDestination,
-            icon: image,
+            icon: image2,
         });
         var infoWindow1 = new google.maps.InfoWindow({
             content: content
@@ -1019,30 +1016,20 @@ var NearbyPage = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('mapNearby'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */]) === "function" && _a || Object)
 ], NearbyPage.prototype, "mapElement", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* ViewChild */])('distanceInput'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */])
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ElementRef */]) === "function" && _b || Object)
 ], NearbyPage.prototype, "inputElement", void 0);
 NearbyPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
         selector: 'page-nearby',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/'<!--\n    Generated template for the AllPackagesPage page.\n\n    See http://ionicframework.com/docs/components/#navigation for more info on\n    Ionic pages and navigation.\n    \n  -->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-card id="mapNearby" #mapNearby></ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-9>\n        <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default max 5)" type="text"></ion-input>\n      </ion-col>\n      <ion-col col-3>\n        <button id="goButton" (click)="reload()" ion-button>GO!</button>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  \n  <ion-card id="divider"></ion-card>\n\n\n  <ion-card *ngFor="let item of responseDataNearby, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>  \n  </ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* App */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* ActionSheetController */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Http */]])
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* App */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* AlertController */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* ActionSheetController */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_http__["a" /* Http */]) === "function" && _p || Object])
 ], NearbyPage);
 
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
 //# sourceMappingURL=nearby.js.map
 
 /***/ }),
@@ -1562,18 +1549,19 @@ var EnroutePage = (function () {
         console.log('Clicked Marker', id);
     };
     EnroutePage.prototype.addPackageMarker = function (packageSource, packageDestination, index, content) {
-        var image = "assets/icon/package.png";
+        var image1 = "assets/icon/package.png";
+        var image2 = "assets/icon/flag.png";
         var marker1 = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
             position: packageSource,
-            icon: image,
+            icon: image1,
         });
         var marker2 = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
             position: packageDestination,
-            icon: image,
+            icon: image2,
         });
         var infoWindow1 = new google.maps.InfoWindow({
             content: content
@@ -1605,37 +1593,28 @@ var EnroutePage = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('s1'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["E" /* Input */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["E" /* Input */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["E" /* Input */]) === "function" && _a || Object)
 ], EnroutePage.prototype, "input", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('mapEnroute'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _b || Object)
 ], EnroutePage.prototype, "mapElement", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
+    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _c || Object)
 ], EnroutePage.prototype, "searchbar", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* ViewChild */])('searchbar1', { read: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] }),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */])
+    __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ElementRef */]) === "function" && _d || Object)
 ], EnroutePage.prototype, "searchbar1", void 0);
 EnroutePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
         selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n    <ion-refresher-content\n    pullingIcon="arrow-dropdown"\n    pullingText="Pull to refresh"\n    refreshingText="Refreshing...">\n  </ion-refresher-content>\n  </ion-refresher> -->\n  <ion-card class="map">\n\n    <ion-searchbar  class="searchbars"  #searchbar1 placeholder="Source:(Default Current Location)"></ion-searchbar>\n    <ion-item></ion-item>\n    <ion-searchbar class="searchbars" #searchbar placeholder="Destination:"></ion-searchbar>\n    <ion-card id="mapEnroute" #mapEnroute></ion-card>\n    <button id="buttonSearch" ion-button (click)=findPath()>Find Path</button>\n    \n  </ion-card>\n\n  <ion-card id="divider"></ion-card>\n  <ion-item>\n    <ion-textarea id="textDisplay"></ion-textarea>\n  </ion-item>\n\n  <ion-card *ngFor="let item of responseDataEnroute, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Transport Type:</h2>\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */],
-        __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
-        __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]])
+    __metadata("design:paramtypes", [typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["c" /* App */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavController */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["P" /* NgZone */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["m" /* Platform */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["b" /* AlertController */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["a" /* ActionSheetController */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]) === "function" && _q || Object])
 ], EnroutePage);
 
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
 //# sourceMappingURL=enroute.js.map
 
 /***/ }),

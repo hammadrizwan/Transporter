@@ -83,8 +83,7 @@ export class AllPackagesPage {
   }
   presentErrorAlert(text) {
     let alert = this.alertCtrl.create({
-      title: 'Alert',
-      subTitle: text,
+      title: text,
       buttons: ['Dismiss']
     });
     alert.present();

@@ -215,18 +215,20 @@ showToast(message) {
     });
   }
   addPackageMarker(packageSource, packageDestination, index, content) {
-    let image = "assets/icon/package.png";
+    let image1 = "assets/icon/package.png";
+    let image2 = "assets/icon/flag.png";
+    
     let marker1 = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: packageSource,
-      icon: image,
+      icon: image1,
     });
     let marker2 = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: packageDestination,
-      icon: image,
+      icon: image2,
     });
     let infoWindow1 = new google.maps.InfoWindow({//show text above package
       content: content
