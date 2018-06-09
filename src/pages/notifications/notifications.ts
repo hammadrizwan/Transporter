@@ -59,9 +59,8 @@ export class NotificationsPage {
   removeNotification(index){
     console.log(index);
     this.NotificationData.splice(index,1)
-    this.storage.get('NotificationData').then((val) => {
-      this.storage.set('NotificationData', this.NotificationData);//notification data
-    });
+    this.storage.set('NotificationData', this.NotificationData);//notification data
+    
   }
   showNotification(noti) {
     let alert = this.alertCtrl.create({

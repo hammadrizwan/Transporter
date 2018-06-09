@@ -200,24 +200,14 @@ export class MyApp {
   onNotification() {
     this.fcm.onNotification().subscribe(data => {//notification subscribe
       if (data.wasTapped) {//notification in background was tapped
-        this.NotificationData.push(JSON.stringify(data));//open app and show notification page
-        console.log(data);
-        this.storage.get('NotificationData').then((val) => {
-          
-          this.NotificationData.push(val);
-          this.storage.set('NotificationData', this.NotificationData);//notification data
-          this.nav.setRoot(NotificationsPage, this.NotificationData);
-        });
-
-      } else {
-        this.showNotification(JSON.stringify(data));
-        console.log(data);
         if(data.PackageAcceptance=="true"){
           this.storage.get('NotificationData').then((val) => {
             this.string="Your Bid for"+data.PackageName+"has been accepted";
+            if(val!=null){
+              this.NotificationData=val;
+            }
             console.log(this.string)
             this.NotificationData.push(this.string);
-            this.NotificationData.push(val);
             this.storage.set('NotificationData', this.NotificationData);//notification data
             this.nav.setRoot(EnqueuePage);
             this.string=""
@@ -232,8 +222,44 @@ export class MyApp {
         else{
           this.storage.get('NotificationData').then((val) => {
             console.log(data)
+            if(val!=null){
+              this.NotificationData=val;
+            }
             this.NotificationData.push(data.Notification);
-            this.NotificationData.push(val);
+            this.storage.set('NotificationData', this.NotificationData);//notification data
+            this.nav.setRoot(NotificationsPage, this.NotificationData);
+          });
+        }
+
+      } else {
+        this.showNotification(JSON.stringify(data));
+        console.log(data);
+        if(data.PackageAcceptance=="true"){
+          this.storage.get('NotificationData').then((val) => {
+            this.string="Your Bid for"+data.PackageName+"has been accepted";
+            if(val!=null){
+              this.NotificationData=val;
+            }
+            console.log(this.string)
+            this.NotificationData.push(this.string);
+            this.storage.set('NotificationData', this.NotificationData);//notification data
+            this.nav.setRoot(EnqueuePage);
+            this.string=""
+          });
+        }
+        else if(data.PackageAcceptance=="false"){
+            this.string="Your Bid for"+data.PackageName+"has been denied";
+            console.log(this.string)
+            this.showNotification(this.string)
+            this.string=""
+        }
+        else{
+          this.storage.get('NotificationData').then((val) => {
+            console.log(data)
+            if(val!=null){
+              this.NotificationData=val;
+            }
+            this.NotificationData.push(data.Notification);
             this.storage.set('NotificationData', this.NotificationData);//notification data
             this.nav.setRoot(NotificationsPage, this.NotificationData);
           });
