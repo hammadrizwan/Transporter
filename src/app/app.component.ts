@@ -264,6 +264,7 @@ export class MyApp {
               this.NotificationData=val;
             }
             this.NotificationData.push(data.Notification);
+            this.showNotification(data.Notification)
             this.storage.set('NotificationData', this.NotificationData);//notification data
             this.nav.setRoot(NotificationsPage, this.NotificationData);
           });
