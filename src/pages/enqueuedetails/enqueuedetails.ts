@@ -214,11 +214,11 @@ export class EnqueuedetailsPage {
 
   sendDelivertConfirmation(PackageID) {//confirmation of delivery
     let loading = this.loadingCtrl.create({//loading to show the request is being processed
-      content: 'Waiting for token validation...',
+      content: 'Waiting for Verification Key validation...',
     });
 
     loading.present();//present the loading
-    if (/^\d{10}$/.test(this.token)) {//Regex check that the value entered only consist of 10 digits
+    if (/^\d{8}$/.test(this.token)) {//Regex check that the value entered only consist of 10 digits
       // setTimeout(() => {
       //   this.storage.get('ID').then((val) => {
       //     this.ID = val;
@@ -239,7 +239,7 @@ export class EnqueuedetailsPage {
         }
         else {
           loading.dismiss();
-          this.presentNotification("Token Mismatch", "Failed");//wrong token was entered
+          this.presentNotification("Verification Key Mismatch", "Failed");//wrong token was entered
         }
       },
         err => {
@@ -250,12 +250,12 @@ export class EnqueuedetailsPage {
     }
     else {
       loading.dismiss();
-      this.presentNotification("Token consists of only 10 digit", "Re Check Token")
+      this.presentNotification("Verification Key consists of only 8 digits", "Re Check Token")
     }
   }
   cancelPackage(PackageID) {//method to cancel the package
     let loading = this.loadingCtrl.create({
-      content: 'Waiting for token validation...',
+      content: 'Waiting for Verification Key validation...',
     });
     //loading.present();
     this.cancelledPackage = true;
