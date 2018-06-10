@@ -48,13 +48,13 @@ export class SignUpPage {
   transportType: AbstractControl;
   Token: any;
   constructor(private navCtrl: NavController,
-    private camera: Camera,private transfer: FileTransfer,
-    private file: File,private filePath: FilePath,
-    private actionSheetCtrl: ActionSheetController,private toastCtrl: ToastController,
-    private platform: Platform,private loadingCtrl: LoadingController,
-    private formBuilder: FormBuilder,private alertCtrl: AlertController,
-    private http: Http,private storage: Storage,
-    private fcm: FCM,private events: Events,) {
+    private camera: Camera, private transfer: FileTransfer,
+    private file: File, private filePath: FilePath,
+    private actionSheetCtrl: ActionSheetController, private toastCtrl: ToastController,
+    private platform: Platform, private loadingCtrl: LoadingController,
+    private formBuilder: FormBuilder, private alertCtrl: AlertController,
+    private http: Http, private storage: Storage,
+    private fcm: FCM, private events: Events, ) {
     //formbuilder used for error checking and validation of data at client side
     this.data = this.formBuilder.group({
       lastImage1: ['', Validators.required],
@@ -156,60 +156,63 @@ export class SignUpPage {
       }
 
     }
-    this.fcm.getToken().then(token => {
-      this.Token = token;
+      this.fcm.getToken().then(token => {
+        this.Token = token;
 
-      this.loading.present();//show loading that request has been sent and response is bieng awaited for
-      this.uploadImages();
-      let Userdata = {
-        'ID': 0,
-        'Name': this.Name.value,
-        'Email': this.Email.value,
-        'TransportType': this.transportType.value,
-        'CNIC': this.CNIC.value,
-        'Phone': this.Phone.value,
-        'Address': this.Address.value,
-        'CarRegistrationNo': this.CarRegistrationNo.value,
-        'Password': this.Password.value,
-        'Date': this.Date.value,
-        'Month': this.Month.value,
-        'Year': this.Year.value,
-        'Gender': this.Gender.value,
-        'Clearence Due': 0,
-        'Rating': 0,
-        'ActivePackages': 0,
-        'CancelledPackages': 0.0,
-        'FCMToken': this.Token,
-        'ProfileImage': this.lastImage1,
-      };
+        this.loading.present();//show loading that request has been sent and response is bieng awaited for
+        this.uploadImages();
+        let Userdata = {
+          'ID': 0,
+          'Name': this.Name.value,
+          'Email': this.Email.value,
+          'TransportType': this.transportType.value,
+          'CNIC': this.CNIC.value,
+          'Phone': this.Phone.value,
+          'Address': this.Address.value,
+          'CarRegistrationNo': this.CarRegistrationNo.value,
+          'Password': this.Password.value,
+          'Date': this.Date.value,
+          'Month': this.Month.value,
+          'Year': this.Year.value,
+          'Gender': this.Gender.value,
+          'Clearence Due': 0,
+          'Rating': 0,
+          'ActivePackages': 0,
+          'CancelledPackages': 0.0,
+          'FCMToken': this.Token,
+          'ProfileImage': this.lastImage1,
+        };
 
-      this.http.post('http://localhost:5000/signuptransporter', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
-        let responseData = data;
-        console.log(responseData.Error);
 
-        if (responseData.Error != "none") {
-          this.presentErrorAlert(responseData.Error);
-        }
-        else {//if account creation successfull store these value in local storage as they will be required by the application
-          this.dataloaded(responseData).then(() => {//promise to wait for the data to be loaded
-            this.events.publish('user:loggedin', "dataloaded");//to set data values
-            this.loading.dismissAll();//dismiss loading
-            this.navCtrl.setRoot(HomePage);//go to home page
-          })
-        }
-      },
-        err => {
-          console.log('error');
-        });
-      //ALL things are now set just need to send data to the back end check for valid!!!/
-    });
-  }
-  private dataloaded(responseData): Promise<any> {//promise used to ensure data has been loaded before it is acessed
+        this.http.post('http://localhost:5000/signuptransporter', JSON.stringify(Userdata)).map(res => res.json()).subscribe(data => {
+          let responseData = data;
+          console.log(data.content)
+
+
+          if (responseData.Error != "none") {
+            this.presentErrorAlert(responseData.Error);
+          }
+          else {//if account creation successfull store these value in local storage as they will be required by the application
+            this.dataloaded(responseData).then(() => {//promise to wait for the data to be loaded
+              this.events.publish('user:loggedin', "dataloaded");//to set data values
+              this.loading.dismissAll();//dismiss loading
+              this.navCtrl.setRoot(HomePage);//go to home page
+            })
+          }
+        },
+          err => {
+            console.log('error');
+          });
+        //ALL things are now set just need to send data to the back end check for valid!!!/
+      });
+    }
+  
+  dataloaded(responseData): Promise<any> {//promise used to ensure data has been loaded before it is acessed
     return new Promise((resolve, reject) => {
       //put the values in local storage
       this.storage.set('Name', this.Name.value);//user Name
       this.storage.set('Email', this.Email.value);//user email
-      this.storage.set('ID', this.id);//User ID important
+      this.storage.set('ID', responseData.content);//User ID important
       this.storage.set('FCMToken', this.Token);//FCM token
       this.storage.set('ProfileImage', this.lastImage1);//profile image location
       let Notifications = [];//to hold notification data
@@ -219,7 +222,7 @@ export class SignUpPage {
       }, 2000);//wait just in case
     })
   }
-  private uploadImages() {
+  uploadImages() {
     let fileTransfer: FileTransferObject = this.transfer.create();
     let options1: FileUploadOptions = {//file options for profile image
       fileKey: 'file',
@@ -262,7 +265,7 @@ export class SignUpPage {
 
 
   //________________________________________________________CODE FOR CAMERA PHOTOES____________________________________
-  private presentActionSheet(id) {
+  presentActionSheet(id) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
       buttons: [
@@ -286,7 +289,7 @@ export class SignUpPage {
     });
     actionSheet.present();
   }
-  private takePicture(sourceType, id) {
+  takePicture(sourceType, id) {
     // Create options for the Camera Dialog
     var options = {
       quality: 100,
@@ -315,14 +318,14 @@ export class SignUpPage {
     });
   }
 
-  private createFileName() {//create new file name by using time 
+   createFileName() {//create new file name by using time 
     var d = new Date(),
       n = d.getTime(),
       newFileName = n + ".jpg";
     return newFileName;
   }
   // Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName, id) {
+   copyFileToLocalDir(namePath, currentName, newFileName, id) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       switch (id) {
         case 1:
@@ -349,7 +352,7 @@ export class SignUpPage {
     alert.present();
   }
   // Always get the accurate path to your apps folder
-  private pathForImage(img) {
+  pathForImage(img) {
     if (img === null) {
       return '';
     } else {

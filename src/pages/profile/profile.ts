@@ -40,7 +40,7 @@ export class ProfilePage {
     /*get Transporter ID from localstorage and  request data and put it into variables to show in view________________*/
     
   }
-  private getData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
+   getData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
     return new Promise((resolve, reject) => {
       //put the values in local storage
       this.storage.get('ProfileImage').then((val) => {

@@ -71,9 +71,10 @@ export class MyApp {
         if (val == null) {
           this.rootPage = LoginPage; //set landing page as login page
           this.loadData().then(() => {
+            this.loggedIn = true;
             console.log("inhere")
-            this.updateToken();
-            this.onNotification();
+            //this.updateToken();
+            //this.onNotification();
           })
         }
         else {
@@ -81,8 +82,8 @@ export class MyApp {
           this.getData().then(() => {
             console.log("inhere")
             this.loggedIn = true;
-            this.updateToken();
-            this.onNotification();
+            //this.updateToken();
+            //this.onNotification();
           })
         }
       })
@@ -114,8 +115,10 @@ export class MyApp {
         this.storage.get('ProfileImage').then((val) => {
           this.profileImage = val;
         });
-        this.loggedIn = true;
-        resolve();
+        
+        setTimeout(() => {//wait to storage is set        
+          resolve();
+        }, 1000);
         //wait just in case
       })
     });
@@ -129,7 +132,6 @@ export class MyApp {
       this.storage.get('ProfileImage').then((val) => {
         this.profileImage = val;
       });
-      this.loggedIn = true;
       resolve();
       //wait just in case
     })
@@ -188,14 +190,16 @@ export class MyApp {
     /*remove all storage values*/
     this.storage.set('Name', null);
     this.storage.set('Email', null);
-    this.storage.set('Password', null)
     this.storage.set('ID', null);
-    this.storage.set('Rating', null);
     this.storage.set('ProfileImage', null);
     this.storage.set('FCMToken', null);
-    this.loggedIn=false;
+
+    
     /*________________________________*/
     this.nav.setRoot(LoginPage);//reroute to to login page
+    setTimeout(() => {//wait to storage is set
+      this.loggedIn=false;
+    }, 1500);
   }
   onNotification() {
     this.fcm.onNotification().subscribe(data => {//notification subscribe
