@@ -71,8 +71,9 @@ export class MyApp {
         if (val == null) {
           this.rootPage = LoginPage; //set landing page as login page
           this.loadData().then(() => {
-            this.loggedIn = true;
+            this.loggedIn = true; 
             console.log("inhere")
+            //this.subscribeWatch();
             //this.updateToken();
             //this.onNotification();
           })
@@ -82,6 +83,7 @@ export class MyApp {
           this.getData().then(() => {
             console.log("inhere")
             this.loggedIn = true;
+           // this.subscribeWatch();
             //this.updateToken();
             //this.onNotification();
           })
@@ -116,9 +118,7 @@ export class MyApp {
           this.profileImage = val;
         });
         
-        setTimeout(() => {//wait to storage is set        
-          resolve();
-        }, 1000);
+        resolve();
         //wait just in case
       })
     });

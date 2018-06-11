@@ -121,7 +121,7 @@ var AllPackagesPage = (function () {
 }());
 AllPackagesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-all-packages',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar class="colornavbar">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-card *ngFor="let item of responseData, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n      <img src="assets/imgs/advance-card-map-madison.png">\n\n  \n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2>To:</h2>\n      <p>{{item.PickAddress}}</p>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2>From:</h2>\n      <p>{{item.DestAddress}}</p>\n    </ion-item>\n\n    <ion-row>\n      <ion-col col-4>\n        <ion-item>\n          <h2></h2>\n          <p>RS:2500</p>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <label>Package Size:</label>\n          <h2 ion-text>{{item.PackageSize}}</h2>\n        </ion-item>\n      </ion-col>\n      <ion-col col-4>\n        <ion-item>\n          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n          <p>{{item.TransportType}}</p>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      Accept\n    </button>\n\n\n  </ion-card> -->\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n      <ion-refresher-content\n      pullingIcon="arrow-dropdown"\n      pullingText="Pull to refresh"\n      refreshingText="Refreshing...">\n    </ion-refresher-content>\n</ion-refresher>\n  <ion-card *ngFor="let item of responseData, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <ion-thumbnail>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    </ion-thumbnail>\n      <ion-item >\n        <h2 class="ioniconcolor1" >Fare</h2>\n        <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2  class="ioniconcolor1">Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>\n  \n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\all-packages\all-packages.html"*/,
+        selector: 'page-all-packages',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\all-packages\all-packages.html"*/'<!--\n\n  Generated template for the AllPackagesPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n  \n\n-->\n\n\n\n<ion-header>\n\n  <ion-navbar class="colornavbar">\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Drive and Deliver</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="background1">\n\n  <!-- <ion-card *ngFor="let item of responseData, let i= index">\n\n    <ion-fab right>\n\n      <button class="buttoncolor" ion-fab>\n\n        <ion-icon name="pin"></ion-icon>\n\n      </button>\n\n      <img src="assets/imgs/advance-card-map-madison.png">\n\n\n\n  \n\n\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <h2>To:</h2>\n\n      <p>{{item.PickAddress}}</p>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <h2>From:</h2>\n\n      <p>{{item.DestAddress}}</p>\n\n    </ion-item>\n\n\n\n    <ion-row>\n\n      <ion-col col-4>\n\n        <ion-item>\n\n          <h2></h2>\n\n          <p>RS:2500</p>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-4>\n\n        <ion-item>\n\n          <label>Package Size:</label>\n\n          <h2 ion-text>{{item.PackageSize}}</h2>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-4>\n\n        <ion-item>\n\n          <ion-icon class="ioniconcolor1" name="md-car"></ion-icon>\n\n          <p>{{item.TransportType}}</p>\n\n        </ion-item>\n\n      </ion-col>\n\n    </ion-row>\n\n\n\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n\n      Accept\n\n    </button>\n\n\n\n\n\n  </ion-card> -->\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n\n      \n\n      <ion-refresher-content\n\n      pullingIcon="arrow-dropdown"\n\n      pullingText="Pull to refresh"\n\n      refreshingText="Refreshing...">\n\n    </ion-refresher-content>\n\n</ion-refresher>\n\n  <ion-card *ngFor="let item of responseData, let i= index">\n\n      <ion-fab right>\n\n        <button class="buttoncolor" ion-fab>\n\n          <ion-icon name="pin"></ion-icon>\n\n        </button>\n\n      </ion-fab>\n\n      <ion-thumbnail>\n\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n\n    </ion-thumbnail>\n\n      <ion-item >\n\n        <h2 class="ioniconcolor1" >Fare</h2>\n\n        <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n\n      </ion-item>\n\n      <ion-item >\n\n        <h2  class="ioniconcolor1">Transport Type:</h2>\n\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n\n      </ion-item>\n\n      <ion-item >\n\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n\n        </h2>\n\n      </ion-item >\n\n  \n\n      <ion-item >\n\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n\n        </h2>\n\n      </ion-item>\n\n  \n\n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n\n        View Details\n\n      </button>\n\n    </ion-card>\n\n  \n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\all-packages\all-packages.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
@@ -267,7 +267,7 @@ var DeliveredPage = (function () {
 }());
 DeliveredPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-delivered',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/'<!--\n\n  Generated template for the DeliveredPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar class="colornavbar">\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Delivered Packages</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n\n\n\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingText="Refreshing...">\n\n    </ion-refresher-content>\n\n  </ion-refresher>\n\n  <ion-card *ngFor="let item of responseDataDelivered, let i= index">\n\n    <ion-item>\n\n      <h2 class="ioniconcolor1">Fare</h2>\n\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2 class="ioniconcolor1">Transport Type:</h2>\n\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <h2 class="ioniconcolor1">To: {{item.PackageName}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <h2 class="ioniconcolor1">From: {{item.PackageDesc}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n  </ion-card>\n\n\n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\delivered\delivered.html"*/,
+        selector: 'page-delivered',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\delivered\delivered.html"*/'<!--\n\n  Generated template for the DeliveredPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar class="colornavbar">\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Delivered Packages</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n\n\n\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingText="Refreshing...">\n\n    </ion-refresher-content>\n\n  </ion-refresher>\n\n  <ion-card *ngFor="let item of responseDataDelivered, let i= index">\n\n    <ion-item>\n\n      <h2 class="ioniconcolor1">Fare</h2>\n\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.Fare}}/-</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2 class="ioniconcolor1">Transport Type:</h2>\n\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <h2 class="ioniconcolor1">To: {{item.PackageName}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <h2 class="ioniconcolor1">From: {{item.PackageDesc}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n  </ion-card>\n\n\n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\delivered\delivered.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
         __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]])
@@ -587,7 +587,7 @@ var EnqueuedetailsPage = (function () {
 }());
 EnqueuedetailsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-enqueuedetails',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/'<!--\n\n  Generated template for the EnqueuedetailsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Enqueue Details</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content class="background1">\n\n  <h2 *ngIf="cancelledPackage">Package Cancelled</h2>\n\n  <div *ngIf="inProgress">\n\n    <ion-card>\n\n      <ion-item>\n\n        <ion-icon class="iconsize" name="code" item-start></ion-icon>\n\n        <ion-label color="danger" stacked>Verification Code</ion-label>\n\n        <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>\n\n      </ion-item>\n\n    </ion-card>\n\n    <button ion-button full class="buttonitemblue" (click)="sendDelivertConfirmation(item.PackageID)">\n\n        Package Delivered\n\n      </button>\n\n    \n\n  </div>\n\n  <button ion-button full *ngIf="!inProgress" class="buttonitemblue" (click)="confirmPickUp(item.PackageID)">\n\n      Confirm Package Pickup\n\n    </button>\n\n  <ion-card id="mapdetail" #mapdetail></ion-card>\n\n  <ion-card><button class="buttonitemblue" ion-button full (click)=findPath()>Find Path</button></ion-card>\n\n  <ion-card>\n\n\n\n    <ion-item>\n\n      <h2 class="ioniconcolor1">Package Name:</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2 class="ioniconcolor1">Fare</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n\n      </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n\n      </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <!--ADD NG IF TO CHECK STATUS UNTILL THE PACKAGE IS PICKED UP else show cancelation button-->\n\n  <ion-card>\n\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n\n  </ion-card>\n\n  <div *ngIf="cancellationOption">\n\n    <button ion-button full class="buttonitem" (click)="cancelPackage(item.PackageID)">\n\n      Cancel Package\n\n    </button>\n\n  </div>\n\n  \n\n\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/,
+        selector: 'page-enqueuedetails',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/'<!--\n\n  Generated template for the EnqueuedetailsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Enqueue Details</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content class="background1">\n\n  <h2 *ngIf="cancelledPackage">Package Cancelled</h2>\n\n  <div *ngIf="inProgress">\n\n    <ion-card>\n\n      <ion-item>\n\n        <ion-icon class="iconsize" name="code" item-start></ion-icon>\n\n        <ion-label color="danger" stacked>Verification Code</ion-label>\n\n        <ion-input [(ngModel)]="token" placeholder="XXXXXXX"></ion-input>\n\n      </ion-item>\n\n    </ion-card>\n\n    <button ion-button full class="buttonitemblue" (click)="sendDelivertConfirmation(item.PackageID)">\n\n        Package Delivered\n\n      </button>\n\n    \n\n  </div>\n\n  <button ion-button full *ngIf="!inProgress" class="buttonitemblue" (click)="confirmPickUp(item.PackageID)">\n\n      Confirm Package Pickup\n\n    </button>\n\n  <ion-card id="mapdetail" #mapdetail></ion-card>\n\n  <ion-card><button class="buttonitemblue" ion-button full (click)=findPath()>Find Path</button></ion-card>\n\n  <ion-card>\n\n\n\n    <ion-item>\n\n      <h2 class="ioniconcolor1">Package Name:</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2 class="ioniconcolor1">Fare</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n\n      </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n\n      </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <!--ADD NG IF TO CHECK STATUS UNTILL THE PACKAGE IS PICKED UP else show cancelation button-->\n\n  <ion-card>\n\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n\n  </ion-card>\n\n  <div *ngIf="cancellationOption">\n\n    <button ion-button full class="buttonitem" (click)="cancelPackage(item.PackageID)">\n\n      Cancel Package\n\n    </button>\n\n  </div>\n\n  \n\n\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\enqueuedetails\enqueuedetails.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
         __WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgZone */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */],
@@ -635,6 +635,156 @@ EnqueuedetailsPage = __decorate([
 /***/ }),
 
 /***/ 151:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HelpPage; });
+/* unused harmony export snapshotToArray */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var HelpPage = (function () {
+    function HelpPage(navCtrl, navParams, platform, storage, geolocation) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.platform = platform;
+        this.storage = storage;
+        this.geolocation = geolocation;
+        this.markers = [];
+        this.ref = __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/');
+        platform.ready().then(function () {
+            _this.initMap();
+        }); //add this
+        this.ref.on('value', function (resp) {
+            _this.deleteMarkers();
+            snapshotToArray(resp).forEach(function (data) {
+                // let image = 'assets/imgs/green-bike.png';
+                var updatelocation = new google.maps.LatLng(data.latitude, data.longitude);
+                _this.addMarker(updatelocation);
+                //his.setMapOnAll(this.map);
+                console.log("inside the top if");
+                //  let image = 'assets/imgs/blue-bike.png';
+                // updatelocation = new google.maps.LatLng(data.latitude,data.longitude);
+                // this.addMarker(updatelocation);
+                // this.setMapOnAll(this.map);
+                // console.log("inside the top else");
+            });
+        });
+    }
+    HelpPage.prototype.initMap = function () {
+        var _this = this;
+        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then(function (resp) {
+            var mylocation = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+            _this.map = new google.maps.Map(_this.mapElement.nativeElement, {
+                zoom: 15,
+                center: mylocation
+            });
+        });
+        this.watch = this.geolocation.watchPosition();
+        this.watch.subscribe(function (data) {
+            _this.deleteMarkers();
+            // you can set your id here
+            _this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
+            var updatelocation = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
+            // let image = 'assets/imgs/blue-bike.png';
+            _this.addMarker(updatelocation);
+            //this.setMapOnAll(this.map);
+            console.log("workisdas");
+        });
+        //this.watch.unsubscribe();
+    };
+    HelpPage.prototype.addMarker = function (location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: this.map,
+        });
+        this.markers.push(marker);
+    };
+    HelpPage.prototype.setMapOnAll = function (map) {
+        for (var i = 0; i < this.markers.length; i++) {
+            this.markers[i].setMap(map);
+        }
+    };
+    HelpPage.prototype.clearMarkers = function () {
+        this.setMapOnAll(null);
+    };
+    HelpPage.prototype.deleteMarkers = function () {
+        this.clearMarkers();
+        this.markers = [];
+    };
+    HelpPage.prototype.updateGeolocation = function (uuid, lat, lng) {
+        // if(localStorage.getItem('sdas')) {
+        __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/' + "MY ID").set({
+            ID: "Ad",
+            latitude: lat,
+            longitude: lng
+        });
+        console.log("inside if" + localStorage.getItem('mykey'));
+        // } else {
+        //   let newData = this.ref.push();
+        //   newData.set({
+        //     ID: "Ad",
+        //     latitude: lat,
+        //     longitude: lng
+        //   });
+        //   console.log("inside else");
+        //   localStorage.setItem('mykey', newData.key);
+        // }
+    };
+    return HelpPage;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])('map'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+], HelpPage.prototype, "mapElement", void 0);
+HelpPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-help',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\help\help.html"*/'<!--\n\n  Generated template for the HelpPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Help</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <div #map id="map"></div>\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\help\help.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
+], HelpPage);
+
+var snapshotToArray = function (snapshot) {
+    var returnArr = [];
+    snapshot.forEach(function (childSnapshot) {
+        var item = childSnapshot.val();
+        //console.log("value of item"+childSnapshot.toJSON());
+        item.key = childSnapshot.key;
+        //  console.log("value of item.key"+item.key);
+        if (item.ID == "Ad") {
+            console.log(item.longitude);
+            returnArr.push(item);
+            console.log("hello hey whtsupp");
+        }
+    });
+    return returnArr;
+};
+//# sourceMappingURL=help.js.map
+
+/***/ }),
+
+/***/ 152:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1066,7 +1216,7 @@ __decorate([
 ], EnroutePage.prototype, "searchbar1", void 0);
 EnroutePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
-        selector: 'page-enroute',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/'<!--\n  Generated template for the AllPackagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n  \n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">\n      \n    <ion-refresher-content\n    pullingIcon="arrow-dropdown"\n    pullingText="Pull to refresh"\n    refreshingText="Refreshing...">\n  </ion-refresher-content>\n  </ion-refresher> -->\n  <ion-card class="map">\n\n    <ion-searchbar  class="searchbars"  #searchbar1 placeholder="Source:(Default Current Location)"></ion-searchbar>\n    <ion-item></ion-item>\n    <ion-searchbar class="searchbars" #searchbar placeholder="Destination:"></ion-searchbar>\n    <ion-card id="mapEnroute" #mapEnroute></ion-card>\n    <button id="buttonSearch" ion-button (click)=findPath()>Find Path</button>\n    \n  </ion-card>\n\n  <ion-card id="divider"></ion-card>\n  <ion-item>\n    <ion-textarea id="textDisplay"></ion-textarea>\n  </ion-item>\n\n  <ion-card *ngFor="let item of responseDataEnroute, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    <ion-item>\n      <h2>Fare</h2>\n      <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n    </ion-item>\n    <ion-item>\n      <h2>Transport Type:</h2>\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n    </ion-item>\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item>\n\n    <ion-item>\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enroute\enroute.html"*/,
+        selector: 'page-enroute',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\enroute\enroute.html"*/'<!--\n\n  Generated template for the AllPackagesPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n  \n\n-->\n\n\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Drive and Deliver</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="background1">\n\n  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">\n\n      \n\n    <ion-refresher-content\n\n    pullingIcon="arrow-dropdown"\n\n    pullingText="Pull to refresh"\n\n    refreshingText="Refreshing...">\n\n  </ion-refresher-content>\n\n  </ion-refresher> -->\n\n  <ion-card class="map">\n\n\n\n    <ion-searchbar  class="searchbars"  #searchbar1 placeholder="Source:(Default Current Location)"></ion-searchbar>\n\n    <ion-item></ion-item>\n\n    <ion-searchbar class="searchbars" #searchbar placeholder="Destination:"></ion-searchbar>\n\n    <ion-card id="mapEnroute" #mapEnroute></ion-card>\n\n    <button id="buttonSearch" ion-button (click)=findPath()>Find Path</button>\n\n    \n\n  </ion-card>\n\n\n\n  <ion-card id="divider"></ion-card>\n\n  <ion-item>\n\n    <ion-textarea id="textDisplay"></ion-textarea>\n\n  </ion-item>\n\n\n\n  <ion-card *ngFor="let item of responseDataEnroute, let i= index">\n\n    <ion-fab right>\n\n      <button class="buttoncolor" ion-fab>\n\n        <ion-icon name="pin"></ion-icon>\n\n      </button>\n\n    </ion-fab>\n\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n\n    <ion-item>\n\n      <h2>Fare</h2>\n\n      <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2>Transport Type:</h2>\n\n      <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n\n      View Details\n\n    </button>\n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\enroute\enroute.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* LoadingController */],
         __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["n" /* ToastController */],
@@ -1085,18 +1235,22 @@ EnroutePage = __decorate([
 
 /***/ }),
 
-/***/ 152:
+/***/ 153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HelpPage; });
-/* unused harmony export snapshotToArray */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_Firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_Firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(15);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_timeout__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_timeout__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(15);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1113,129 +1267,504 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var HelpPage = (function () {
-    function HelpPage(navCtrl, navParams, platform, storage, geolocation) {
-        var _this = this;
+
+
+
+/**
+ * Generated class for the LoginPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var LoginPage = (function () {
+    function LoginPage(navCtrl, navParams, formBuilder, http, storage, alertCtrl, loadingCtrl, events) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.platform = platform;
+        this.formBuilder = formBuilder;
+        this.http = http;
         this.storage = storage;
-        this.geolocation = geolocation;
-        this.markers = [];
-        this.ref = __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/');
-        platform.ready().then(function () {
-            _this.initMap();
-        }); //add this
-        this.ref.on('value', function (resp) {
-            _this.deleteMarkers();
-            snapshotToArray(resp).forEach(function (data) {
-                // let image = 'assets/imgs/green-bike.png';
-                var updatelocation = new google.maps.LatLng(data.latitude, data.longitude);
-                _this.addMarker(updatelocation);
-                //his.setMapOnAll(this.map);
-                console.log("inside the top if");
-                //  let image = 'assets/imgs/blue-bike.png';
-                // updatelocation = new google.maps.LatLng(data.latitude,data.longitude);
-                // this.addMarker(updatelocation);
-                // this.setMapOnAll(this.map);
-                // console.log("inside the top else");
-            });
+        this.alertCtrl = alertCtrl;
+        this.loadingCtrl = loadingCtrl;
+        this.events = events;
+        this.data = this.formBuilder.group({
+            Email: ['', __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].email])],
+            Password: ['', __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].pattern('^.{6,15}$')])],
         });
+        this.submitAttempted = false;
+        this.Email = this.data.controls['Email'];
+        this.Password = this.data.controls['Password'];
     }
-    HelpPage.prototype.initMap = function () {
+    LoginPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad LoginPage');
+    };
+    LoginPage.prototype.logForm = function () {
         var _this = this;
-        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then(function (resp) {
-            var mylocation = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-            _this.map = new google.maps.Map(_this.mapElement.nativeElement, {
-                zoom: 15,
-                center: mylocation
-            });
-        });
-        this.watch = this.geolocation.watchPosition();
-        this.watch.subscribe(function (data) {
-            _this.deleteMarkers();
-            // you can set your id here
-            _this.updateGeolocation("hello", data.coords.latitude, data.coords.longitude);
-            var updatelocation = new google.maps.LatLng(data.coords.latitude, data.coords.longitude);
-            // let image = 'assets/imgs/blue-bike.png';
-            _this.addMarker(updatelocation);
-            //this.setMapOnAll(this.map);
-            console.log("workisdas");
-        });
-        //this.watch.unsubscribe();
-    };
-    HelpPage.prototype.addMarker = function (location) {
-        var marker = new google.maps.Marker({
-            position: location,
-            map: this.map,
-        });
-        this.markers.push(marker);
-    };
-    HelpPage.prototype.setMapOnAll = function (map) {
-        for (var i = 0; i < this.markers.length; i++) {
-            this.markers[i].setMap(map);
+        this.submitAttempted = true;
+        if (this.Email.hasError('required') || this.Email.hasError('email')) {
+            console.log("Email error");
+            return;
         }
-    };
-    HelpPage.prototype.clearMarkers = function () {
-        this.setMapOnAll(null);
-    };
-    HelpPage.prototype.deleteMarkers = function () {
-        this.clearMarkers();
-        this.markers = [];
-    };
-    HelpPage.prototype.updateGeolocation = function (uuid, lat, lng) {
-        // if(localStorage.getItem('sdas')) {
-        __WEBPACK_IMPORTED_MODULE_3_Firebase__["database"]().ref('geolocations/' + "MY ID").set({
-            ID: "Ad",
-            latitude: lat,
-            longitude: lng
+        else if (this.Password.hasError('required') || this.Password.hasError('pattern')) {
+            console.log("password error");
+            return;
+        }
+        var Userdata = {
+            'Email': this.Email.value,
+            'Password': this.Password.value,
+        };
+        this.loading = this.loadingCtrl.create({
+            content: 'Logging In...',
         });
-        console.log("inside if" + localStorage.getItem('mykey'));
-        // } else {
-        //   let newData = this.ref.push();
-        //   newData.set({
-        //     ID: "Ad",
-        //     latitude: lat,
-        //     longitude: lng
-        //   });
-        //   console.log("inside else");
-        //   localStorage.setItem('mykey', newData.key);
-        // }
+        this.loading.present();
+        setTimeout(100);
+        // this.storage.set('Name',this.Email.value);
+        // this.storage.set('Password',this.Password.value);
+        console.log(Userdata);
+        this.http.post('http://localhost:5000/logintransporter', JSON.stringify(Userdata)).map(function (res) { return res.json(); }).subscribe(function (data) {
+            var responseData = data;
+            if (responseData.Error != "none") {
+                _this.presentErrorAlert(responseData.Error);
+                _this.loading.dismissAll();
+            }
+            else {
+                _this.dataloaded(responseData).then(function () {
+                    _this.events.publish('user:loggedin', "dataloaded"); //to set data values
+                    _this.loading.dismissAll(); //dismiss loading
+                    _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_1__home_home__["a" /* HomePage */]); //go to home page
+                });
+            }
+        }, function (err) {
+            console.log('error');
+        });
+        return;
     };
-    return HelpPage;
+    LoginPage.prototype.dataloaded = function (responseData) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            //put the values in local storage
+            _this.storage.set('Name', responseData.content[0].Name);
+            _this.storage.set('Email', responseData.content[0].Email);
+            _this.storage.set('Password', responseData.content[0].Password);
+            _this.storage.set('ID', responseData.content[0].ID);
+            _this.storage.set('Rating', responseData.content[0].Rating);
+            _this.storage.set('FCMToken', responseData.content[0].FCMToken);
+            _this.storage.set('ProfileImage', responseData.content[0].ProfileImage);
+            var Notifications = [];
+            _this.storage.set('NotificationData', Notifications); //try to make this global 
+            setTimeout(function () {
+                resolve();
+            }, 2000); //wait just in case
+        });
+    };
+    LoginPage.prototype.presentErrorAlert = function (text) {
+        var alert = this.alertCtrl.create({
+            title: text,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
+    LoginPage.prototype.signuppage = function (page) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__["a" /* SignUpPage */]);
+    };
+    return LoginPage;
 }());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])('map'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
-], HelpPage.prototype, "mapElement", void 0);
-HelpPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-help',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\help\help.html"*/'<!--\n  Generated template for the HelpPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Help</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div #map id="map"></div>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\help\help.html"*/,
+LoginPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
+        selector: 'page-login',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\login\login.html"*/'<!--\n\n  Generated template for the LoginPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n</ion-header>\n\n\n\n\n\n<ion-content class="background" padding>\n\n  <div class="forms">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col col-1></ion-col>\n\n        <ion-col col-10><img src="assets/imgs/dndlogo.png"></ion-col>\n\n        <ion-col col-1></ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n    <form [formGroup]="data" (ngSubmit)="logForm()">\n\n      <ion-item class="background">\n\n        <ion-label color="light" floating>Email</ion-label>\n\n        <ion-input class="inputs" type="email" formControlName="Email"></ion-input>\n\n      </ion-item>\n\n      <ion-item class="errors" *ngIf="Email.hasError(\'required\') && Email.hasError(\'pattern\') ">\n\n        <p ion-text class="inputs" color="danger">*Please enter correct email</p>\n\n      </ion-item>\n\n      <ion-item class="background">\n\n        <ion-label color="light" floating>Password</ion-label>\n\n        <ion-input class="inputs" type="password" formControlName="Password"></ion-input>\n\n      </ion-item>\n\n      <ion-item class="errors" *ngIf="(Password.hasError(\'pattern\') && Password.touched) ||(submitAttempted && Password.hasError(\'required\')) ">\n\n        <p ion-text color="danger"> *Password minimum length 6</p>\n\n      </ion-item>\n\n\n\n      <ion-row>\n\n          <button ion-button color="secondary" type="submit" block>Login</button>\n\n      </ion-row>\n\n    </form>\n\n    <button ion-button (click)="signuppage()" block>SignUp</button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\login\login.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
-], HelpPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["l" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */],
+        __WEBPACK_IMPORTED_MODULE_8__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["d" /* Events */]])
+], LoginPage);
 
-var snapshotToArray = function (snapshot) {
-    var returnArr = [];
-    snapshot.forEach(function (childSnapshot) {
-        var item = childSnapshot.val();
-        //console.log("value of item"+childSnapshot.toJSON());
-        item.key = childSnapshot.key;
-        //  console.log("value of item.key"+item.key);
-        if (item.ID == "Ad") {
-            console.log(item.longitude);
-            returnArr.push(item);
-            console.log("hello hey whtsupp");
-        }
-    });
-    return returnArr;
-};
-//# sourceMappingURL=help.js.map
+//# sourceMappingURL=login.js.map
 
 /***/ }),
 
-/***/ 153:
+/***/ 154:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignUpPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__ = __webpack_require__(250);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_path__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_camera__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_timeout__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_timeout__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__home_home__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_fcm__ = __webpack_require__(81);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Generated class for the SignUpPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var SignUpPage = (function () {
+    function SignUpPage(navCtrl, camera, transfer, file, filePath, actionSheetCtrl, toastCtrl, platform, loadingCtrl, formBuilder, alertCtrl, http, storage, fcm, events) {
+        this.navCtrl = navCtrl;
+        this.camera = camera;
+        this.transfer = transfer;
+        this.file = file;
+        this.filePath = filePath;
+        this.actionSheetCtrl = actionSheetCtrl;
+        this.toastCtrl = toastCtrl;
+        this.platform = platform;
+        this.loadingCtrl = loadingCtrl;
+        this.formBuilder = formBuilder;
+        this.alertCtrl = alertCtrl;
+        this.http = http;
+        this.storage = storage;
+        this.fcm = fcm;
+        this.events = events;
+        this.lastImage1 = null;
+        this.lastImage2 = null;
+        this.lastImage3 = null;
+        //formbuilder used for error checking and validation of data at client side
+        this.data = this.formBuilder.group({
+            lastImage1: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
+            lastImage2: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
+            lastImage3: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
+            Name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
+            transportType: ['transportyype', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!transportyype).)*$')]],
+            Email: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].email])],
+            CNIC: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$')])],
+            Phone: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('03[0-9]{9}$')])],
+            Address: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
+            CarRegistrationNo: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^[A-Z]{3}(( ([0]{1}[7-9]{1}|[1]{1}[0-9]{1})[A,B]{0,1} | ))[0-9]{1,4}$')])],
+            Password: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^.{6,15}$')])],
+            Date: ['date', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!date).)*$')])],
+            Month: ['month', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!month).)*$')])],
+            Year: ['year', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!year).)*$')])],
+            Gender: ['gender', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!gender).)*$')])],
+        });
+        //bind the variables to input elements in the form making error checking and data access easier
+        this.Name = this.data.controls['Name'];
+        this.transportType = this.data.controls['transportType'];
+        this.Email = this.data.controls['Email'];
+        this.CNIC = this.data.controls['CNIC'];
+        this.Phone = this.data.controls['Phone'];
+        this.Address = this.data.controls['Address'];
+        this.CarRegistrationNo = this.data.controls['CarRegistrationNo'];
+        this.Password = this.data.controls['Password'];
+        this.submitAttempted = false;
+        this.Date = this.data.controls['Date'];
+        this.Month = this.data.controls['Month'];
+        this.Year = this.data.controls['Year'];
+        this.Gender = this.data.controls['Gender'];
+    }
+    SignUpPage.prototype.logForm = function () {
+        var _this = this;
+        this.submitAttempted = true; //set true for error checking after user has entered all information
+        //error checking for all fields in the signup form
+        if (this.Name.hasError('required')) {
+            this.presentErrorAlert("Some values have been entered Incorectly");
+            return;
+        }
+        else if (this.Email.hasError('required') || this.Email.hasError('email')) {
+            //console.log("Email error");
+            this.presentErrorAlert("Some values have been entered Incorectly");
+            return;
+        }
+        else if (this.CNIC.hasError('required') || this.CNIC.hasError('pattern')) {
+            //console.log("CNIC error");
+            this.presentErrorAlert("Some values have been entered Incorectly");
+            return;
+        }
+        else if (this.Phone.hasError('required') || this.Phone.hasError('pattern')) {
+            //console.log("Phone number error");
+            this.presentErrorAlert("Some values have been entered Incorectly");
+            return;
+        }
+        else if (this.CarRegistrationNo.hasError('required') || this.CarRegistrationNo.hasError('pattern')) {
+            //console.log("Car registration error");
+            this.presentErrorAlert("Some values have been entered Incorectly");
+            return;
+        }
+        else if (this.Date.hasError('pattern') || this.Month.hasError('pattern') || this.Year.hasError('pattern')) {
+            //console.log(" Date Month Year error");
+            this.presentErrorAlert("Some values have been entered Incorectly");
+            return;
+        }
+        else if (this.Gender.hasError('pattern')) {
+            //console.log("Gender error");
+            this.presentErrorAlert("Some values have been entered Incorectly");
+            return;
+        }
+        else if (this.transportType.hasError('pattern')) {
+            //console.log("transportType error");
+            this.presentErrorAlert("Some values have been entered Incorectly");
+            return;
+        }
+        else if (this.Password.hasError('required') || this.Password.hasError('pattern')) {
+            //console.log("Passworderror");
+            this.presentErrorAlert("Some values have been entered Incorectly");
+            return;
+        }
+        this.loading = this.loadingCtrl.create({
+            content: 'Creating Profile...',
+        });
+        console.log(this.transportType);
+        console.log("ALosda");
+        if (this.lastImage1 == null || this.lastImage2 == null || this.lastImage3 == null) {
+            if (this.lastImage1 == null) {
+                this.presentErrorAlert("Profile image missing");
+            }
+            if (this.lastImage2 == null) {
+                this.presentErrorAlert("Liscence Image Missing");
+            }
+            if (this.lastImage3 == null) {
+                this.presentErrorAlert("Vehicle Registration Image Missing");
+            }
+        }
+        this.fcm.getToken().then(function (token) {
+            _this.Token = token;
+            _this.loading.present(); //show loading that request has been sent and response is bieng awaited for
+            _this.uploadImages();
+            var Userdata = {
+                'ID': 0,
+                'Name': _this.Name.value,
+                'Email': _this.Email.value,
+                'TransportType': _this.transportType.value,
+                'CNIC': _this.CNIC.value,
+                'Phone': _this.Phone.value,
+                'Address': _this.Address.value,
+                'CarRegistrationNo': _this.CarRegistrationNo.value,
+                'Password': _this.Password.value,
+                'Date': _this.Date.value,
+                'Month': _this.Month.value,
+                'Year': _this.Year.value,
+                'Gender': _this.Gender.value,
+                'DeliveredPackages': 0,
+                'Clearence Due': 0,
+                'Rating': 0,
+                'ActivePackages': 0,
+                'CancelledPackages': 0.0,
+                'FCMToken': _this.Token,
+                'ProfileImage': _this.lastImage1,
+            };
+            _this.http.post('http://localhost:5000/signuptransporter', JSON.stringify(Userdata)).map(function (res) { return res.json(); }).subscribe(function (data) {
+                var responseData = data;
+                console.log(data.content);
+                if (responseData.Error != "none") {
+                    _this.presentErrorAlert(responseData.Error);
+                }
+                else {
+                    _this.dataloaded(responseData).then(function () {
+                        _this.events.publish('user:loggedin', "dataloaded"); //to set data values
+                        _this.loading.dismissAll(); //dismiss loading
+                        _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_11__home_home__["a" /* HomePage */]); //go to home page
+                    });
+                }
+            }, function (err) {
+                console.log('error');
+            });
+            //ALL things are now set just need to send data to the back end check for valid!!!/
+        });
+    };
+    SignUpPage.prototype.dataloaded = function (responseData) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            //put the values in local storage
+            _this.storage.set('Name', _this.Name.value); //user Name
+            _this.storage.set('Email', _this.Email.value); //user email
+            _this.storage.set('ID', responseData.content); //User ID important
+            _this.storage.set('FCMToken', _this.Token); //FCM token
+            _this.storage.set('ProfileImage', _this.lastImage1); //profile image location
+            var Notifications = []; //to hold notification data
+            _this.storage.set('NotificationData', Notifications); //notification data
+            setTimeout(function () {
+                resolve();
+            }, 2000); //wait just in case
+        });
+    };
+    SignUpPage.prototype.uploadImages = function () {
+        var fileTransfer = this.transfer.create();
+        var options1 = {
+            fileKey: 'file',
+            fileName: this.lastImage1,
+            headers: {}
+        };
+        fileTransfer.upload(this.pathForImage(this.lastImage1), 'http://localhost:5000/imageupload?type=' + 'Profile', options1, true)
+            .then(function (data) {
+            console.log(data);
+        }, function (err) {
+            console.log(err);
+        });
+        var options2 = {
+            fileKey: 'file',
+            fileName: this.lastImage2,
+            headers: {}
+        };
+        fileTransfer.upload(this.pathForImage(this.lastImage2), 'http://localhost:5000/imageupload?type=' + 'Liscence', options2, true)
+            .then(function (data) {
+            console.log(data);
+        }, function (err) {
+            console.log(err);
+        });
+        var options3 = {
+            fileKey: 'file',
+            fileName: this.lastImage3,
+            headers: {}
+        };
+        fileTransfer.upload(this.pathForImage(this.lastImage3), 'http://localhost:5000/imageupload?type=' + 'VehicleRegistration', options3, true)
+            .then(function (data) {
+            console.log(data);
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    SignUpPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad SignUpPage');
+    };
+    //________________________________________________________CODE FOR CAMERA PHOTOES____________________________________
+    SignUpPage.prototype.presentActionSheet = function (id) {
+        var _this = this;
+        var actionSheet = this.actionSheetCtrl.create({
+            title: 'Select Image Source',
+            buttons: [
+                {
+                    text: 'Load from Library',
+                    handler: function () {
+                        _this.takePicture(_this.camera.PictureSourceType.PHOTOLIBRARY, id);
+                    }
+                },
+                {
+                    text: 'Use Camera',
+                    handler: function () {
+                        _this.takePicture(_this.camera.PictureSourceType.CAMERA, id);
+                    }
+                },
+                {
+                    text: 'Cancel',
+                    role: 'cancel'
+                }
+            ]
+        });
+        actionSheet.present();
+    };
+    SignUpPage.prototype.takePicture = function (sourceType, id) {
+        var _this = this;
+        // Create options for the Camera Dialog
+        var options = {
+            quality: 100,
+            sourceType: sourceType,
+            saveToPhotoAlbum: false,
+            correctOrientation: true
+        };
+        // Get the data of an image
+        this.camera.getPicture(options).then(function (imagePath) {
+            // Special handling for Android library
+            if (_this.platform.is('android') && sourceType === _this.camera.PictureSourceType.PHOTOLIBRARY) {
+                _this.filePath.resolveNativePath(imagePath)
+                    .then(function (filePath) {
+                    var correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+                    var currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+                    _this.copyFileToLocalDir(correctPath, currentName, _this.createFileName(), id);
+                });
+            }
+            else {
+                var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+                var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+                _this.copyFileToLocalDir(correctPath, currentName, _this.createFileName(), id);
+            }
+        }, function (err) {
+            //this.presentErrorAlert('Error while selecting image.');
+        });
+    };
+    SignUpPage.prototype.createFileName = function () {
+        var d = new Date(), n = d.getTime(), newFileName = n + ".jpg";
+        return newFileName;
+    };
+    // Copy the image to a local folder
+    SignUpPage.prototype.copyFileToLocalDir = function (namePath, currentName, newFileName, id) {
+        var _this = this;
+        this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(function (success) {
+            switch (id) {
+                case 1:
+                    _this.lastImage1 = newFileName; //profile image
+                    break;
+                case 2:
+                    _this.lastImage2 = newFileName; //liscence image
+                    break;
+                case 3:
+                    _this.lastImage3 = newFileName; //vehicle registration
+                    break;
+            }
+        }, function (error) {
+            _this.presentErrorAlert('Error while storing file.');
+        });
+    };
+    SignUpPage.prototype.presentErrorAlert = function (text) {
+        var alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: text,
+            buttons: ['Dismiss']
+        });
+        alert.present();
+    };
+    // Always get the accurate path to your apps folder
+    SignUpPage.prototype.pathForImage = function (img) {
+        if (img === null) {
+            return '';
+        }
+        else {
+            return cordova.file.dataDirectory + img;
+        }
+    };
+    return SignUpPage;
+}());
+SignUpPage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-sign-up',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\sign-up\sign-up.html"*/'<!--\n\n  Generated template for the SignUpPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>SignUp</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-item>\n\n  <ion-label floating>Pickup Address: </ion-label>\n\n  <ion-textarea></ion-textarea>\n\n</ion-item>\n\n\n\n\n\n<ion-content class="background"  padding>\n\n\n\n  <ion-item class="background">\n\n    <ion-avatar item-start>\n\n      <button  *ngIf="lastImage1==null" ion-button round large icon-only color="primary" (click)="presentActionSheet(1)">\n\n        <ion-icon class="photo1"  name="add-circle" large></ion-icon>\n\n      </button>\n\n      <img src="{{pathForImage(lastImage1)}}" class="avatar1" *ngIf="lastImage1!=null">\n\n    </ion-avatar>\n\n    <h2 class="inputs">Take a Selfie!</h2>\n\n    <button ion-button icon-left (click)="presentActionSheet(1)">\n\n      <ion-icon name="camera"></ion-icon>Select Image\n\n    </button>\n\n  </ion-item>\n\n\n\n  <!-- Image Liscence input -->\n\n  <ion-item class="background">\n\n    <h2 class="inputs">Liscence</h2>\n\n    <ion-avatar item-start>\n\n        <button *ngIf="lastImage2==null" ion-button round large icon-only color="primary" (click)="presentActionSheet(2)">\n\n            <ion-icon class="photo1"  name="add-circle" large></ion-icon>\n\n          </button>\n\n      <img src="{{pathForImage(lastImage2)}}" class="avatar1" *ngIf="lastImage2 !=null">\n\n    </ion-avatar>\n\n    <button ion-button icon-left (click)="presentActionSheet(2)">\n\n      <ion-icon name="camera"></ion-icon>Select Image\n\n    </button>\n\n  </ion-item>\n\n\n\n  <!-- Image Car registration papers input -->\n\n  <ion-item class="background">\n\n    <h2 class="inputs">Vehicle Registration</h2>\n\n    <ion-avatar item-start>\n\n        <button *ngIf="lastImage3==null" ion-button round large icon-only color="primary" (click)="presentActionSheet(3)">\n\n            <ion-icon class="photo1"  name="add-circle" large></ion-icon>\n\n          </button>\n\n      <img src="{{pathForImage(lastImage3)}}" class="avatar1" *ngIf="lastImage3!=null">\n\n    </ion-avatar>\n\n\n\n    <button ion-button icon-left (click)="presentActionSheet(3)">\n\n      <ion-icon name="camera"></ion-icon>Select Image\n\n    </button>\n\n  </ion-item>\n\n\n\n  <form [formGroup]="data" (ngSubmit)="logForm()">\n\n    <!-- Name input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Name</ion-label>\n\n      <ion-input class="inputs" type="text" formControlName="Name"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Name.hasError(\'required\') && submitAttempted">\n\n      <p ion-text color="danger">*Please enter full name</p>\n\n    </ion-item>\n\n\n\n\n\n    <!-- Email input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Email</ion-label>\n\n      <ion-input class="inputs" type="email" formControlName="Email"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Email.hasError(\'required\') && submitAttempted">\n\n      <p ion-text color="danger">*Please enter email</p>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Email.hasError(\'email\') && Email.touched">\n\n      <p ion-text color="danger">*Please enter proper email</p>\n\n    </ion-item>\n\n\n\n    <!-- CNIC input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>CNIC</ion-label>\n\n      <ion-input class="inputs" formControlName="CNIC" type="text"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="(CNIC.hasError(\'required\')  && submitAttempted)">\n\n      <p ion-text color="danger">*Please enter CNIC</p>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="  CNIC.hasError(\'pattern\') && CNIC.touched">\n\n      <p ion-text color="danger"> *Please enter CNIC with dashes included</p>\n\n    </ion-item>\n\n\n\n    <!-- Phone Number input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Phone Number</ion-label>\n\n      <ion-input class="inputs" formControlName="Phone" type="text"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Phone.hasError(\'required\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please enter phone number</p>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Phone.hasError(\'pattern\')  && Phone.touched">\n\n      <p ion-text color="danger"> *Please enter proper phone number(no +92)</p>\n\n    </ion-item>\n\n\n\n    <!-- Address input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Address</ion-label>\n\n      <ion-textarea class="inputs" formControlName="Address"></ion-textarea>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Address.hasError(\'required\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please enter Address</p>\n\n    </ion-item>\n\n\n\n\n\n    <!-- Gender input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light">Gender</ion-label>\n\n      <ion-select class="inputs" formControlName="Gender">\n\n        <ion-option value="gender" selected>Gender</ion-option>\n\n        <ion-option value="male">Male</ion-option>\n\n        <ion-option value="female">Female</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Gender.hasError(\'pattern\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please select Gender</p>\n\n    </ion-item>\n\n    <ion-item class="background">\n\n\n\n      <!-- Date of Birth input -->\n\n      <ion-label color="light">D.O.B</ion-label>\n\n      <ion-select class="inputs" formControlName="Date">\n\n        <ion-option value="date" selected>Date</ion-option>\n\n        <ion-option value="1">1</ion-option>\n\n        <ion-option value="2">2</ion-option>\n\n        <ion-option value="3">3</ion-option>\n\n        <ion-option value="4">4</ion-option>\n\n        <ion-option value="5">5</ion-option>\n\n        <ion-option value="6">6</ion-option>\n\n        <ion-option value="7">7</ion-option>\n\n        <ion-option value="8">8</ion-option>\n\n        <ion-option value="9">9</ion-option>\n\n        <ion-option value="10">10</ion-option>\n\n        <ion-option value="11">11</ion-option>\n\n        <ion-option value="12">12</ion-option>\n\n        <ion-option value="13">13</ion-option>\n\n        <ion-option value="14">14</ion-option>\n\n        <ion-option value="15">15</ion-option>\n\n        <ion-option value="16">16</ion-option>\n\n        <ion-option value="17">17</ion-option>\n\n        <ion-option value="18">18</ion-option>\n\n        <ion-option value="19">19</ion-option>\n\n        <ion-option value="20">20</ion-option>\n\n        <ion-option value="21">21</ion-option>\n\n        <ion-option value="22">22</ion-option>\n\n        <ion-option value="23">23</ion-option>\n\n        <ion-option value="24">24</ion-option>\n\n        <ion-option value="25">25</ion-option>\n\n        <ion-option value="26">26</ion-option>\n\n        <ion-option value="27">27</ion-option>\n\n        <ion-option value="28">28</ion-option>\n\n        <ion-option value="29">29</ion-option>\n\n        <ion-option value="30">30</ion-option>\n\n        <ion-option value="31">31</ion-option>\n\n      </ion-select>\n\n      <ion-select class="inputs" formControlName="Month">\n\n        <ion-option value="month" selected>Month</ion-option>\n\n        <ion-option value="Janaury">Janaury</ion-option>\n\n        <ion-option value="February">February</ion-option>\n\n        <ion-option value="March">March</ion-option>\n\n        <ion-option value="April">April</ion-option>\n\n        <ion-option value="May">May</ion-option>\n\n        <ion-option value="June">June</ion-option>\n\n        <ion-option value="July">July</ion-option>\n\n        <ion-option value="August">August</ion-option>\n\n        <ion-option value="September">September</ion-option>\n\n        <ion-option value="October">October</ion-option>\n\n        <ion-option value="November">November</ion-option>\n\n        <ion-option value="December">December</ion-option>\n\n      </ion-select>\n\n      <ion-select class="inputs" formControlName="Year">\n\n        <ion-option value="year" selected>Year</ion-option>\n\n        <ion-option value="1947">1947</ion-option>\n\n        <ion-option value="1948">1948</ion-option>\n\n        <ion-option value="1949">1949</ion-option>\n\n        <ion-option value="1950">1950</ion-option>\n\n        <ion-option value="1951">1951</ion-option>\n\n        <ion-option value="1952">1952</ion-option>\n\n        <ion-option value="1953">1953</ion-option>\n\n        <ion-option value="1954">1954</ion-option>\n\n        <ion-option value="1955">1955</ion-option>\n\n        <ion-option value="1956">1956</ion-option>\n\n        <ion-option value="1957">1957</ion-option>\n\n        <ion-option value="1958">1958</ion-option>\n\n        <ion-option value="1959">1959</ion-option>\n\n        <ion-option value="1960">1960</ion-option>\n\n        <ion-option value="1961">1961</ion-option>\n\n        <ion-option value="1962">1962</ion-option>\n\n        <ion-option value="1963">1963</ion-option>\n\n        <ion-option value="1964">1964</ion-option>\n\n        <ion-option value="1965">1965</ion-option>\n\n        <ion-option value="1966">1966</ion-option>\n\n        <ion-option value="1967">1967</ion-option>\n\n        <ion-option value="1968">1968</ion-option>\n\n        <ion-option value="1969">1969</ion-option>\n\n        <ion-option value="1970">1970</ion-option>\n\n        <ion-option value="1971">1971</ion-option>\n\n        <ion-option value="1972">1972</ion-option>\n\n        <ion-option value="1973">1973</ion-option>\n\n        <ion-option value="1974">1974</ion-option>\n\n        <ion-option value="1975">1975</ion-option>\n\n        <ion-option value="1976">1976</ion-option>\n\n        <ion-option value="1977">1977</ion-option>\n\n        <ion-option value="1978">1978</ion-option>\n\n        <ion-option value="1979">1979</ion-option>\n\n        <ion-option value="1980">1980</ion-option>\n\n        <ion-option value="1981">1981</ion-option>\n\n        <ion-option value="1982">1982</ion-option>\n\n        <ion-option value="1983">1983</ion-option>\n\n        <ion-option value="1984">1984</ion-option>\n\n        <ion-option value="1985">1985</ion-option>\n\n        <ion-option value="1986">1986</ion-option>\n\n        <ion-option value="1987">1987</ion-option>\n\n        <ion-option value="1988">1988</ion-option>\n\n        <ion-option value="1989">1989</ion-option>\n\n        <ion-option value="1990">1990</ion-option>\n\n        <ion-option value="1991">1991</ion-option>\n\n        <ion-option value="1992">1992</ion-option>\n\n        <ion-option value="1993">1993</ion-option>\n\n        <ion-option value="1994">1994</ion-option>\n\n        <ion-option value="1995">1995</ion-option>\n\n        <ion-option value="1996">1996</ion-option>\n\n        <ion-option value="1997">1997</ion-option>\n\n        <ion-option value="1998">1998</ion-option>\n\n        <ion-option value="1999">1999</ion-option>\n\n        <ion-option value="2000">2000</ion-option>\n\n        <ion-option value="2001">2001</ion-option>\n\n        <ion-option value="2002">2002</ion-option>\n\n        <ion-option value="2003">2003</ion-option>\n\n        <ion-option value="2004">2004</ion-option>\n\n        <ion-option value="2005">2005</ion-option>\n\n        <ion-option value="2006">2006</ion-option>\n\n        <ion-option value="2007">2007</ion-option>\n\n        <ion-option value="2008">2008</ion-option>\n\n        <ion-option value="2009">2009</ion-option>\n\n        <ion-option value="2010">2010</ion-option>\n\n        <ion-option value="2011">2011</ion-option>\n\n        <ion-option value="2012">2012</ion-option>\n\n        <ion-option value="2013">2013</ion-option>\n\n        <ion-option value="2014">2014</ion-option>\n\n        <ion-option value="2015">2015</ion-option>\n\n        <ion-option value="2016">2016</ion-option>\n\n        <ion-option value="2017">2017</ion-option>\n\n        <ion-option value="2018">2018</ion-option>\n\n      </ion-select>\n\n\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="(this.Date.hasError(\'pattern\') || this.Month.hasError(\'pattern\') || this.Year.hasError(\'pattern\'))  && submitAttempted">\n\n      <p ion-text color="danger">*Please Enter proper DOB</p>\n\n    </ion-item>\n\n    <ion-item class="background">\n\n      <!-- Transport Type  input -->\n\n      <ion-label color="light">Transport Type</ion-label>\n\n      <ion-select class="inputs" formControlName="transportType">\n\n        <ion-option value="transportyype" selected>Vehicle</ion-option>\n\n        <ion-option value="Bike">Bike</ion-option>\n\n        <ion-option value="Car">Car</ion-option>\n\n        <ion-option value="Pick Up">Pick Up</ion-option>\n\n        <ion-option value="Truck">Truck</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n    <ion-item *ngIf="this.transportType.hasError(\'pattern\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please select a vehicly type</p>\n\n    </ion-item>\n\n\n\n\n\n    <!-- Vehicle Registration No input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Vehicle Registration No.</ion-label>\n\n      <ion-input class="inputs" type="text" formControlName="CarRegistrationNo"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="CarRegistrationNo.hasError(\'required\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please enter Vehicle registration number</p>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="CarRegistrationNo.hasError(\'pattern\')  && CarRegistrationNo.touched">\n\n      <p ion-text color="danger"> *Please enter proper Vehicle registration number</p>\n\n    </ion-item>\n\n\n\n    <!-- Password input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Password</ion-label>\n\n      <ion-input class="inputs" type="password" formControlName="Password"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="(Password.hasError(\'pattern\') && Password.touched) ||(submitAttempted && Password.hasError(\'required\')) ">\n\n      <p ion-text color="danger"> *Password minimum length 6</p>\n\n    </ion-item>\n\n    <button ion-button color="secondary" type="submit" block>Create Profile</button>\n\n  </form>\n\n  <!-- <button ion-button (click)="imageupload()" block>Create Profile</button> -->\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\sign-up\sign-up.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_6__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["a" /* FileTransfer */],
+        __WEBPACK_IMPORTED_MODULE_3__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_path__["a" /* FilePath */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_8__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */],
+        __WEBPACK_IMPORTED_MODULE_12__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+], SignUpPage);
+
+//# sourceMappingURL=sign-up.js.map
+
+/***/ }),
+
+/***/ 155:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1478,7 +2007,7 @@ __decorate([
 ], NearbyPage.prototype, "inputElement", void 0);
 NearbyPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-nearby',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/'<!--\n    Generated template for the AllPackagesPage page.\n\n    See http://ionicframework.com/docs/components/#navigation for more info on\n    Ionic pages and navigation.\n    \n  -->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Drive and Deliver</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content class="background1">\n  <ion-card id="mapNearby" #mapNearby></ion-card>\n  <ion-card>\n    <ion-row>\n      <ion-col col-9>\n        <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default max 5)" type="text"></ion-input>\n      </ion-col>\n      <ion-col col-3>\n        <button id="goButton" (click)="reload()" ion-button>GO!</button>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n  \n  <ion-card id="divider"></ion-card>\n\n\n  <ion-card *ngFor="let item of responseDataNearby, let i= index">\n      <ion-fab right>\n        <button class="buttoncolor" ion-fab>\n          <ion-icon name="pin"></ion-icon>\n        </button>\n      </ion-fab>\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n      <ion-item >\n        <h2 >Fare</h2>\n        <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n      </ion-item>\n      <ion-item >\n        <h2 >Transport Type:</h2>\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n      </ion-item>\n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n        </h2>\n      </ion-item >\n  \n      <ion-item >\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n        </h2>\n      </ion-item>\n  \n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n        View Details\n      </button>\n    </ion-card>  \n  </ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\nearby\nearby.html"*/,
+        selector: 'page-nearby',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\nearby\nearby.html"*/'<!--\n\n    Generated template for the AllPackagesPage page.\n\n\n\n    See http://ionicframework.com/docs/components/#navigation for more info on\n\n    Ionic pages and navigation.\n\n    \n\n  -->\n\n\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Drive and Deliver</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="background1">\n\n  <ion-card id="mapNearby" #mapNearby></ion-card>\n\n  <ion-card>\n\n    <ion-row>\n\n      <ion-col col-9>\n\n        <ion-input id="distanceInput" [(ngModel)]="rad" placeholder="Distance in kms(1 default max 5)" type="text"></ion-input>\n\n      </ion-col>\n\n      <ion-col col-3>\n\n        <button id="goButton" (click)="reload()" ion-button>GO!</button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n  \n\n  <ion-card id="divider"></ion-card>\n\n\n\n\n\n  <ion-card *ngFor="let item of responseDataNearby, let i= index">\n\n      <ion-fab right>\n\n        <button class="buttoncolor" ion-fab>\n\n          <ion-icon name="pin"></ion-icon>\n\n        </button>\n\n      </ion-fab>\n\n      <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n\n      <ion-item >\n\n        <h2 >Fare</h2>\n\n        <ion-note item-end class="ioniconcolor1">{{item.Fare}}/-</ion-note>\n\n      </ion-item>\n\n      <ion-item >\n\n        <h2 >Transport Type:</h2>\n\n        <ion-note item-end class="ioniconcolor1"> {{item.VehicleType}} </ion-note>\n\n      </ion-item>\n\n      <ion-item >\n\n        <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n        <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n\n        </h2>\n\n      </ion-item >\n\n  \n\n      <ion-item >\n\n        <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n        <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n\n        </h2>\n\n      </ion-item>\n\n  \n\n      <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n\n        View Details\n\n      </button>\n\n    </ion-card>  \n\n  </ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\nearby\nearby.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* LoadingController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ToastController */],
@@ -1495,534 +2024,6 @@ NearbyPage = __decorate([
 ], NearbyPage);
 
 //# sourceMappingURL=nearby.js.map
-
-/***/ }),
-
-/***/ 154:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__ = __webpack_require__(253);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_timeout__ = __webpack_require__(254);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_timeout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(15);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var LoginPage = (function () {
-    function LoginPage(navCtrl, navParams, formBuilder, http, storage, alertCtrl, loadingCtrl, events) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.formBuilder = formBuilder;
-        this.http = http;
-        this.storage = storage;
-        this.alertCtrl = alertCtrl;
-        this.loadingCtrl = loadingCtrl;
-        this.events = events;
-        this.data = this.formBuilder.group({
-            Email: ['', __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].email])],
-            Password: ['', __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].pattern('^.{6,15}$')])],
-        });
-        this.submitAttempted = false;
-        this.Email = this.data.controls['Email'];
-        this.Password = this.data.controls['Password'];
-    }
-    LoginPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad LoginPage');
-    };
-    LoginPage.prototype.logForm = function () {
-        var _this = this;
-        this.submitAttempted = true;
-        if (this.Email.hasError('required') || this.Email.hasError('email')) {
-            console.log("Email error");
-            return;
-        }
-        else if (this.Password.hasError('required') || this.Password.hasError('pattern')) {
-            console.log("password error");
-            return;
-        }
-        var Userdata = {
-            'Email': this.Email.value,
-            'Password': this.Password.value,
-        };
-        this.loading = this.loadingCtrl.create({
-            content: 'Logging In...',
-        });
-        this.loading.present();
-        setTimeout(100);
-        // this.storage.set('Name',this.Email.value);
-        // this.storage.set('Password',this.Password.value);
-        console.log(Userdata);
-        this.http.post('http://localhost:5000/logintransporter', JSON.stringify(Userdata)).map(function (res) { return res.json(); }).subscribe(function (data) {
-            var responseData = data;
-            if (responseData.Error != "none") {
-                _this.presentErrorAlert(responseData.Error);
-                _this.loading.dismissAll();
-            }
-            else {
-                _this.dataloaded(responseData).then(function () {
-                    _this.events.publish('user:loggedin', "dataloaded"); //to set data values
-                    _this.loading.dismissAll(); //dismiss loading
-                    _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_1__home_home__["a" /* HomePage */]); //go to home page
-                });
-            }
-        }, function (err) {
-            console.log('error');
-        });
-        return;
-    };
-    LoginPage.prototype.dataloaded = function (responseData) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            //put the values in local storage
-            _this.storage.set('Name', responseData.content[0].Name);
-            _this.storage.set('Email', responseData.content[0].Email);
-            _this.storage.set('Password', responseData.content[0].Password);
-            _this.storage.set('ID', responseData.content[0].ID);
-            _this.storage.set('Rating', responseData.content[0].Rating);
-            _this.storage.set('FCMToken', responseData.content[0].FCMToken);
-            _this.storage.set('ProfileImage', responseData.content[0].ProfileImage);
-            var Notifications = [];
-            _this.storage.set('NotificationData', Notifications); //try to make this global 
-            setTimeout(function () {
-                resolve();
-            }, 2000); //wait just in case
-        });
-    };
-    LoginPage.prototype.presentErrorAlert = function (text) {
-        var alert = this.alertCtrl.create({
-            title: text,
-            buttons: ['Dismiss']
-        });
-        alert.present();
-    };
-    LoginPage.prototype.signuppage = function (page) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_0__sign_up_sign_up__["a" /* SignUpPage */]);
-    };
-    return LoginPage;
-}());
-LoginPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["n" /* Component */])({
-        selector: 'page-login',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\login\login.html"*/'<!--\n\n  Generated template for the LoginPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n</ion-header>\n\n\n\n\n\n<ion-content class="background" padding>\n\n  <div class="forms">\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col col-1></ion-col>\n\n        <ion-col col-10><img src="assets/imgs/dndlogo.png"></ion-col>\n\n        <ion-col col-1></ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n    <form [formGroup]="data" (ngSubmit)="logForm()">\n\n      <ion-item class="background">\n\n        <ion-label color="light" floating>Email</ion-label>\n\n        <ion-input class="inputs" type="email" formControlName="Email"></ion-input>\n\n      </ion-item>\n\n      <ion-item class="errors" *ngIf="Email.hasError(\'required\') && Email.hasError(\'pattern\') ">\n\n        <p ion-text class="inputs" color="danger">*Please enter correct email</p>\n\n      </ion-item>\n\n      <ion-item class="background">\n\n        <ion-label color="light" floating>Password</ion-label>\n\n        <ion-input class="inputs" type="password" formControlName="Password"></ion-input>\n\n      </ion-item>\n\n      <ion-item class="errors" *ngIf="(Password.hasError(\'pattern\') && Password.touched) ||(submitAttempted && Password.hasError(\'required\')) ">\n\n        <p ion-text color="danger"> *Password minimum length 6</p>\n\n      </ion-item>\n\n\n\n      <ion-row>\n\n          <button ion-button color="secondary" type="submit" block>Login</button>\n\n      </ion-row>\n\n    </form>\n\n    <button ion-button (click)="signuppage()" block>SignUp</button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\login\login.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["l" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */],
-        __WEBPACK_IMPORTED_MODULE_8__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["d" /* Events */]])
-], LoginPage);
-
-//# sourceMappingURL=login.js.map
-
-/***/ }),
-
-/***/ 155:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignUpPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file__ = __webpack_require__(249);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__ = __webpack_require__(250);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_path__ = __webpack_require__(251);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_camera__ = __webpack_require__(252);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map__ = __webpack_require__(253);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_timeout__ = __webpack_require__(254);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_timeout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_timeout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__home_home__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_fcm__ = __webpack_require__(81);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Generated class for the SignUpPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var SignUpPage = (function () {
-    function SignUpPage(navCtrl, camera, transfer, file, filePath, actionSheetCtrl, toastCtrl, platform, loadingCtrl, formBuilder, alertCtrl, http, storage, fcm, events) {
-        this.navCtrl = navCtrl;
-        this.camera = camera;
-        this.transfer = transfer;
-        this.file = file;
-        this.filePath = filePath;
-        this.actionSheetCtrl = actionSheetCtrl;
-        this.toastCtrl = toastCtrl;
-        this.platform = platform;
-        this.loadingCtrl = loadingCtrl;
-        this.formBuilder = formBuilder;
-        this.alertCtrl = alertCtrl;
-        this.http = http;
-        this.storage = storage;
-        this.fcm = fcm;
-        this.events = events;
-        this.lastImage1 = null;
-        this.lastImage2 = null;
-        this.lastImage3 = null;
-        //formbuilder used for error checking and validation of data at client side
-        this.data = this.formBuilder.group({
-            lastImage1: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
-            lastImage2: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
-            lastImage3: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
-            Name: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
-            transportType: ['transportyype', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!transportyype).)*$')]],
-            Email: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].email])],
-            CNIC: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$')])],
-            Phone: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('03[0-9]{9}$')])],
-            Address: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
-            CarRegistrationNo: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^[A-Z]{3}(( ([0]{1}[7-9]{1}|[1]{1}[0-9]{1})[A,B]{0,1} | ))[0-9]{1,4}$')])],
-            Password: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^.{6,15}$')])],
-            Date: ['date', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!date).)*$')])],
-            Month: ['month', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!month).)*$')])],
-            Year: ['year', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!year).)*$')])],
-            Gender: ['gender', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^((?!gender).)*$')])],
-        });
-        //bind the variables to input elements in the form making error checking and data access easier
-        this.Name = this.data.controls['Name'];
-        this.transportType = this.data.controls['transportType'];
-        this.Email = this.data.controls['Email'];
-        this.CNIC = this.data.controls['CNIC'];
-        this.Phone = this.data.controls['Phone'];
-        this.Address = this.data.controls['Address'];
-        this.CarRegistrationNo = this.data.controls['CarRegistrationNo'];
-        this.Password = this.data.controls['Password'];
-        this.submitAttempted = false;
-        this.Date = this.data.controls['Date'];
-        this.Month = this.data.controls['Month'];
-        this.Year = this.data.controls['Year'];
-        this.Gender = this.data.controls['Gender'];
-    }
-    SignUpPage.prototype.logForm = function () {
-        var _this = this;
-        this.submitAttempted = true; //set true for error checking after user has entered all information
-        //error checking for all fields in the signup form
-        if (this.Name.hasError('required')) {
-            this.presentErrorAlert("Some values have been entered Incorectly");
-            return;
-        }
-        else if (this.Email.hasError('required') || this.Email.hasError('email')) {
-            //console.log("Email error");
-            this.presentErrorAlert("Some values have been entered Incorectly");
-            return;
-        }
-        else if (this.CNIC.hasError('required') || this.CNIC.hasError('pattern')) {
-            //console.log("CNIC error");
-            this.presentErrorAlert("Some values have been entered Incorectly");
-            return;
-        }
-        else if (this.Phone.hasError('required') || this.Phone.hasError('pattern')) {
-            //console.log("Phone number error");
-            this.presentErrorAlert("Some values have been entered Incorectly");
-            return;
-        }
-        else if (this.CarRegistrationNo.hasError('required') || this.CarRegistrationNo.hasError('pattern')) {
-            //console.log("Car registration error");
-            this.presentErrorAlert("Some values have been entered Incorectly");
-            return;
-        }
-        else if (this.Date.hasError('pattern') || this.Month.hasError('pattern') || this.Year.hasError('pattern')) {
-            //console.log(" Date Month Year error");
-            this.presentErrorAlert("Some values have been entered Incorectly");
-            return;
-        }
-        else if (this.Gender.hasError('pattern')) {
-            //console.log("Gender error");
-            this.presentErrorAlert("Some values have been entered Incorectly");
-            return;
-        }
-        else if (this.transportType.hasError('pattern')) {
-            //console.log("transportType error");
-            this.presentErrorAlert("Some values have been entered Incorectly");
-            return;
-        }
-        else if (this.Password.hasError('required') || this.Password.hasError('pattern')) {
-            //console.log("Passworderror");
-            this.presentErrorAlert("Some values have been entered Incorectly");
-            return;
-        }
-        this.loading = this.loadingCtrl.create({
-            content: 'Creating Profile...',
-        });
-        console.log(this.transportType);
-        console.log("ALosda");
-        if (this.lastImage1 == null || this.lastImage2 == null || this.lastImage3 == null) {
-            if (this.lastImage1 == null) {
-                this.presentErrorAlert("Profile image missing");
-            }
-            if (this.lastImage2 == null) {
-                this.presentErrorAlert("Liscence Image Missing");
-            }
-            if (this.lastImage3 == null) {
-                this.presentErrorAlert("Vehicle Registration Image Missing");
-            }
-        }
-        this.fcm.getToken().then(function (token) {
-            _this.Token = token;
-            _this.loading.present(); //show loading that request has been sent and response is bieng awaited for
-            _this.uploadImages();
-            var Userdata = {
-                'ID': 0,
-                'Name': _this.Name.value,
-                'Email': _this.Email.value,
-                'TransportType': _this.transportType.value,
-                'CNIC': _this.CNIC.value,
-                'Phone': _this.Phone.value,
-                'Address': _this.Address.value,
-                'CarRegistrationNo': _this.CarRegistrationNo.value,
-                'Password': _this.Password.value,
-                'Date': _this.Date.value,
-                'Month': _this.Month.value,
-                'Year': _this.Year.value,
-                'Gender': _this.Gender.value,
-                'Clearence Due': 0,
-                'Rating': 0,
-                'ActivePackages': 0,
-                'CancelledPackages': 0.0,
-                'FCMToken': _this.Token,
-                'ProfileImage': _this.lastImage1,
-            };
-            _this.http.post('http://localhost:5000/signuptransporter', JSON.stringify(Userdata)).map(function (res) { return res.json(); }).subscribe(function (data) {
-                var responseData = data;
-                console.log(data.content);
-                if (responseData.Error != "none") {
-                    _this.presentErrorAlert(responseData.Error);
-                }
-                else {
-                    _this.dataloaded(responseData).then(function () {
-                        _this.events.publish('user:loggedin', "dataloaded"); //to set data values
-                        _this.loading.dismissAll(); //dismiss loading
-                        _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_11__home_home__["a" /* HomePage */]); //go to home page
-                    });
-                }
-            }, function (err) {
-                console.log('error');
-            });
-            //ALL things are now set just need to send data to the back end check for valid!!!/
-        });
-    };
-    SignUpPage.prototype.dataloaded = function (responseData) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            //put the values in local storage
-            _this.storage.set('Name', _this.Name.value); //user Name
-            _this.storage.set('Email', _this.Email.value); //user email
-            _this.storage.set('ID', responseData.content); //User ID important
-            _this.storage.set('FCMToken', _this.Token); //FCM token
-            _this.storage.set('ProfileImage', _this.lastImage1); //profile image location
-            var Notifications = []; //to hold notification data
-            _this.storage.set('NotificationData', Notifications); //notification data
-            setTimeout(function () {
-                resolve();
-            }, 2000); //wait just in case
-        });
-    };
-    SignUpPage.prototype.uploadImages = function () {
-        var fileTransfer = this.transfer.create();
-        var options1 = {
-            fileKey: 'file',
-            fileName: this.lastImage1,
-            headers: {}
-        };
-        fileTransfer.upload(this.pathForImage(this.lastImage1), 'http://localhost:5000/imageupload?type=' + 'Profile', options1, true)
-            .then(function (data) {
-            console.log(data);
-        }, function (err) {
-            console.log(err);
-        });
-        var options2 = {
-            fileKey: 'file',
-            fileName: this.lastImage2,
-            headers: {}
-        };
-        fileTransfer.upload(this.pathForImage(this.lastImage2), 'http://localhost:5000/imageupload?type=' + 'Liscence', options2, true)
-            .then(function (data) {
-            console.log(data);
-        }, function (err) {
-            console.log(err);
-        });
-        var options3 = {
-            fileKey: 'file',
-            fileName: this.lastImage3,
-            headers: {}
-        };
-        fileTransfer.upload(this.pathForImage(this.lastImage3), 'http://localhost:5000/imageupload?type=' + 'VehicleRegistration', options3, true)
-            .then(function (data) {
-            console.log(data);
-        }, function (err) {
-            console.log(err);
-        });
-    };
-    SignUpPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad SignUpPage');
-    };
-    //________________________________________________________CODE FOR CAMERA PHOTOES____________________________________
-    SignUpPage.prototype.presentActionSheet = function (id) {
-        var _this = this;
-        var actionSheet = this.actionSheetCtrl.create({
-            title: 'Select Image Source',
-            buttons: [
-                {
-                    text: 'Load from Library',
-                    handler: function () {
-                        _this.takePicture(_this.camera.PictureSourceType.PHOTOLIBRARY, id);
-                    }
-                },
-                {
-                    text: 'Use Camera',
-                    handler: function () {
-                        _this.takePicture(_this.camera.PictureSourceType.CAMERA, id);
-                    }
-                },
-                {
-                    text: 'Cancel',
-                    role: 'cancel'
-                }
-            ]
-        });
-        actionSheet.present();
-    };
-    SignUpPage.prototype.takePicture = function (sourceType, id) {
-        var _this = this;
-        // Create options for the Camera Dialog
-        var options = {
-            quality: 100,
-            sourceType: sourceType,
-            saveToPhotoAlbum: false,
-            correctOrientation: true
-        };
-        // Get the data of an image
-        this.camera.getPicture(options).then(function (imagePath) {
-            // Special handling for Android library
-            if (_this.platform.is('android') && sourceType === _this.camera.PictureSourceType.PHOTOLIBRARY) {
-                _this.filePath.resolveNativePath(imagePath)
-                    .then(function (filePath) {
-                    var correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-                    var currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-                    _this.copyFileToLocalDir(correctPath, currentName, _this.createFileName(), id);
-                });
-            }
-            else {
-                var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-                var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-                _this.copyFileToLocalDir(correctPath, currentName, _this.createFileName(), id);
-            }
-        }, function (err) {
-            //this.presentErrorAlert('Error while selecting image.');
-        });
-    };
-    SignUpPage.prototype.createFileName = function () {
-        var d = new Date(), n = d.getTime(), newFileName = n + ".jpg";
-        return newFileName;
-    };
-    // Copy the image to a local folder
-    SignUpPage.prototype.copyFileToLocalDir = function (namePath, currentName, newFileName, id) {
-        var _this = this;
-        this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(function (success) {
-            switch (id) {
-                case 1:
-                    _this.lastImage1 = newFileName; //profile image
-                    break;
-                case 2:
-                    _this.lastImage2 = newFileName; //liscence image
-                    break;
-                case 3:
-                    _this.lastImage3 = newFileName; //vehicle registration
-                    break;
-            }
-        }, function (error) {
-            _this.presentErrorAlert('Error while storing file.');
-        });
-    };
-    SignUpPage.prototype.presentErrorAlert = function (text) {
-        var alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: text,
-            buttons: ['Dismiss']
-        });
-        alert.present();
-    };
-    // Always get the accurate path to your apps folder
-    SignUpPage.prototype.pathForImage = function (img) {
-        if (img === null) {
-            return '';
-        }
-        else {
-            return cordova.file.dataDirectory + img;
-        }
-    };
-    return SignUpPage;
-}());
-SignUpPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-sign-up',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\sign-up\sign-up.html"*/'<!--\n\n  Generated template for the SignUpPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>SignUp</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-item>\n\n  <ion-label floating>Pickup Address: </ion-label>\n\n  <ion-textarea></ion-textarea>\n\n</ion-item>\n\n\n\n\n\n<ion-content class="background"  padding>\n\n\n\n  <ion-item class="background">\n\n    <ion-avatar item-start>\n\n      <button  *ngIf="lastImage1==null" ion-button round large icon-only color="primary" (click)="presentActionSheet(1)">\n\n        <ion-icon class="photo1"  name="add-circle" large></ion-icon>\n\n      </button>\n\n      <img src="{{pathForImage(lastImage1)}}" class="avatar1" *ngIf="lastImage1!=null">\n\n    </ion-avatar>\n\n    <h2 class="inputs">Take a Selfie!</h2>\n\n    <button ion-button icon-left (click)="presentActionSheet(1)">\n\n      <ion-icon name="camera"></ion-icon>Select Image\n\n    </button>\n\n  </ion-item>\n\n\n\n  <!-- Image Liscence input -->\n\n  <ion-item class="background">\n\n    <h2 class="inputs">Liscence</h2>\n\n    <ion-avatar item-start>\n\n        <button *ngIf="lastImage2==null" ion-button round large icon-only color="primary" (click)="presentActionSheet(2)">\n\n            <ion-icon class="photo1"  name="add-circle" large></ion-icon>\n\n          </button>\n\n      <img src="{{pathForImage(lastImage2)}}" class="avatar1" *ngIf="lastImage2 !=null">\n\n    </ion-avatar>\n\n    <button ion-button icon-left (click)="presentActionSheet(2)">\n\n      <ion-icon name="camera"></ion-icon>Select Image\n\n    </button>\n\n  </ion-item>\n\n\n\n  <!-- Image Car registration papers input -->\n\n  <ion-item class="background">\n\n    <h2 class="inputs">Vehicle Registration</h2>\n\n    <ion-avatar item-start>\n\n        <button *ngIf="lastImage3==null" ion-button round large icon-only color="primary" (click)="presentActionSheet(3)">\n\n            <ion-icon class="photo1"  name="add-circle" large></ion-icon>\n\n          </button>\n\n      <img src="{{pathForImage(lastImage3)}}" class="avatar1" *ngIf="lastImage3!=null">\n\n    </ion-avatar>\n\n\n\n    <button ion-button icon-left (click)="presentActionSheet(3)">\n\n      <ion-icon name="camera"></ion-icon>Select Image\n\n    </button>\n\n  </ion-item>\n\n\n\n  <form [formGroup]="data" (ngSubmit)="logForm()">\n\n    <!-- Name input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Name</ion-label>\n\n      <ion-input class="inputs" type="text" formControlName="Name"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Name.hasError(\'required\') && submitAttempted">\n\n      <p ion-text color="danger">*Please enter full name</p>\n\n    </ion-item>\n\n\n\n\n\n    <!-- Email input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Email</ion-label>\n\n      <ion-input class="inputs" type="email" formControlName="Email"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Email.hasError(\'required\') && submitAttempted">\n\n      <p ion-text color="danger">*Please enter email</p>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Email.hasError(\'email\') && Email.touched">\n\n      <p ion-text color="danger">*Please enter proper email</p>\n\n    </ion-item>\n\n\n\n    <!-- CNIC input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>CNIC</ion-label>\n\n      <ion-input class="inputs" formControlName="CNIC" type="text"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="(CNIC.hasError(\'required\')  && submitAttempted)">\n\n      <p ion-text color="danger">*Please enter CNIC</p>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="  CNIC.hasError(\'pattern\') && CNIC.touched">\n\n      <p ion-text color="danger"> *Please enter CNIC with dashes included</p>\n\n    </ion-item>\n\n\n\n    <!-- Phone Number input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Phone Number</ion-label>\n\n      <ion-input class="inputs" formControlName="Phone" type="text"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Phone.hasError(\'required\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please enter phone number</p>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Phone.hasError(\'pattern\')  && Phone.touched">\n\n      <p ion-text color="danger"> *Please enter proper phone number(no +92)</p>\n\n    </ion-item>\n\n\n\n    <!-- Address input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Address</ion-label>\n\n      <ion-textarea class="inputs" formControlName="Address"></ion-textarea>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Address.hasError(\'required\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please enter Address</p>\n\n    </ion-item>\n\n\n\n\n\n    <!-- Gender input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light">Gender</ion-label>\n\n      <ion-select class="inputs" formControlName="Gender">\n\n        <ion-option value="gender" selected>Gender</ion-option>\n\n        <ion-option value="male">Male</ion-option>\n\n        <ion-option value="female">Female</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="Gender.hasError(\'pattern\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please select Gender</p>\n\n    </ion-item>\n\n    <ion-item class="background">\n\n\n\n      <!-- Date of Birth input -->\n\n      <ion-label color="light">D.O.B</ion-label>\n\n      <ion-select class="inputs" formControlName="Date">\n\n        <ion-option value="date" selected>Date</ion-option>\n\n        <ion-option value="1">1</ion-option>\n\n        <ion-option value="2">2</ion-option>\n\n        <ion-option value="3">3</ion-option>\n\n        <ion-option value="4">4</ion-option>\n\n        <ion-option value="5">5</ion-option>\n\n        <ion-option value="6">6</ion-option>\n\n        <ion-option value="7">7</ion-option>\n\n        <ion-option value="8">8</ion-option>\n\n        <ion-option value="9">9</ion-option>\n\n        <ion-option value="10">10</ion-option>\n\n        <ion-option value="11">11</ion-option>\n\n        <ion-option value="12">12</ion-option>\n\n        <ion-option value="13">13</ion-option>\n\n        <ion-option value="14">14</ion-option>\n\n        <ion-option value="15">15</ion-option>\n\n        <ion-option value="16">16</ion-option>\n\n        <ion-option value="17">17</ion-option>\n\n        <ion-option value="18">18</ion-option>\n\n        <ion-option value="19">19</ion-option>\n\n        <ion-option value="20">20</ion-option>\n\n        <ion-option value="21">21</ion-option>\n\n        <ion-option value="22">22</ion-option>\n\n        <ion-option value="23">23</ion-option>\n\n        <ion-option value="24">24</ion-option>\n\n        <ion-option value="25">25</ion-option>\n\n        <ion-option value="26">26</ion-option>\n\n        <ion-option value="27">27</ion-option>\n\n        <ion-option value="28">28</ion-option>\n\n        <ion-option value="29">29</ion-option>\n\n        <ion-option value="30">30</ion-option>\n\n        <ion-option value="31">31</ion-option>\n\n      </ion-select>\n\n      <ion-select class="inputs" formControlName="Month">\n\n        <ion-option value="month" selected>Month</ion-option>\n\n        <ion-option value="Janaury">Janaury</ion-option>\n\n        <ion-option value="February">February</ion-option>\n\n        <ion-option value="March">March</ion-option>\n\n        <ion-option value="April">April</ion-option>\n\n        <ion-option value="May">May</ion-option>\n\n        <ion-option value="June">June</ion-option>\n\n        <ion-option value="July">July</ion-option>\n\n        <ion-option value="August">August</ion-option>\n\n        <ion-option value="September">September</ion-option>\n\n        <ion-option value="October">October</ion-option>\n\n        <ion-option value="November">November</ion-option>\n\n        <ion-option value="December">December</ion-option>\n\n      </ion-select>\n\n      <ion-select class="inputs" formControlName="Year">\n\n        <ion-option value="year" selected>Year</ion-option>\n\n        <ion-option value="1947">1947</ion-option>\n\n        <ion-option value="1948">1948</ion-option>\n\n        <ion-option value="1949">1949</ion-option>\n\n        <ion-option value="1950">1950</ion-option>\n\n        <ion-option value="1951">1951</ion-option>\n\n        <ion-option value="1952">1952</ion-option>\n\n        <ion-option value="1953">1953</ion-option>\n\n        <ion-option value="1954">1954</ion-option>\n\n        <ion-option value="1955">1955</ion-option>\n\n        <ion-option value="1956">1956</ion-option>\n\n        <ion-option value="1957">1957</ion-option>\n\n        <ion-option value="1958">1958</ion-option>\n\n        <ion-option value="1959">1959</ion-option>\n\n        <ion-option value="1960">1960</ion-option>\n\n        <ion-option value="1961">1961</ion-option>\n\n        <ion-option value="1962">1962</ion-option>\n\n        <ion-option value="1963">1963</ion-option>\n\n        <ion-option value="1964">1964</ion-option>\n\n        <ion-option value="1965">1965</ion-option>\n\n        <ion-option value="1966">1966</ion-option>\n\n        <ion-option value="1967">1967</ion-option>\n\n        <ion-option value="1968">1968</ion-option>\n\n        <ion-option value="1969">1969</ion-option>\n\n        <ion-option value="1970">1970</ion-option>\n\n        <ion-option value="1971">1971</ion-option>\n\n        <ion-option value="1972">1972</ion-option>\n\n        <ion-option value="1973">1973</ion-option>\n\n        <ion-option value="1974">1974</ion-option>\n\n        <ion-option value="1975">1975</ion-option>\n\n        <ion-option value="1976">1976</ion-option>\n\n        <ion-option value="1977">1977</ion-option>\n\n        <ion-option value="1978">1978</ion-option>\n\n        <ion-option value="1979">1979</ion-option>\n\n        <ion-option value="1980">1980</ion-option>\n\n        <ion-option value="1981">1981</ion-option>\n\n        <ion-option value="1982">1982</ion-option>\n\n        <ion-option value="1983">1983</ion-option>\n\n        <ion-option value="1984">1984</ion-option>\n\n        <ion-option value="1985">1985</ion-option>\n\n        <ion-option value="1986">1986</ion-option>\n\n        <ion-option value="1987">1987</ion-option>\n\n        <ion-option value="1988">1988</ion-option>\n\n        <ion-option value="1989">1989</ion-option>\n\n        <ion-option value="1990">1990</ion-option>\n\n        <ion-option value="1991">1991</ion-option>\n\n        <ion-option value="1992">1992</ion-option>\n\n        <ion-option value="1993">1993</ion-option>\n\n        <ion-option value="1994">1994</ion-option>\n\n        <ion-option value="1995">1995</ion-option>\n\n        <ion-option value="1996">1996</ion-option>\n\n        <ion-option value="1997">1997</ion-option>\n\n        <ion-option value="1998">1998</ion-option>\n\n        <ion-option value="1999">1999</ion-option>\n\n        <ion-option value="2000">2000</ion-option>\n\n        <ion-option value="2001">2001</ion-option>\n\n        <ion-option value="2002">2002</ion-option>\n\n        <ion-option value="2003">2003</ion-option>\n\n        <ion-option value="2004">2004</ion-option>\n\n        <ion-option value="2005">2005</ion-option>\n\n        <ion-option value="2006">2006</ion-option>\n\n        <ion-option value="2007">2007</ion-option>\n\n        <ion-option value="2008">2008</ion-option>\n\n        <ion-option value="2009">2009</ion-option>\n\n        <ion-option value="2010">2010</ion-option>\n\n        <ion-option value="2011">2011</ion-option>\n\n        <ion-option value="2012">2012</ion-option>\n\n        <ion-option value="2013">2013</ion-option>\n\n        <ion-option value="2014">2014</ion-option>\n\n        <ion-option value="2015">2015</ion-option>\n\n        <ion-option value="2016">2016</ion-option>\n\n        <ion-option value="2017">2017</ion-option>\n\n        <ion-option value="2018">2018</ion-option>\n\n      </ion-select>\n\n\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="(this.Date.hasError(\'pattern\') || this.Month.hasError(\'pattern\') || this.Year.hasError(\'pattern\'))  && submitAttempted">\n\n      <p ion-text color="danger">*Please Enter proper DOB</p>\n\n    </ion-item>\n\n    <ion-item class="background">\n\n      <!-- Transport Type  input -->\n\n      <ion-label color="light">Transport Type</ion-label>\n\n      <ion-select class="inputs" formControlName="transportType">\n\n        <ion-option value="transportyype" selected>Vehicle</ion-option>\n\n        <ion-option value="Bike">Bike</ion-option>\n\n        <ion-option value="Car">Car</ion-option>\n\n        <ion-option value="Pick Up">Pick Up</ion-option>\n\n        <ion-option value="Truck">Truck</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n    <ion-item *ngIf="this.transportType.hasError(\'pattern\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please select a vehicly type</p>\n\n    </ion-item>\n\n\n\n\n\n    <!-- Vehicle Registration No input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Vehicle Registration No.</ion-label>\n\n      <ion-input class="inputs" type="text" formControlName="CarRegistrationNo"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="CarRegistrationNo.hasError(\'required\')  && submitAttempted">\n\n      <p ion-text color="danger">*Please enter Vehicle registration number</p>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="CarRegistrationNo.hasError(\'pattern\')  && CarRegistrationNo.touched">\n\n      <p ion-text color="danger"> *Please enter proper Vehicle registration number</p>\n\n    </ion-item>\n\n\n\n    <!-- Password input -->\n\n    <ion-item class="background">\n\n      <ion-label color="light" floating>Password</ion-label>\n\n      <ion-input class="inputs" type="password" formControlName="Password"></ion-input>\n\n    </ion-item>\n\n    <ion-item class="background" *ngIf="(Password.hasError(\'pattern\') && Password.touched) ||(submitAttempted && Password.hasError(\'required\')) ">\n\n      <p ion-text color="danger"> *Password minimum length 6</p>\n\n    </ion-item>\n\n    <button ion-button color="secondary" type="submit" block>Create Profile</button>\n\n  </form>\n\n  <!-- <button ion-button (click)="imageupload()" block>Create Profile</button> -->\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\sign-up\sign-up.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_6__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file_transfer__["a" /* FileTransfer */],
-        __WEBPACK_IMPORTED_MODULE_3__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_path__["a" /* FilePath */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_8__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */],
-        __WEBPACK_IMPORTED_MODULE_12__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
-], SignUpPage);
-
-//# sourceMappingURL=sign-up.js.map
 
 /***/ }),
 
@@ -2159,7 +2160,7 @@ var NotificationsPage = (function () {
 }());
 NotificationsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-notifications',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/'<!--\n\n  Generated template for the NotificationsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Notifications</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<!--ADD FOR LOOP Over data here-->\n\n\n\n<ion-content class="background1">\n\n  <ion-card *ngFor="let item of NotificationData, let i= index">\n\n    <ion-row>\n\n      <ion-col col-2>\n\n        <ion-icon class="icon" name="paper-plane"></ion-icon>\n\n      </ion-col>\n\n      <ion-col col-8>\n\n        <h3>{{item}}</h3>\n\n      </ion-col>\n\n      <ion-col col-2>\n\n          <button ion-button icon-only color="dark" round (click)="removeNotification(i)">\n\n        <ion-icon class="icon"  ios="ios-close" md="md-close"></ion-icon>\n\n      </button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n  <!-- <button ion-button  (click)="sendNotify()"></button>\n\n  <button ion-button  (click)="sendNotify1()"></button>\n\n  <button ion-button  (click)="sendNotify2()"></button> -->\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\notifications\notifications.html"*/,
+        selector: 'page-notifications',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\notifications\notifications.html"*/'<!--\n\n  Generated template for the NotificationsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Notifications</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<!--ADD FOR LOOP Over data here-->\n\n\n\n<ion-content class="background1">\n\n  <ion-card *ngFor="let item of NotificationData, let i= index">\n\n    <ion-row>\n\n      <ion-col col-2>\n\n        <ion-icon class="icon" name="paper-plane"></ion-icon>\n\n      </ion-col>\n\n      <ion-col col-8>\n\n        <h3>{{item}}</h3>\n\n      </ion-col>\n\n      <ion-col col-2>\n\n          <button ion-button icon-only color="dark" round (click)="removeNotification(i)">\n\n        <ion-icon class="icon"  ios="ios-close" md="md-close"></ion-icon>\n\n      </button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n  <!-- <button ion-button  (click)="sendNotify()"></button>\n\n  <button ion-button  (click)="sendNotify1()"></button>\n\n  <button ion-button  (click)="sendNotify2()"></button> -->\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\notifications\notifications.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
         __WEBPACK_IMPORTED_MODULE_2__ionic_native_fcm__["a" /* FCM */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
@@ -2249,7 +2250,7 @@ var PendingRequestsPage = (function () {
 }());
 PendingRequestsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-pending-requests',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/'<!--\n  Generated template for the PendingRequestsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>PendingRequests</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of responseDataPending, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    <ion-item >\n      <h2 class="ioniconcolor1" >Name</h2>\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.PackageName}}/-</ion-note>\n    </ion-item>\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item >\n\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n      </h2>\n    </ion-item>\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\pending-requests\pending-requests.html"*/,
+        selector: 'page-pending-requests',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\pending-requests\pending-requests.html"*/'<!--\n\n  Generated template for the PendingRequestsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>PendingRequests</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="background1">\n\n  <ion-card *ngFor="let item of responseDataPending, let i= index">\n\n    <ion-fab right>\n\n      <button class="buttoncolor" ion-fab>\n\n        <ion-icon name="pin"></ion-icon>\n\n      </button>\n\n    </ion-fab>\n\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n\n    <ion-item >\n\n      <h2 class="ioniconcolor1" >Name</h2>\n\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.PackageName}}/-</ion-note>\n\n    </ion-item>\n\n    <ion-item >\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n\n      </h2>\n\n    </ion-item >\n\n\n\n    <ion-item >\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <h2 class="ioniconcolor1">From: {{item.PickAddress}}\n\n      </h2>\n\n    </ion-item>\n\n\n\n    <button ion-button full class="buttonitem" (click)="openPackageDetailsPage(i)">\n\n      View Details\n\n    </button>\n\n  </ion-card>\n\n\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\pending-requests\pending-requests.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])
@@ -2300,6 +2301,7 @@ var ProfilePage = (function () {
         this.setValues = false;
         this.skips = 0;
         this.getData().then(function () {
+            console.log("HERES");
             _this.setValues = true;
         });
         /*get Transporter ID from localstorage and  request data and put it into variables to show in view________________*/
@@ -2313,37 +2315,50 @@ var ProfilePage = (function () {
             });
             _this.storage.get('ID').then(function (val) {
                 _this.ID = val;
-                _this.http.get('http://localhost:5000/getransporterdata', { params: { 'TransporterID': _this.ID } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                console.log("prof" + _this.profileImage);
+                console.log("ID" + _this.ID);
+                _this.http.get('http://localhost:5000/gettransporterdata', { params: { 'TransporterID': _this.ID } }).map(function (res) { return res.json(); }).subscribe(function (response) {
                     console.log(response.content);
                     _this.name = response.content[0].Name;
-                    console.log(_this.name);
+                    //console.log(this.name);
                     _this.contantInfo = response.content[0].Phone;
-                    console.log(_this.contantInfo);
+                    //console.log(this.contantInfo);
                     _this.rating = Array(Math.round(response.content[0].Rating)).fill(Math.round(response.content[0].Rating));
-                    console.log(_this.rating);
+                    //console.log(this.rating);
                     _this.clearenceDue = response.content[0].ClearenceDue;
-                    console.log(_this.clearenceDue);
+                    //console.log(this.clearenceDue);
                     _this.cancelledPackages = response.content[0].CancelledPackages;
                     _this.activePackages = response.content[0].ActivePackages;
-                    console.log(_this.cancelledPackages);
-                    //this.profileImage = response.content[0].ProfileImage;
+                    // console.log(this.cancelledPackages);
+                    _this.profileImage = response.content[0].ProfileImage;
                     _this.DeliveredPackages = response.content[0].DeliveredPackages;
+                    if (_this.rating != 0) {
+                        _this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
+                            response.content.map(function (item) {
+                                console.log(item);
+                                if (item != []) {
+                                    //console.log(item['rating'])
+                                    item['ratings'] = Array(item['rating']).fill(item['rating']);
+                                    //console.log("After"+item['ratings'])
+                                    //console.log(item)
+                                    _this.userReviews.push(item);
+                                }
+                                else {
+                                    console.log("outa here");
+                                    _this.rating = 0;
+                                    resolve();
+                                }
+                            });
+                        }, function (err) {
+                            console.log('error');
+                        });
+                    }
+                    console.log("yain yain");
+                    resolve();
                 }, function (err) {
                     console.log('error');
                 });
                 /*_______________________________________________________________________________________________________________*/
-                _this.http.get('http://localhost:5000/getReviews', { params: { 'TransporterID': _this.ID, 'skips': _this.skips } }).map(function (res) { return res.json(); }).subscribe(function (response) {
-                    response.content.map(function (item) {
-                        //console.log(item['rating'])
-                        item['ratings'] = Array(item['rating']).fill(item['rating']);
-                        //console.log("After"+item['ratings'])
-                        //console.log(item)
-                        _this.userReviews.push(item);
-                        resolve();
-                    });
-                }, function (err) {
-                    console.log('error');
-                });
             });
         });
     };
@@ -2387,7 +2402,7 @@ var ProfilePage = (function () {
 }());
 ProfilePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-profile',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\profile\profile.html"*/'<!--\n\n  Generated template for the ProfilePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Profile</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content *ngIf="setValues"  class="background1">\n\n  <ion-card class="cards">\n\n    <ion-item>\n\n      <ion-avatar  item-start>\n\n        <img class="profileImage2"    src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />\n\n      </ion-avatar>\n\n      <label class="headerlabel">Name</label>\n\n      <p class="contents">{{name}}</p>\n\n      <label class="headerlabel">Contact Info</label>\n\n      <p class="contents">{{contantInfo}}</p>\n\n      <label class="headerlabel">Rating</label>\n\n      <p><ion-icon name=\'star\' clear small class="rating" *ngFor="let rating of rating" ></ion-icon></p>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-row>\n\n      <ion-col col-12 class="card2">\n\n        <label class="headerlabel">Deliveries Done</label>\n\n        <ion-row class="badge">\n\n          <ion-badge class="badgevalues">{{DeliveredPackages}}</ion-badge>\n\n          <!-- {{DeliveriesDone}} -->\n\n        </ion-row>\n\n      </ion-col>\n\n      <!-- <ion-col col-6 class="card2">\n\n        <label class="headerlabel">Clearence Due</label>\n\n        <ion-row class="badge">\n\n          <ion-badge class="badgevalues">{{clearenceDue}}</ion-badge>\n\n        </ion-row>\n\n      </ion-col> -->\n\n    </ion-row>\n\n    <ion-row>\n\n      <ion-col col-6 class="card2">\n\n        <label class="headerlabel">Active Pakages</label>\n\n        <ion-row class="badge">\n\n          <ion-badge class="badgevalues">{{activePackages}}</ion-badge>\n\n        </ion-row>\n\n      </ion-col>\n\n      <ion-col col-6 class="card2">\n\n        <label class="headerlabel">Cancelled Packages</label>\n\n        <ion-row class="badge">\n\n          <ion-badge class="badgevalues">{{cancelledPackages}}</ion-badge>\n\n        </ion-row>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n\n\n  <ion-card>\n\n      <ion-badge class="headings">Reviews</ion-badge>\n\n  </ion-card>\n\n  <ion-card *ngFor="let review of userReviews">\n\n    <ion-card-header>\n\n      <ion-icon name=\'star\' clear small class="rating" *ngFor="let rating of review.ratings"></ion-icon>\n\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <p class="contents">"{{review.content}}"</p>\n\n    </ion-card-content>\n\n\n\n  </ion-card>\n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\profile\profile.html"*/,
+        selector: 'page-profile',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\profile\profile.html"*/'<!--\n\n  Generated template for the ProfilePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Profile</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content *ngIf="setValues"  class="background1">\n\n  <ion-card class="cards">\n\n    <ion-item>\n\n      <ion-avatar  item-start>\n\n        <img class="profileImage2"    src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />\n\n      </ion-avatar>\n\n      <label class="headerlabel">Name</label>\n\n      <p class="contents">{{name}}</p>\n\n      <label class="headerlabel">Contact Info</label>\n\n      <p class="contents">{{contantInfo}}</p>\n\n      <label class="headerlabel">Rating</label>\n\n      <p><ion-icon name=\'star\' clear small class="rating" *ngFor="let rating of rating" ></ion-icon></p>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-row>\n\n      <ion-col col-12 class="card2">\n\n        <label class="headerlabel">Deliveries Done</label>\n\n        <ion-row class="badge">\n\n          <ion-badge class="badgevalues">{{DeliveredPackages}}</ion-badge>\n\n          <!-- {{DeliveriesDone}} -->\n\n        </ion-row>\n\n      </ion-col>\n\n      <!-- <ion-col col-6 class="card2">\n\n        <label class="headerlabel">Clearence Due</label>\n\n        <ion-row class="badge">\n\n          <ion-badge class="badgevalues">{{clearenceDue}}</ion-badge>\n\n        </ion-row>\n\n      </ion-col> -->\n\n    </ion-row>\n\n    <ion-row>\n\n      <ion-col col-6 class="card2">\n\n        <label class="headerlabel">Active Pakages</label>\n\n        <ion-row class="badge">\n\n          <ion-badge class="badgevalues">{{activePackages}}</ion-badge>\n\n        </ion-row>\n\n      </ion-col>\n\n      <ion-col col-6 class="card2">\n\n        <label class="headerlabel">Cancelled Packages</label>\n\n        <ion-row class="badge">\n\n          <ion-badge class="badgevalues">{{cancelledPackages}}</ion-badge>\n\n        </ion-row>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n\n\n  <ion-card>\n\n      <ion-badge class="headings">Reviews</ion-badge>\n\n  </ion-card>\n\n  <ion-card *ngFor="let review of userReviews">\n\n    <ion-card-header>\n\n      <ion-icon name=\'star\' clear small class="rating" *ngFor="let rating of review.ratings"></ion-icon>\n\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <p class="contents">"{{review.content}}"</p>\n\n    </ion-card-content>\n\n\n\n  </ion-card>\n\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>\n\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\profile\profile.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
         __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
@@ -2435,19 +2450,19 @@ var map = {
 		10
 	],
 	"../pages/enroute/enroute.module": [
-		465,
+		466,
 		9
 	],
 	"../pages/help/help.module": [
-		466,
+		465,
 		8
 	],
 	"../pages/home/home.module": [
-		467,
+		468,
 		7
 	],
 	"../pages/login/login.module": [
-		468,
+		467,
 		6
 	],
 	"../pages/nearby/nearby.module": [
@@ -2519,10 +2534,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(455);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_sign_up_sign_up__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_enroute_enroute__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_list_list__ = __webpack_require__(460);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_nearby_nearby__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file__ = __webpack_require__(249);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_file_transfer__ = __webpack_require__(250);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_file_path__ = __webpack_require__(251);
@@ -2535,8 +2550,8 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_enqueue_enqueue__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_notifications_notifications__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_delivered_delivered__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_help_help__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_login_login__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_help_help__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_login_login__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_geolocation__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_fcm__ = __webpack_require__(81);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2610,10 +2625,10 @@ AppModule = __decorate([
                     { loadChildren: '../pages/delivered/delivered.module#DeliveredPageModule', name: 'DeliveredPage', segment: 'delivered', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/enqueue/enqueue.module#EnqueuePageModule', name: 'EnqueuePage', segment: 'enqueue', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/enqueuedetails/enqueuedetails.module#EnqueuedetailsPageModule', name: 'EnqueuedetailsPage', segment: 'enqueuedetails', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/help/help.module#HelpPageModule', name: 'HelpPage', segment: 'help', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/enroute/enroute.module#EnroutePageModule', name: 'EnroutePage', segment: 'enroute', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/nearby/nearby.module#NearbyPageModule', name: 'NearbyPage', segment: 'nearby', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule', name: 'NotificationsPage', segment: 'notifications', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/packagedetail/packagedetail.module#PackagedetailPageModule', name: 'PackagedetailPage', segment: 'packagedetail', priority: 'low', defaultHistory: [] },
@@ -2678,8 +2693,8 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_profile_profile__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_enqueue_enqueue__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_notifications_notifications__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_help_help__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_help_help__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_login_login__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_storage__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_geolocation__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_Firebase__ = __webpack_require__(209);
@@ -2751,6 +2766,7 @@ var MyApp = (function () {
                     _this.loadData().then(function () {
                         _this.loggedIn = true;
                         console.log("inhere");
+                        //this.subscribeWatch();
                         //this.updateToken();
                         //this.onNotification();
                     });
@@ -2760,6 +2776,7 @@ var MyApp = (function () {
                     _this.getData().then(function () {
                         console.log("inhere");
                         _this.loggedIn = true;
+                        // this.subscribeWatch();
                         //this.updateToken();
                         //this.onNotification();
                     });
@@ -2999,7 +3016,7 @@ __decorate([
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* Nav */])
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"Y:\Angular\Transporter\src\app\app.html"*/'<ion-menu *ngIf="loggedIn"   [content]="content">\n    <ion-header class="themeblue">\n        <ion-item class="themeblue" no-lines>\n            <ion-row>\n                <ion-col col-6>\n                    <ion-avatar *ngIf="loggedIn" item-start>\n                        <img class="profileImage"  src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />\n                    </ion-avatar>\n                </ion-col>\n                <ion-col align-self-center col-6>\n                    <h2 class="textcol">{{Name}}</h2>\n                    <button class="buttontheme" ion-button icon-left menuClose (click)="openProfile()">\n                        <ion-icon name="person"></ion-icon>Profile\n                    </button>\n                </ion-col>\n            </ion-row>\n        </ion-item>\n\n    </ion-header>\n    <ion-content class="buttontheme">\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="ios-home"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[0])">\n                    All Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="bookmarks"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[1])">\n                    Pending Requests\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="calendar"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[2])">\n                    Enqueue Packages\n                </button>\n            </ion-col>\n        </ion-row>\n        <ion-row>\n                <ion-col col-2 align-self-center>\n                    <ion-icon class="textcol iconsize" name="checkmark-circle"></ion-icon>\n                </ion-col>\n                <ion-col col-10>\n                    <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">\n                        Delivered Packages\n                    </button>\n                </ion-col>\n            </ion-row>\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="chatbubbles"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">\n                    Notifications\n                </button>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col col-2 align-self-center>\n                <ion-icon class="textcol iconsize" name="help-circle"></ion-icon>\n            </ion-col>\n            <ion-col col-10>\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[5])">\n                    Help\n                </button>\n            </ion-col>\n        </ion-row>\n\n\n        <ion-footer class="themeblue">\n            <button ion-button full class="buttontheme" menuToggle (click)="logout()">\n                Log Out\n            </button>\n        </ion-footer>\n    </ion-content>\n</ion-menu>\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"Y:\Angular\Transporter\src\app\app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({template:/*ion-inline-start:"D:\dnd\Transporter\src\app\app.html"*/'<ion-menu *ngIf="loggedIn"   [content]="content">\n\n    <ion-header class="themeblue">\n\n        <ion-item class="themeblue" no-lines>\n\n            <ion-row>\n\n                <ion-col col-6>\n\n                    <ion-avatar *ngIf="loggedIn" item-start>\n\n                        <img class="profileImage"  src="http://localhost:5000/getProfilePhoto/{{profileImage}}" />\n\n                    </ion-avatar>\n\n                </ion-col>\n\n                <ion-col align-self-center col-6>\n\n                    <h2 class="textcol">{{Name}}</h2>\n\n                    <button class="buttontheme" ion-button icon-left menuClose (click)="openProfile()">\n\n                        <ion-icon name="person"></ion-icon>Profile\n\n                    </button>\n\n                </ion-col>\n\n            </ion-row>\n\n        </ion-item>\n\n\n\n    </ion-header>\n\n    <ion-content class="buttontheme">\n\n\n\n        <ion-row>\n\n            <ion-col col-2 align-self-center>\n\n                <ion-icon class="textcol iconsize" name="ios-home"></ion-icon>\n\n            </ion-col>\n\n            <ion-col col-10>\n\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[0])">\n\n                    All Packages\n\n                </button>\n\n            </ion-col>\n\n        </ion-row>\n\n        <ion-row>\n\n            <ion-col col-2 align-self-center>\n\n                <ion-icon class="textcol iconsize" name="bookmarks"></ion-icon>\n\n            </ion-col>\n\n            <ion-col col-10>\n\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[1])">\n\n                    Pending Requests\n\n                </button>\n\n            </ion-col>\n\n        </ion-row>\n\n        <ion-row>\n\n            <ion-col col-2 align-self-center>\n\n                <ion-icon class="textcol iconsize" name="calendar"></ion-icon>\n\n            </ion-col>\n\n            <ion-col col-10>\n\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[2])">\n\n                    Enqueue Packages\n\n                </button>\n\n            </ion-col>\n\n        </ion-row>\n\n        <ion-row>\n\n                <ion-col col-2 align-self-center>\n\n                    <ion-icon class="textcol iconsize" name="checkmark-circle"></ion-icon>\n\n                </ion-col>\n\n                <ion-col col-10>\n\n                    <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[3])">\n\n                        Delivered Packages\n\n                    </button>\n\n                </ion-col>\n\n            </ion-row>\n\n        <ion-row>\n\n            <ion-col col-2 align-self-center>\n\n                <ion-icon class="textcol iconsize" name="chatbubbles"></ion-icon>\n\n            </ion-col>\n\n            <ion-col col-10>\n\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[4])">\n\n                    Notifications\n\n                </button>\n\n            </ion-col>\n\n        </ion-row>\n\n\n\n        <ion-row>\n\n            <ion-col col-2 align-self-center>\n\n                <ion-icon class="textcol iconsize" name="help-circle"></ion-icon>\n\n            </ion-col>\n\n            <ion-col col-10>\n\n                <button no-lines class="buttontheme textcol" mode="md" menuClose ion-item (click)="openPage(pages[5])">\n\n                    Help\n\n                </button>\n\n            </ion-col>\n\n        </ion-row>\n\n\n\n\n\n        <ion-footer class="themeblue">\n\n            <button ion-button full class="buttontheme" menuToggle (click)="logout()">\n\n                Log Out\n\n            </button>\n\n        </ion-footer>\n\n    </ion-content>\n\n</ion-menu>\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"D:\dnd\Transporter\src\app\app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* Platform */],
         __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */],
@@ -3085,7 +3102,7 @@ var ListPage = ListPage_1 = (function () {
 }());
 ListPage = ListPage_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-list',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\list\list.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>List</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n      <ion-icon [name]="item.icon" item-start></ion-icon>\n      {{item.title}}\n      <div class="item-note" item-end>\n        {{item.note}}\n      </div>\n    </button>\n  </ion-list>\n  <div *ngIf="selectedItem" padding>\n    You navigated here from <b>{{selectedItem.title}}</b>\n  </div>\n</ion-content>\n'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\list\list.html"*/
+        selector: 'page-list',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\list\list.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>List</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list>\n\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n\n      <ion-icon [name]="item.icon" item-start></ion-icon>\n\n      {{item.title}}\n\n      <div class="item-note" item-end>\n\n        {{item.note}}\n\n      </div>\n\n    </button>\n\n  </ion-list>\n\n  <div *ngIf="selectedItem" padding>\n\n    You navigated here from <b>{{selectedItem.title}}</b>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"D:\dnd\Transporter\src\pages\list\list.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]])
 ], ListPage);
@@ -3220,7 +3237,7 @@ __decorate([
 ], PackagedetailPage.prototype, "mapElement", void 0);
 PackagedetailPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-packagedetail',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/'<!--\n\n  Generated template for the PackagedetailPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n\n\n    <ion-title>Package Details</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content class="background1">\n\n  <ion-card id="mapdetail" #mapdetail></ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <h2>Package Name:</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2>Fare</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <h2>Package Size:</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageSize}} </ion-note>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <h2>Delivery Type:</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.TransportType}}</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2>Vehicle Type:</h2>\n\n      <ion-note class="ioniconcolor1" item-end> {{item.VehicleType}} </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n\n      </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n\n      </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n\n  </ion-card>\n\n  <button *ngIf="notRequested" ion-button full class="buttonitem" (click)="sendRequest(item.PackageID,item.PackageName,item.SenderID)">\n\n    Send Request\n\n  </button>\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\packagedetail\packagedetail.html"*/,
+        selector: 'page-packagedetail',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\packagedetail\packagedetail.html"*/'<!--\n\n  Generated template for the PackagedetailPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n\n\n    <ion-title>Package Details</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content class="background1">\n\n  <ion-card id="mapdetail" #mapdetail></ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <h2>Package Name:</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageName}} </ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-note class="ioniconcolor1">{{item.PackageDesc}}</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2>Fare</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.Fare}}/-</ion-note>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <h2>Package Size:</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.PackageSize}} </ion-note>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <h2>Delivery Type:</h2>\n\n      <ion-note class="ioniconcolor1" item-end>{{item.TransportType}}</ion-note>\n\n    </ion-item>\n\n    <ion-item>\n\n      <h2>Vehicle Type:</h2>\n\n      <ion-note class="ioniconcolor1" item-end> {{item.VehicleType}} </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <ion-note class="ioniconcolor1">To: {{item.DestAddress}}\n\n      </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <ion-item>\n\n      <ion-icon class="ioniconcolor1" name="radio-button-off" item-left large></ion-icon>\n\n      <ion-note class="ioniconcolor1">From: {{item.PickAddress}}\n\n      </ion-note>\n\n    </ion-item>\n\n  </ion-card>\n\n  <ion-card>\n\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n\n  </ion-card>\n\n  <button *ngIf="notRequested" ion-button full class="buttonitem" (click)="sendRequest(item.PackageID,item.PackageName,item.SenderID)">\n\n    Send Request\n\n  </button>\n\n\n\n\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\packagedetail\packagedetail.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */],
         __WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
@@ -3238,8 +3255,8 @@ PackagedetailPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__enroute_enroute__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nearby_nearby__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__all_packages_all_packages__ = __webpack_require__(148);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3276,7 +3293,7 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\home\home.html"*/'<!--\n  Generated template for the HomePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-tabs  >\n  <ion-tab [root]="allpackagespage" tabTitle="All" tabIcon="paper" tabsHideOnSubPages="true"></ion-tab>\n  <ion-tab [root]="nearbypage" tabTitle="Nearby" tabIcon="compass" tabsHideOnSubPages="true"></ion-tab>\n  <ion-tab [root]="enroutepage" tabTitle="Enroute" tabIcon="briefcase" tabsHideOnSubPages="true"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\home\home.html"*/,
+        selector: 'page-home',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\home\home.html"*/'<!--\n\n  Generated template for the HomePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-tabs  >\n\n  <ion-tab [root]="allpackagespage" tabTitle="All" tabIcon="paper" tabsHideOnSubPages="true"></ion-tab>\n\n  <ion-tab [root]="nearbypage" tabTitle="Nearby" tabIcon="compass" tabsHideOnSubPages="true"></ion-tab>\n\n  <ion-tab [root]="enroutepage" tabTitle="Enroute" tabIcon="briefcase" tabsHideOnSubPages="true"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"D:\dnd\Transporter\src\pages\home\home.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]])
 ], HomePage);
@@ -3362,7 +3379,7 @@ var EnqueuePage = (function () {
 }());
 EnqueuePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-enqueue',template:/*ion-inline-start:"Y:\Angular\Transporter\src\pages\enqueue\enqueue.html"*/'<!--\n  Generated template for the EnqueuePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar class="headertop">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Enqueue Packages</ion-title>\n    \n  </ion-navbar>\n</ion-header>\n\n\n<ion-content class="background1">\n  <ion-card *ngFor="let item of responseDataEnqueue, let i= index">\n    <ion-fab right>\n      <button class="buttoncolor" ion-fab>\n        <ion-icon name="pin"></ion-icon>\n      </button>\n    </ion-fab>\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n    <ion-item >\n      <h2 >Name</h2>\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.PackageName}}/-</ion-note>\n    </ion-item>\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.PickAddress}}\n      </h2>\n    </ion-item >\n    <ion-item >\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n      </h2>\n    </ion-item >\n    <button ion-button full class="buttonitem" (click)="openEnqueuedetailsPage(i)">\n      View Details\n    </button>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"Y:\Angular\Transporter\src\pages\enqueue\enqueue.html"*/,
+        selector: 'page-enqueue',template:/*ion-inline-start:"D:\dnd\Transporter\src\pages\enqueue\enqueue.html"*/'<!--\n\n  Generated template for the EnqueuePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <ion-navbar class="headertop">\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Enqueue Packages</ion-title>\n\n    \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content class="background1">\n\n  <ion-card *ngFor="let item of responseDataEnqueue, let i= index">\n\n    <ion-fab right>\n\n      <button class="buttoncolor" ion-fab>\n\n        <ion-icon name="pin"></ion-icon>\n\n      </button>\n\n    </ion-fab>\n\n    <img class="imagePackage" src="http://localhost:5000/uploads/{{item.PImage}}" />\n\n    <ion-item >\n\n      <h2 >Name</h2>\n\n      <ion-note item-end class="ioniconcolor1" style="font-size: 17px">{{item.PackageName}}/-</ion-note>\n\n    </ion-item>\n\n    <ion-item >\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <h2 class="ioniconcolor1">To: {{item.PickAddress}}\n\n      </h2>\n\n    </ion-item >\n\n    <ion-item >\n\n      <ion-icon class="ioniconcolor1" name="pin" item-start large></ion-icon>\n\n      <h2 class="ioniconcolor1">To: {{item.DestAddress}}\n\n      </h2>\n\n    </ion-item >\n\n    <button ion-button full class="buttonitem" (click)="openEnqueuedetailsPage(i)">\n\n      View Details\n\n    </button>\n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"D:\dnd\Transporter\src\pages\enqueue\enqueue.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]])

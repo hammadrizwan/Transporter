@@ -175,6 +175,7 @@ export class SignUpPage {
           'Month': this.Month.value,
           'Year': this.Year.value,
           'Gender': this.Gender.value,
+          'DeliveredPackages':0,
           'Clearence Due': 0,
           'Rating': 0,
           'ActivePackages': 0,
