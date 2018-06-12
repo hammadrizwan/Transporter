@@ -74,8 +74,8 @@ export class MyApp {
             this.loggedIn = true; 
             console.log("inhere")
             //this.subscribeWatch();
-            //this.updateToken();
-            //this.onNotification();
+            this.updateToken();
+            this.onNotification();
           })
         }
         else {
@@ -84,8 +84,8 @@ export class MyApp {
             console.log("inhere")
             this.loggedIn = true;
            // this.subscribeWatch();
-            //this.updateToken();
-            //this.onNotification();
+            this.updateToken();
+            this.onNotification();
           })
         }
       })
@@ -117,7 +117,7 @@ export class MyApp {
         this.storage.get('ProfileImage').then((val) => {
           this.profileImage = val;
         });
-        
+        this.loggedIn = true; 
         resolve();
         //wait just in case
       })
@@ -132,6 +132,7 @@ export class MyApp {
       this.storage.get('ProfileImage').then((val) => {
         this.profileImage = val;
       });
+      this.loggedIn = true; 
       resolve();
       //wait just in case
     })
