@@ -47,7 +47,7 @@ export class MyApp {
   Token: any;//FCM token
   ID: any;//User ID
   profileImage: any;//Profile image to be shown in side bar
-  loggedIn: Boolean = false;//used to enable side bar after user has entered the application
+  loggedIn: Boolean;//used to enable side bar after user has entered the application
   ref: any;//firebase reference
   observer: any;//observer to sending tracking information
   myPosition: any;//current postion of user
@@ -66,33 +66,35 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.loggedIn = false;
+      this.loggedIn = true;
       this.storage.get('Name').then((val) => {//check if user initals are set or not
         if (val == null) {
           this.rootPage = LoginPage; //set landing page as login page
           this.loadData().then(() => {
-            this.loggedIn = true; 
+            //this.loggedIn = true; 
             console.log("inhere")
             //this.subscribeWatch();
             this.updateToken();
             this.onNotification();
+            this.subscribeWatch();
           })
         }
         else {
           this.rootPage = HomePage;//set landing page as home page
           this.getData().then(() => {
             console.log("inhere")
-            this.loggedIn = true;
+            //this.loggedIn = true;
            // this.subscribeWatch();
             this.updateToken();
             this.onNotification();
+            this.subscribeWatch();
           })
         }
       })
     });
     //user is not initailly logged in
-    //firebase.initializeApp(config);//intialise firebase
-    //this.ref = firebase.database().ref('geolocations/');//assign data base to store gelocation
+    firebase.initializeApp(config);//intialise firebase
+    this.ref = firebase.database().ref('geolocations/');//assign data base to store gelocation
 
     this.Name = "";//name value is not set
     this.pages = [
@@ -104,12 +106,13 @@ export class MyApp {
       { title: 'Help', component: HelpPage },
     ];
     //this.onNotification();
-    //this.subscribeWatch();//function that starts sending gelocation to database
+    //function that starts sending gelocation to database
     //console.log(this.loggedIn)  
   }
   private loadData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
     return new Promise((resolve, reject) => {
       //put the values in local storage
+       
     this.events.subscribe('user:loggedin', (text) => {//event fires when user logs in or signups
         this.storage.get('Name').then((val) => {
           this.Name = val;
@@ -117,7 +120,7 @@ export class MyApp {
         this.storage.get('ProfileImage').then((val) => {
           this.profileImage = val;
         });
-        this.loggedIn = true; 
+        
         resolve();
         //wait just in case
       })
@@ -126,13 +129,14 @@ export class MyApp {
   private getData(): Promise<any> {//promise used to ensure data has been loaded before it is acessed
     return new Promise((resolve, reject) => {
       //put the values in local storage
+      //this.loggedIn = true; 
       this.storage.get('Name').then((val) => {
         this.Name = val;
       });
       this.storage.get('ProfileImage').then((val) => {
         this.profileImage = val;
       });
-      this.loggedIn = true; 
+     // this.loggedIn = true; 
       resolve();
       //wait just in case
     })
